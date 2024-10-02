@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Head : MonoBehaviour
 {
-    [Header("Head Properties")]
+    [field:Header("Head Properties")]
+    [field:SerializeField] public Transform[] BodyParts { get; set; }
     [SerializeField] private float _speed;
     [SerializeField, Range(0,1)] private float _turnLerp;
-    [SerializeField] private Transform[] _bodyParts;
     [SerializeField, Range(0,1)] private float _followLerp;
     [SerializeField] private float _targetDistance;
 
@@ -35,11 +33,11 @@ public class Head : MonoBehaviour
     {
         transform.position += new Vector3(_direction.x, 0, _direction.y) * _speed;
 
-        for (int i = 0; i < _bodyParts.Length; i++)
+        for (int i = 0; i < BodyParts.Length; i++)
         {
             if (i == 0) continue;
-            var distanceOffset = (_bodyParts[i].position - _bodyParts[i - 1].position).normalized * _targetDistance;
-            _bodyParts[i].position = Vector3.Lerp(_bodyParts[i].position, _bodyParts[i - 1].position + distanceOffset, _followLerp);
+            var distanceOffset = (BodyParts[i].position - BodyParts[i - 1].position).normalized * _targetDistance;
+            BodyParts[i].position = Vector3.Lerp(BodyParts[i].position, BodyParts[i - 1].position + distanceOffset, _followLerp);
         }
     }
 }
