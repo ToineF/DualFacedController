@@ -3,7 +3,8 @@ using UnityEngine;
 public class Head : MonoBehaviour
 {
     [field:Header("Head Properties")]
-    [field:SerializeField] public Transform[] BodyParts { get; set; }
+    [field:SerializeField] public Rigidbody Rigidbody { get; set; }
+    [field:SerializeField] public Rigidbody[] BodyParts { get; set; }
     [SerializeField] private float _speed;
     [SerializeField, Range(0,1)] private float _turnLerp;
     [SerializeField, Range(0,1)] private float _followLerp;
@@ -25,13 +26,16 @@ public class Head : MonoBehaviour
         if (Input.GetKey(_upKey)) targetDirection.y++;
         if (Input.GetKey(_downKey)) targetDirection.y--;
         _direction = Vector3.Lerp(_direction, targetDirection, _turnLerp);
+    }
 
-        AddForce();
+    private void FixedUpdate()
+    {
+        AddForce();        
     }
 
     private void AddForce()
     {
-        transform.position += new Vector3(_direction.x, 0, _direction.y) * _speed;
+        Rigidbody.position += new Vector3(_direction.x, 0, _direction.y) * _speed;
 
         for (int i = 0; i < BodyParts.Length; i++)
         {
