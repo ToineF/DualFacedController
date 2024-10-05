@@ -10,6 +10,10 @@ public class Head : MonoBehaviour
     [SerializeField, Range(0,1)] private float _followLerp;
     [SerializeField] private float _targetDistance;
 
+    //public ForceMode ForceMode;
+    //public float forceTobODYPARTS = 1f;
+    //public int forceiterations = 1;
+
     [Header("Input Properties")]
     [SerializeField] private KeyCode _rightKey;
     [SerializeField] private KeyCode _leftKey;
@@ -36,12 +40,17 @@ public class Head : MonoBehaviour
     private void AddForce()
     {
         Rigidbody.position += new Vector3(_direction.x, 0, _direction.y) * _speed;
+        //Rigidbody.AddForce(new Vector3(_direction.x, 0, _direction.y) * _speed, ForceMode);
+        //for (int k = 0; k < forceiterations; k++)
+        //{
+            for (int i = 0; i < BodyParts.Length; i++)
+            {
+                if (i == 0) continue;
+                var distanceOffset = (BodyParts[i].position - BodyParts[i - 1].position).normalized * _targetDistance;
+                BodyParts[i].position = Vector3.Lerp(BodyParts[i].position, BodyParts[i - 1].position + distanceOffset, _followLerp);
+                //BodyParts[i].AddForce(distanceOffset * forceTobODYPARTS);
+            }
+        //}
 
-        for (int i = 0; i < BodyParts.Length; i++)
-        {
-            if (i == 0) continue;
-            var distanceOffset = (BodyParts[i].position - BodyParts[i - 1].position).normalized * _targetDistance;
-            BodyParts[i].position = Vector3.Lerp(BodyParts[i].position, BodyParts[i - 1].position + distanceOffset, _followLerp);
-        }
     }
 }
