@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Head : MonoBehaviour
 {
+    public Vector2 Direction => _direction;
+    
     [field:Header("Head Properties")]
     [field:SerializeField] public Rigidbody Rigidbody { get; set; }
     [field:SerializeField] public Rigidbody[] BodyParts { get; set; }
@@ -9,8 +12,13 @@ public class Head : MonoBehaviour
     [SerializeField, Range(0,1)] private float _turnLerp;
     [SerializeField, Range(0,1)] private float _followLerp;
     [SerializeField] private float _targetDistance;
+    
+    [Header("Ground Detection")]
+    [SerializeField] private float _additionalGravity;
+    [SerializeField] private float _groundDetectionDistance;
+    [SerializeField] private LayerMask _groundLayer;
 
-    //public ForceMode ForceMode;
+    public ForceMode ForceMode;
     //public float forceTobODYPARTS = 1f;
     //public int forceiterations = 1;
 
@@ -21,6 +29,12 @@ public class Head : MonoBehaviour
     [SerializeField] private KeyCode _downKey;
 
     private Vector2 _direction;
+    private RaycastHit[] _groundHits;
+
+    private void Start()
+    {
+        _groundHits = new RaycastHit[2];
+    }
 
     private void Update()
     {
@@ -39,8 +53,9 @@ public class Head : MonoBehaviour
 
     private void AddForce()
     {
-        Rigidbody.position += new Vector3(_direction.x, 0, _direction.y) * _speed;
-        //Rigidbody.AddForce(new Vector3(_direction.x, 0, _direction.y) * _speed, ForceMode);
+        //Rigidbody.position += new Vector3(_direction.x, 0, _direction.y) * _speed;
+        Rigidbody.AddForce(new Vector3(_direction.x, 0, _direction.y) * _speed, ForceMode);
+        if (IsGrounded() == false) Rigidbody.AddForce(Vector3.down * _additionalGravity, ForceMode);
         //for (int k = 0; k < forceiterations; k++)
         //{
             for (int i = 0; i < BodyParts.Length; i++)
@@ -52,5 +67,15 @@ public class Head : MonoBehaviour
             }
         //}
 
+    }
+    
+    private bool IsGrounded()
+    {
+        return Physics.RaycastNonAlloc(transform.position, Vector3.down, _groundHits, _groundDetectionDistance, _groundLayer) > 0;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawRay(transform.position, Vector3.down * _groundDetectionDistance);
     }
 }
