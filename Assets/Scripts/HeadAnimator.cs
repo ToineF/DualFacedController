@@ -7,12 +7,19 @@ using UnityEngine;
 public class HeadAnimator : MonoBehaviour
 {
     [SerializeField] private Head _head;
+    [SerializeField] private Animator _animator;
     [SerializeField] private bool _isOrientationInverted;
     [SerializeField] private float _lookAtLerp;
     
     private void LateUpdate()
     {
         RotateDirection();
+        UpdateAnimation();
+    }
+
+    private void UpdateAnimation()
+    {
+        _animator.SetBool("IsWalking", _head.Direction.sqrMagnitude > 0.1f);
     }
 
     private void RotateDirection()

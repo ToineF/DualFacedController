@@ -43,6 +43,7 @@ public class Head : MonoBehaviour
         if (Input.GetKey(_leftKey)) targetDirection.x--;
         if (Input.GetKey(_upKey)) targetDirection.y++;
         if (Input.GetKey(_downKey)) targetDirection.y--;
+        targetDirection.Normalize();
         _direction = Vector3.Lerp(_direction, targetDirection, _turnLerp);
     }
 
