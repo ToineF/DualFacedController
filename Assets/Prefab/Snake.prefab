@@ -56,7 +56,7 @@ MonoBehaviour:
     type: 3}
   _tailPrefab: {fileID: 1055069935806306941, guid: 07c0f646918f5b849b6206dda7166fad,
     type: 3}
-  _bodyPartPrefab: {fileID: 7899601277742431683, guid: 81d00be75770b864094bf939b1c3d743,
+  _bodyPartPrefab: {fileID: 9157622780128015069, guid: 81d00be75770b864094bf939b1c3d743,
     type: 3}
   _bodyPartsCount: 6
   _partsStartMargin: 1
@@ -738,6 +738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ea50f11b917174198ccc8840e3584d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Rigidbody>k__BackingField: {fileID: 0}
   <BodyParts>k__BackingField:
   - {fileID: 5829407308634731925}
   - {fileID: 7356181814654369933}
@@ -751,6 +752,12 @@ MonoBehaviour:
   _turnLerp: 0.032
   _followLerp: 0.144
   _targetDistance: 1
+  _additionalGravity: 0
+  _groundDetectionDistance: 0
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  ForceMode: 0
   _rightKey: 100
   _leftKey: 97
   _upKey: 119
@@ -1034,6 +1041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ea50f11b917174198ccc8840e3584d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Rigidbody>k__BackingField: {fileID: 0}
   <BodyParts>k__BackingField:
   - {fileID: 4240039250685482226}
   - {fileID: 2892897226325211662}
@@ -1047,6 +1055,12 @@ MonoBehaviour:
   _turnLerp: 0.032
   _followLerp: 0.144
   _targetDistance: 1
+  _additionalGravity: 0
+  _groundDetectionDistance: 0
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  ForceMode: 0
   _rightKey: 275
   _leftKey: 276
   _upKey: 273
