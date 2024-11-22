@@ -3,6 +3,7 @@ using UnityEngine;
 public class Head : MonoBehaviour
 {
     public Vector2 Direction => _direction;
+    public bool IsGrabbing;
 
     [field: Header("Head Properties")]
     [field: SerializeField]
@@ -26,12 +27,12 @@ public class Head : MonoBehaviour
     //public float forceTobODYPARTS = 1f;
     //public int forceiterations = 1;
 
-    [Header("Input Properties")] [SerializeField]
-    private KeyCode _rightKey;
-
+    [Header("Input Properties")] 
+    [SerializeField] private KeyCode _rightKey;
     [SerializeField] private KeyCode _leftKey;
     [SerializeField] private KeyCode _upKey;
     [SerializeField] private KeyCode _downKey;
+    [SerializeField] private KeyCode _grabKey;
 
     private Vector2 _direction;
     private RaycastHit[] _groundHits;
@@ -43,6 +44,12 @@ public class Head : MonoBehaviour
 
     private void Update()
     {
+        CheckMovements();
+        CheckGrab();
+    }
+    
+    private void CheckMovements()
+    {
         var targetDirection = Vector3.zero;
         if (Input.GetKey(_rightKey)) targetDirection.x++;
         if (Input.GetKey(_leftKey)) targetDirection.x--;
@@ -50,6 +57,13 @@ public class Head : MonoBehaviour
         if (Input.GetKey(_downKey)) targetDirection.y--;
         targetDirection.Normalize();
         _direction = Vector3.Lerp(_direction, targetDirection, _turnLerp);
+    }
+    private void CheckGrab()
+    {
+        IsGrabbing = Input.GetKey(_grabKey);
+
+        Rigidbody.isKinematic = IsGrabbing;
+
     }
 
     private void FixedUpdate()

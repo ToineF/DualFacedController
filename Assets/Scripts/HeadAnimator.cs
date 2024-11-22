@@ -20,6 +20,7 @@ public class HeadAnimator : MonoBehaviour
     private void UpdateAnimation()
     {
         _animator.SetBool("IsWalking", _head.Direction.sqrMagnitude > 0.1f);
+        _animator.SetBool("IsGrabbing", _head.IsGrabbing);
     }
 
     private void RotateDirection()
