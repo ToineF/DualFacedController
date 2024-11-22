@@ -99,10 +99,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 44390153211347654}
   <BodyParts>k__BackingField: []
-  _speed: 40
+  _speed: 120
+  _endBodySpeed: 0.1
   _turnLerp: 0.032
   _followLerp: 0.144
   _targetDistance: 1
+  forceIterations: 1
   _additionalGravity: 20
   _groundDetectionDistance: 0.8
   _groundLayer:
@@ -113,6 +115,16 @@ MonoBehaviour:
   _leftKey: 97
   _upKey: 119
   _downKey: 115
+  offset: 0
+  period: 3
+  forceCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  amplitude: 0
+  segmentOffset: 0
 --- !u!1001 &7448085517257590558
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Head : MonoBehaviour
 {
@@ -59,12 +57,14 @@ public class Head : MonoBehaviour
         MoveSelf();
         //MoveBodyParts();
         ApproachBodyParts();
+        MoveSnake();
+        UpdateLines();
     }
 
     private void MoveSelf()
     {
         Rigidbody.AddForce(new Vector3(_direction.x, 0, _direction.y) * _speed, ForceMode);
-        if (IsGrounded() == false) Rigidbody.AddForce(Vector3.down * _additionalGravity, ForceMode);
+        if (IsGrounded(transform.position) == false) Rigidbody.AddForce(Vector3.down * _additionalGravity, ForceMode);
     }
 
     private void MoveBodyParts()
@@ -94,20 +94,55 @@ public class Head : MonoBehaviour
                 //Vector3.Lerp(BodyParts[i].position, BodyParts[i - 1].position + distanceOffset, _followLerp);
                 //targetDirection = Vector3.Lerp(_direction, targetDirection, _followLerp);
                 //var speed = Mathf.Lerp(_speed, _endBodySpeed, i / (BodyParts.Length - 1));
-                if (offset.sqrMagnitude < _targetDistance) continue;
-                var force = new Vector3(targetDirection.x, 0, targetDirection.z) * offset.sqrMagnitude;
                 for (int k = 0; k < forceIterations; k++)
                 {
+                    if (offset.sqrMagnitude < _targetDistance) break;
+                    var force = offset.sqrMagnitude * new Vector3(targetDirection.x, 0, targetDirection.z);
                     BodyParts[i].AddForce(force, ForceMode);
+                    BodyParts[i].AddForce(Mathf.Sin(i + T) * Vector3.Cross(force.normalized * amplitude, Vector3.up) , ForceMode);
                 }
+                if (IsGrounded(BodyParts[i].transform.position) == false) BodyParts[i].AddForce(Vector3.down * _additionalGravity, ForceMode);
                 //BodyParts[i].AddForce(distanceOffset * forceToBodyParts);
             }
         //}
     }
 
-    private bool IsGrounded()
+    [Header("Snake")]
+    public float offset;
+    public float period;
+    public AnimationCurve forceCurve;
+    public float amplitude;
+    public float segmentOffset;
+    private float T;
+
+    private void MoveSnake()
     {
-        return Physics.RaycastNonAlloc(transform.position, Vector3.down, _groundHits, _groundDetectionDistance,
+        T += Time.deltaTime;
+        /*for (int i = 0; i < BodyParts.Length; i++)
+        {
+            var s = Mathf.Sin((T + offset) / period) * amplitude;
+            var forceMultiplier = forceCurve.Evaluate((float)i / BodyParts.Length);
+            BodyParts[i].AddForce(transform.right * (s * forceMultiplier), ForceMode.VelocityChange);
+            offset += segmentOffset;
+        }    */
+    }
+    
+    [Header("Lines")]
+    public LineRenderer[] Lines;
+    
+    private void UpdateLines()
+    {
+        for (int i = 0; i < BodyParts.Length-1; i++)
+        {
+            Lines[i].SetPosition(0, BodyParts[i].position);
+            Lines[i].SetPosition(1, BodyParts[i+1].position);
+        }
+    }
+
+
+    private bool IsGrounded(Vector3 position)
+    {
+        return Physics.RaycastNonAlloc(position, Vector3.down, _groundHits, _groundDetectionDistance,
             _groundLayer) > 0;
     }
 

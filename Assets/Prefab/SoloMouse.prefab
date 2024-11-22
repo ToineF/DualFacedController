@@ -109,10 +109,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _speed: 40
+  _speed: 120
+  _endBodySpeed: 0.1
   _turnLerp: 0.032
   _followLerp: 0.617
   _targetDistance: 1
+  forceIterations: 1
   _additionalGravity: 20
   _groundDetectionDistance: 0.8
   _groundLayer:
@@ -123,6 +125,16 @@ MonoBehaviour:
   _leftKey: 106
   _upKey: 105
   _downKey: 107
+  offset: 3
+  period: 0
+  forceCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  amplitude: 0
+  segmentOffset: 0
 --- !u!1001 &8749000072793471629
 PrefabInstance:
   m_ObjectHideFlags: 0
