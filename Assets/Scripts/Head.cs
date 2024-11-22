@@ -3,7 +3,7 @@ using UnityEngine;
 public class Head : MonoBehaviour
 {
     public Vector2 Direction => _direction;
-    public bool IsGrabbing;
+    public bool IsGrabbing { get; private set; }
 
     [field: Header("Head Properties")]
     [field: SerializeField]
@@ -12,6 +12,7 @@ public class Head : MonoBehaviour
     [field: SerializeField] public Rigidbody[] BodyParts { get; set; }
     [SerializeField] private float _speed;
     [SerializeField] private float _endBodySpeed;
+    [SerializeField] private bool _useY = true;
     [SerializeField, Range(0, 1)] private float _turnLerp;
     [SerializeField, Range(0, 1)] private float _followLerp;
     [SerializeField] private float _targetDistance;
@@ -111,7 +112,7 @@ public class Head : MonoBehaviour
                 for (int k = 0; k < forceIterations; k++)
                 {
                     if (offset.sqrMagnitude < _targetDistance) break;
-                    var force = offset.sqrMagnitude * new Vector3(targetDirection.x, 0, targetDirection.z);
+                    var force = offset.sqrMagnitude * new Vector3(targetDirection.x, _useY ? targetDirection.y : 0, targetDirection.z);
                     BodyParts[i].AddForce(force, ForceMode);
                     BodyParts[i].AddForce(Mathf.Sin(i + T) * Vector3.Cross(force.normalized * amplitude, Vector3.up) , ForceMode);
                 }
