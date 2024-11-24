@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ea50f11b917174198ccc8840e3584d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsGrabbing: 0
   <Rigidbody>k__BackingField: {fileID: 4147720337258450874}
   <BodyParts>k__BackingField:
   - {fileID: 4147720337258450874}
@@ -112,6 +111,7 @@ MonoBehaviour:
   - {fileID: 0}
   _speed: 120
   _endBodySpeed: 0.1
+  _useY: 1
   _turnLerp: 0.032
   _followLerp: 0.617
   _targetDistance: 1
@@ -122,11 +122,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   ForceMode: 1
-  _rightKey: 108
-  _leftKey: 106
-  _upKey: 105
-  _downKey: 107
-  _grabKey: 111
+  _isLeftHead: 1
   offset: 3
   period: 0
   forceCurve:

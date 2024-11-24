@@ -28,12 +28,8 @@ public class Head : MonoBehaviour
     //public float forceTobODYPARTS = 1f;
     //public int forceiterations = 1;
 
-    [Header("Input Properties")] 
-    [SerializeField] private KeyCode _rightKey;
-    [SerializeField] private KeyCode _leftKey;
-    [SerializeField] private KeyCode _upKey;
-    [SerializeField] private KeyCode _downKey;
-    [SerializeField] private KeyCode _grabKey;
+    [Header("Input Properties")]
+    [SerializeField] private bool _isLeftHead;
 
     private Vector2 _direction;
     private RaycastHit[] _groundHits;
@@ -51,20 +47,14 @@ public class Head : MonoBehaviour
     
     private void CheckMovements()
     {
-        var targetDirection = Vector3.zero;
-        if (Input.GetKey(_rightKey)) targetDirection.x++;
-        if (Input.GetKey(_leftKey)) targetDirection.x--;
-        if (Input.GetKey(_upKey)) targetDirection.y++;
-        if (Input.GetKey(_downKey)) targetDirection.y--;
-        targetDirection.Normalize();
+        var targetDirection = _isLeftHead ? UserInput.Instance.LeftMoveInput : UserInput.Instance.RightMoveInput;
         _direction = Vector3.Lerp(_direction, targetDirection, _turnLerp);
     }
     private void CheckGrab()
     {
-        IsGrabbing = Input.GetKey(_grabKey);
+        IsGrabbing = _isLeftHead ? UserInput.Instance.LeftGrabInput : UserInput.Instance.RightGrabInput;
 
         Rigidbody.isKinematic = IsGrabbing;
-
     }
 
     private void FixedUpdate()
