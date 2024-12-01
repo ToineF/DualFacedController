@@ -40,6 +40,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SeparateLeft",
+                    "type": "Button",
+                    "id": "33009656-042c-4d7b-bde5-7cd8eafff403",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SeparateRight",
+                    "type": "Button",
+                    "id": "772e1e4d-b544-4784-ac25-13320d55b753",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -342,17 +360,6 @@
                 },
                 {
                     "name": "",
-                    "id": "f7ec75a1-6ae1-49d6-aa7c-e5cf538e4042",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "GrabLeft",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a7e59c4b-8274-461e-9663-c88a9e3ad166",
                     "path": "<Keyboard>/o",
                     "interactions": "",
@@ -375,12 +382,45 @@
                 },
                 {
                     "name": "",
-                    "id": "be2fd82a-edb1-4e45-a8d9-91bf85241ee9",
+                    "id": "5d417a98-59c3-4d1b-8573-f730412d99e8",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "SeparateLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43cc770e-4f5a-46cd-b5a6-accd7eace895",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SeparateLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5cf72555-336e-48aa-bf72-5dc30ae7da34",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "SeparateRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b8c71eda-b4da-4c94-8624-b72b4bc0192e",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "GrabRight",
+                    "action": "SeparateRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -4,6 +4,7 @@ public class Head : MonoBehaviour
 {
     public Vector2 Direction => _direction;
     public bool IsGrabbing { get; private set; }
+    public bool IsSeparated { get; private set; }
 
     [field: Header("Head Properties")]
     [field: SerializeField]
@@ -11,12 +12,7 @@ public class Head : MonoBehaviour
 
     [field: SerializeField] public Rigidbody[] BodyParts { get; set; }
     [SerializeField] private float _speed;
-    [SerializeField] private float _endBodySpeed;
-    [SerializeField] private bool _useY = true;
     [SerializeField, Range(0, 1)] private float _turnLerp;
-    [SerializeField, Range(0, 1)] private float _followLerp;
-    [SerializeField] private float _targetDistance;
-    [SerializeField] private float forceIterations;
 
     [Header("Ground Detection")] [SerializeField]
     private float _additionalGravity;
@@ -27,6 +23,8 @@ public class Head : MonoBehaviour
     public ForceMode ForceMode;
     //public float forceTobODYPARTS = 1f;
     //public int forceiterations = 1;
+
+    [SerializeField] private Body _body;
 
     [Header("Input Properties")]
     [SerializeField] private bool _isLeftHead;
@@ -43,6 +41,7 @@ public class Head : MonoBehaviour
     {
         CheckMovements();
         CheckGrab();
+        CheckSeparation();
     }
     
     private void CheckMovements()
@@ -57,6 +56,18 @@ public class Head : MonoBehaviour
         Rigidbody.isKinematic = IsGrabbing;
     }
 
+    private void CheckSeparation()
+    {
+        if ((_isLeftHead ? UserInput.Instance.LeftSeparationInput : UserInput.Instance.RightSeparationInput) == false) return;
+
+        IsSeparated = !IsSeparated;
+
+        if (_isLeftHead)
+            _body.Head = IsSeparated ? null : this;
+        else
+            _body.Tail = IsSeparated ? null : this;
+    }
+
     private void FixedUpdate()
     {
         MoveSelf();
@@ -69,46 +80,6 @@ public class Head : MonoBehaviour
     {
         Rigidbody.AddForce(new Vector3(_direction.x, 0, _direction.y) * _speed, ForceMode);
         if (IsGrounded(transform.position) == false) Rigidbody.AddForce(Vector3.down * _additionalGravity, ForceMode);
-    }
-
-    private void MoveBodyParts()
-    {
-        for (int i = 0; i < BodyParts.Length; i++)
-        {
-            if (i == 0) continue;
-            var targetDirection = (BodyParts[i - 1].position - BodyParts[i].position).normalized;
-            //Vector3.Lerp(BodyParts[i].position, BodyParts[i - 1].position + distanceOffset, _followLerp);
-            targetDirection = Vector3.Lerp(_direction, targetDirection, _followLerp);
-            var speed = Mathf.Lerp(_speed, _endBodySpeed, i / (BodyParts.Length - 1));
-            var force = new Vector3(targetDirection.x, 0, targetDirection.y) * speed;
-            BodyParts[i].AddForce(force, ForceMode);
-            //BodyParts[i].AddForce(distanceOffset * forceToBodyParts);
-        }
-    }
-
-    private void ApproachBodyParts()
-    {
-        //for (int k = 0; k < forceIterations; k++)
-        //{
-            for (int i = 0; i < BodyParts.Length; i++)
-            {
-                if (i == 0) continue;
-                var offset = (BodyParts[i - 1].position - BodyParts[i].position);
-                var targetDirection = offset.normalized;
-                //Vector3.Lerp(BodyParts[i].position, BodyParts[i - 1].position + distanceOffset, _followLerp);
-                //targetDirection = Vector3.Lerp(_direction, targetDirection, _followLerp);
-                //var speed = Mathf.Lerp(_speed, _endBodySpeed, i / (BodyParts.Length - 1));
-                //for (int k = 0; k < forceIterations; k++)
-                //{
-                    if (offset.sqrMagnitude < _targetDistance) break;
-                    var force = offset.sqrMagnitude * new Vector3(targetDirection.x, _useY ? targetDirection.y : 0, targetDirection.z);
-                    BodyParts[i].AddForce(force, ForceMode);
-                    BodyParts[i].AddForce(Mathf.Sin(i + T) * Vector3.Cross(force.normalized * amplitude, Vector3.up) , ForceMode);
-                //}
-                if (IsGrounded(BodyParts[i].transform.position) == false) BodyParts[i].AddForce(Vector3.down * _additionalGravity, ForceMode);
-                //BodyParts[i].AddForce(distanceOffset * forceToBodyParts);
-            }
-        //}
     }
 
     [Header("Snake")]

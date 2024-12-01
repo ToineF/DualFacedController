@@ -9,6 +9,8 @@ public class UserInput : MonoBehaviour
     public Vector2 RightMoveInput {get; private set;}
     public bool LeftGrabInput {get; private set;}
     public bool RightGrabInput {get; private set;}
+    public bool LeftSeparationInput {get; private set;}
+    public bool RightSeparationInput {get; private set;}
 
     [SerializeField] private PlayerInput _playerInput;
 
@@ -16,6 +18,8 @@ public class UserInput : MonoBehaviour
     private InputAction _rightMoveAction;
     private InputAction _leftGrabAction;
     private InputAction _rightGrabAction;
+    private InputAction _leftSeparateAction;
+    private InputAction _rightSeparateAction;
     
     private void Awake()
     {
@@ -38,6 +42,8 @@ public class UserInput : MonoBehaviour
         _rightMoveAction = _playerInput.actions["MoveRight"];
         _leftGrabAction = _playerInput.actions["GrabLeft"];
         _rightGrabAction = _playerInput.actions["GrabRight"];
+        _leftSeparateAction = _playerInput.actions["SeparateLeft"];
+        _rightSeparateAction = _playerInput.actions["SeparateRight"];
     }
     private void UpdateInputs()
     {
@@ -47,5 +53,7 @@ public class UserInput : MonoBehaviour
         // To get onReleased event use : _leftGrabAction.WasReleasedThisFrame();
         LeftGrabInput = _leftGrabAction.IsPressed();
         RightGrabInput = _rightGrabAction.IsPressed();
+        LeftSeparationInput = _leftSeparateAction.WasPressedThisFrame();
+        RightSeparationInput = _rightSeparateAction.WasPressedThisFrame();
     }
 }

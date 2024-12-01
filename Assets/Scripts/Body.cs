@@ -11,6 +11,7 @@ public class Body : MonoBehaviour
     [Header("Parameters")]
     [SerializeField] private int _forceIterations = 1;
     [SerializeField] private float _followSpeed;
+    [SerializeField] private float _targetDistance;
     //[SerializeField] private float _startBodySpeed;
     //[SerializeField] private float _endBodySpeed;
     [SerializeField, Range(0, 1)] private float _followLerp;
@@ -43,8 +44,9 @@ public class Body : MonoBehaviour
     {
         for (int i = 0; i < BodyParts.Length + 1; i++)
         {
-            var lastBodyPart = (i == 0) ? Head.Rigidbody : BodyParts[i - 1];
-            var bodyPart = (i == BodyParts.Length) ? Tail.Rigidbody : BodyParts[i];
+            var lastBodyPart = (i == 0) ? Head?.Rigidbody : BodyParts[i - 1];
+            var bodyPart = (i == BodyParts.Length) ? Tail?.Rigidbody : BodyParts[i];
+            if (lastBodyPart == null || bodyPart == null) continue;
             
             MoveBodyPart(Head, lastBodyPart, bodyPart, i / (BodyParts.Length + 1));
         }
@@ -54,28 +56,20 @@ public class Body : MonoBehaviour
     {
         for (int i = BodyParts.Length; i >= 0; i--)
         {
-            var lastBodyPart = (i == BodyParts.Length) ? Tail.Rigidbody : BodyParts[i];
-            var bodyPart = (i == 0) ? Head.Rigidbody : BodyParts[i-1];
+            var lastBodyPart = (i == BodyParts.Length) ? Tail?.Rigidbody : BodyParts[i];
+            var bodyPart = (i == 0) ? Head?.Rigidbody : BodyParts[i-1];
+            if (lastBodyPart == null || bodyPart == null) continue;
 
             MoveBodyPart(Tail, lastBodyPart, bodyPart, 1 - (i / (BodyParts.Length + 1)));
         }
     }
-
-    /*private void dd(Head extremity, Rigidbody lastBodyPart, Rigidbody bodyPart, float damper)
-    {
-        var targetDirection = (lastBodyPart.position - bodyPart.position).normalized;
-        targetDirection = Vector3.Lerp(extremity.Direction, targetDirection, _followLerp);
-        var speed = Mathf.Lerp(_startBodySpeed, _endBodySpeed, damper);
-        var force = new Vector3(targetDirection.x, 0, targetDirection.y) * speed;
-        bodyPart.AddForce(force, _forceMode);
-    }*/
 
     private void MoveBodyPart(Head extremity, Rigidbody lastBodyPart, Rigidbody bodyPart, float damper)
     {
         var offset = lastBodyPart.position - bodyPart.position;
         var targetDirection = offset.normalized;
 
-        //if (offset.sqrMagnitude < _targetDistance) break;
+        if (offset.sqrMagnitude < _targetDistance) return;
         var force = offset.sqrMagnitude * _followSpeed * new Vector3(targetDirection.x, _useY ? targetDirection.y : 0, targetDirection.z);
         bodyPart.AddForce(force, _forceMode);
         //bodyPart.AddForce(Mathf.Sin(i + T) * Vector3.Cross(force.normalized * amplitude, Vector3.up), _forceMode);
@@ -91,8 +85,12 @@ public class Body : MonoBehaviour
     {
         for (int i = 0; i < Lines.Length; i++)
         {
-            Lines[i].SetPosition(0, (i == 0) ? Head.transform.position : BodyParts[i-1].position);
-            Lines[i].SetPosition(1, (i == Lines.Length - 1) ? Tail.transform.position : BodyParts[i].position);
+            var lastBodyPart = (i == 0) ? Head?.transform.position : BodyParts[i - 1].position;
+            var bodyPart = (i == BodyParts.Length) ? Tail?.transform.position : BodyParts[i].position;
+            if (lastBodyPart == null || bodyPart == null) continue;
+
+            Lines[i].SetPosition(0, lastBodyPart.Value);
+            Lines[i].SetPosition(1, bodyPart.Value);
         }
     }
 }
