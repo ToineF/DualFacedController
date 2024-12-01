@@ -63,7 +63,6 @@ public class Head : MonoBehaviour
         //MoveBodyParts();
         //ApproachBodyParts();
         MoveSnake();
-        UpdateLines();
     }
 
     private void MoveSelf()
@@ -130,18 +129,6 @@ public class Head : MonoBehaviour
             BodyParts[i].AddForce(transform.right * (s * forceMultiplier), ForceMode.VelocityChange);
             offset += segmentOffset;
         }    */
-    }
-    
-    [Header("Lines")]
-    public LineRenderer[] Lines;
-    
-    private void UpdateLines()
-    {
-        for (int i = 0; i < BodyParts.Length-1; i++)
-        {
-            Lines[i].SetPosition(0, BodyParts[i].position);
-            Lines[i].SetPosition(1, BodyParts[i+1].position);
-        }
     }
 
 

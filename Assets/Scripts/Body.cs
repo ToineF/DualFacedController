@@ -1,6 +1,4 @@
-﻿
-using UnityEngine;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
+﻿using UnityEngine;
 
 public class Body : MonoBehaviour
 {
@@ -8,6 +6,7 @@ public class Body : MonoBehaviour
     [field: SerializeField] public Rigidbody[] BodyParts { get; set; }
     [field: SerializeField] public Head Head { get; set; }
     [field: SerializeField] public Head Tail { get; set; }
+    [field: SerializeField] public LineRenderer[] Lines { get; set; }
 
     [Header("Parameters")]
     [SerializeField] private int _forceIterations = 1;
@@ -37,6 +36,7 @@ public class Body : MonoBehaviour
             MoveHead();
             MoveTail();
         }
+        UpdateLines();
     }
 
     private void MoveHead()
@@ -85,5 +85,14 @@ public class Body : MonoBehaviour
     private bool IsGrounded(Vector3 position)
     {
         return Physics.RaycastNonAlloc(position, Vector3.down, _groundHits, _groundDetectionDistance, _groundLayer) > 0;
+    }
+
+    private void UpdateLines()
+    {
+        for (int i = 0; i < Lines.Length; i++)
+        {
+            Lines[i].SetPosition(0, (i == 0) ? Head.transform.position : BodyParts[i-1].position);
+            Lines[i].SetPosition(1, (i == Lines.Length - 1) ? Tail.transform.position : BodyParts[i].position);
+        }
     }
 }
