@@ -61,7 +61,7 @@ public class Head : MonoBehaviour
     {
         MoveSelf();
         //MoveBodyParts();
-        ApproachBodyParts();
+        //ApproachBodyParts();
         MoveSnake();
         UpdateLines();
     }
@@ -99,13 +99,13 @@ public class Head : MonoBehaviour
                 //Vector3.Lerp(BodyParts[i].position, BodyParts[i - 1].position + distanceOffset, _followLerp);
                 //targetDirection = Vector3.Lerp(_direction, targetDirection, _followLerp);
                 //var speed = Mathf.Lerp(_speed, _endBodySpeed, i / (BodyParts.Length - 1));
-                for (int k = 0; k < forceIterations; k++)
-                {
+                //for (int k = 0; k < forceIterations; k++)
+                //{
                     if (offset.sqrMagnitude < _targetDistance) break;
                     var force = offset.sqrMagnitude * new Vector3(targetDirection.x, _useY ? targetDirection.y : 0, targetDirection.z);
                     BodyParts[i].AddForce(force, ForceMode);
                     BodyParts[i].AddForce(Mathf.Sin(i + T) * Vector3.Cross(force.normalized * amplitude, Vector3.up) , ForceMode);
-                }
+                //}
                 if (IsGrounded(BodyParts[i].transform.position) == false) BodyParts[i].AddForce(Vector3.down * _additionalGravity, ForceMode);
                 //BodyParts[i].AddForce(distanceOffset * forceToBodyParts);
             }
