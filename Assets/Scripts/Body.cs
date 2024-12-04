@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using AntoineFoucault.Utilities;
+using UnityEngine;
 
 public class Body : MonoBehaviour
 {
@@ -10,8 +12,9 @@ public class Body : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] private int _forceIterations = 1;
-    [SerializeField] private float _followSpeed;
-    [SerializeField] private float _targetDistance;
+    [SerializeField] private float _followStrength;
+    [SerializeField] private float _damper;
+    [SerializeField] private float _restDistance;
     //[SerializeField] private float _startBodySpeed;
     //[SerializeField] private float _endBodySpeed;
     [SerializeField, Range(0, 1)] private float _followLerp;
@@ -60,20 +63,50 @@ public class Body : MonoBehaviour
             var bodyPart = (i == 0) ? Head?.Rigidbody : BodyParts[i-1];
             if (lastBodyPart == null || bodyPart == null) continue;
 
-            MoveBodyPart(Tail, lastBodyPart, bodyPart, 1 - (i / (BodyParts.Length + 1)));
+            MoveBodyPart(Tail, lastBodyPart, bodyPart, 1 - i / (BodyParts.Length + 1));
         }
     }
 
-    private void MoveBodyPart(Head extremity, Rigidbody lastBodyPart, Rigidbody bodyPart, float damper)
+    private void MoveBodyPart(Head extremity, Rigidbody lastBodyPart, Rigidbody bodyPart, float damperOverBody)
     {
         var offset = lastBodyPart.position - bodyPart.position;
         var targetDirection = offset.normalized;
 
-        if (offset.sqrMagnitude < _targetDistance) return;
-        var force = offset.sqrMagnitude * _followSpeed * new Vector3(targetDirection.x, _useY ? targetDirection.y : 0, targetDirection.z);
-        bodyPart.AddForce(force, _forceMode);
+        var offset2 = (_restDistance - offset.sqrMagnitude) * targetDirection;
+        var force = -offset2 * _followStrength;
+        var damper = bodyPart.velocity * _damper;
+        bodyPart.AddForce(force - damper, _forceMode);
         //bodyPart.AddForce(Mathf.Sin(i + T) * Vector3.Cross(force.normalized * amplitude, Vector3.up), _forceMode);
         if (IsGrounded(bodyPart.transform.position) == false) bodyPart.AddForce(Vector3.down * _additionalGravity, _forceMode);
+    }
+
+    [SerializeField] private int _bodyPartsGizmos = 8;
+    private void OnDrawGizmos()
+    {
+        if (Application.isPlaying == false) return;
+        
+        for (int i = _bodyPartsGizmos; i <= _bodyPartsGizmos; i++)
+        {
+            var lastBodyPart = (i == 0) ? Head?.Rigidbody : BodyParts[i - 1];
+            var bodyPart = (i == BodyParts.Length) ? Tail?.Rigidbody : BodyParts[i];
+            if (lastBodyPart == null || bodyPart == null) continue;
+            
+            var offset = lastBodyPart.position - bodyPart.position;
+            var targetDirection = offset.normalized;
+
+            var offset2 = (_restDistance - offset.sqrMagnitude) * targetDirection;
+            var force = offset2 * _followStrength;
+            var damper = bodyPart.velocity * _damper;
+            
+            // Force
+            GizmoExtensions.DrawArrow(bodyPart.position, force, Color.green);
+            
+            // Offset
+            GizmoExtensions.DrawArrow(bodyPart.position, offset2, Color.blue);
+            
+            // Damping
+            GizmoExtensions.DrawArrow(bodyPart.position, damper, Color.magenta);
+        }
     }
 
     private bool IsGrounded(Vector3 position)
