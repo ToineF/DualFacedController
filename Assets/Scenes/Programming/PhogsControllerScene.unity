@@ -915,7 +915,7 @@ GameObject:
   m_Component:
   - component: {fileID: 55190872}
   - component: {fileID: 55190873}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6427,7 +6427,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100247680}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35102212, y: 0.010377571, z: -0.0038905812, w: 0.9363016}
+  m_LocalRotation: {x: 0.35102218, y: 0.010377553, z: -0.0038905747, w: 0.9363016}
   m_LocalPosition: {x: 18.761547, y: 31.777979, z: -36.177383}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13131,22 +13131,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 336226681}
-  <BodyParts>k__BackingField:
-  - {fileID: 336226681}
-  - {fileID: 384754690}
-  - {fileID: 583844822}
-  - {fileID: 567008534}
-  - {fileID: 1097363908}
-  - {fileID: 1807480249}
-  - {fileID: 439559912}
-  - {fileID: 486508445}
-  - {fileID: 1585348845}
-  - {fileID: 1882208545}
-  - {fileID: 1913559197}
-  - {fileID: 607965169}
   _speed: 60
   _turnLerp: 0.032
   _additionalGravity: 20
+  _gravityDamper: 0
+  _restPositionFromGround: 0
   _groundDetectionDistance: 0.8
   _groundLayer:
     serializedVersion: 2
@@ -13154,16 +13143,6 @@ MonoBehaviour:
   ForceMode: 1
   _body: {fileID: 0}
   _isLeftHead: 0
-  offset: 0
-  period: 3
-  forceCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  amplitude: 0
-  segmentOffset: 0
 --- !u!54 &336226681
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13223,7 +13202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 337074097}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Snake_New
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13248,6 +13227,111 @@ Transform:
   - {fileID: 354005337}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &346900592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 346900593}
+  - component: {fileID: 346900596}
+  - component: {fileID: 346900595}
+  - component: {fileID: 346900594}
+  m_Layer: 0
+  m_Name: Slope (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &346900593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346900592}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.060963925, y: -0, z: -0, w: 0.99814}
+  m_LocalPosition: {x: -2.63, y: -5.93, z: 17.18}
+  m_LocalScale: {x: 14.554835, y: 14.554834, z: 14.554834}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 851960653}
+  m_LocalEulerAnglesHint: {x: -6.99, y: 0, z: 0}
+--- !u!65 &346900594
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346900592}
+  m_Material: {fileID: 13400000, guid: ede47cc5d1b184242864dbd9583c3f6f, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &346900595
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346900592}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 22a429d855f2eec41bfa19d96985acdf, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &346900596
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346900592}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &349339501
 GameObject:
   m_ObjectHideFlags: 0
@@ -13258,7 +13342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 349339502}
   - component: {fileID: 349339503}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13394,7 +13478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 354005337}
   - component: {fileID: 354005338}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CameraLookAt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21519,7 +21603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 566595150}
   - component: {fileID: 566595151}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22450,22 +22534,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 607965169}
-  <BodyParts>k__BackingField:
-  - {fileID: 607965169}
-  - {fileID: 1913559197}
-  - {fileID: 1882208545}
-  - {fileID: 1585348845}
-  - {fileID: 486508445}
-  - {fileID: 439559912}
-  - {fileID: 1807480249}
-  - {fileID: 1097363908}
-  - {fileID: 567008534}
-  - {fileID: 583844822}
-  - {fileID: 384754690}
-  - {fileID: 336226681}
   _speed: 60
   _turnLerp: 0.032
   _additionalGravity: 20
+  _gravityDamper: 0
+  _restPositionFromGround: 0
   _groundDetectionDistance: 0.8
   _groundLayer:
     serializedVersion: 2
@@ -22473,16 +22546,6 @@ MonoBehaviour:
   ForceMode: 1
   _body: {fileID: 0}
   _isLeftHead: 1
-  offset: 3
-  period: 0
-  forceCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  amplitude: 0
-  segmentOffset: 0
 --- !u!136 &607965171
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -22993,6 +23056,111 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 660570981}
   m_Mesh: {fileID: 2534964839176971238, guid: 2b1189bde72676b41aca3984f0d1bccf, type: 3}
+--- !u!1 &663263262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 663263263}
+  - component: {fileID: 663263266}
+  - component: {fileID: 663263265}
+  - component: {fileID: 663263264}
+  m_Layer: 0
+  m_Name: Slope (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &663263263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663263262}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.106865495, y: -0, z: -0, w: 0.99427354}
+  m_LocalPosition: {x: 12.03, y: -4.98, z: 18.52}
+  m_LocalScale: {x: 14.554835, y: 14.554834, z: 14.554834}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 851960653}
+  m_LocalEulerAnglesHint: {x: -12.269, y: 0, z: 0}
+--- !u!65 &663263264
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663263262}
+  m_Material: {fileID: 13400000, guid: ede47cc5d1b184242864dbd9583c3f6f, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &663263265
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663263262}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 22a429d855f2eec41bfa19d96985acdf, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &663263266
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663263262}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &672038798 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 6556157386117767295, guid: 01ae46d4a6a5c8e4aa38c7f57ffe0cd6,
@@ -23775,7 +23943,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 789946756}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ede47cc5d1b184242864dbd9583c3f6f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -24056,7 +24224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 813707382}
   - component: {fileID: 813707383}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24517,6 +24685,8 @@ Transform:
   - {fileID: 1378472109}
   - {fileID: 789946760}
   - {fileID: 1481662047}
+  - {fileID: 346900593}
+  - {fileID: 663263263}
   - {fileID: 1856808045}
   - {fileID: 230576549}
   - {fileID: 753705158}
@@ -25336,20 +25506,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 919277103}
-  <BodyParts>k__BackingField:
-  - {fileID: 919277103}
-  - {fileID: 1064376388}
-  - {fileID: 367396356}
-  - {fileID: 287524913}
-  - {fileID: 1157031010}
-  - {fileID: 821254606}
-  - {fileID: 1789775243}
-  - {fileID: 1793584380}
-  - {fileID: 1084656377}
-  - {fileID: 489219472}
   _speed: 60
   _turnLerp: 0.032
   _additionalGravity: 20
+  _gravityDamper: 0
+  _restPositionFromGround: 0
   _groundDetectionDistance: 0.8
   _groundLayer:
     serializedVersion: 2
@@ -25357,16 +25518,6 @@ MonoBehaviour:
   ForceMode: 1
   _body: {fileID: 0}
   _isLeftHead: 1
-  offset: 3
-  period: 0
-  forceCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  amplitude: 0
-  segmentOffset: 0
 --- !u!54 &919277103
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -25446,7 +25597,7 @@ Transform:
   m_GameObject: {fileID: 926458652}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 0.8333331, y: 0.8333333, z: 0.8333331}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -28453,21 +28604,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 1247230249}
-  <BodyParts>k__BackingField:
-  - {fileID: 1247230249}
-  - {fileID: 1612728547}
-  - {fileID: 2106361318}
-  - {fileID: 61168314}
-  - {fileID: 27905971}
-  - {fileID: 1663891495}
-  - {fileID: 2048324099}
-  - {fileID: 1397688163}
-  - {fileID: 475303680}
-  - {fileID: 415084675}
-  - {fileID: 954779646}
   _speed: 120
   _turnLerp: 0.032
   _additionalGravity: 20
+  _gravityDamper: 0
+  _restPositionFromGround: 0
   _groundDetectionDistance: 0.8
   _groundLayer:
     serializedVersion: 2
@@ -28475,16 +28616,6 @@ MonoBehaviour:
   ForceMode: 1
   _body: {fileID: 0}
   _isLeftHead: 0
-  offset: 0
-  period: 3
-  forceCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  amplitude: 0
-  segmentOffset: 0
 --- !u!1 &1252993752
 GameObject:
   m_ObjectHideFlags: 0
@@ -28495,7 +28626,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1252993753}
   - component: {fileID: 1252993754}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28797,7 +28928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1270293613}
   - component: {fileID: 1270293614}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29184,7 +29315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1291914499}
   - component: {fileID: 1291914500}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29628,10 +29759,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 1308065641}
-  <BodyParts>k__BackingField: []
   _speed: 60
   _turnLerp: 0.032
   _additionalGravity: 20
+  _gravityDamper: 0
+  _restPositionFromGround: 0
   _groundDetectionDistance: 0.8
   _groundLayer:
     serializedVersion: 2
@@ -29639,16 +29771,6 @@ MonoBehaviour:
   ForceMode: 1
   _body: {fileID: 0}
   _isLeftHead: 0
-  offset: 0
-  period: 3
-  forceCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  amplitude: 0
-  segmentOffset: 0
 --- !u!54 &1308065641
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31200,7 +31322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1440669993}
   - component: {fileID: 1440669994}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mouse_Body(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31270,8 +31392,8 @@ MonoBehaviour:
   _followLerp: 0.207
   _forceMode: 1
   _useY: 1
-  _additionalGravity: 20
-  _groundDetectionDistance: 0.8
+  _additionalGravity: 8
+  _groundDetectionDistance: 100000
   _groundLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -31958,7 +32080,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1481662043}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ede47cc5d1b184242864dbd9583c3f6f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -32087,7 +32209,7 @@ GameObject:
   - component: {fileID: 1512961942}
   - component: {fileID: 1512961943}
   - component: {fileID: 1512961944}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32274,7 +32396,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1557849592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32490,27 +32612,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 1593810680}
-  <BodyParts>k__BackingField: []
   _speed: 60
   _turnLerp: 0.032
-  _additionalGravity: 20
-  _groundDetectionDistance: 0.8
+  _additionalGravity: 8
+  _gravityDamper: 0.05
+  _restPositionFromGround: 2
+  _groundDetectionDistance: 100000
   _groundLayer:
     serializedVersion: 2
     m_Bits: 1
   ForceMode: 1
   _body: {fileID: 1440669994}
   _isLeftHead: 0
-  offset: 3
-  period: 0
-  forceCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  amplitude: 0
-  segmentOffset: 0
 --- !u!54 &1593810680
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -32975,7 +33088,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1627549194}
   - component: {fileID: 1627549195}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32990,7 +33103,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627549193}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35102212, y: 0.010377572, z: -0.0038905805, w: 0.9363016}
+  m_LocalRotation: {x: 0.35102212, y: 0.010377552, z: -0.003890574, w: 0.93630165}
   m_LocalPosition: {x: 4.0599995, y: 37, z: -42.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -38571,21 +38684,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 954779646}
-  <BodyParts>k__BackingField:
-  - {fileID: 954779646}
-  - {fileID: 415084675}
-  - {fileID: 475303680}
-  - {fileID: 1397688163}
-  - {fileID: 2048324099}
-  - {fileID: 1663891495}
-  - {fileID: 27905971}
-  - {fileID: 61168314}
-  - {fileID: 2106361318}
-  - {fileID: 1612728547}
-  - {fileID: 1247230249}
   _speed: 120
   _turnLerp: 0.032
   _additionalGravity: 20
+  _gravityDamper: 0
+  _restPositionFromGround: 0
   _groundDetectionDistance: 0.8
   _groundLayer:
     serializedVersion: 2
@@ -38593,16 +38696,6 @@ MonoBehaviour:
   ForceMode: 1
   _body: {fileID: 0}
   _isLeftHead: 1
-  offset: 3
-  period: 0
-  forceCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  amplitude: 0
-  segmentOffset: 0
 --- !u!136 &1685251959
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -38688,22 +38781,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 1718877894}
-  <BodyParts>k__BackingField:
-  - {fileID: 1718877894}
-  - {fileID: 1058111632}
-  - {fileID: 1862475208}
-  - {fileID: 488611183}
-  - {fileID: 1684266463}
-  - {fileID: 1464155174}
-  - {fileID: 543161904}
-  - {fileID: 1103819688}
-  - {fileID: 993872750}
-  - {fileID: 1172827196}
-  - {fileID: 437705775}
-  - {fileID: 1802707901}
   _speed: 40
   _turnLerp: 0.032
   _additionalGravity: 20
+  _gravityDamper: 0
+  _restPositionFromGround: 0
   _groundDetectionDistance: 0.8
   _groundLayer:
     serializedVersion: 2
@@ -38711,16 +38793,6 @@ MonoBehaviour:
   ForceMode: 1
   _body: {fileID: 0}
   _isLeftHead: 0
-  offset: 0
-  period: 0
-  forceCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  amplitude: 0
-  segmentOffset: 0
 --- !u!65 &1718877896
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39532,7 +39604,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1781174831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40372,22 +40444,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 1802707901}
-  <BodyParts>k__BackingField:
-  - {fileID: 1802707901}
-  - {fileID: 437705775}
-  - {fileID: 1172827196}
-  - {fileID: 993872750}
-  - {fileID: 1103819688}
-  - {fileID: 543161904}
-  - {fileID: 1464155174}
-  - {fileID: 1684266463}
-  - {fileID: 488611183}
-  - {fileID: 1862475208}
-  - {fileID: 1058111632}
-  - {fileID: 1718877894}
   _speed: 40
   _turnLerp: 0.032
   _additionalGravity: 20
+  _gravityDamper: 0
+  _restPositionFromGround: 0
   _groundDetectionDistance: 0.8
   _groundLayer:
     serializedVersion: 2
@@ -40395,16 +40456,6 @@ MonoBehaviour:
   ForceMode: 1
   _body: {fileID: 0}
   _isLeftHead: 0
-  offset: 0
-  period: 0
-  forceCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  amplitude: 0
-  segmentOffset: 0
 --- !u!54 &1802707901
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -41086,7 +41137,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1856808041}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ede47cc5d1b184242864dbd9583c3f6f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -46390,27 +46441,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 1889844062}
-  <BodyParts>k__BackingField: []
   _speed: 60
   _turnLerp: 0.032
-  _additionalGravity: 20
-  _groundDetectionDistance: 0.8
+  _additionalGravity: 8
+  _gravityDamper: 0.05
+  _restPositionFromGround: 2
+  _groundDetectionDistance: 100000
   _groundLayer:
     serializedVersion: 2
     m_Bits: 1
   ForceMode: 1
   _body: {fileID: 1440669994}
   _isLeftHead: 1
-  offset: 3
-  period: 0
-  forceCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  amplitude: 0
-  segmentOffset: 0
 --- !u!54 &1889844062
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -47387,7 +47429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1965841104}
   - component: {fileID: 1965841105}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52639,7 +52681,7 @@ Transform:
   m_GameObject: {fileID: 2013675336}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 0.8333331, y: 0.8333333, z: 0.8333331}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -52695,7 +52737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2014708839}
   - component: {fileID: 2014708840}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53523,7 +53565,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.4377977
+  m_Height: 0.6
   m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2101257730
@@ -53855,7 +53897,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2116654152}
   - component: {fileID: 2116654153}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54094,7 +54136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2136112969}
   - component: {fileID: 2136112970}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

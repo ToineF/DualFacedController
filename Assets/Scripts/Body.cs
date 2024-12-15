@@ -15,14 +15,12 @@ public class Body : MonoBehaviour
     [SerializeField] private float _followStrength;
     [SerializeField] private float _damper;
     [SerializeField] private float _restDistance;
-    //[SerializeField] private float _startBodySpeed;
-    //[SerializeField] private float _endBodySpeed;
     [SerializeField, Range(0, 1)] private float _followLerp;
     [SerializeField] private ForceMode _forceMode;
     [SerializeField] private bool _useY = true;
-    [SerializeField] private float _additionalGravity;
 
     [Header("Ground Detection")]
+    [SerializeField] private float _additionalGravity;
     [SerializeField] private float _groundDetectionDistance;
     [SerializeField] private LayerMask _groundLayer;
 

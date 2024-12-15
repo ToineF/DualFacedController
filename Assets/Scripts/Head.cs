@@ -1,4 +1,7 @@
+using Cinemachine.Utility;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Head : MonoBehaviour
 {
@@ -10,12 +13,13 @@ public class Head : MonoBehaviour
     [field: SerializeField]
     public Rigidbody Rigidbody { get; set; }
 
-    [field: SerializeField] public Rigidbody[] BodyParts { get; set; }
     [SerializeField] private float _speed;
     [SerializeField, Range(0, 1)] private float _turnLerp;
 
-    [Header("Ground Detection")] [SerializeField]
-    private float _additionalGravity;
+    [Header("Ground Detection")]
+    [SerializeField] private float _additionalGravity;
+    [SerializeField] private float _gravityDamper;
+    [SerializeField] private float _restPositionFromGround;
 
     [SerializeField] private float _groundDetectionDistance;
     [SerializeField] private LayerMask _groundLayer;
@@ -48,6 +52,7 @@ public class Head : MonoBehaviour
     {
         var targetDirection = _isLeftHead ? UserInput.Instance.LeftMoveInput : UserInput.Instance.RightMoveInput;
         _direction = Vector3.Lerp(_direction, targetDirection, _turnLerp);
+
     }
     private void CheckGrab()
     {
@@ -73,15 +78,38 @@ public class Head : MonoBehaviour
         MoveSelf();
         //MoveBodyParts();
         //ApproachBodyParts();
-        MoveSnake();
+        //MoveSnake();
     }
 
     private void MoveSelf()
     {
         Rigidbody.AddForce(new Vector3(_direction.x, 0, _direction.y) * _speed, ForceMode);
-        if (IsGrounded(transform.position) == false) Rigidbody.AddForce(Vector3.down * _additionalGravity, ForceMode);
+        ApplyGravity();
     }
 
+    private void ApplyGravity()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, _groundDetectionDistance, _groundLayer))
+        {
+            float groundHeight = hit.point.y;
+            float currentHeight = transform.position.y;
+
+            // Calculate the difference from the target height
+            float distanceToTarget = (groundHeight + _restPositionFromGround) - currentHeight;
+
+            // Apply spring force to float the character
+            Vector3 force = Vector3.up * distanceToTarget * _additionalGravity;
+
+            // Apply damping force to gradually reduce the force
+            Vector3 velocity = Vector3.up * Rigidbody.velocity.y;
+            force -= velocity * _gravityDamper;
+
+            // Apply the force to the Rigidbody
+            Rigidbody.AddForce(force, ForceMode);
+        }
+    }
+    /*
     [Header("Snake")]
     public float offset;
     public float period;
@@ -89,18 +117,20 @@ public class Head : MonoBehaviour
     public float amplitude;
     public float segmentOffset;
     private float T;
+    
 
     private void MoveSnake()
     {
         T += Time.deltaTime;
-        /*for (int i = 0; i < BodyParts.Length; i++)
-        {
-            var s = Mathf.Sin((T + offset) / period) * amplitude;
-            var forceMultiplier = forceCurve.Evaluate((float)i / BodyParts.Length);
-            BodyParts[i].AddForce(transform.right * (s * forceMultiplier), ForceMode.VelocityChange);
-            offset += segmentOffset;
-        }    */
+        //for (int i = 0; i < BodyParts.Length; i++)
+        //{
+        //    var s = Mathf.Sin((T + offset) / period) * amplitude;
+        //    var forceMultiplier = forceCurve.Evaluate((float)i / BodyParts.Length);
+        //    BodyParts[i].AddForce(transform.right * (s * forceMultiplier), ForceMode.VelocityChange);
+        //    offset += segmentOffset;
+        //}    
     }
+    */
 
 
     private bool IsGrounded(Vector3 position)

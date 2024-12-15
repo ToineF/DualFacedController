@@ -419,7 +419,7 @@ Transform:
   m_GameObject: {fileID: 4346021782892967892}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 0.8333331, y: 0.8333333, z: 0.8333331}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -563,31 +563,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 1398752603221234977}
-  <BodyParts>k__BackingField: []
   _speed: 60
-  _endBodySpeed: 0.1
-  _useY: 1
   _turnLerp: 0.032
-  _followLerp: 0.617
-  _targetDistance: 1
-  forceIterations: 1
-  _additionalGravity: 20
-  _groundDetectionDistance: 0.8
+  _additionalGravity: 8
+  _gravityDamper: 0.5
+  _restPositionFromGround: 2
+  _groundDetectionDistance: 10000
   _groundLayer:
     serializedVersion: 2
     m_Bits: 1
   ForceMode: 1
+  _body: {fileID: 0}
   _isLeftHead: 1
-  offset: 3
-  period: 0
-  forceCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  amplitude: 0
-  segmentOffset: 0
 --- !u!1 &5095277389843311542
 GameObject:
   m_ObjectHideFlags: 0
