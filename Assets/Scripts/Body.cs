@@ -79,7 +79,7 @@ public class Body : MonoBehaviour
     }
 
     [SerializeField] private int _bodyPartsGizmos = 8;
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         if (Application.isPlaying == false) return;
         
@@ -105,7 +105,7 @@ public class Body : MonoBehaviour
             // Damping
             GizmoExtensions.DrawArrow(bodyPart.position, damper, Color.magenta);
         }
-    }
+    }*/
 
     private bool IsGrounded(Vector3 position)
     {
