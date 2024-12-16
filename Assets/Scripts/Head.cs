@@ -1,10 +1,11 @@
-using Cinemachine.Utility;
-using UnityEditor;
+using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Head : MonoBehaviour
 {
+    public Action OnSeparate;
+    public Action OnConnect;
+
     public Vector2 Direction => _direction;
     public bool IsGrabbing { get; private set; }
     public bool IsSeparated { get; private set; }
@@ -66,6 +67,8 @@ public class Head : MonoBehaviour
         if ((_isLeftHead ? UserInput.Instance.LeftSeparationInput : UserInput.Instance.RightSeparationInput) == false) return;
 
         IsSeparated = !IsSeparated;
+        if (IsSeparated) OnSeparate?.Invoke();
+        else OnConnect?.Invoke();
 
         if (_isLeftHead)
             _body.Head = IsSeparated ? null : this;
