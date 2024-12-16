@@ -1,5 +1,4 @@
 ﻿using System;
-using AntoineFoucault.Utilities;
 using UnityEngine;
 
 public class Body : MonoBehaviour
@@ -18,6 +17,7 @@ public class Body : MonoBehaviour
     [SerializeField, Range(0, 1)] private float _followLerp;
     [SerializeField] private ForceMode _forceMode;
     [SerializeField] private bool _useY = true;
+    [SerializeField] private float _maxMagnitude;
 
     [Header("Ground Detection")]
     [SerializeField] private float _additionalGravity;
@@ -73,7 +73,8 @@ public class Body : MonoBehaviour
         var offset2 = (_restDistance - offset.sqrMagnitude) * targetDirection;
         var force = -offset2 * _followStrength;
         var damper = bodyPart.velocity * _damper;
-        bodyPart.AddForce(force - damper, _forceMode);
+        var totalForce = force - damper;
+        bodyPart.AddForce(Vector3.ClampMagnitude(totalForce, _maxMagnitude), _forceMode);
         //bodyPart.AddForce(Mathf.Sin(i + T) * Vector3.Cross(force.normalized * amplitude, Vector3.up), _forceMode);
         if (IsGrounded(bodyPart.transform.position) == false) bodyPart.AddForce(Vector3.down * _additionalGravity, _forceMode);
     }
