@@ -31,6 +31,9 @@ public class Head : MonoBehaviour
 
     [SerializeField] private Body _body;
 
+    [Header("Jump")]
+    [SerializeField] private float _heightForce;
+
     [Header("Input Properties")]
     [SerializeField] private bool _isLeftHead;
 
@@ -59,7 +62,10 @@ public class Head : MonoBehaviour
     {
         IsGrabbing = _isLeftHead ? UserInput.Instance.LeftGrabInput : UserInput.Instance.RightGrabInput;
 
-        Rigidbody.isKinematic = IsGrabbing;
+        //Rigidbody.isKinematic = IsGrabbing;
+        var isJumping = _isLeftHead ? UserInput.Instance.LeftGrabInputReleased : UserInput.Instance.RightGrabInputReleased;
+        //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
+        if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
     }
 
     private void CheckSeparation()
