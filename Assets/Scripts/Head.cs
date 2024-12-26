@@ -25,11 +25,16 @@ public class Head : MonoBehaviour
     [SerializeField] private float _groundDetectionDistance;
     [SerializeField] private LayerMask _groundLayer;
 
+
     public ForceMode ForceMode;
     //public float forceTobODYPARTS = 1f;
     //public int forceiterations = 1;
 
     [SerializeField] private Body _body;
+
+    [Header("Grab")]
+    [SerializeField] private float _grabRadius;
+    [SerializeField] private LayerMask _grabLayerMask;
 
     [Header("Jump")]
     [SerializeField] private float _heightForce;
@@ -39,6 +44,8 @@ public class Head : MonoBehaviour
 
     private Vector2 _direction;
     private RaycastHit[] _groundHits;
+
+    private IGrabbable _currentGrabbable;
 
     private void Start()
     {
@@ -64,8 +71,37 @@ public class Head : MonoBehaviour
 
         //Rigidbody.isKinematic = IsGrabbing;
         var isJumping = _isLeftHead ? UserInput.Instance.LeftGrabInputReleased : UserInput.Instance.RightGrabInputReleased;
+        var jumpForce = Vector3.up;
+        if (IsSeparated && _body.Head != null && _body.Tail != null) jumpForce = _body.Head.transform.position - _body.Tail.transform.position;
+        jumpForce.Normalize();
+        if (_isLeftHead) jumpForce *= -1;
+
         //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
-        if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
+        if (isJumping) Rigidbody.AddForce(jumpForce * _heightForce, ForceMode);
+
+        if (isJumping) {
+            if (_currentGrabbable == null) 
+                Grab();
+            else 
+            {
+                _currentGrabbable.OnUngrab(Rigidbody);
+                _currentGrabbable = null;
+            }
+        }
+    }
+
+    private void Grab()
+    {
+        var colliders = Physics.OverlapSphere(transform.position, _grabRadius, _grabLayerMask);
+        foreach (var collider in colliders)
+        {
+            if (collider.TryGetComponent(out IGrabbable grabbable))
+            {
+                _currentGrabbable = grabbable;
+                _currentGrabbable.OnGrab(Rigidbody);
+                break;
+            }
+        }
     }
 
     private void CheckSeparation()
@@ -92,8 +128,15 @@ public class Head : MonoBehaviour
 
     private void MoveSelf()
     {
-        Rigidbody.AddForce(new Vector3(_direction.x, 0, _direction.y) * _speed, ForceMode);
+        var force = new Vector3(_direction.x, 0, _direction.y) * _speed;
+        Rigidbody.AddForce(force, ForceMode);
+        ApplyGrabbableForce(force);
         ApplyGravity();
+    }
+
+    private void ApplyGrabbableForce(Vector3 force)
+    {
+        if (_currentGrabbable != null) _currentGrabbable.AddForce(force);
     }
 
     private void ApplyGravity()
