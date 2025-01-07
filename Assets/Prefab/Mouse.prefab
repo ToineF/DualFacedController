@@ -519,10 +519,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.690558
-  m_Height: 2.6856487
+  m_Radius: 0.36
+  m_Height: 0
   m_Direction: 2
-  m_Center: {x: 4.9411544e-13, y: 0.056983627, z: -0.04471997}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1398752603221234977
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -563,6 +563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigidbody>k__BackingField: {fileID: 1398752603221234977}
+  <Collider>k__BackingField: {fileID: 3716422428597438544}
   _speed: 60
   _turnLerp: 0.032
   _additionalGravity: 8
@@ -574,6 +575,11 @@ MonoBehaviour:
     m_Bits: 1
   ForceMode: 1
   _body: {fileID: 0}
+  _grabRadius: 0
+  _grabLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _heightForce: 0
   _isLeftHead: 1
 --- !u!1 &5095277389843311542
 GameObject:

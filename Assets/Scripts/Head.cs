@@ -11,8 +11,8 @@ public class Head : MonoBehaviour
     public bool IsSeparated { get; private set; }
 
     [field: Header("Head Properties")]
-    [field: SerializeField]
-    public Rigidbody Rigidbody { get; set; }
+    [field: SerializeField] public Rigidbody Rigidbody { get; set; }
+    [field: SerializeField] public CapsuleCollider Collider { get; set; }
 
     [SerializeField] private float _speed;
     [SerializeField, Range(0, 1)] private float _turnLerp;
@@ -142,7 +142,9 @@ public class Head : MonoBehaviour
     private void ApplyGravity()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, _groundDetectionDistance, _groundLayer))
+        //if (Physics.Raycast(transform.position, Vector3.down, out hit, _groundDetectionDistance, _groundLayer))
+        //AntoineFoucault.Utilities.ColliderExtensions.GetCapsulePoints(Collider, out Vector3 p1, out Vector3 p2);
+        if (Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out hit, _groundDetectionDistance, _groundLayer))
         {
             float groundHeight = hit.point.y;
             float currentHeight = transform.position.y;
@@ -193,6 +195,7 @@ public class Head : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawRay(transform.position, Vector3.down * _groundDetectionDistance);
+        //Gizmos.DrawRay(transform.position, Vector3.down * _groundDetectionDistance);
+        AntoineFoucault.Utilities.GizmoExtensions.DrawSphereCast(transform.position, Collider.height/2, Vector3.down, _groundDetectionDistance);
     }
 }
