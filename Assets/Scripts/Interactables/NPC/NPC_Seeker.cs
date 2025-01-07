@@ -3,6 +3,8 @@
 
 public class NPC_Seeker : MonoBehaviour
 {
+    public Head Target { get; private set; }
+
     [Header("References")]
     [SerializeField] private NPC_LookAt _lookAt;
 
@@ -15,8 +17,8 @@ public class NPC_Seeker : MonoBehaviour
 
     private void Update()
     {
-        var target = GetTarget();
-        _lookAt.Target = target?.gameObject;
+        Target = GetTarget();
+        _lookAt.Target = Target?.gameObject;
     }
 
     private Head GetTarget()
