@@ -56,7 +56,7 @@ public class Head : MonoBehaviour
     {
         CheckMovements();
         CheckGrab();
-        CheckSeparation();
+        //CheckSeparation();
     }
     
     private void CheckMovements()

@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class NPC_LookAt : MonoBehaviour
 {
-    public GameObject _target;
+    public GameObject Target { get; set; }
+
+    [SerializeField] private float _lookAtLerp;
+
+    private Vector3 _lastPosition;
 
     private void Update()
     {
@@ -11,8 +15,14 @@ public class NPC_LookAt : MonoBehaviour
 
     private void UpdateLook()
     {
-        if (_target == null) return;
+        if (Target != null) _lastPosition = Target.transform.position;
 
-        transform.LookAt(_target.transform);
+        //transform.LookAt(_lastPosition);
+        //Vector3 direction = _lastPosition - transform.position;
+        //Quaternion toRotation = Quaternion.FromToRotation(transform.forward, direction);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, _lookAtLerp);
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, _lookAtLerp * Time.deltaTime);
+        var rotation = Quaternion.LookRotation(_lastPosition - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * _lookAtLerp);
     }
 }
