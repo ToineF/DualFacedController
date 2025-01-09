@@ -110,7 +110,7 @@ public class Body : MonoBehaviour
 
     private bool IsGrounded(Vector3 position)
     {
-        return Physics.RaycastNonAlloc(position, Vector3.down, _groundHits, _groundDetectionDistance, _groundLayer) > 0;
+        return Physics.RaycastNonAlloc(position, Vector3.down, _groundHits, _groundDetectionDistance, _groundLayer, QueryTriggerInteraction.Ignore) > 0;
     }
 
     private void UpdateLines()

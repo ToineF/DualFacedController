@@ -144,7 +144,7 @@ public class Head : MonoBehaviour
         RaycastHit hit;
         //if (Physics.Raycast(transform.position, Vector3.down, out hit, _groundDetectionDistance, _groundLayer))
         //AntoineFoucault.Utilities.ColliderExtensions.GetCapsulePoints(Collider, out Vector3 p1, out Vector3 p2);
-        if (Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out hit, _groundDetectionDistance, _groundLayer))
+        if (Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out hit, _groundDetectionDistance, _groundLayer, QueryTriggerInteraction.Ignore))
         {
             float groundHeight = hit.point.y;
             float currentHeight = transform.position.y;
