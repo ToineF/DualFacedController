@@ -1,9 +1,10 @@
-﻿using System;
+﻿using AntoineFoucault.Utilities;
+using System;
 using UnityEngine;
 
 public class Body : MonoBehaviour
 {
-    [field:Header("References")]
+    [field: Header("References")]
     [field: SerializeField] public Rigidbody[] BodyParts { get; set; }
     [field: SerializeField] public Head Head { get; set; }
     [field: SerializeField] public Head Tail { get; set; }
@@ -18,11 +19,13 @@ public class Body : MonoBehaviour
     [SerializeField] private ForceMode _forceMode;
     [SerializeField] private bool _useY = true;
     [SerializeField] private float _maxMagnitude;
+    [SerializeField] private float _unstuckXZForce = 1f;
+    [SerializeField] private float _unstuckYForce = 1f;
 
     [Header("Ground Detection")]
-    [SerializeField] private float _additionalGravity;
     [SerializeField] private float _groundDetectionDistance;
     [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private float _additionalGravity;
 
     private RaycastHit[] _groundHits;
 
@@ -48,7 +51,7 @@ public class Body : MonoBehaviour
             var lastBodyPart = (i == 0) ? Head?.Rigidbody : BodyParts[i - 1];
             var bodyPart = (i == BodyParts.Length) ? Tail?.Rigidbody : BodyParts[i];
             if (lastBodyPart == null || bodyPart == null) continue;
-            
+
             MoveBodyPart(Head, lastBodyPart, bodyPart, i / (BodyParts.Length + 1));
         }
     }
@@ -58,7 +61,7 @@ public class Body : MonoBehaviour
         for (int i = BodyParts.Length; i >= 0; i--)
         {
             var lastBodyPart = (i == BodyParts.Length) ? Tail?.Rigidbody : BodyParts[i];
-            var bodyPart = (i == 0) ? Head?.Rigidbody : BodyParts[i-1];
+            var bodyPart = (i == 0) ? Head?.Rigidbody : BodyParts[i - 1];
             if (lastBodyPart == null || bodyPart == null) continue;
 
             MoveBodyPart(Tail, lastBodyPart, bodyPart, 1 - i / (BodyParts.Length + 1));
@@ -67,20 +70,34 @@ public class Body : MonoBehaviour
 
     private void MoveBodyPart(Head extremity, Rigidbody lastBodyPart, Rigidbody bodyPart, float damperOverBody)
     {
+
         var offset = lastBodyPart.position - bodyPart.position;
         var targetDirection = offset.normalized;
+
+        if (Physics.Raycast(bodyPart.position, targetDirection, out RaycastHit hit, offset.magnitude, _groundLayer, QueryTriggerInteraction.Ignore))
+        {
+            targetDirection = Vector3.ProjectOnPlane(targetDirection, hit.normal).normalized;
+            if (Mathf.Abs(targetDirection.y) > Mathf.Abs(targetDirection.x) && Mathf.Abs(targetDirection.y) > Mathf.Abs(targetDirection.z)) targetDirection *= _unstuckYForce;
+            else targetDirection *= _unstuckXZForce;
+        }
 
         var offset2 = (_restDistance - offset.sqrMagnitude) * targetDirection;
         var force = -offset2 * _followStrength;
         var damper = bodyPart.velocity * _damper;
         var totalForce = force - damper;
-        bodyPart.AddForce(Vector3.ClampMagnitude(totalForce, _maxMagnitude), _forceMode);
+        var finalForce = Vector3.ClampMagnitude(totalForce, _maxMagnitude);
+        bodyPart.AddForce(finalForce, _forceMode);
         //bodyPart.AddForce(Mathf.Sin(i + T) * Vector3.Cross(force.normalized * amplitude, Vector3.up), _forceMode);
+        ApplyGravity(bodyPart);
+    }
+
+    private void ApplyGravity(Rigidbody bodyPart)
+    {
         if (IsGrounded(bodyPart.transform.position) == false) bodyPart.AddForce(Vector3.down * _additionalGravity, _forceMode);
     }
 
-    [SerializeField] private int _bodyPartsGizmos = 8;
-    /*private void OnDrawGizmos()
+    /*[SerializeField] private int _bodyPartsGizmos = 8;
+    private void OnDrawGizmos()
     {
         if (Application.isPlaying == false) return;
         
