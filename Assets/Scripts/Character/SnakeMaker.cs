@@ -49,6 +49,7 @@ public class SnakeMaker : MonoBehaviour
         {
             lines[i] = Instantiate(_linePrefab, linesParent);
         }
+        linesParent.gameObject.SetActive(false);
         body.Lines = lines;
     }
 }
