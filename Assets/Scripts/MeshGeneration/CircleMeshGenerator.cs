@@ -22,20 +22,14 @@ public class CircleMeshGenerator : MonoBehaviour
 
     private void Update()
     {
-        DrawTube();
-        DrawMesh();
-    }
-
-    private void DrawTube()
-    {
         if (_isHollow)
             DrawHollow(_sides, _outerRadius, _innerRadius);
         else
             DrawFilled(_sides, _outerRadius);
+
+        DrawMesh();
     }
-
-    
-
+  
     private void DrawFilled(int sides, float radius)
     {
         _vertices = GetCircumferencePoints(sides, radius).ToArray();
