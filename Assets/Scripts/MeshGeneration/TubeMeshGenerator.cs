@@ -10,11 +10,10 @@ public class TubeMeshGenerator : MonoBehaviour
     [Header("Circle Parameters")]
     [SerializeField] private int _sides;
     [SerializeField] private float _outerRadius;
-    [SerializeField] private float _innerRadius;
 
     [Header("Tube Parameters")]
-    [SerializeField] private int _length;
-    [SerializeField] private float _density;
+    [SerializeField] private Vector3[] _points;
+    [SerializeField] private Vector3 _rotation;
 
     private Mesh _mesh;
     private Vector3[] _vertices;
@@ -26,20 +25,22 @@ public class TubeMeshGenerator : MonoBehaviour
         _meshFilter.mesh = _mesh;
     }
 
-    private void Update()
+    public void DrawTube(Vector3[] points, float angle)
     {
+        _rotation = angle * Vector3.up;
         var totalVertices = new List<Vector3>();
         var totalTriangles = new List<int>();
 
         var currentVertices = 0;
+        var length = points.Length;
 
         // Create inner circles
-        for (int i = 0; i < _length; i++)
+        for (int i = 0; i < length; i++)
         {
-            var positionOffset = _density * i * Vector3.forward;
+            var positionOffset = points[i];
             var vertices = new Vector3[] { };
             var triangles = new int[] { };
-            var drawTriangles = i == 0 || i == _length - 1;
+            var drawTriangles = i == 0 || i == length - 1;
             var inverseNormal = i == 0;
 
             DrawFilled(positionOffset, _sides, _outerRadius, out vertices, out triangles, currentVertices, drawTriangles, inverseNormal);
@@ -51,13 +52,13 @@ public class TubeMeshGenerator : MonoBehaviour
         }
 
         // Create links between circles
-        for (int i = 0; i < _length - 1; i++)
+        for (int i = 0; i < length - 1; i++)
         {
             //if (_isHollow)
             //    DrawHollowTriangles(positionOffset, _sides, _outerRadius, _innerRadius, out vertices, out triangles, currentVertices);
             //else
             //var vertices = totalVertices.GetRange(i * _sides, _sides).ToArray();
-            totalTriangles.AddRange(DrawFilledTrianglesInCircle(_sides, _length));
+            totalTriangles.AddRange(DrawFilledTrianglesInCircle(_sides, length));
         }
 
         _vertices = totalVertices.ToArray();
@@ -93,6 +94,20 @@ public class TubeMeshGenerator : MonoBehaviour
         {
             var currentRadian = radiantProgressPerStep * i;
             points.Add(new Vector3(Mathf.Cos(currentRadian), Mathf.Sin(currentRadian)) * radius + positionOffset);
+        }
+
+        points = RotateCircle(points, positionOffset, radius);
+
+        return points;
+    }
+
+    private List<Vector3> RotateCircle(List<Vector3> points, Vector3 pivot, float radius)
+    {
+        for (int i = 0; i < points.Count; i++)
+        {
+            var dir = points[i] - pivot; // get point direction relative to pivot
+            dir = Quaternion.Euler(_rotation) * dir; // rotate it
+            points[i] = dir + pivot; // calculate rotated point
         }
 
         return points;

@@ -1,5 +1,5 @@
-﻿using AntoineFoucault.Utilities;
-using System;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 
 public class Body : MonoBehaviour
@@ -9,6 +9,7 @@ public class Body : MonoBehaviour
     [field: SerializeField] public Head Head { get; set; }
     [field: SerializeField] public Head Tail { get; set; }
     [field: SerializeField] public LineRenderer[] Lines { get; set; }
+    [field: SerializeField] public TubeMeshGenerator TubeMeshGenerator { get; set; }
 
     [Header("Parameters")]
     [SerializeField] private int _forceIterations = 1;
@@ -42,6 +43,7 @@ public class Body : MonoBehaviour
             MoveTail();
         }
         UpdateLines();
+        UpdateMesh();
     }
 
     private void MoveHead()
@@ -141,5 +143,12 @@ public class Body : MonoBehaviour
             Lines[i].SetPosition(0, lastBodyPart.Value);
             Lines[i].SetPosition(1, bodyPart.Value);
         }
+    }
+
+    private void UpdateMesh()
+    {
+        var relative = BodyParts[0].position - BodyParts[BodyParts.Length - 1].position;
+        float angle = Mathf.Atan2(-relative.x, -relative.z) * Mathf.Rad2Deg;
+        TubeMeshGenerator.DrawTube(BodyParts.Select(e => e.position).ToArray(), angle);
     }
 }
