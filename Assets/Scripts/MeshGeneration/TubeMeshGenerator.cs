@@ -135,10 +135,9 @@ public class TubeMeshGenerator : MonoBehaviour
             for (int j = 0; j < sides; j++)
             {
                 var v1 = j + indexOffset;
-                var v2 = (j + 1)%sides + indexOffset;
+                var v2 = (j + 1) % sides + indexOffset;
                 var v3 = j + nextCircle;
-                var v4 = (j + nextCircle + 1);
-                if (v4 >= length * sides) v4 = v4 - sides;
+                var v4 = (j + 1) % sides + nextCircle;
 
                 newTriangles.AddRange(DrawFilledTriangles(v1, v2, v3));
                 newTriangles.AddRange(DrawFilledTriangles(v2, v4, v3));
