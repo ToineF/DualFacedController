@@ -7,6 +7,7 @@ public class Head : MonoBehaviour
     public Action OnConnect;
 
     public Vector2 Direction => _direction;
+    public Vector2 LastDirection => _lastDirection;
     public IGrabbable CurrentGrabbable { get => _currentGrabbable; set => _currentGrabbable = value; }
     public bool IsGrabbing { get; private set; }
     public bool IsSeparated { get; private set; }
@@ -43,7 +44,11 @@ public class Head : MonoBehaviour
     [Header("Input Properties")]
     [SerializeField] private bool _isLeftHead;
 
+    [Header("Ability")]
+    [SerializeField] private Ability _ability;
+
     private Vector2 _direction;
+    private Vector2 _lastDirection;
     private RaycastHit[] _groundHits;
 
     private IGrabbable _currentGrabbable;
@@ -57,13 +62,14 @@ public class Head : MonoBehaviour
     {
         CheckMovements();
         CheckGrab();
-        //CheckSeparation();
+        CheckAbility();
     }
     
     private void CheckMovements()
     {
         var targetDirection = _isLeftHead ? UserInput.Instance.LeftMoveInput : UserInput.Instance.RightMoveInput;
         _direction = Vector3.Lerp(_direction, targetDirection, _turnLerp);
+        if (_direction.magnitude > 0.1f) _lastDirection = _direction;
 
     }
     private void CheckGrab()
@@ -109,6 +115,14 @@ public class Head : MonoBehaviour
     {
         if ((_isLeftHead ? UserInput.Instance.LeftSeparationInput : UserInput.Instance.RightSeparationInput) == false) return;
         ToggleSeparation();
+    }
+
+    private void CheckAbility()
+    {
+        if (_ability == null) return;
+        if ((_isLeftHead ? UserInput.Instance.LeftSeparationInput : UserInput.Instance.RightSeparationInput) == false) return;
+        
+        _ability.UseAbility(this);
     }
 
     public void ToggleSeparation()
