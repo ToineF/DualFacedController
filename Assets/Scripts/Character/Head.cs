@@ -7,6 +7,7 @@ public class Head : MonoBehaviour
     public Action OnConnect;
 
     public Vector2 Direction => _direction;
+    public IGrabbable CurrentGrabbable { get => _currentGrabbable; set => _currentGrabbable = value; }
     public bool IsGrabbing { get; private set; }
     public bool IsSeparated { get; private set; }
 
@@ -84,7 +85,7 @@ public class Head : MonoBehaviour
                 Grab();
             else 
             {
-                _currentGrabbable.OnUngrab(Rigidbody);
+                _currentGrabbable.OnUngrab(this);
                 _currentGrabbable = null;
             }
         }
@@ -98,7 +99,7 @@ public class Head : MonoBehaviour
             if (collider.TryGetComponent(out IGrabbable grabbable))
             {
                 _currentGrabbable = grabbable;
-                _currentGrabbable.OnGrab(Rigidbody);
+                _currentGrabbable.OnGrab(this);
                 break;
             }
         }
@@ -107,8 +108,23 @@ public class Head : MonoBehaviour
     private void CheckSeparation()
     {
         if ((_isLeftHead ? UserInput.Instance.LeftSeparationInput : UserInput.Instance.RightSeparationInput) == false) return;
+        ToggleSeparation();
+    }
 
+    public void ToggleSeparation()
+    {
         IsSeparated = !IsSeparated;
+        OnSeparation();
+    }
+    
+    public void SetSeparation(bool isSeparated)
+    {
+        IsSeparated = isSeparated;
+        OnSeparation();
+    }
+
+    private void OnSeparation()
+    {
         if (IsSeparated) OnSeparate?.Invoke();
         else OnConnect?.Invoke();
 
@@ -153,7 +169,7 @@ public class Head : MonoBehaviour
             float distanceToTarget = (groundHeight + _restPositionFromGround) - currentHeight;
 
             // Apply spring force to float the character
-            Vector3 force = Vector3.up * distanceToTarget * _additionalGravity;
+            Vector3 force = distanceToTarget * _additionalGravity * Vector3.up;
 
             // Apply damping force to gradually reduce the force
             Vector3 velocity = Vector3.up * Rigidbody.velocity.y;

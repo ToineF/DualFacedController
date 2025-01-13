@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class NPC_LookAt : MonoBehaviour
@@ -7,6 +8,11 @@ public class NPC_LookAt : MonoBehaviour
     [SerializeField] private float _lookAtLerp;
 
     private Vector3 _lastPosition;
+
+    private void Start()
+    {
+        _lastPosition = transform.position + transform.forward;
+    }
 
     private void Update()
     {

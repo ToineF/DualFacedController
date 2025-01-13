@@ -10,17 +10,17 @@ public class FakeParent : MonoBehaviour, IGrabbable
     [SerializeField] private bool _useY;
     [SerializeField] private ForceMode ForceMode;
 
-    public void OnGrab(Rigidbody rb)
+    public void OnGrab(Head head)
     {
-        _rigidbodyToApproach = rb;
+        _rigidbodyToApproach = head.Rigidbody;
     }
 
-    public void OnUngrab(Rigidbody rb)
+    public void OnUngrab(Head head)
     {
         _rigidbodyToApproach = null;
         _selfRigidbody.velocity = Vector3.zero;
         _selfRigidbody.angularVelocity = Vector3.zero;
-        OnUngrabInternal(rb);
+        OnUngrabInternal(head.Rigidbody);
     }
 
     protected virtual void OnUngrabInternal(Rigidbody rb)

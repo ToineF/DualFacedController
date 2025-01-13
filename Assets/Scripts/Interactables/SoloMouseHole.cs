@@ -1,0 +1,13 @@
+using UnityEngine;
+
+public class SoloMouseHole : MonoBehaviour
+{
+    [SerializeField] private GameObject _collider;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out Head head) == false) return;
+        
+        _collider.SetActive(head.IsSeparated == false);
+    }
+}
