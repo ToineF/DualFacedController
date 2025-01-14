@@ -50,8 +50,10 @@ public class NPC_Seeker : MonoBehaviour
         return target;
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         AntoineFoucault.Utilities.GizmoExtensions.DrawSphereCast(transform.position, _seekRadius, transform.forward, _seekDistance, Color.green);
     }
+#endif
 }

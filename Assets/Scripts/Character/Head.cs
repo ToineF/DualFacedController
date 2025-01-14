@@ -223,9 +223,11 @@ public class Head : MonoBehaviour
             _groundLayer) > 0;
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         //Gizmos.DrawRay(transform.position, Vector3.down * _groundDetectionDistance);
         AntoineFoucault.Utilities.GizmoExtensions.DrawSphereCast(transform.position, Collider.height/2, Vector3.down, _groundDetectionDistance);
     }
+#endif
 }

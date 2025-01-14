@@ -18,7 +18,6 @@ public class Body : MonoBehaviour
     [SerializeField] private float _restDistance;
     [SerializeField, Range(0, 1)] private float _followLerp;
     [SerializeField] private ForceMode _forceMode;
-    [SerializeField] private bool _useY = true;
     [SerializeField] private float _maxMagnitude;
     [SerializeField] private float _unstuckXZForce = 1f;
     [SerializeField] private float _unstuckYForce = 1f;

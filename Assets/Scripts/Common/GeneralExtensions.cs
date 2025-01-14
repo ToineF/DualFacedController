@@ -542,14 +542,14 @@ namespace AntoineFoucault.Utilities
         {
             return list[UnityEngine.Random.Range(0, list.Count)];
         }
-	public static T GetRandomItem<T>(this IList<T> list, int size)
-	{
-	    return list[UnityEngine.Random.Range(0, Mathf.Min(list.Count, size))];
-	}
-	public static T GetRandomItem<T>(this IList<T> list, int start, int end)
-	{
-	    return list[UnityEngine.Random.Range(Mathf.Max(0, start), Mathf.Min(list.Count, end))];
-	}
+        public static T GetRandomItem<T>(this IList<T> list, int size)
+        {
+            return list[UnityEngine.Random.Range(0, Mathf.Min(list.Count, size))];
+        }
+        public static T GetRandomItem<T>(this IList<T> list, int start, int end)
+        {
+            return list[UnityEngine.Random.Range(Mathf.Max(0, start), Mathf.Min(list.Count, end))];
+        }
 
         public static T GetRandomItemExcluding<T>(this IList<T> list, int excludedIndex)
         {
@@ -663,7 +663,7 @@ namespace AntoineFoucault.Utilities
             for (int i = 1; i < list.Count; i++)
             {
                 var item = list[i];
-                float distance = Mathf.Pow(item.transform.position.x - position.x, 2) + 
+                float distance = Mathf.Pow(item.transform.position.x - position.x, 2) +
                                  Mathf.Pow(item.transform.position.y - position.y, 2) +
                                  Mathf.Pow(item.transform.position.z - position.z, 2);
 
@@ -762,10 +762,10 @@ namespace AntoineFoucault.Utilities
             p2 = p1 + direction * collider.height;
         }
     }
-    
+
     public static class SpriteRendererExtensions
     {
-        public static void SetAlpha( this SpriteRenderer renderer , float alpha )
+        public static void SetAlpha(this SpriteRenderer renderer, float alpha)
         {
             renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, alpha);
         }
@@ -788,13 +788,6 @@ namespace AntoineFoucault.Utilities
             Gizmos.color = color;
             DrawArrow(pos, direction, arrowHeadLength, arrowHeadAngle);
         }
-
-        public static void DrawWireCircle(Vector3 center, Vector3 rotation, float radius, float thickness = 1f, Color color = default)
-        {
-            if (color == default) color = Color.white;
-            Handles.color = color;
-            Handles.DrawWireDisc(center, rotation, radius, thickness);
-        }
         public static void DrawSphereCast(Vector3 origin, float radius, Vector3 direction, float maxDistance, Color color = default)
         {
             if (color == default) color = Color.white;
@@ -802,6 +795,14 @@ namespace AntoineFoucault.Utilities
             Gizmos.DrawWireSphere(origin, radius);
             Gizmos.DrawLine(origin, origin + direction * maxDistance);
             Gizmos.DrawWireSphere(origin + direction * maxDistance, radius);
+        }
+
+#if UNITY_EDITOR
+        public static void DrawWireCircle(Vector3 center, Vector3 rotation, float radius, float thickness = 1f, Color color = default)
+        {
+            if (color == default) color = Color.white;
+            Handles.color = color;
+            Handles.DrawWireDisc(center, rotation, radius, thickness);
         }
 
         public static void DrawWireCapsule(Vector3 _pos, Quaternion _rot, float _radius, float _height, Color _color = default(Color))
@@ -829,6 +830,7 @@ namespace AntoineFoucault.Utilities
 
             }
         }
+#endif
     }
 
     public static class StringExtensions
@@ -843,7 +845,7 @@ namespace AntoineFoucault.Utilities
             else return "th";
         }
 
- 	public static string ReplaceFirst(this string text, string search, string replace)
+        public static string ReplaceFirst(this string text, string search, string replace)
         {
             int pos = text.IndexOf(search);
             if (pos < 0)
