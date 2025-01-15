@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EarthPillarMaker : Ability
@@ -9,6 +10,7 @@ public class EarthPillarMaker : Ability
     [SerializeField] private int _earthPillarPoolCount = 5;
     [SerializeField] private float _distanceFromUser = 1f;
     [SerializeField] private float _sphereCastRadius = 3f;
+    [SerializeField] private float _upRaycastOffset;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private LayerMask _objectsLayer;
 
@@ -41,7 +43,7 @@ public class EarthPillarMaker : Ability
         pillar.gameObject.SetActive(true);
         var lastDirection = user.LastDirection.normalized;
         var targetPosition = user.transform.position +
-                                    new Vector3(lastDirection.x, 0, lastDirection.y) * _distanceFromUser;
+                                    new Vector3(lastDirection.x, 0, lastDirection.y) * _distanceFromUser + Vector3.up * _upRaycastOffset;
         
         //Physics.SphereCast(targetPosition, _sphereCastRadius, Vector3.down, out RaycastHit objectHit, Mathf.Infinity, _objectsLayer);
         //if (objectHit.collider == null || objectHit.collider.gameObject.GetComponent<Rigidbody>() == null) return;
@@ -51,19 +53,28 @@ public class EarthPillarMaker : Ability
         if (hit.collider != null) pillar.transform.position = hit.point;
         var rb = pillar.GetComponent<Rigidbody>();
         if (rb == null) return;
-        
+        Debug.Log(hit.collider.gameObject);
         //objectHit.transform.DOMoveY(_pillarOutY, _pillarOutAnimTime).SetEase(_pillarOutAnimEase);
-        pillar.transform.position = new Vector3(targetPosition.x, _pillarInY, targetPosition.z);
-        pillar.transform.DOMoveY(_pillarOutY, _pillarOutAnimTime).SetEase(_pillarOutAnimEase).OnUpdate(() => rb.MovePosition(rb.gameObject.transform.position));
+        if (hit.collider.GetComponent<EarthPillar>())
+        {
+            pillar.SetActive(false);
+            hit.collider.gameObject.transform.DOMoveY(hit.point.y + _pillarInY, _pillarInAnimTime).SetEase(_pillarInAnimEase).OnUpdate(() => rb.MovePosition(rb.gameObject.transform.position)).OnComplete(() => hit.collider.gameObject.SetActive(false));
+            _currentPillars--;
+        }
+        else
+        {
+            pillar.transform.position = new Vector3(targetPosition.x, _pillarInY, targetPosition.z);
+            pillar.transform.DOMoveY(hit.point.y + _pillarOutY, _pillarOutAnimTime).SetEase(_pillarOutAnimEase).OnUpdate(() => rb.MovePosition(pillar.transform.position));
+            _currentPillars++;
+        }
 
-        _currentPillars++;
         if (_currentPillars > _maxEarthPillarCount)
         {
             _currentPillars--;
             var currentPillar =
                 _earthPillars[
                     (_currentEarthPillarIndex - _maxEarthPillarCount + _earthPillarPoolCount) % _earthPillarPoolCount];
-            currentPillar.transform.DOMoveY(_pillarInY, _pillarInAnimTime).SetEase(_pillarInAnimEase).OnUpdate(() => rb.MovePosition(rb.gameObject.transform.position)).OnComplete(() => currentPillar.SetActive(false));
+            currentPillar.transform.DOMoveY(hit.point.y + _pillarInY, _pillarInAnimTime).SetEase(_pillarInAnimEase).OnUpdate(() => rb.MovePosition(rb.gameObject.transform.position)).OnComplete(() => currentPillar.SetActive(false));
         }
 
         _currentEarthPillarIndex++;

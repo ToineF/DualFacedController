@@ -41928,6 +41928,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!1 &918324971 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7861987784845244147, guid: 8d90399d7bdad2647befb1a7baca728a,
+    type: 3}
+  m_PrefabInstance: {fileID: 5176207648350104428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &919277091
 GameObject:
   m_ObjectHideFlags: 0
@@ -54203,18 +54209,19 @@ MonoBehaviour:
   _earthPillarPoolCount: 5
   _distanceFromUser: 8
   _sphereCastRadius: 3
+  _upRaycastOffset: 10
   _groundLayer:
     serializedVersion: 2
     m_Bits: 1
   _objectsLayer:
     serializedVersion: 2
     m_Bits: 1
-  _pillarInY: -10
+  _pillarInY: -17
   _pillarInAnimTime: 1
-  _pillarInAnimEase: 13
-  _pillarOutY: 3
+  _pillarInAnimEase: 0
+  _pillarOutY: 5
   _pillarOutAnimTime: 1
-  _pillarOutAnimEase: 13
+  _pillarOutAnimEase: 0
 --- !u!1 &1378472108
 GameObject:
   m_ObjectHideFlags: 0
@@ -56201,6 +56208,8 @@ MonoBehaviour:
   - Player: {fileID: 6411326848728458164}
     Level: {fileID: 337074096}
   - Player: {fileID: 2597788146462779953}
+    Level: {fileID: 1660537879}
+  - Player: {fileID: 918324971}
     Level: {fileID: 1660537879}
   - Player: {fileID: 1218680781953818671}
     Level: {fileID: 337074096}
@@ -99836,6 +99845,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1454042757}
     m_Modifications:
+    - target: {fileID: 439923728167489659, guid: 8d90399d7bdad2647befb1a7baca728a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 52.775887
+      objectReference: {fileID: 0}
+    - target: {fileID: 477067854479487665, guid: 8d90399d7bdad2647befb1a7baca728a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -18.899994
+      objectReference: {fileID: 0}
     - target: {fileID: 3728037648624677229, guid: 8d90399d7bdad2647befb1a7baca728a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -99885,6 +99904,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5505716494665794921, guid: 8d90399d7bdad2647befb1a7baca728a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -27.699997
       objectReference: {fileID: 0}
     - target: {fileID: 7861987784845244147, guid: 8d90399d7bdad2647befb1a7baca728a,
         type: 3}
