@@ -9,6 +9,7 @@ public class Body : MonoBehaviour
     [field: SerializeField] public Head Head { get; set; }
     [field: SerializeField] public Head Tail { get; set; }
     [field: SerializeField] public LineRenderer[] Lines { get; set; }
+    [field: SerializeField] public GameObject[] Bones { get; set; }
     [field: SerializeField] public TubeMeshGenerator TubeMeshGenerator { get; set; }
 
     [Header("Parameters")]
@@ -148,6 +149,13 @@ public class Body : MonoBehaviour
     {
         var relative = BodyParts[0].position - BodyParts[BodyParts.Length - 1].position;
         float angle = Mathf.Atan2(-relative.x, -relative.z) * Mathf.Rad2Deg;
-        TubeMeshGenerator.DrawTube(BodyParts.Select(e => e.position).ToArray(), angle);
+
+        for (int i = 0; i < Bones.Length; i++)
+        {
+            var targetTransform = i == 0 ? Head.transform : i == Bones.Length - 1 ? Tail.transform : BodyParts[i-1].transform;
+            Bones[i].transform.position = targetTransform.position;
+            Bones[i].transform.localEulerAngles = new Vector3(0, angle, 0);
+        }
+        //TubeMeshGenerator.DrawTube(BodyParts.Select(e => e.position).ToArray(), angle);
     }
 }
