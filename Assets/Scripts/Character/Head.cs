@@ -85,9 +85,9 @@ public class Head : MonoBehaviour
         //Rigidbody.isKinematic = IsGrabbing;
         var isJumping = _isLeftHead ? UserInput.Instance.LeftGrabInputReleased : UserInput.Instance.RightGrabInputReleased;
         var jumpForce = Vector3.up;
-        if (IsSeparated && _body.Head != null && _body.Tail != null) jumpForce = _body.Head.transform.position - _body.Tail.transform.position;
+        //if (IsSeparated && _body.Head != null && _body.Tail != null) jumpForce = _body.Head.transform.position - _body.Tail.transform.position;
         jumpForce.Normalize();
-        if (_isLeftHead) jumpForce *= -1;
+        //if (_isLeftHead) jumpForce *= -1;
 
         //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
         if (isJumping) Rigidbody.AddForce(jumpForce * _heightForce, ForceMode);
@@ -203,7 +203,7 @@ public class Head : MonoBehaviour
     {
         _snakeTimer += Time.deltaTime;
         var s = Mathf.Sin((_snakeTimer + _snakeOffset) / _snakeFrequency) * _snakeAmplitude;
-        Rigidbody.AddForce(new Vector3(Direction.y, 0, Direction.x) * s, ForceMode);
+        Rigidbody.AddForce(new Vector3(_direction.y, 0, _direction.x) * s, ForceMode);
         //for (int i = 0; i < BodyParts.Length; i++)
         //{
         //    var s = Mathf.Sin((T + offset) / period) * amplitude;
@@ -221,11 +221,11 @@ public class Head : MonoBehaviour
             _groundLayer) > 0;
     }
 
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         //Gizmos.DrawRay(transform.position, Vector3.down * _groundDetectionDistance);
         AntoineFoucault.Utilities.GizmoExtensions.DrawSphereCast(transform.position, Collider.height/2, Vector3.down, _groundDetectionDistance);
     }
-#endif
+#endif*/
 }
