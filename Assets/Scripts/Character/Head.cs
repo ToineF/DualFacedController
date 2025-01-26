@@ -46,6 +46,12 @@ public class Head : MonoBehaviour
 
     [Header("Ability")]
     [SerializeField] private Ability _ability;
+    
+    [Header("Snake")]
+    [SerializeField] private float _snakeOffset;
+    [SerializeField] private float _snakeFrequency;
+    [SerializeField] private float _snakeAmplitude;
+    private float _snakeTimer;
 
     private Vector2 _direction;
     private Vector2 _lastDirection;
@@ -153,7 +159,7 @@ public class Head : MonoBehaviour
         MoveSelf();
         //MoveBodyParts();
         //ApproachBodyParts();
-        //MoveSnake();
+        MoveSnake();
     }
 
     private void MoveSelf()
@@ -193,19 +199,11 @@ public class Head : MonoBehaviour
             Rigidbody.AddForce(force, ForceMode);
         }
     }
-    /*
-    [Header("Snake")]
-    public float offset;
-    public float period;
-    public AnimationCurve forceCurve;
-    public float amplitude;
-    public float segmentOffset;
-    private float T;
-    
-
     private void MoveSnake()
     {
-        T += Time.deltaTime;
+        _snakeTimer += Time.deltaTime;
+        var s = Mathf.Sin((_snakeTimer + _snakeOffset) / _snakeFrequency) * _snakeAmplitude;
+        Rigidbody.AddForce(new Vector3(Direction.y, 0, Direction.x) * s, ForceMode);
         //for (int i = 0; i < BodyParts.Length; i++)
         //{
         //    var s = Mathf.Sin((T + offset) / period) * amplitude;
@@ -214,7 +212,7 @@ public class Head : MonoBehaviour
         //    offset += segmentOffset;
         //}    
     }
-    */
+    
 
 
     private bool IsGrounded(Vector3 position)
