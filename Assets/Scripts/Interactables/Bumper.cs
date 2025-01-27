@@ -1,8 +1,8 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
-public class JumpPad : MonoBehaviour
+public class Bumper : MonoBehaviour
 {
     [SerializeField] float _initialForce = 10f;  // The initial force applied to the rigidbody
     [SerializeField] float _forceDecayRate = 1f;  // Rate at which the force decreases over time
@@ -18,11 +18,9 @@ public class JumpPad : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Head head) == false) return;
+        if (other.TryGetComponent(out Rigidbody rb) == false) return;
 
-        var rigidbody = head.Rigidbody;
-        //if (_movedRigidbodies.Contains(rigidbody)) 
-        StartCoroutine(ApplyForceWithDecay(rigidbody));
+        StartCoroutine(ApplyForceWithDecay(rb));
         _visual.DOComplete();
         _visual.DOPunchScale(_punchAmount * Vector3.one, _punchTime);
     }
@@ -30,13 +28,15 @@ public class JumpPad : MonoBehaviour
     private IEnumerator ApplyForceWithDecay(Rigidbody rb)
     {
         float currentForce = _initialForce;
+        var direction = rb.transform.position - transform.position;
+        direction.Normalize();
 
         // Apply force over several frames with decay
         for (int i = 0; i < _framesOfForce; i++)
         {
             if (currentForce <= 0) break;
 
-            rb.AddForce(Vector3.up * currentForce, _forceMode);
+            rb.AddForce(direction * currentForce, _forceMode);
             currentForce -= _forceDecayRate;
 
             // Wait until the next frame
