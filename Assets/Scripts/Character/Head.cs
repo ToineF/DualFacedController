@@ -184,7 +184,7 @@ public class Head : MonoBehaviour
 
     private void ApplyGrabbableForce(Vector3 force)
     {
-        if (_currentGrabbable != null) _currentGrabbable.AddForce(force);
+        _currentGrabbable?.AddForce(force);
     }
 
     private void ApplyGravity()
