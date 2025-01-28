@@ -106,15 +106,19 @@ public class Head : MonoBehaviour
     private void Grab()
     {
         var colliders = Physics.OverlapSphere(transform.position, _grabRadius, _grabLayerMask);
+        if (colliders.Length < 1) return;
         var minDistance = (transform.position - colliders[0].transform.position).sqrMagnitude;
         var closestCollider = colliders[0];
-        for (int i = 1; i < colliders.Length; i++)
+        if (colliders.Length > 1)
         {
-            var currentDistance = (transform.position - colliders[i].transform.position).sqrMagnitude;
-            if (currentDistance < minDistance)
+            for (int i = 1; i < colliders.Length; i++)
             {
-                closestCollider = colliders[i];
-                minDistance = currentDistance;
+                var currentDistance = (transform.position - colliders[i].transform.position).sqrMagnitude;
+                if (currentDistance < minDistance)
+                {
+                    closestCollider = colliders[i];
+                    minDistance = currentDistance;
+                }
             }
         }
 
@@ -229,11 +233,11 @@ public class Head : MonoBehaviour
             _groundLayer) > 0;
     }
 
-/*#if UNITY_EDITOR
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
-        //Gizmos.DrawRay(transform.position, Vector3.down * _groundDetectionDistance);
-        AntoineFoucault.Utilities.GizmoExtensions.DrawSphereCast(transform.position, Collider.height/2, Vector3.down, _groundDetectionDistance);
+        Gizmos.color = Color.gray;
+        Gizmos.DrawSphere(transform.position, _grabRadius);
     }
-#endif*/
+#endif
 }

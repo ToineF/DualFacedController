@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class FakeParent : MonoBehaviour, IGrabbable
@@ -7,7 +6,7 @@ public class FakeParent : MonoBehaviour, IGrabbable
     [SerializeField] protected Rigidbody _rigidbodyToApproach;
     [SerializeField] private float _force;
     [SerializeField] private int _forceIterations;
-    [SerializeField] private bool _useY;
+    [SerializeField] private bool _isParent = true;
     [SerializeField] private ForceMode ForceMode;
 
     public void OnGrab(Head head)
@@ -42,8 +41,10 @@ public class FakeParent : MonoBehaviour, IGrabbable
         var targetDirection = offset.normalized;
         for (int k = 0; k < _forceIterations; k++)
         {
-            var force = _force * offset.sqrMagnitude * new Vector3(targetDirection.x, _useY ? targetDirection.y : 0, targetDirection.z);
-            _rigidbodyToApproach.AddForce(force, ForceMode);
+            var force = _force * offset.sqrMagnitude * targetDirection;
+            var rb = _isParent ? _rigidbodyToApproach : _selfRigidbody;
+            if (_isParent == false) force *= -1;
+            rb.AddForce(force, ForceMode);
         }
     }
 
