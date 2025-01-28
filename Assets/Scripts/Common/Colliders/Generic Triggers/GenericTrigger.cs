@@ -4,9 +4,6 @@ using System;
 
 public abstract class GenericTrigger : MonoBehaviour
 {
-    public Action OnEnterTrigger { get; protected set; }
-    public Action OnExitTrigger { get; protected set; }
-
     [Header("Settings")]
     [SerializeField] protected bool _oneShot = false;
     [SerializeField] protected bool _isTrigger = true;
@@ -24,7 +21,6 @@ public abstract class GenericTrigger : MonoBehaviour
     [SerializeField] protected Color _gizmoSelectedWireColor = Color.white;
 
     protected Collider _collider;
-    protected Collider _lastOtherCollider;
 
     protected void Awake()
     {
@@ -43,17 +39,19 @@ public abstract class GenericTrigger : MonoBehaviour
         TriggerEnter(collision.collider);
     }
 
-    protected void TriggerEnter(Collider other)
+    private void TriggerEnter(Collider other)
     {
         if (!IsCollisionValid(other)) return;
-
-        _lastOtherCollider = other;
-
-        OnEnterTrigger?.Invoke();
+        
+        OnEnterTriggerInternal(other);
 
         if (_oneShot) Destroy(gameObject);
     }
 
+    protected virtual void OnEnterTriggerInternal(Collider other)
+    {
+        
+    }
 
     protected void OnTriggerExit(Collider other)
     {
@@ -65,14 +63,40 @@ public abstract class GenericTrigger : MonoBehaviour
         TriggerExit(collision.collider);
     }
 
-    protected void TriggerExit(Collider other)
+    private void TriggerExit(Collider other)
     {
         if (!IsCollisionValid(other)) return;
 
-        OnExitTrigger?.Invoke();
+        OnExitTriggerInternal(other);
+    }
+    protected virtual void OnExitTriggerInternal(Collider other)
+    {
+        
+    }
+    
+    protected void OnTriggerStay(Collider other)
+    {
+        TriggerStay(other);
     }
 
-    protected bool IsCollisionValid(Collider other)
+    protected void OnCollisionStay(Collision collision)
+    {
+        TriggerStay(collision.collider);
+    }
+    
+    private void TriggerStay(Collider other)
+    {
+        if (!IsCollisionValid(other)) return;
+
+        OnStayTriggerInternal(other);
+    }
+    
+    protected virtual void OnStayTriggerInternal(Collider other)
+    {
+        
+    }
+
+    private bool IsCollisionValid(Collider other)
     {
         // GameObject Check
         if (_gameObjectsToIgnore.Length > 0)

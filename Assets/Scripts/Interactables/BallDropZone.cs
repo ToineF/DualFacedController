@@ -10,18 +10,13 @@ public class BallDropZone : BoxTrigger
 
     private float _timer;
 
-    private void Start()
+    protected override void OnEnterTriggerInternal(Collider other)
     {
-        OnEnterTrigger += OnBallEnter;
-    }
-
-    private void OnBallEnter()
-    {
-        if (_lastOtherCollider.gameObject.GetComponent<Ball>() == false) return;
+        if (other.gameObject.GetComponent<Ball>() == false) return;
         _timer = _stayTime;
     }
 
-    private void OnTriggerStay(Collider other)
+    protected override void OnStayTriggerInternal(Collider other)
     {
         if (other.gameObject.GetComponent<Ball>() == false) return;
         _timer -= Time.deltaTime;

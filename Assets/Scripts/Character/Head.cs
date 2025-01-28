@@ -106,14 +106,22 @@ public class Head : MonoBehaviour
     private void Grab()
     {
         var colliders = Physics.OverlapSphere(transform.position, _grabRadius, _grabLayerMask);
-        foreach (var collider in colliders)
+        var minDistance = (transform.position - colliders[0].transform.position).sqrMagnitude;
+        var closestCollider = colliders[0];
+        for (int i = 1; i < colliders.Length; i++)
         {
-            if (collider.TryGetComponent(out IGrabbable grabbable))
+            var currentDistance = (transform.position - colliders[i].transform.position).sqrMagnitude;
+            if (currentDistance < minDistance)
             {
-                _currentGrabbable = grabbable;
-                _currentGrabbable.OnGrab(this);
-                break;
+                closestCollider = colliders[i];
+                minDistance = currentDistance;
             }
+        }
+
+        if (closestCollider.TryGetComponent(out IGrabbable grabbable))
+        {
+            _currentGrabbable = grabbable;
+            _currentGrabbable.OnGrab(this);
         }
     }
 

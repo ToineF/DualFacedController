@@ -6,9 +6,13 @@ public class BoxTriggerUnityEvent : BoxTrigger
     [SerializeField] private UnityEvent _onTriggerEnter;
     [SerializeField] private UnityEvent _onTriggerExit;
 
-    private void Start()
+    protected override void OnEnterTriggerInternal(Collider other)
     {
-        OnEnterTrigger += () => _onTriggerEnter?.Invoke();
-        OnExitTrigger += () => _onTriggerExit?.Invoke();
+        _onTriggerEnter?.Invoke();
+    }
+    
+    protected override void OnExitTriggerInternal(Collider other)
+    {
+        _onTriggerExit?.Invoke();
     }
 }
