@@ -215,7 +215,8 @@ public class Head : MonoBehaviour
     {
         _snakeTimer += Time.deltaTime;
         var s = Mathf.Sin((_snakeTimer + _snakeOffset) / _snakeFrequency) * _snakeAmplitude;
-        Rigidbody.AddForce(new Vector3(_direction.y, 0, _direction.x) * s, ForceMode);
+        var directionVector = Vector3.Cross(new Vector3(_direction.x, 0, _direction.y), Vector3.down);
+        Rigidbody.AddForce(directionVector * s, ForceMode);
         //for (int i = 0; i < BodyParts.Length; i++)
         //{
         //    var s = Mathf.Sin((T + offset) / period) * amplitude;
