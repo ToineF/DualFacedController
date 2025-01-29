@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Head : MonoBehaviour
 {
@@ -29,8 +31,6 @@ public class Head : MonoBehaviour
 
 
     public ForceMode ForceMode;
-    //public float forceTobODYPARTS = 1f;
-    //public int forceiterations = 1;
 
     [SerializeField] private Body _body;
 
@@ -39,7 +39,10 @@ public class Head : MonoBehaviour
     [SerializeField] private LayerMask _grabLayerMask;
 
     [Header("Jump")]
-    [SerializeField] private float _heightForce;
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private float _jumpTime;
+    [SerializeField] private float _jumpDecrease;
+    [SerializeField] private float _minJumpsInterval;
 
     [Header("Input Properties")]
     [SerializeField] private bool _isLeftHead;
@@ -58,6 +61,8 @@ public class Head : MonoBehaviour
     private RaycastHit[] _groundHits;
 
     private IGrabbable _currentGrabbable;
+
+    private float _jumpTimer;
 
     private void Start()
     {
@@ -81,16 +86,14 @@ public class Head : MonoBehaviour
     private void CheckGrab()
     {
         IsGrabbing = _isLeftHead ? UserInput.Instance.LeftGrabInput : UserInput.Instance.RightGrabInput;
-
         //Rigidbody.isKinematic = IsGrabbing;
+        
         var isJumping = _isLeftHead ? UserInput.Instance.LeftGrabInputReleased : UserInput.Instance.RightGrabInputReleased;
-        var jumpForce = Vector3.up;
-        //if (IsSeparated && _body.Head != null && _body.Tail != null) jumpForce = _body.Head.transform.position - _body.Tail.transform.position;
-        jumpForce.Normalize();
-        //if (_isLeftHead) jumpForce *= -1;
 
         //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
-        if (isJumping) Rigidbody.AddForce(jumpForce * _heightForce, ForceMode);
+        // Update timer
+        _jumpTimer -= Time.deltaTime;
+        if (_jumpTimer <= 0 && isJumping) ApplyForceWithDecay(Rigidbody);
 
         if (isJumping) {
             if (_currentGrabbable == null) 
@@ -126,6 +129,24 @@ public class Head : MonoBehaviour
         {
             _currentGrabbable = grabbable;
             _currentGrabbable.OnGrab(this);
+        }
+    }
+
+    private async void ApplyForceWithDecay(Rigidbody rb)
+    {
+        float currentForce = _jumpForce;
+        _jumpTimer = _minJumpsInterval;
+
+        // Apply force over several frames with decay
+        for (int i = 0; i < _jumpTime; i++)
+        {
+            if (currentForce <= 0) break;
+
+            rb.AddForce(Vector3.up * currentForce, ForceMode);
+            currentForce -= _jumpDecrease;
+
+            // Wait until the next frame
+            await Task.Delay(1);
         }
     }
 
@@ -217,16 +238,7 @@ public class Head : MonoBehaviour
         var s = Mathf.Sin((_snakeTimer + _snakeOffset) / _snakeFrequency) * _snakeAmplitude;
         var directionVector = Vector3.Cross(new Vector3(_direction.x, 0, _direction.y), Vector3.down);
         Rigidbody.AddForce(directionVector * s, ForceMode);
-        //for (int i = 0; i < BodyParts.Length; i++)
-        //{
-        //    var s = Mathf.Sin((T + offset) / period) * amplitude;
-        //    var forceMultiplier = forceCurve.Evaluate((float)i / BodyParts.Length);
-        //    BodyParts[i].AddForce(transform.right * (s * forceMultiplier), ForceMode.VelocityChange);
-        //    offset += segmentOffset;
-        //}    
     }
-    
-
 
     private bool IsGrounded(Vector3 position)
     {
@@ -234,11 +246,11 @@ public class Head : MonoBehaviour
             _groundLayer) > 0;
     }
 
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.gray;
         Gizmos.DrawSphere(transform.position, _grabRadius);
     }
-#endif
+#endif*/
 }
