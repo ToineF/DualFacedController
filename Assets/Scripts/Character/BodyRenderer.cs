@@ -8,15 +8,14 @@ public class BodyRenderer : MonoBehaviour
 
     private void Update()
     {
-
         for (int i = 0; i < Bones.Length; i++)
         {
-            Vector3 relative;
-            if (i+1 >= Bones.Length) relative = OriginalPoints[i].position - OriginalPoints[i - 1].position;
-            else relative = OriginalPoints[i].position - OriginalPoints[i + 1].position;
-            float angle = Mathf.Atan2(relative.z, relative.x) * Mathf.Rad2Deg;
-            Bones[i].transform.position = OriginalPoints[i].position;
-            Bones[i].transform.localEulerAngles = new Vector3(-180,0,angle+90);
+            var otherIndex = (i + 1 >= Bones.Length) ? -1 : 1;
+            var relative = OriginalPoints[i].position - OriginalPoints[i + otherIndex].position;
+            var boneTransform = Bones[i].transform;
+            boneTransform.position = OriginalPoints[i].position;
+            boneTransform.LookAt(OriginalPoints[i + otherIndex].transform);
+            boneTransform.Rotate(90, 0, 0);
         }
     }
 }
