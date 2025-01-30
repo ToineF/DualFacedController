@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class Head : MonoBehaviour
 {
@@ -37,6 +37,7 @@ public class Head : MonoBehaviour
     [Header("Grab")]
     [SerializeField] private float _grabRadius;
     [SerializeField] private LayerMask _grabLayerMask;
+    [SerializeField] private AudioSource _squeakNoise;
 
     [Header("Jump")]
     [SerializeField] private float _jumpForce;
@@ -134,6 +135,10 @@ public class Head : MonoBehaviour
 
     private async void ApplyForceWithDecay(Rigidbody rb)
     {
+        _squeakNoise.volume = Random.Range(0.7f, 1f);
+        _squeakNoise.pitch = Random.Range(0.9f, 1.1f);
+        _squeakNoise.Play();
+
         float currentForce = _jumpForce;
         _jumpTimer = _minJumpsInterval;
 
