@@ -7,7 +7,7 @@ public class RotatingRigidbody : MonoBehaviour
     [SerializeField] private float _turnSpeed;
     [SerializeField] private Vector3 _vector3Up;
 
-    void Update()
+    void FixedUpdate()
     {
         _rb.angularVelocity = _vector3Up * _turnSpeed;
     }

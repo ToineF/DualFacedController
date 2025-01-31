@@ -5,13 +5,13 @@ public class ActivationButton : MonoBehaviour, IGrabbable
 {
     [SerializeField] private UnityEvent OnPressed;
     
-    public void OnGrab(Head head)
+    public void OnGrab(CharacterHead characterHead)
     {
         OnPressed?.Invoke();
-        head.CurrentGrabbable = null;
+        characterHead.CurrentGrabbable = null;
     }
 
-    public void OnUngrab(Head head)
+    public void OnUngrab(CharacterHead characterHead)
     {
         
     }

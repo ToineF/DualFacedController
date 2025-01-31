@@ -1,12 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class Head : MonoBehaviour
+public class CharacterHead : MonoBehaviour
 {
-    public Action OnSeparate;
-    public Action OnConnect;
+    public Action OnSeparate {get; set;}
+    public Action OnConnect { get; set; }
 
     public Vector2 Direction => _direction;
     public Vector2 LastDirection => _lastDirection;
@@ -32,7 +33,7 @@ public class Head : MonoBehaviour
 
     public ForceMode ForceMode;
 
-    [SerializeField] private Body _body;
+    [FormerlySerializedAs("_body")] [SerializeField] private CharacterBody characterBody;
 
     [Header("Grab")]
     [SerializeField] private float _grabRadius;
@@ -185,13 +186,9 @@ public class Head : MonoBehaviour
     {
         if (IsSeparated) OnSeparate?.Invoke();
         else OnConnect?.Invoke();
-
-        if (_isLeftHead)
-            _body.Head = IsSeparated ? null : this;
-        else
-            _body.Tail = IsSeparated ? null : this;
+        
+        characterBody.ToggleJointSeparation(IsSeparated, _isLeftHead);
     }
-
     private void FixedUpdate()
     {
         MoveSelf();

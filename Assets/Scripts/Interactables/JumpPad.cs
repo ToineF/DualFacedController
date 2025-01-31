@@ -18,7 +18,7 @@ public class JumpPad : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Head head) == false) return;
+        if (other.TryGetComponent(out CharacterHead head) == false) return;
 
         var rigidbody = head.Rigidbody;
         //if (_movedRigidbodies.Contains(rigidbody)) 

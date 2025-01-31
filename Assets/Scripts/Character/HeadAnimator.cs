@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Represents the visual of a unit based on its direction.
@@ -6,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class HeadAnimator : MonoBehaviour
 {
-    [SerializeField] private Head _head;
+    [FormerlySerializedAs("_head")] [SerializeField] private CharacterHead characterHead;
     [SerializeField] private Animator _animator;
     [SerializeField] private bool _isOrientationInverted;
     [SerializeField] private float _lookAtLerp;
@@ -19,13 +20,13 @@ public class HeadAnimator : MonoBehaviour
 
     private void UpdateAnimation()
     {
-        _animator.SetBool("IsWalking", _head.Direction.sqrMagnitude > 0.1f);
-        _animator.SetBool("IsGrabbing", _head.IsGrabbing);
+        _animator.SetBool("IsWalking", characterHead.Direction.sqrMagnitude > 0.1f);
+        _animator.SetBool("IsGrabbing", characterHead.IsGrabbing);
     }
 
     private void RotateDirection()
     {
-        Vector3 moveDirection = _head.Direction;
+        Vector3 moveDirection = characterHead.Direction;
         moveDirection = new Vector3(moveDirection.x, 0, moveDirection.y);
         int orientation = _isOrientationInverted ? -1 : 1;
 

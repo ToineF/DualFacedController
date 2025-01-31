@@ -37,7 +37,7 @@ public class EarthPillarMaker : Ability
         }
     }
 
-    public override void UseAbility(Head user)
+    public override void UseAbility(CharacterHead user)
     {
         var pillar = _earthPillars[_currentEarthPillarIndex];
         pillar.gameObject.SetActive(true);

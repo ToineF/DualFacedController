@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 
-
 public class HeadVisualsFeedbacks : MonoBehaviour
 {
-    [SerializeField] private Head _head;
+    [SerializeField] private CharacterHead _characterHead;
     [SerializeField] private ParticleSystem _glitterVFX;
     [SerializeField] private GameObject _fakeHead;
     [SerializeField] private Transform _headHat;
@@ -12,8 +11,8 @@ public class HeadVisualsFeedbacks : MonoBehaviour
 
     private void Awake()
     {
-        _head.OnConnect += OnConnect;
-        _head.OnSeparate += OnSeparate;
+        _characterHead.OnConnect += OnConnect;
+        _characterHead.OnSeparate += OnSeparate;
     }
 
     private void OnConnect()

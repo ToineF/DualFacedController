@@ -26,7 +26,7 @@ public class FloatingObjectMaker : Ability
             _currentObject.transform.position.z), _followLerp);
     }
 
-    public override void UseAbility(Head user)
+    public override void UseAbility(CharacterHead user)
     {
         var lastDirection = user.LastDirection.normalized;
         _currentTargetPosition = user.transform.position + new Vector3(lastDirection.x, 0, lastDirection.y) * _distanceFromUser + Vector3.up * _upRaycastOffset;

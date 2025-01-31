@@ -12,14 +12,14 @@ public class BreakableJoint : MonoBehaviour, IGrabbable
         else Debug.LogError("Parent does not contain Joint component", transform.parent);
     }
 
-    public void OnGrab(Head head)
+    public void OnGrab(CharacterHead characterHead)
     {
-        head.CurrentGrabbable = null;
+        characterHead.CurrentGrabbable = null;
         Destroy(_joint);
         Destroy(this);
     }
 
-    public void OnUngrab(Head head)
+    public void OnUngrab(CharacterHead characterHead)
     {
     }
 

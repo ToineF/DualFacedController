@@ -4,15 +4,15 @@ public class Separator : MonoBehaviour, IGrabbable
 {
     [SerializeField] private bool _separate;
     
-    public void OnGrab(Head head)
+    public void OnGrab(CharacterHead characterHead)
     {
-        if (head.IsSeparated == _separate) return;
+        if (characterHead.IsSeparated == _separate) return;
         
-        head.CurrentGrabbable = null;
-        head.SetSeparation(_separate);
+        characterHead.CurrentGrabbable = null;
+        characterHead.SetSeparation(_separate);
     }
 
-    public void OnUngrab(Head head)
+    public void OnUngrab(CharacterHead characterHead)
     {
         
     }

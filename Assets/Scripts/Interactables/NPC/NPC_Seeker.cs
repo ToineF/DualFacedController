@@ -3,7 +3,7 @@
 
 public class NPC_Seeker : MonoBehaviour
 {
-    public Head Target { get; private set; }
+    public CharacterHead Target { get; private set; }
 
     [Header("References")]
     [SerializeField] private NPC_LookAt _lookAt;
@@ -21,18 +21,18 @@ public class NPC_Seeker : MonoBehaviour
         _lookAt.Target = Target?.gameObject;
     }
 
-    private Head GetTarget()
+    private CharacterHead GetTarget()
     {
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, _seekRadius, transform.forward, _seekDistance, _seekLayer, QueryTriggerInteraction.Ignore);
 
         if (hits.Length <= 0) return null;
 
         float currentMinDistance = float.PositiveInfinity;
-        Head target = null;
+        CharacterHead target = null;
 
         foreach (var hit in hits)
         {
-            if (hit.collider == null || hit.collider.TryGetComponent(out Head head) == false) continue;
+            if (hit.collider == null || hit.collider.TryGetComponent(out CharacterHead head) == false) continue;
 
             var distanceToHit = head.transform.position - transform.position;
             if (Physics.Raycast(transform.position, distanceToHit, distanceToHit.magnitude, _obstaclesLayer)) continue;

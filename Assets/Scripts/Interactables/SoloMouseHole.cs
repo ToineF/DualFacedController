@@ -6,7 +6,7 @@ public class SoloMouseHole : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Head head) == false) return;
+        if (other.TryGetComponent(out CharacterHead head) == false) return;
         
         _collider.SetActive(head.IsSeparated == false);
     }

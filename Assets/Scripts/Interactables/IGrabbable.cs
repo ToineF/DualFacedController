@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IGrabbable
 {
-    public void OnGrab(Head head);
-    public void OnUngrab(Head head);
+    public void OnGrab(CharacterHead characterHead);
+    public void OnUngrab(CharacterHead characterHead);
     public void AddForce(Vector3 force);
 }
