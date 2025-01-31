@@ -60,16 +60,11 @@ public class CharacterHead : MonoBehaviour
 
     private Vector2 _direction;
     private Vector2 _lastDirection;
-    private RaycastHit[] _groundHits;
+    private RaycastHit _lastGroundHit;
 
     private IGrabbable _currentGrabbable;
 
     private float _jumpTimer;
-
-    private void Start()
-    {
-        _groundHits = new RaycastHit[2];
-    }
 
     private void Update()
     {
@@ -170,7 +165,7 @@ public class CharacterHead : MonoBehaviour
         _ability.UseAbility(this);
     }
 
-    public void ToggleSeparation()
+    private void ToggleSeparation()
     {
         IsSeparated = !IsSeparated;
         OnSeparation();
@@ -200,6 +195,7 @@ public class CharacterHead : MonoBehaviour
     private void MoveSelf()
     {
         var force = new Vector3(_direction.x, 0, _direction.y) * _speed;
+        force = Vector3.ProjectOnPlane(force, _lastGroundHit.normal);
         Rigidbody.AddForce(force, ForceMode);
         ApplyGrabbableForce(force);
         ApplyGravity();
@@ -212,12 +208,11 @@ public class CharacterHead : MonoBehaviour
 
     private void ApplyGravity()
     {
-        RaycastHit hit;
         //if (Physics.Raycast(transform.position, Vector3.down, out hit, _groundDetectionDistance, _groundLayer))
         //AntoineFoucault.Utilities.ColliderExtensions.GetCapsulePoints(Collider, out Vector3 p1, out Vector3 p2);
-        if (Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out hit, _groundDetectionDistance, _groundLayer, QueryTriggerInteraction.Ignore))
+        if (Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out _lastGroundHit, _groundDetectionDistance, _groundLayer, QueryTriggerInteraction.Ignore))
         {
-            float groundHeight = hit.point.y;
+            float groundHeight = _lastGroundHit.point.y;
             float currentHeight = transform.position.y;
 
             // Calculate the difference from the target height
@@ -240,12 +235,6 @@ public class CharacterHead : MonoBehaviour
         var s = Mathf.Sin((_snakeTimer + _snakeOffset) / _snakeFrequency) * _snakeAmplitude;
         var directionVector = Vector3.Cross(new Vector3(_direction.x, 0, _direction.y), Vector3.down);
         Rigidbody.AddForce(directionVector * s, ForceMode);
-    }
-
-    private bool IsGrounded(Vector3 position)
-    {
-        return Physics.RaycastNonAlloc(position, Vector3.down, _groundHits, _groundDetectionDistance,
-            _groundLayer) > 0;
     }
 
 /*#if UNITY_EDITOR

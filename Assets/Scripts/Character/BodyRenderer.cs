@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BodyRenderer : MonoBehaviour
 {
-    [field: SerializeField] public Rigidbody[] OriginalPoints { get; set; }
+    [field: SerializeField] public Transform[] OriginalPoints { get; set; }
     [field: SerializeField] public GameObject[] Bones { get; set; }
 
     private void Update()
@@ -14,7 +14,7 @@ public class BodyRenderer : MonoBehaviour
             var relative = OriginalPoints[i].position - OriginalPoints[i + otherIndex].position;
             var boneTransform = Bones[i].transform;
             boneTransform.position = OriginalPoints[i].position;
-            boneTransform.LookAt(OriginalPoints[i + otherIndex].transform);
+            boneTransform.LookAt(OriginalPoints[i + otherIndex]);
             boneTransform.Rotate(90, 0, 0);
         }
     }
