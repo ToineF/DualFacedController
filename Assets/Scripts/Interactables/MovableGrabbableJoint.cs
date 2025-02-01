@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -6,20 +7,23 @@ public class MovableGrabbableJoint : MonoBehaviour, IGrabbable
     //[SerializeField] private Rigidbody _selfRigidbody;
     //[SerializeField] private Rigidbody _rigidbodyToApproach;
     [SerializeField] private Rigidbody _jointObject;
-    private Joint _joint;
+    private Dictionary<GameObject, Joint> _joints = new Dictionary<GameObject, Joint>();
 
     public void OnGrab(CharacterHead characterHead)
     {
-        _joint = _jointObject.gameObject.AddComponent<HingeJoint>();
-        _joint.connectedBody = characterHead.CurrentRigidbody;
+        var newJoint = _jointObject.gameObject.AddComponent<HingeJoint>();
+        newJoint.connectedBody = characterHead.CurrentRigidbody;
+        _joints[characterHead.gameObject] = newJoint;
+
         //_joint.autoConfigureConnectedAnchor = false;
         //_joint.connectedAnchor = Vector3.back * 2f;
     }
 
     public void OnUngrab(CharacterHead characterHead)
     {
-        _joint.connectedBody = null;
-        Destroy(_joint);
+        if (_joints.TryGetValue(characterHead.gameObject, out var joint) == false) return;
+        Destroy(joint);
+        _joints.Remove(characterHead.gameObject);
     }
 
     public void AddForce(Vector3 force)

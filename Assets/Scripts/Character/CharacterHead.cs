@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class CharacterHead : MonoBehaviour
@@ -207,8 +206,6 @@ public class CharacterHead : MonoBehaviour
     private void FixedUpdate()
     {
         MoveSelf();
-        //MoveBodyParts();
-        //ApproachBodyParts();
         MoveSnake();
     }
 
