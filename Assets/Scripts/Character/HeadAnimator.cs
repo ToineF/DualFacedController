@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -6,32 +7,42 @@ namespace Cattac.Character.Visuals
 {
     /// <summary>
     /// Represents the visual of a unit based on its direction.
-    /// Handles all of the animations and visual rotation.
+    /// Handles all the animations and visual rotation.
     /// </summary>
     public class HeadAnimator : MonoBehaviour
     {
-        [FormerlySerializedAs("_head")] [SerializeField]
-        private CharacterHead characterHead;
+        [SerializeField] private CharacterHead _characterHead;
 
         [SerializeField] private Animator _animator;
         [SerializeField] private bool _isOrientationInverted;
         [SerializeField] private float _lookAtLerp;
 
+        private Transform _parent;
+        private Vector3 _offset;
+
+        private void Start()
+        {
+            _offset = transform.localPosition;
+            _parent = transform.parent;
+            transform.SetParent(null);
+        }
+
         private void LateUpdate()
         {
             RotateDirection();
             UpdateAnimation();
+            transform.position = _parent.transform.position + _offset;
         }
 
         private void UpdateAnimation()
         {
-            _animator.SetBool("IsWalking", characterHead.Direction.sqrMagnitude > 0.1f);
-            _animator.SetBool("IsGrabbing", characterHead.IsGrabbing);
+            _animator.SetBool("IsWalking", _characterHead.Direction.sqrMagnitude > 0.1f);
+            _animator.SetBool("IsGrabbing", _characterHead.IsGrabbing);
         }
 
         private void RotateDirection()
         {
-            Vector3 moveDirection = characterHead.Direction;
+            Vector3 moveDirection = _characterHead.Direction;
             moveDirection = new Vector3(moveDirection.x, 0, moveDirection.y);
             int orientation = _isOrientationInverted ? -1 : 1;
 
