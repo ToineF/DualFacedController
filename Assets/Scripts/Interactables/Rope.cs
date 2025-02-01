@@ -15,6 +15,5 @@ public class Rope : FakeParent
     protected override void OnUngrabInternal(Rigidbody rb)
     {
         rb.AddForce(Vector3.up * _ungrabForce, _ungrabForceMode);
-        Debug.Log("ge");
     }
 }

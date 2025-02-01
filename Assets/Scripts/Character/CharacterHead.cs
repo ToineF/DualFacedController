@@ -33,7 +33,7 @@ public class CharacterHead : MonoBehaviour
 
     public ForceMode ForceMode;
 
-    [FormerlySerializedAs("_body")] [SerializeField] private CharacterBody characterBody;
+    [SerializeField] private CharacterBody characterBody;
 
     [Header("Grab")]
     [SerializeField] private float _grabRadius;
@@ -65,6 +65,13 @@ public class CharacterHead : MonoBehaviour
     private IGrabbable _currentGrabbable;
 
     private float _jumpTimer;
+    
+    private Camera _camera;
+
+    private void Start()
+    {
+        _camera = Camera.main;
+    }
 
     private void Update()
     {
@@ -195,6 +202,7 @@ public class CharacterHead : MonoBehaviour
     private void MoveSelf()
     {
         var force = new Vector3(_direction.x, 0, _direction.y) * _speed;
+        force = _camera.transform.forward * force.z + _camera.transform.right * force.x;
         force = Vector3.ProjectOnPlane(force, _lastGroundHit.normal);
         Rigidbody.AddForce(force, ForceMode);
         ApplyGrabbableForce(force);
