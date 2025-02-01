@@ -16,7 +16,20 @@ public class CharacterHead : MonoBehaviour
     public bool IsSeparated { get; private set; }
 
     [field: Header("Head Properties")]
-    [field: SerializeField] public Rigidbody Rigidbody { get; set; }
+    [field: SerializeField] public Rigidbody TogetherRigidbody { get; set; }
+    [field: SerializeField] public Rigidbody SeparatedRigidbody { get; set; }
+
+    public Rigidbody CurrentRigidbody
+    {
+        get
+        {
+            var newRigidbody = IsSeparated ? SeparatedRigidbody : TogetherRigidbody;
+            transform.SetParent(newRigidbody.transform);
+            if (IsSeparated == false) SeparatedRigidbody.position = TogetherRigidbody.position;
+            transform.localPosition = Vector3.zero;
+            return newRigidbody;
+        }
+    } 
     [field: SerializeField] public CapsuleCollider Collider { get; set; }
 
     [SerializeField] private float _speed;
@@ -97,7 +110,7 @@ public class CharacterHead : MonoBehaviour
         //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
         // Update timer
         _jumpTimer -= Time.deltaTime;
-        if (_jumpTimer <= 0 && isJumping) ApplyForceWithDecay(Rigidbody);
+        if (_jumpTimer <= 0 && isJumping) ApplyForceWithDecay(CurrentRigidbody);
 
         if (isJumping) {
             if (_currentGrabbable == null) 
@@ -204,7 +217,7 @@ public class CharacterHead : MonoBehaviour
         var force = new Vector3(_direction.x, 0, _direction.y) * _speed;
         force = _camera.transform.forward * force.z + _camera.transform.right * force.x;
         force = Vector3.ProjectOnPlane(force, _lastGroundHit.normal);
-        Rigidbody.AddForce(force, ForceMode);
+        CurrentRigidbody.AddForce(force, ForceMode);
         ApplyGrabbableForce(force);
         ApplyGravity();
     }
@@ -230,11 +243,11 @@ public class CharacterHead : MonoBehaviour
             Vector3 force = distanceToTarget * _additionalGravity * Vector3.up;
 
             // Apply damping force to gradually reduce the force
-            Vector3 velocity = Vector3.up * Rigidbody.velocity.y;
+            Vector3 velocity = Vector3.up * CurrentRigidbody.velocity.y;
             force -= velocity * _gravityDamper;
 
             // Apply the force to the Rigidbody
-            Rigidbody.AddForce(force, ForceMode);
+            CurrentRigidbody.AddForce(force, ForceMode);
         }
     }
     private void MoveSnake()
@@ -242,7 +255,7 @@ public class CharacterHead : MonoBehaviour
         _snakeTimer += Time.deltaTime;
         var s = Mathf.Sin((_snakeTimer + _snakeOffset) / _snakeFrequency) * _snakeAmplitude;
         var directionVector = Vector3.Cross(new Vector3(_direction.x, 0, _direction.y), Vector3.down);
-        Rigidbody.AddForce(directionVector * s, ForceMode);
+        CurrentRigidbody.AddForce(directionVector * s, ForceMode);
     }
 
 /*#if UNITY_EDITOR

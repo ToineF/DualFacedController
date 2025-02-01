@@ -11,7 +11,7 @@ public class FakeParent : MonoBehaviour, IGrabbable
 
     public void OnGrab(CharacterHead characterHead)
     {
-        _rigidbodyToApproach = characterHead.Rigidbody;
+        _rigidbodyToApproach = characterHead.CurrentRigidbody;
     }
 
     public void OnUngrab(CharacterHead characterHead)
@@ -19,7 +19,7 @@ public class FakeParent : MonoBehaviour, IGrabbable
         _rigidbodyToApproach = null;
         _selfRigidbody.velocity = Vector3.zero;
         _selfRigidbody.angularVelocity = Vector3.zero;
-        OnUngrabInternal(characterHead.Rigidbody);
+        OnUngrabInternal(characterHead.CurrentRigidbody);
     }
 
     protected virtual void OnUngrabInternal(Rigidbody rb)

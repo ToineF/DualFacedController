@@ -20,7 +20,7 @@ public class JumpPad : MonoBehaviour
     {
         if (other.TryGetComponent(out CharacterHead head) == false) return;
 
-        var rigidbody = head.Rigidbody;
+        var rigidbody = head.CurrentRigidbody;
         //if (_movedRigidbodies.Contains(rigidbody)) 
         StartCoroutine(ApplyForceWithDecay(rigidbody));
         _visual.DOComplete();

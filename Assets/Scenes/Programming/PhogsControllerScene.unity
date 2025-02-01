@@ -9034,7 +9034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d36409dd4070004491b3f96ce233b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterHead: {fileID: 252453406}
+  _characterHead: {fileID: 1795458645}
   _glitterVFX: {fileID: 1127415950}
   _fakeHead: {fileID: 1533157882}
   _headHat: {fileID: 1688437111}
@@ -20766,9 +20766,6 @@ GameObject:
   - component: {fileID: 252453395}
   - component: {fileID: 252453399}
   - component: {fileID: 252453398}
-  - component: {fileID: 252453404}
-  - component: {fileID: 252453406}
-  - component: {fileID: 252453405}
   m_Layer: 6
   m_Name: Snake (5)
   m_TagString: Untagged
@@ -20843,84 +20840,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &252453404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252453394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9316063a10b64bf9ba474983c7083d6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selfJoint: {fileID: 252453398}
-  _connectedBody: {fileID: 2002565813}
-  _targetJoint: {fileID: 8130301718801087392, guid: 354e43c25c7b9784e9febe089e009a6d,
-    type: 3}
---- !u!136 &252453405
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252453394}
-  m_Material: {fileID: 13400000, guid: 498e83c2ebe40bf4ba5db300c5dc13cf, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &252453406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252453394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0ea50f11b917174198ccc8840e3584d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Rigidbody>k__BackingField: {fileID: 252453399}
-  <Collider>k__BackingField: {fileID: 252453405}
-  _speed: 25
-  _turnLerp: 0.032
-  _additionalGravity: 5
-  _gravityDamper: 0.05
-  _restPositionFromGround: 0
-  _groundDetectionDistance: 100000
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  ForceMode: 1
-  characterBody: {fileID: 1066168554}
-  _grabRadius: 3
-  _grabLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  _squeakNoise: {fileID: 2040075996}
-  _jumpForce: 15
-  _jumpTime: 40
-  _jumpDecrease: 0.5
-  _minJumpsInterval: 0.3
-  _isLeftHead: 1
-  _ability: {fileID: 0}
-  _snakeOffset: 100
-  _snakeFrequency: 0.125
-  _snakeAmplitude: 5
 --- !u!1 &261441794
 GameObject:
   m_ObjectHideFlags: 0
@@ -24164,6 +24083,65 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 724917440}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &404172439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 404172440}
+  - component: {fileID: 404172441}
+  m_Layer: 6
+  m_Name: TailRigidbody
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &404172440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404172439}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 868114115}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &404172441
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404172439}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 7
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1 &407713517
 GameObject:
   m_ObjectHideFlags: 0
@@ -39186,6 +39164,39 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 863613527}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &868114114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 868114115}
+  m_Layer: 6
+  m_Name: SoloMice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &868114115
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868114114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 404172440}
+  - {fileID: 1948672076}
+  m_Father: {fileID: 1066168553}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &868177799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6871058364083467172, guid: 71e155cbdc8b250429ded11fdb61c49f,
@@ -39497,8 +39508,6 @@ GameObject:
   m_Component:
   - component: {fileID: 888138770}
   - component: {fileID: 888138765}
-  - component: {fileID: 888138771}
-  - component: {fileID: 888138772}
   m_Layer: 6
   m_Name: Snake (6)
   m_TagString: Untagged
@@ -39549,68 +39558,6 @@ Transform:
   - {fileID: 1810484535}
   m_Father: {fileID: 214011366}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &888138771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 888138764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0ea50f11b917174198ccc8840e3584d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Rigidbody>k__BackingField: {fileID: 888138765}
-  <Collider>k__BackingField: {fileID: 888138772}
-  _speed: 25
-  _turnLerp: 0.032
-  _additionalGravity: 5
-  _gravityDamper: 0.05
-  _restPositionFromGround: 0
-  _groundDetectionDistance: 100000
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  ForceMode: 1
-  characterBody: {fileID: 1066168554}
-  _grabRadius: 3
-  _grabLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  _squeakNoise: {fileID: 1728923964}
-  _jumpForce: 15
-  _jumpTime: 40
-  _jumpDecrease: 0.5
-  _minJumpsInterval: 0.3
-  _isLeftHead: 0
-  _ability: {fileID: 0}
-  _snakeOffset: 100
-  _snakeFrequency: 0.125
-  _snakeAmplitude: 5
---- !u!136 &888138772
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 888138764}
-  m_Material: {fileID: 13400000, guid: 498e83c2ebe40bf4ba5db300c5dc13cf, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &891516629
 GameObject:
   m_ObjectHideFlags: 0
@@ -49372,6 +49319,7 @@ Transform:
   m_Children:
   - {fileID: 1973965209}
   - {fileID: 214011366}
+  - {fileID: 868114115}
   m_Father: {fileID: 178751762}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1066168554
@@ -49386,8 +49334,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d615c203d4c6bb84b98f515d2e7d7e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Head>k__BackingField: {fileID: 252453404}
-  <Tail>k__BackingField: {fileID: 2083753458}
+  <Head>k__BackingField: {fileID: 0}
+  <Tail>k__BackingField: {fileID: 0}
 --- !u!1 &1068431216
 GameObject:
   m_ObjectHideFlags: 0
@@ -60227,7 +60175,7 @@ GameObject:
   - component: {fileID: 1383345758}
   - component: {fileID: 1383345760}
   - component: {fileID: 1383345759}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Separator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60247,7 +60195,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1688437111}
+  m_Father: {fileID: 1533157883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1383345759
 MonoBehaviour:
@@ -67484,6 +67432,7 @@ Transform:
   - {fileID: 1346064710}
   - {fileID: 1774825064}
   - {fileID: 983372228}
+  - {fileID: 2114305721}
   m_Father: {fileID: 1852063657}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1522338216
@@ -67797,6 +67746,7 @@ Transform:
   - {fileID: 1353983410}
   - {fileID: 633703233}
   - {fileID: 999912594}
+  - {fileID: 1383345758}
   m_Father: {fileID: 1688437111}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1533157884
@@ -70929,7 +70879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d36409dd4070004491b3f96ce233b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterHead: {fileID: 888138771}
+  _characterHead: {fileID: 1810484536}
   _glitterVFX: {fileID: 951137710}
   _fakeHead: {fileID: 1520142618}
   _headHat: {fileID: 1852063657}
@@ -71980,7 +71930,6 @@ Transform:
   - {fileID: 1039135626}
   - {fileID: 2001232236}
   - {fileID: 597430288}
-  - {fileID: 1383345758}
   - {fileID: 1533157883}
   m_Father: {fileID: 1124700649}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -79615,6 +79564,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1795458643}
+  - component: {fileID: 1795458645}
+  - component: {fileID: 1795458644}
   m_Layer: 6
   m_Name: Mouse_Head(Clone)
   m_TagString: Untagged
@@ -79639,6 +79590,69 @@ Transform:
   - {fileID: 2040075995}
   m_Father: {fileID: 252453395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1795458644
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795458642}
+  m_Material: {fileID: 13400000, guid: 498e83c2ebe40bf4ba5db300c5dc13cf, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.82
+  m_Height: 1.24
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.9440333, z: 0}
+--- !u!114 &1795458645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795458642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0ea50f11b917174198ccc8840e3584d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <TogetherRigidbody>k__BackingField: {fileID: 252453399}
+  <SeparatedRigidbody>k__BackingField: {fileID: 1948672077}
+  <Collider>k__BackingField: {fileID: 1795458644}
+  _speed: 25
+  _turnLerp: 0.032
+  _additionalGravity: 5
+  _gravityDamper: 0.05
+  _restPositionFromGround: 0
+  _groundDetectionDistance: 100000
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  ForceMode: 1
+  characterBody: {fileID: 1066168554}
+  _grabRadius: 3
+  _grabLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _squeakNoise: {fileID: 2040075996}
+  _jumpForce: 15
+  _jumpTime: 40
+  _jumpDecrease: 0.5
+  _minJumpsInterval: 0.3
+  _isLeftHead: 1
+  _ability: {fileID: 0}
+  _snakeOffset: 100
+  _snakeFrequency: 0.125
+  _snakeAmplitude: 5
 --- !u!1001 &1798426057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79830,6 +79844,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1810484535}
+  - component: {fileID: 1810484536}
+  - component: {fileID: 1810484537}
   m_Layer: 6
   m_Name: Mouse_Tail(Clone)
   m_TagString: Untagged
@@ -79854,6 +79870,69 @@ Transform:
   - {fileID: 1728923963}
   m_Father: {fileID: 888138770}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1810484536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810484534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0ea50f11b917174198ccc8840e3584d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <TogetherRigidbody>k__BackingField: {fileID: 888138765}
+  <SeparatedRigidbody>k__BackingField: {fileID: 404172441}
+  <Collider>k__BackingField: {fileID: 1810484537}
+  _speed: 25
+  _turnLerp: 0.032
+  _additionalGravity: 5
+  _gravityDamper: 0.05
+  _restPositionFromGround: 0
+  _groundDetectionDistance: 100000
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  ForceMode: 1
+  characterBody: {fileID: 1066168554}
+  _grabRadius: 3
+  _grabLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _squeakNoise: {fileID: 1728923964}
+  _jumpForce: 15
+  _jumpTime: 40
+  _jumpDecrease: 0.5
+  _minJumpsInterval: 0.3
+  _isLeftHead: 0
+  _ability: {fileID: 0}
+  _snakeOffset: 100
+  _snakeFrequency: 0.125
+  _snakeAmplitude: 5
+--- !u!136 &1810484537
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810484534}
+  m_Material: {fileID: 13400000, guid: 498e83c2ebe40bf4ba5db300c5dc13cf, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.63900524, z: 0}
 --- !u!1 &1812614439
 GameObject:
   m_ObjectHideFlags: 0
@@ -85861,7 +85940,6 @@ Transform:
   - {fileID: 779878021}
   - {fileID: 682521043}
   - {fileID: 1950247237}
-  - {fileID: 2114305721}
   - {fileID: 1520142619}
   m_Father: {fileID: 1314275137}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -92736,6 +92814,65 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1947702321}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1948672075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1948672076}
+  - component: {fileID: 1948672077}
+  m_Layer: 6
+  m_Name: HeadRigidbody
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1948672076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948672075}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 868114115}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1948672077
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948672075}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 7
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1 &1950247236
 GameObject:
   m_ObjectHideFlags: 0
@@ -96576,7 +96713,6 @@ GameObject:
   - component: {fileID: 2083753453}
   - component: {fileID: 2083753452}
   - component: {fileID: 2083753457}
-  - component: {fileID: 2083753458}
   m_Layer: 6
   m_Name: Snake (11)
   m_TagString: Untagged
@@ -96733,22 +96869,6 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
---- !u!114 &2083753458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2083753450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9316063a10b64bf9ba474983c7083d6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selfJoint: {fileID: 2083753453}
-  _connectedBody: {fileID: 888138765}
-  _targetJoint: {fileID: 8130301718801087392, guid: 354e43c25c7b9784e9febe089e009a6d,
-    type: 3}
 --- !u!1001 &2088037638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97570,7 +97690,7 @@ GameObject:
   - component: {fileID: 2114305721}
   - component: {fileID: 2114305723}
   - component: {fileID: 2114305722}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Separator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97586,11 +97706,11 @@ Transform:
   m_GameObject: {fileID: 2114305720}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 1.2, z: -0.5}
+  m_LocalPosition: {x: 0, y: 1.2, z: -0.5000002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1852063657}
+  m_Father: {fileID: 1520142619}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2114305722
 MonoBehaviour:

@@ -14,10 +14,10 @@ public class CharacterBody : MonoBehaviour
     }
     private void Separate(JointToggler joint)
     {
-        joint.enabled = false;
+        //joint.enabled = false;
     }
     private void Reattach(JointToggler joint)
     {
-        joint.enabled = true;
+        //joint.enabled = true;
     }
 }

@@ -11,7 +11,7 @@ public class MovableGrabbableJoint : MonoBehaviour, IGrabbable
     public void OnGrab(CharacterHead characterHead)
     {
         _joint = _jointObject.gameObject.AddComponent<HingeJoint>();
-        _joint.connectedBody = characterHead.Rigidbody;
+        _joint.connectedBody = characterHead.CurrentRigidbody;
         //_joint.autoConfigureConnectedAnchor = false;
         //_joint.connectedAnchor = Vector3.back * 2f;
     }
