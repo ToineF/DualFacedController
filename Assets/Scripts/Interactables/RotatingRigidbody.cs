@@ -1,14 +1,17 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class RotatingRigidbody : MonoBehaviour
+namespace Cattac.Interactables
 {
-    [SerializeField] private Rigidbody _rb;
-    [SerializeField] private float _turnSpeed;
-    [SerializeField] private Vector3 _vector3Up;
-
-    void FixedUpdate()
+    [RequireComponent(typeof(Rigidbody))]
+    public class RotatingRigidbody : MonoBehaviour
     {
-        _rb.angularVelocity = _vector3Up * _turnSpeed;
+        [SerializeField] private Rigidbody _rb;
+        [SerializeField] private float _turnSpeed;
+        [SerializeField] private Vector3 _vector3Up;
+
+        void FixedUpdate()
+        {
+            _rb.angularVelocity = _vector3Up * _turnSpeed;
+        }
     }
 }

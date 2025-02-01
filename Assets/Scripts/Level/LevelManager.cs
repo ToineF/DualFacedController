@@ -2,25 +2,29 @@
 using System;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+namespace Cattac.Level
 {
-    [SerializeField] private PlayerLevelPair[] _levels;
-
-    private void Start()
+    public class LevelManager : MonoBehaviour
     {
-        LoadLevel(LevelCountDebug.Instance?.CurrentLevel ?? 0);
-    }
+        [SerializeField] private PlayerLevelPair[] _levels;
 
-    public void LoadLevel(int currentLevel)
-    {
-        currentLevel = currentLevel.Modulo(_levels.Length);
-        for (int i = 0; i < _levels.Length; i++)
+        private void Start()
         {
-            _levels[i].Player.SetActive(false);
-            _levels[i].Level.SetActive(false);
+            LoadLevel(LevelCountDebug.Instance?.CurrentLevel ?? 0);
         }
-        _levels[currentLevel].Player.SetActive(true);
-        _levels[currentLevel].Level.SetActive(true);
+
+        public void LoadLevel(int currentLevel)
+        {
+            currentLevel = currentLevel.Modulo(_levels.Length);
+            for (int i = 0; i < _levels.Length; i++)
+            {
+                _levels[i].Player.SetActive(false);
+                _levels[i].Level.SetActive(false);
+            }
+
+            _levels[currentLevel].Player.SetActive(true);
+            _levels[currentLevel].Level.SetActive(true);
+        }
     }
 }
 

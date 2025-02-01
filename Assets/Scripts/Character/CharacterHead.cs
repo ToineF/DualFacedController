@@ -1,259 +1,279 @@
 using System;
 using System.Threading.Tasks;
+using Cattac.Interactables;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class CharacterHead : MonoBehaviour
+namespace Cattac.Character
 {
-    public Action OnSeparate {get; set;}
-    public Action OnConnect { get; set; }
-
-    public Vector2 Direction => _direction;
-    public Vector2 LastDirection => _lastDirection;
-    public IGrabbable CurrentGrabbable { get => _currentGrabbable; set => _currentGrabbable = value; }
-    public bool IsGrabbing { get; private set; }
-    public bool IsSeparated { get; private set; }
-
-    [field: Header("Head Properties")]
-    [field: SerializeField] public Rigidbody TogetherRigidbody { get; set; }
-    [field: SerializeField] public Rigidbody SeparatedRigidbody { get; set; }
-
-    public Rigidbody CurrentRigidbody
+    public class CharacterHead : MonoBehaviour
     {
-        get
+        public Action OnSeparate { get; set; }
+        public Action OnConnect { get; set; }
+
+        public Vector2 Direction => _direction;
+        public Vector2 LastDirection => _lastDirection;
+
+        public IGrabbable CurrentGrabbable
         {
-            var newRigidbody = IsSeparated ? SeparatedRigidbody : TogetherRigidbody;
-            transform.SetParent(newRigidbody.transform);
-            if (IsSeparated == false) SeparatedRigidbody.position = TogetherRigidbody.position;
-            transform.localPosition = Vector3.zero;
-            return newRigidbody;
+            get => _currentGrabbable;
+            set => _currentGrabbable = value;
         }
-    } 
-    [field: SerializeField] public CapsuleCollider Collider { get; set; }
 
-    [SerializeField] private float _speed;
-    [SerializeField, Range(0, 1)] private float _turnLerp;
+        public bool IsGrabbing { get; private set; }
+        public bool IsSeparated { get; private set; }
 
-    [Header("Ground Detection")]
-    [SerializeField] private float _additionalGravity;
-    [SerializeField] private float _gravityDamper;
-    [SerializeField] private float _restPositionFromGround;
+        [field: Header("Head Properties")]
+        [field: SerializeField]
+        public Rigidbody TogetherRigidbody { get; set; }
 
-    [SerializeField] private float _groundDetectionDistance;
-    [SerializeField] private LayerMask _groundLayer;
+        [field: SerializeField] public Rigidbody SeparatedRigidbody { get; set; }
 
-
-    public ForceMode ForceMode;
-
-    [SerializeField] private CharacterBody characterBody;
-
-    [Header("Grab")]
-    [SerializeField] private float _grabRadius;
-    [SerializeField] private LayerMask _grabLayerMask;
-    [SerializeField] private AudioSource _squeakNoise;
-
-    [Header("Jump")]
-    [SerializeField] private float _jumpForce;
-    [SerializeField] private float _jumpTime;
-    [SerializeField] private float _jumpDecrease;
-    [SerializeField] private float _minJumpsInterval;
-
-    [Header("Input Properties")]
-    [SerializeField] private bool _isLeftHead;
-
-    [Header("Ability")]
-    [SerializeField] private Ability _ability;
-    
-    [Header("Snake")]
-    [SerializeField] private float _snakeOffset;
-    [SerializeField] private float _snakeFrequency;
-    [SerializeField] private float _snakeAmplitude;
-    private float _snakeTimer;
-
-    private Vector2 _direction;
-    private Vector2 _lastDirection;
-    private RaycastHit _lastGroundHit;
-
-    private IGrabbable _currentGrabbable;
-
-    private float _jumpTimer;
-    
-    private Camera _camera;
-
-    private void Start()
-    {
-        _camera = Camera.main;
-    }
-
-    private void Update()
-    {
-        CheckMovements();
-        CheckGrab();
-        CheckAbility();
-    }
-    
-    private void CheckMovements()
-    {
-        var targetDirection = _isLeftHead ? UserInput.Instance.LeftMoveInput : UserInput.Instance.RightMoveInput;
-        _direction = Vector3.Lerp(_direction, targetDirection, _turnLerp);
-        if (_direction.magnitude > 0.1f) _lastDirection = _direction;
-
-    }
-    private void CheckGrab()
-    {
-        IsGrabbing = _isLeftHead ? UserInput.Instance.LeftGrabInput : UserInput.Instance.RightGrabInput;
-        //Rigidbody.isKinematic = IsGrabbing;
-        
-        var isJumping = _isLeftHead ? UserInput.Instance.LeftGrabInputReleased : UserInput.Instance.RightGrabInputReleased;
-
-        //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
-        // Update timer
-        _jumpTimer -= Time.deltaTime;
-        if (_jumpTimer <= 0 && isJumping) ApplyForceWithDecay(CurrentRigidbody);
-
-        if (isJumping) {
-            if (_currentGrabbable == null) 
-                Grab();
-            else 
+        public Rigidbody CurrentRigidbody
+        {
+            get
             {
-                _currentGrabbable.OnUngrab(this);
-                _currentGrabbable = null;
+                var newRigidbody = IsSeparated ? SeparatedRigidbody : TogetherRigidbody;
+                transform.SetParent(newRigidbody.transform);
+                if (IsSeparated == false) SeparatedRigidbody.position = TogetherRigidbody.position;
+                transform.localPosition = Vector3.zero;
+                return newRigidbody;
             }
         }
-    }
 
-    private void Grab()
-    {
-        var colliders = Physics.OverlapSphere(transform.position, _grabRadius, _grabLayerMask);
-        if (colliders.Length < 1) return;
-        var minDistance = (transform.position - colliders[0].transform.position).sqrMagnitude;
-        var closestCollider = colliders[0];
-        if (colliders.Length > 1)
+        [field: SerializeField] public CapsuleCollider Collider { get; set; }
+
+        [SerializeField] private float _speed;
+        [SerializeField, Range(0, 1)] private float _turnLerp;
+
+        [Header("Ground Detection")] [SerializeField]
+        private float _additionalGravity;
+
+        [SerializeField] private float _gravityDamper;
+        [SerializeField] private float _restPositionFromGround;
+
+        [SerializeField] private float _groundDetectionDistance;
+        [SerializeField] private LayerMask _groundLayer;
+
+
+        public ForceMode ForceMode;
+
+        [SerializeField] private CharacterBody characterBody;
+
+        [Header("Grab")] [SerializeField] private float _grabRadius;
+        [SerializeField] private LayerMask _grabLayerMask;
+        [SerializeField] private AudioSource _squeakNoise;
+
+        [Header("Jump")] [SerializeField] private float _jumpForce;
+        [SerializeField] private float _jumpTime;
+        [SerializeField] private float _jumpDecrease;
+        [SerializeField] private float _minJumpsInterval;
+
+        [Header("Input Properties")] [SerializeField]
+        private bool _isLeftHead;
+
+        [Header("Ability")]
+        [SerializeField] private Ability.Ability _ability;
+
+        [Header("Snake")]
+        [SerializeField] private float _snakeOffset;
+        [SerializeField] private float _snakeFrequency;
+        [SerializeField] private float _snakeAmplitude;
+        private float _snakeTimer;
+
+        private Vector2 _direction;
+        private Vector2 _lastDirection;
+        private RaycastHit _lastGroundHit;
+
+        private IGrabbable _currentGrabbable;
+
+        private float _jumpTimer;
+
+        private Camera _camera;
+
+        private void Start()
         {
-            for (int i = 1; i < colliders.Length; i++)
+            _camera = Camera.main;
+        }
+
+        private void Update()
+        {
+            CheckMovements();
+            CheckGrab();
+            CheckAbility();
+        }
+
+        private void CheckMovements()
+        {
+            var targetDirection = _isLeftHead ? UserInput.Instance.LeftMoveInput : UserInput.Instance.RightMoveInput;
+            _direction = Vector3.Lerp(_direction, targetDirection, _turnLerp);
+            if (_direction.magnitude > 0.1f) _lastDirection = _direction;
+
+        }
+
+        private void CheckGrab()
+        {
+            IsGrabbing = _isLeftHead ? UserInput.Instance.LeftGrabInput : UserInput.Instance.RightGrabInput;
+            //Rigidbody.isKinematic = IsGrabbing;
+
+            var isJumping = _isLeftHead
+                ? UserInput.Instance.LeftGrabInputReleased
+                : UserInput.Instance.RightGrabInputReleased;
+
+            //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
+            // Update timer
+            _jumpTimer -= Time.deltaTime;
+            if (_jumpTimer <= 0 && isJumping) ApplyForceWithDecay(CurrentRigidbody);
+
+            if (isJumping)
             {
-                var currentDistance = (transform.position - colliders[i].transform.position).sqrMagnitude;
-                if (currentDistance < minDistance)
+                if (_currentGrabbable == null)
+                    Grab();
+                else
                 {
-                    closestCollider = colliders[i];
-                    minDistance = currentDistance;
+                    _currentGrabbable.OnUngrab(this);
+                    _currentGrabbable = null;
                 }
             }
         }
 
-        if (closestCollider.TryGetComponent(out IGrabbable grabbable))
+        private void Grab()
         {
-            _currentGrabbable = grabbable;
-            _currentGrabbable.OnGrab(this);
+            var colliders = Physics.OverlapSphere(transform.position, _grabRadius, _grabLayerMask);
+            if (colliders.Length < 1) return;
+            var minDistance = (transform.position - colliders[0].transform.position).sqrMagnitude;
+            var closestCollider = colliders[0];
+            if (colliders.Length > 1)
+            {
+                for (int i = 1; i < colliders.Length; i++)
+                {
+                    var currentDistance = (transform.position - colliders[i].transform.position).sqrMagnitude;
+                    if (currentDistance < minDistance)
+                    {
+                        closestCollider = colliders[i];
+                        minDistance = currentDistance;
+                    }
+                }
+            }
+
+            if (closestCollider.TryGetComponent(out IGrabbable grabbable))
+            {
+                _currentGrabbable = grabbable;
+                _currentGrabbable.OnGrab(this);
+            }
         }
-    }
 
-    private async void ApplyForceWithDecay(Rigidbody rb)
-    {
-        _squeakNoise.volume = Random.Range(0.7f, 1f);
-        _squeakNoise.pitch = Random.Range(0.9f, 1.1f);
-        _squeakNoise.Play();
-
-        float currentForce = _jumpForce;
-        _jumpTimer = _minJumpsInterval;
-
-        // Apply force over several frames with decay
-        for (int i = 0; i < _jumpTime; i++)
+        private async void ApplyForceWithDecay(Rigidbody rb)
         {
-            if (currentForce <= 0) break;
+            _squeakNoise.volume = Random.Range(0.7f, 1f);
+            _squeakNoise.pitch = Random.Range(0.9f, 1.1f);
+            _squeakNoise.Play();
 
-            rb.AddForce(Vector3.up * currentForce, ForceMode);
-            currentForce -= _jumpDecrease;
+            float currentForce = _jumpForce;
+            _jumpTimer = _minJumpsInterval;
 
-            // Wait until the next frame
-            await Task.Delay(1);
+            // Apply force over several frames with decay
+            for (int i = 0; i < _jumpTime; i++)
+            {
+                if (currentForce <= 0) break;
+
+                rb.AddForce(Vector3.up * currentForce, ForceMode);
+                currentForce -= _jumpDecrease;
+
+                // Wait until the next frame
+                await Task.Delay(1);
+            }
         }
-    }
 
-    private void CheckSeparation()
-    {
-        if ((_isLeftHead ? UserInput.Instance.LeftSeparationInput : UserInput.Instance.RightSeparationInput) == false) return;
-        ToggleSeparation();
-    }
-
-    private void CheckAbility()
-    {
-        if (_ability == null) return;
-        if ((_isLeftHead ? UserInput.Instance.LeftSeparationInput : UserInput.Instance.RightSeparationInput) == false) return;
-        
-        _ability.UseAbility(this);
-    }
-
-    private void ToggleSeparation()
-    {
-        IsSeparated = !IsSeparated;
-        OnSeparation();
-    }
-    
-    public void SetSeparation(bool isSeparated)
-    {
-        IsSeparated = isSeparated;
-        OnSeparation();
-    }
-
-    private void OnSeparation()
-    {
-        if (IsSeparated) OnSeparate?.Invoke();
-        else OnConnect?.Invoke();
-        
-        characterBody.ToggleJointSeparation(IsSeparated, _isLeftHead);
-    }
-    private void FixedUpdate()
-    {
-        MoveSelf();
-        MoveSnake();
-    }
-
-    private void MoveSelf()
-    {
-        var force = new Vector3(_direction.x, 0, _direction.y) * _speed;
-        force = _camera.transform.forward * force.z + _camera.transform.right * force.x;
-        force = Vector3.ProjectOnPlane(force, _lastGroundHit.normal);
-        CurrentRigidbody.AddForce(force, ForceMode);
-        ApplyGrabbableForce(force);
-        ApplyGravity();
-    }
-
-    private void ApplyGrabbableForce(Vector3 force)
-    {
-        _currentGrabbable?.AddForce(force);
-    }
-
-    private void ApplyGravity()
-    {
-        //if (Physics.Raycast(transform.position, Vector3.down, out hit, _groundDetectionDistance, _groundLayer))
-        //AntoineFoucault.Utilities.ColliderExtensions.GetCapsulePoints(Collider, out Vector3 p1, out Vector3 p2);
-        if (Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out _lastGroundHit, _groundDetectionDistance, _groundLayer, QueryTriggerInteraction.Ignore))
+        private void CheckSeparation()
         {
-            float groundHeight = _lastGroundHit.point.y;
-            float currentHeight = transform.position.y;
+            if ((_isLeftHead ? UserInput.Instance.LeftSeparationInput : UserInput.Instance.RightSeparationInput) ==
+                false) return;
+            ToggleSeparation();
+        }
 
-            // Calculate the difference from the target height
-            float distanceToTarget = (groundHeight + _restPositionFromGround) - currentHeight;
+        private void CheckAbility()
+        {
+            if (_ability == null) return;
+            if ((_isLeftHead ? UserInput.Instance.LeftSeparationInput : UserInput.Instance.RightSeparationInput) ==
+                false) return;
 
-            // Apply spring force to float the character
-            Vector3 force = distanceToTarget * _additionalGravity * Vector3.up;
+            _ability.UseAbility(this);
+        }
 
-            // Apply damping force to gradually reduce the force
-            Vector3 velocity = Vector3.up * CurrentRigidbody.velocity.y;
-            force -= velocity * _gravityDamper;
+        private void ToggleSeparation()
+        {
+            IsSeparated = !IsSeparated;
+            OnSeparation();
+        }
 
-            // Apply the force to the Rigidbody
+        public void SetSeparation(bool isSeparated)
+        {
+            IsSeparated = isSeparated;
+            OnSeparation();
+        }
+
+        private void OnSeparation()
+        {
+            if (IsSeparated) OnSeparate?.Invoke();
+            else OnConnect?.Invoke();
+
+            characterBody.ToggleJointSeparation(IsSeparated, _isLeftHead);
+        }
+
+        private void FixedUpdate()
+        {
+            MoveSelf();
+            MoveSnake();
+        }
+
+        private void MoveSelf()
+        {
+            var force = new Vector3(_direction.x, 0, _direction.y) * _speed;
+            force = _camera.transform.forward * force.z + _camera.transform.right * force.x;
+            force = Vector3.ProjectOnPlane(force, _lastGroundHit.normal);
             CurrentRigidbody.AddForce(force, ForceMode);
+            ApplyGrabbableForce(force);
+            ApplyGravity();
         }
-    }
-    private void MoveSnake()
-    {
-        _snakeTimer += Time.deltaTime;
-        var s = Mathf.Sin((_snakeTimer + _snakeOffset) / _snakeFrequency) * _snakeAmplitude;
-        var directionVector = Vector3.Cross(new Vector3(_direction.x, 0, _direction.y), Vector3.down);
-        CurrentRigidbody.AddForce(directionVector * s, ForceMode);
-    }
+
+        private void ApplyGrabbableForce(Vector3 force)
+        {
+            _currentGrabbable?.AddForce(force);
+        }
+
+        private void ApplyGravity()
+        {
+            //if (Physics.Raycast(transform.position, Vector3.down, out hit, _groundDetectionDistance, _groundLayer))
+            //AntoineFoucault.Utilities.ColliderExtensions.GetCapsulePoints(Collider, out Vector3 p1, out Vector3 p2);
+            if (Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out _lastGroundHit,
+                    _groundDetectionDistance, _groundLayer, QueryTriggerInteraction.Ignore))
+            {
+                float groundHeight = _lastGroundHit.point.y;
+                float currentHeight = transform.position.y;
+
+                // Calculate the difference from the target height
+                float distanceToTarget = (groundHeight + _restPositionFromGround) - currentHeight;
+
+                // Apply spring force to float the character
+                Vector3 force = distanceToTarget * _additionalGravity * Vector3.up;
+
+                // Apply damping force to gradually reduce the force
+                Vector3 velocity = Vector3.up * CurrentRigidbody.velocity.y;
+                force -= velocity * _gravityDamper;
+
+                // Apply the force to the Rigidbody
+                CurrentRigidbody.AddForce(force, ForceMode);
+            }
+        }
+
+        private void MoveSnake()
+        {
+            _snakeTimer += Time.deltaTime;
+            var s = Mathf.Sin((_snakeTimer + _snakeOffset) / _snakeFrequency) * _snakeAmplitude;
+            var directionVector = Vector3.Cross(new Vector3(_direction.x, 0, _direction.y), Vector3.down);
+            CurrentRigidbody.AddForce(directionVector * s, ForceMode);
+        }
 
 /*#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
@@ -262,4 +282,5 @@ public class CharacterHead : MonoBehaviour
         Gizmos.DrawSphere(transform.position, _grabRadius);
     }
 #endif*/
+    }
 }

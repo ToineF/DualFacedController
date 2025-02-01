@@ -1,59 +1,66 @@
-﻿using UnityEngine;
+﻿using Cattac.Character;
+using UnityEngine;
 
-
-public class NPC_Seeker : MonoBehaviour
+namespace Cattac.Interactables.NPC
 {
-    public CharacterHead Target { get; private set; }
-
-    [Header("References")]
-    [SerializeField] private NPC_LookAt _lookAt;
-
-    [Header("Seek Parameters")]
-    [SerializeField] private float _maxSeekAngle;
-    [SerializeField] private float _seekRadius;
-    [SerializeField] private float _seekDistance;
-    [SerializeField] private LayerMask _seekLayer;
-    [SerializeField] private LayerMask _obstaclesLayer;
-
-    private void Update()
+    public class NPC_Seeker : MonoBehaviour
     {
-        Target = GetTarget();
-        _lookAt.Target = Target?.gameObject;
-    }
+        public CharacterHead Target { get; private set; }
 
-    private CharacterHead GetTarget()
-    {
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, _seekRadius, transform.forward, _seekDistance, _seekLayer, QueryTriggerInteraction.Ignore);
+        [Header("References")] [SerializeField]
+        private NPC_LookAt _lookAt;
 
-        if (hits.Length <= 0) return null;
+        [Header("Seek Parameters")] [SerializeField]
+        private float _maxSeekAngle;
 
-        float currentMinDistance = float.PositiveInfinity;
-        CharacterHead target = null;
+        [SerializeField] private float _seekRadius;
+        [SerializeField] private float _seekDistance;
+        [SerializeField] private LayerMask _seekLayer;
+        [SerializeField] private LayerMask _obstaclesLayer;
 
-        foreach (var hit in hits)
+        private void Update()
         {
-            if (hit.collider == null || hit.collider.TryGetComponent(out CharacterHead head) == false) continue;
-
-            var distanceToHit = head.transform.position - transform.position;
-            if (Physics.Raycast(transform.position, distanceToHit, distanceToHit.magnitude, _obstaclesLayer)) continue;
-
-            float currentAngle = Vector3.Angle(transform.forward, distanceToHit.normalized);
-            float distanceMagnitude = distanceToHit.magnitude;
-
-            if (_maxSeekAngle > currentAngle && currentMinDistance > distanceMagnitude)
-            {
-                currentMinDistance = distanceMagnitude;
-                target = head;
-            }
+            Target = GetTarget();
+            _lookAt.Target = Target?.gameObject;
         }
 
-        return target;
-    }
+        private CharacterHead GetTarget()
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, _seekRadius, transform.forward, _seekDistance,
+                _seekLayer, QueryTriggerInteraction.Ignore);
+
+            if (hits.Length <= 0) return null;
+
+            float currentMinDistance = float.PositiveInfinity;
+            CharacterHead target = null;
+
+            foreach (var hit in hits)
+            {
+                if (hit.collider == null || hit.collider.TryGetComponent(out CharacterHead head) == false) continue;
+
+                var distanceToHit = head.transform.position - transform.position;
+                if (Physics.Raycast(transform.position, distanceToHit, distanceToHit.magnitude, _obstaclesLayer))
+                    continue;
+
+                float currentAngle = Vector3.Angle(transform.forward, distanceToHit.normalized);
+                float distanceMagnitude = distanceToHit.magnitude;
+
+                if (_maxSeekAngle > currentAngle && currentMinDistance > distanceMagnitude)
+                {
+                    currentMinDistance = distanceMagnitude;
+                    target = head;
+                }
+            }
+
+            return target;
+        }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        AntoineFoucault.Utilities.GizmoExtensions.DrawSphereCast(transform.position, _seekRadius, transform.forward, _seekDistance, Color.green);
-    }
+        private void OnDrawGizmos()
+        {
+            AntoineFoucault.Utilities.GizmoExtensions.DrawSphereCast(transform.position, _seekRadius, transform.forward,
+                _seekDistance, Color.green);
+        }
 #endif
+    }
 }

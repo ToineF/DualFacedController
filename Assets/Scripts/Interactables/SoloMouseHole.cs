@@ -1,13 +1,17 @@
+using Cattac.Character;
 using UnityEngine;
 
-public class SoloMouseHole : MonoBehaviour
+namespace Cattac.Interactables
 {
-    [SerializeField] private GameObject _collider;
-
-    private void OnTriggerEnter(Collider other)
+    public class SoloMouseHole : MonoBehaviour
     {
-        if (other.TryGetComponent(out CharacterHead head) == false) return;
-        
-        _collider.SetActive(head.IsSeparated == false);
+        [SerializeField] private GameObject _collider;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out CharacterHead head) == false) return;
+
+            _collider.SetActive(head.IsSeparated == false);
+        }
     }
 }

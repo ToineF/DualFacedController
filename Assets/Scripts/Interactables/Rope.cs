@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
 
-public class Rope : FakeParent
+namespace Cattac.Interactables
 {
-    [Header("Rope params")]
-    [SerializeField] private float _forceMultiplier = 1f;
-    [SerializeField] private float _ungrabForce = 1f;
-    [SerializeField] private ForceMode _ungrabForceMode;
-
-    protected override void AddForceInternal(Vector3 force)
+    public class Rope : FakeParent
     {
-        _selfRigidbody.AddForce(force * _forceMultiplier, ForceMode.Impulse);
-    }
+        [Header("Rope params")] [SerializeField]
+        private float _forceMultiplier = 1f;
 
-    protected override void OnUngrabInternal(Rigidbody rb)
-    {
-        rb.AddForce(Vector3.up * _ungrabForce, _ungrabForceMode);
+        [SerializeField] private float _ungrabForce = 1f;
+        [SerializeField] private ForceMode _ungrabForceMode;
+
+        protected override void AddForceInternal(Vector3 force)
+        {
+            _selfRigidbody.AddForce(force * _forceMultiplier, ForceMode.Impulse);
+        }
+
+        protected override void OnUngrabInternal(Rigidbody rb)
+        {
+            rb.AddForce(Vector3.up * _ungrabForce, _ungrabForceMode);
+        }
     }
 }

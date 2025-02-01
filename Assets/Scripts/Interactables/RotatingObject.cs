@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class RotatingObject : MonoBehaviour
+namespace Cattac.Interactables
 {
-    [SerializeField] private float _turnSpeed;
-    [SerializeField] private Vector3 _vector3Up;
-
-    void FixedUpdate()
+    public class RotatingObject : MonoBehaviour
     {
-        transform.Rotate(_vector3Up * _turnSpeed);
+        [SerializeField] private float _turnSpeed;
+        [SerializeField] private Vector3 _vector3Up;
+
+        void FixedUpdate()
+        {
+            transform.Rotate(_vector3Up * _turnSpeed);
+        }
     }
 }

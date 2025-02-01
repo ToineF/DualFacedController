@@ -1,25 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-
-public class BallDropZone : BoxTrigger
+namespace Cattac.Interactables
 {
-    [Header("Drop Zone Params")]
-    public UnityEvent OnBallStay;
-    [SerializeField] private float _stayTime;
-
-    private float _timer;
-
-    protected override void OnEnterTriggerInternal(Collider other)
+    public class BallDropZone : BoxTrigger
     {
-        if (other.gameObject.GetComponent<Ball>() == false) return;
-        _timer = _stayTime;
-    }
+        [Header("Drop Zone Params")] public UnityEvent OnBallStay;
+        [SerializeField] private float _stayTime;
 
-    protected override void OnStayTriggerInternal(Collider other)
-    {
-        if (other.gameObject.GetComponent<Ball>() == false) return;
-        _timer -= Time.deltaTime;
-        if (_timer < 0) OnBallStay?.Invoke();
+        private float _timer;
+
+        protected override void OnEnterTriggerInternal(Collider other)
+        {
+            if (other.gameObject.GetComponent<Ball>() == false) return;
+            _timer = _stayTime;
+        }
+
+        protected override void OnStayTriggerInternal(Collider other)
+        {
+            if (other.gameObject.GetComponent<Ball>() == false) return;
+            _timer -= Time.deltaTime;
+            if (_timer < 0) OnBallStay?.Invoke();
+        }
     }
 }

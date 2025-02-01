@@ -1,23 +1,27 @@
+using Cattac.Character;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ActivationButton : MonoBehaviour, IGrabbable
+namespace Cattac.Interactables
 {
-    [SerializeField] private UnityEvent OnPressed;
-    
-    public void OnGrab(CharacterHead characterHead)
+    public class ActivationButton : MonoBehaviour, IGrabbable
     {
-        OnPressed?.Invoke();
-        characterHead.CurrentGrabbable = null;
-    }
+        [SerializeField] private UnityEvent OnPressed;
 
-    public void OnUngrab(CharacterHead characterHead)
-    {
-        
-    }
+        public void OnGrab(CharacterHead characterHead)
+        {
+            OnPressed?.Invoke();
+            characterHead.CurrentGrabbable = null;
+        }
 
-    public void AddForce(Vector3 force)
-    {
-        
+        public void OnUngrab(CharacterHead characterHead)
+        {
+
+        }
+
+        public void AddForce(Vector3 force)
+        {
+
+        }
     }
 }

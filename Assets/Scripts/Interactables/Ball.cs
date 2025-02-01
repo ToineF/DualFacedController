@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
-
-public class Ball : MonoBehaviour
+namespace Cattac.Interactables
 {
+    public class Ball : MonoBehaviour
+    {
 
+    }
 }

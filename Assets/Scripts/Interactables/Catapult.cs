@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public class Catapult : MonoBehaviour
+namespace Cattac.Interactables
 {
-    [SerializeField] private Rigidbody _catapultBody;
-    [SerializeField] private Vector3 _torque;
-
-    private void Update()
+    public class Catapult : MonoBehaviour
     {
-        if (Input.GetMouseButtonDown(1))
+        [SerializeField] private Rigidbody _catapultBody;
+        [SerializeField] private Vector3 _torque;
+
+        private void Update()
         {
-            _catapultBody.AddTorque(_torque, ForceMode.Impulse);
+            if (Input.GetMouseButtonDown(1))
+            {
+                _catapultBody.AddTorque(_torque, ForceMode.Impulse);
+            }
         }
     }
 }

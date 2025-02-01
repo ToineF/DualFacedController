@@ -1,29 +1,33 @@
+using Cattac.Character;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BreakableJoint : MonoBehaviour, IGrabbable
+namespace Cattac.Interactables
 {
-    [Header("References")]
-    [SerializeField] private Joint _joint;
-    
-    private void Reset()
+    public class BreakableJoint : MonoBehaviour, IGrabbable
     {
-        if (transform.parent.TryGetComponent(out Joint joint)) _joint = joint;
-        else Debug.LogError("Parent does not contain Joint component", transform.parent);
-    }
+        [Header("References")] [SerializeField]
+        private Joint _joint;
 
-    public void OnGrab(CharacterHead characterHead)
-    {
-        characterHead.CurrentGrabbable = null;
-        Destroy(_joint);
-        Destroy(this);
-    }
+        private void Reset()
+        {
+            if (transform.parent.TryGetComponent(out Joint joint)) _joint = joint;
+            else Debug.LogError("Parent does not contain Joint component", transform.parent);
+        }
 
-    public void OnUngrab(CharacterHead characterHead)
-    {
-    }
+        public void OnGrab(CharacterHead characterHead)
+        {
+            characterHead.CurrentGrabbable = null;
+            Destroy(_joint);
+            Destroy(this);
+        }
 
-    public void AddForce(Vector3 force)
-    {
+        public void OnUngrab(CharacterHead characterHead)
+        {
+        }
+
+        public void AddForce(Vector3 force)
+        {
+        }
     }
 }

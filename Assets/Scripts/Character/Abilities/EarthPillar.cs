@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
-
-public class EarthPillar : MonoBehaviour
+namespace Cattac.Character.Ability
 {
+    public class EarthPillar : MonoBehaviour
+    {
 
+    }
 }

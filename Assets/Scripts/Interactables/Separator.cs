@@ -1,23 +1,27 @@
+using Cattac.Character;
 using UnityEngine;
 
-public class Separator : MonoBehaviour, IGrabbable
+namespace Cattac.Interactables
 {
-    [SerializeField] private bool _separate;
-    
-    public void OnGrab(CharacterHead characterHead)
+    public class Separator : MonoBehaviour, IGrabbable
     {
-        if (characterHead.IsSeparated == _separate) return;
-        
-        characterHead.CurrentGrabbable = null;
-        characterHead.SetSeparation(_separate);
-    }
+        [SerializeField] private bool _separate;
 
-    public void OnUngrab(CharacterHead characterHead)
-    {
-        
-    }
+        public void OnGrab(CharacterHead characterHead)
+        {
+            if (characterHead.IsSeparated == _separate) return;
 
-    public void AddForce(Vector3 force)
-    {
+            characterHead.CurrentGrabbable = null;
+            characterHead.SetSeparation(_separate);
+        }
+
+        public void OnUngrab(CharacterHead characterHead)
+        {
+
+        }
+
+        public void AddForce(Vector3 force)
+        {
+        }
     }
 }

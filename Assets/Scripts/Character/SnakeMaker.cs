@@ -2,44 +2,51 @@ using AntoineFoucault.Utilities;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class SnakeMaker : MonoBehaviour
+namespace Cattac.Character
 {
-    [FormerlySerializedAs("_headPrefab")]
-    [Header("References")]
-    [SerializeField] private CharacterHead characterHeadPrefab;
-    [SerializeField] private CharacterHead _tailPrefab;
-    [FormerlySerializedAs("_bodyPrefab")] [SerializeField] private CharacterBody characterBodyPrefab;
-    [SerializeField] private Rigidbody _bodyPartPrefab;
-    [SerializeField] private Transform _snakeParent;
-
-    [Header("Parameters")]
-    [SerializeField] private int _bodyPartsCount;
-    [SerializeField] private float _partsStartMargin;
-    
-    [ContextMenu("UpdateSnake")]
-    public void UpdateSnake()
+    public class SnakeMaker : MonoBehaviour
     {
-        _snakeParent.ClearImmediate();
-        
-        var body = Instantiate(characterBodyPrefab, _snakeParent);
+        [FormerlySerializedAs("_headPrefab")] [Header("References")] [SerializeField]
+        private CharacterHead characterHeadPrefab;
 
-        var head = Instantiate(characterHeadPrefab, body.transform);
-        var tail = Instantiate(_tailPrefab, body.transform);
-        tail.transform.position += _partsStartMargin * _bodyPartsCount * Vector3.right;
+        [SerializeField] private CharacterHead _tailPrefab;
 
-        //body.Head = head;
-        //body.Tail = tail;
+        [FormerlySerializedAs("_bodyPrefab")] [SerializeField]
+        private CharacterBody characterBodyPrefab;
 
+        [SerializeField] private Rigidbody _bodyPartPrefab;
+        [SerializeField] private Transform _snakeParent;
 
-        Rigidbody[] _parts = new Rigidbody[_bodyPartsCount];
-        var bodyPartsParent = new GameObject("Body Parts").transform;
-        bodyPartsParent.SetParent(body.transform);
-        bodyPartsParent.localPosition = Vector3.zero;
-        for (int i = 0; i < _bodyPartsCount; i++)
+        [Header("Parameters")] [SerializeField]
+        private int _bodyPartsCount;
+
+        [SerializeField] private float _partsStartMargin;
+
+        [ContextMenu("UpdateSnake")]
+        public void UpdateSnake()
         {
-            _parts[i] = Instantiate(_bodyPartPrefab, bodyPartsParent);
-            _parts[i].transform.position += _partsStartMargin * i * Vector3.right;
+            _snakeParent.ClearImmediate();
+
+            var body = Instantiate(characterBodyPrefab, _snakeParent);
+
+            var head = Instantiate(characterHeadPrefab, body.transform);
+            var tail = Instantiate(_tailPrefab, body.transform);
+            tail.transform.position += _partsStartMargin * _bodyPartsCount * Vector3.right;
+
+            //body.Head = head;
+            //body.Tail = tail;
+
+
+            Rigidbody[] _parts = new Rigidbody[_bodyPartsCount];
+            var bodyPartsParent = new GameObject("Body Parts").transform;
+            bodyPartsParent.SetParent(body.transform);
+            bodyPartsParent.localPosition = Vector3.zero;
+            for (int i = 0; i < _bodyPartsCount; i++)
+            {
+                _parts[i] = Instantiate(_bodyPartPrefab, bodyPartsParent);
+                _parts[i].transform.position += _partsStartMargin * i * Vector3.right;
+            }
+            //body.BodyParts = _parts;
         }
-        //body.BodyParts = _parts;
     }
 }

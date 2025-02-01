@@ -1,48 +1,51 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelCountDebug : MonoBehaviour
+namespace Cattac.Level
 {
-    public static LevelCountDebug Instance;
-
-    public int CurrentLevel => _currentLevel;
-    private int _currentLevel;
-
-    private void Awake()
+    public class LevelCountDebug : MonoBehaviour
     {
-        if (Instance == null)
+        public static LevelCountDebug Instance;
+
+        public int CurrentLevel => _currentLevel;
+        private int _currentLevel;
+
+        private void Awake()
         {
-            Instance = this;
-            transform.SetParent(null);
-            DontDestroyOnLoad(this);
+            if (Instance == null)
+            {
+                Instance = this;
+                transform.SetParent(null);
+                DontDestroyOnLoad(this);
+            }
+            else if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
         }
-        else if (Instance != this)
+
+        private void Update()
         {
-            Destroy(gameObject);
+            if (Input.GetKeyDown(KeyCode.F1)) PreviousLevel();
+            if (Input.GetKeyDown(KeyCode.F2)) ReloadLevel();
+            if (Input.GetKeyDown(KeyCode.F3)) NextLevel();
         }
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F1)) PreviousLevel();
-        if (Input.GetKeyDown(KeyCode.F2)) ReloadLevel();
-        if (Input.GetKeyDown(KeyCode.F3)) NextLevel();
-    }
+        public void NextLevel()
+        {
+            _currentLevel++;
+            ReloadLevel();
+        }
 
-    public void NextLevel()
-    {
-        _currentLevel++;
-        ReloadLevel();
-    }
+        public void PreviousLevel()
+        {
+            _currentLevel--;
+            ReloadLevel();
+        }
 
-    public void PreviousLevel()
-    {
-        _currentLevel--;
-        ReloadLevel();
-    }
-
-    public void ReloadLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        public void ReloadLevel()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
