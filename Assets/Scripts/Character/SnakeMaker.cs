@@ -11,9 +11,6 @@ namespace Cattac.Character
 
         [SerializeField] private CharacterHead _tailPrefab;
 
-        [FormerlySerializedAs("_bodyPrefab")] [SerializeField]
-        private CharacterBody characterBodyPrefab;
-
         [SerializeField] private Rigidbody _bodyPartPrefab;
         [SerializeField] private Transform _snakeParent;
 
@@ -27,11 +24,11 @@ namespace Cattac.Character
         {
             _snakeParent.ClearImmediate();
 
-            var body = Instantiate(characterBodyPrefab, _snakeParent);
+            //var body = Instantiate(characterBodyPrefab, _snakeParent);
 
-            var head = Instantiate(characterHeadPrefab, body.transform);
-            var tail = Instantiate(_tailPrefab, body.transform);
-            tail.transform.position += _partsStartMargin * _bodyPartsCount * Vector3.right;
+            //var head = Instantiate(characterHeadPrefab, body.transform);
+            //var tail = Instantiate(_tailPrefab, body.transform);
+            //tail.transform.position += _partsStartMargin * _bodyPartsCount * Vector3.right;
 
             //body.Head = head;
             //body.Tail = tail;
@@ -39,7 +36,7 @@ namespace Cattac.Character
 
             Rigidbody[] _parts = new Rigidbody[_bodyPartsCount];
             var bodyPartsParent = new GameObject("Body Parts").transform;
-            bodyPartsParent.SetParent(body.transform);
+            //bodyPartsParent.SetParent(body.transform);
             bodyPartsParent.localPosition = Vector3.zero;
             for (int i = 0; i < _bodyPartsCount; i++)
             {

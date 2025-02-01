@@ -10896,31 +10896,10 @@ MonoBehaviour:
   <TogetherRigidbody>k__BackingField: {fileID: 492667355545339003}
   <SeparatedRigidbody>k__BackingField: {fileID: 8637709936979622566}
   <Collider>k__BackingField: {fileID: 962885524600477390}
-  _speed: 25
-  _turnLerp: 0.032
-  _additionalGravity: 5
-  _gravityDamper: 0.05
-  _restPositionFromGround: 0
-  _groundDetectionDistance: 100000
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  ForceMode: 1
-  characterBody: {fileID: 2842487824410166482}
-  _grabRadius: 3
-  _grabLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  _squeakNoise: {fileID: 8024953625555245295}
-  _jumpForce: 15
-  _jumpTime: 40
-  _jumpDecrease: 0.5
-  _minJumpsInterval: 0.3
+  _data: {fileID: 0}
   _isLeftHead: 0
   _ability: {fileID: 0}
-  _snakeOffset: 100
-  _snakeFrequency: 0.125
-  _snakeAmplitude: 5
+  _squeakNoise: {fileID: 8024953625555245295}
 --- !u!136 &962885524600477390
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -20158,31 +20137,10 @@ MonoBehaviour:
   <TogetherRigidbody>k__BackingField: {fileID: 2615732543479809338}
   <SeparatedRigidbody>k__BackingField: {fileID: 1104012243210363213}
   <Collider>k__BackingField: {fileID: 7925818457591799588}
-  _speed: 25
-  _turnLerp: 0.032
-  _additionalGravity: 5
-  _gravityDamper: 0.05
-  _restPositionFromGround: 0
-  _groundDetectionDistance: 100000
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  ForceMode: 1
-  characterBody: {fileID: 2842487824410166482}
-  _grabRadius: 3
-  _grabLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  _squeakNoise: {fileID: 2344469138217855494}
-  _jumpForce: 15
-  _jumpTime: 40
-  _jumpDecrease: 0.5
-  _minJumpsInterval: 0.3
+  _data: {fileID: 0}
   _isLeftHead: 1
   _ability: {fileID: 0}
-  _snakeOffset: 100
-  _snakeFrequency: 0.125
-  _snakeAmplitude: 5
+  _squeakNoise: {fileID: 2344469138217855494}
 --- !u!136 &7925818457591799588
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25903,7 +25861,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4608698248131449922}
-  - component: {fileID: 2842487824410166482}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -25930,20 +25887,6 @@ Transform:
   - {fileID: 4017062458201563835}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2842487824410166482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7226282664986203604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d615c203d4c6bb84b98f515d2e7d7e1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Head>k__BackingField: {fileID: 0}
-  <Tail>k__BackingField: {fileID: 0}
 --- !u!1 &7258994754658883185
 GameObject:
   m_ObjectHideFlags: 0

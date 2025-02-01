@@ -740,7 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2257f9712fb4b69ab9a79386fde56eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _head: {fileID: 4830248748555908956}
+  characterHead: {fileID: 4830248748555908956}
   _animator: {fileID: 6587491079712957130}
   _isOrientationInverted: 1
   _lookAtLerp: 20
@@ -946,33 +946,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ea50f11b917174198ccc8840e3584d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Rigidbody>k__BackingField: {fileID: 1398752603221234977}
+  <TogetherRigidbody>k__BackingField: {fileID: 0}
+  <SeparatedRigidbody>k__BackingField: {fileID: 0}
   <Collider>k__BackingField: {fileID: 3716422428597438544}
-  _speed: 80
-  _turnLerp: 0.032
-  _additionalGravity: 8
-  _gravityDamper: 0.5
-  _restPositionFromGround: 2
-  _groundDetectionDistance: 10000
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  ForceMode: 1
-  _body: {fileID: 0}
-  _grabRadius: 3
-  _grabLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  _squeakNoise: {fileID: 2675970073233910524}
-  _jumpForce: 15
-  _jumpTime: 40
-  _jumpDecrease: 0.5
-  _minJumpsInterval: 0.3
+  _data: {fileID: 11400000, guid: 14243eeb18a95374b87b3610a3571132, type: 2}
   _isLeftHead: 1
   _ability: {fileID: 0}
-  _snakeOffset: 100
-  _snakeFrequency: 0.125
-  _snakeAmplitude: 20
+  _squeakNoise: {fileID: 2675970073233910524}
 --- !u!1 &5095277389843311542
 GameObject:
   m_ObjectHideFlags: 0

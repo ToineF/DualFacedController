@@ -7,7 +7,6 @@ namespace Cattac.Character
         [field: Header("References")]
         [field: SerializeField]
         public JointToggler Head { get; set; }
-
         [field: SerializeField] public JointToggler Tail { get; set; }
 
         public void ToggleJointSeparation(bool separate, bool isHead)
