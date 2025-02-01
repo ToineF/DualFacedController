@@ -1,9 +1,9 @@
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Rendering;
+
 namespace MaskTransitions
 {
-    using UnityEngine;
-    using UnityEngine.UI;
-    using UnityEngine.Rendering;
-
     public class CutoutMaskUI : Image
     {
         private Material cachedMaterial;

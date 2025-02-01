@@ -1,12 +1,12 @@
-﻿namespace MaskTransitions
-{
-    using UnityEngine;
+﻿using UnityEngine;
 
+namespace MaskTransitions
+{
     public class SceneSwitch : MonoBehaviour
     {
         public string sceneToLoadName;
         public float totalTransitionTime;
-        
+
         public void SwitchScene()
         {
             TransitionManager.Instance.LoadLevel(sceneToLoadName);
@@ -21,6 +21,7 @@
         {
             TransitionManager.Instance.PlayStartHalfTransition(totalTransitionTime / 2);
         }
+
         void PlayEndOfTransition()
         {
             TransitionManager.Instance.PlayEndHalfTransition(totalTransitionTime / 2);

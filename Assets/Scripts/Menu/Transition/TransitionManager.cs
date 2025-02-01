@@ -1,33 +1,33 @@
-namespace MaskTransitions
-{
     using DG.Tweening;
     using System.Collections;
     using UnityEngine;
     using UnityEngine.SceneManagement;
+    using UnityEngine.Serialization;
     using UnityEngine.UI;
-
+    
+namespace MaskTransitions
+{
     public class TransitionManager : MonoBehaviour
     {
         public static TransitionManager Instance;
-
-        private float screenWidth;
-        private float screenHeight;
-        [HideInInspector] public static float maxSize;
-        private float individualTransitionTime;
-
+        
         [Header("Transition Properties")]
-        public Sprite transitionImage;
-        public Color transitionColor;
-        public bool rotation;
-        [Tooltip("Time taken for one half of the transition to complete")]
-        public float transitionTime;
+        [SerializeField] private Sprite _transitionImage;
+        [SerializeField] private Color _transitionColor;
+        [SerializeField] private bool _rotation;
+        [Tooltip("Time taken for one half of the transition to complete")] [SerializeField] private float _transitionTime;
 
         [Header("Image Components")]
-        [SerializeField] private RectTransform parentMaskRect;
-        [SerializeField] private RectTransform maskRect;
-        [SerializeField] private RectTransform transitionCanvas;
-        [SerializeField] private Image parentMaskImage;
-        [SerializeField] private CutoutMaskUI cutoutMask;
+        [SerializeField] private RectTransform _parentMaskRect;
+        [SerializeField] private RectTransform _maskRect;
+        [SerializeField] private RectTransform _transitionCanvas;
+        [SerializeField] private Image _parentMaskImage;
+        [SerializeField] private CutoutMaskUI _cutoutMask;
+        
+        private static float _maxSize { get; set; }
+        private float _screenWidth;
+        private float _screenHeight;
+        private float _individualTransitionTime;
 
         private void Awake()
         {
@@ -42,11 +42,11 @@ namespace MaskTransitions
         private void Start()
         {
             // Assign the transition sprite and color
-            parentMaskImage.sprite = transitionImage;
-            cutoutMask.sprite = transitionImage;
-            cutoutMask.color = transitionColor;
+            _parentMaskImage.sprite = _transitionImage;
+            _cutoutMask.sprite = _transitionImage;
+            _cutoutMask.color = _transitionColor;
 
-            individualTransitionTime = transitionTime / 2;
+            _individualTransitionTime = _transitionTime / 2;
 
             SetupMaxSize();
         }
@@ -54,40 +54,40 @@ namespace MaskTransitions
         #region Setup
         void SetupMaxSize()
         {
-            screenWidth = transitionCanvas.rect.width;
-            screenHeight = transitionCanvas.rect.height;
+            _screenWidth = _transitionCanvas.rect.width;
+            _screenHeight = _transitionCanvas.rect.height;
 
-            maxSize = Mathf.Max(screenWidth, screenHeight);
-            maxSize += maxSize / 2;
+            _maxSize = Mathf.Max(_screenWidth, _screenHeight);
+            _maxSize += _maxSize / 2;
         }
 
         void StartAnimation(float? totalTime = null)
         {
-            float animationTime = totalTime ?? individualTransitionTime;
+            float animationTime = totalTime ?? _individualTransitionTime;
 
-            maskRect.sizeDelta = Vector2.zero;
-            parentMaskRect.sizeDelta = Vector2.zero;
+            _maskRect.sizeDelta = Vector2.zero;
+            _parentMaskRect.sizeDelta = Vector2.zero;
 
-            maskRect.DOSizeDelta(new Vector2(maxSize, maxSize), animationTime).SetEase(Ease.InOutQuad);
-            if (rotation)
-                maskRect.DORotate(new Vector3(0, 0, 180), animationTime, RotateMode.FastBeyond360).SetEase(Ease.InOutQuad);
+            _maskRect.DOSizeDelta(new Vector2(_maxSize, _maxSize), animationTime).SetEase(Ease.InOutQuad);
+            if (_rotation)
+                _maskRect.DORotate(new Vector3(0, 0, 180), animationTime, RotateMode.FastBeyond360).SetEase(Ease.InOutQuad);
         }
 
         Tween StartAnimationForLoad(float? totalTime = null)
         {
-            float animationTime = totalTime ?? individualTransitionTime;
+            float animationTime = totalTime ?? _individualTransitionTime;
 
-            maskRect.sizeDelta = Vector2.zero;
-            parentMaskRect.sizeDelta = Vector2.zero;
-            maskRect.rotation = Quaternion.identity;
+            _maskRect.sizeDelta = Vector2.zero;
+            _parentMaskRect.sizeDelta = Vector2.zero;
+            _maskRect.rotation = Quaternion.identity;
 
-            Tween blueTweenSize = maskRect.DOSizeDelta(new Vector2(maxSize, maxSize), animationTime).SetEase(Ease.InOutQuad);
+            Tween blueTweenSize = _maskRect.DOSizeDelta(new Vector2(_maxSize, _maxSize), animationTime).SetEase(Ease.InOutQuad);
 
             Sequence animationSequence = DOTween.Sequence().Join(blueTweenSize);
 
-            if (rotation)
+            if (_rotation)
             {
-                Tween blueTweenRotate = maskRect.DORotate(new Vector3(0, 0, 180), animationTime).SetEase(Ease.InOutQuad);
+                Tween blueTweenRotate = _maskRect.DORotate(new Vector3(0, 0, 180), animationTime).SetEase(Ease.InOutQuad);
                 animationSequence.Join(blueTweenRotate);
             }
 
@@ -97,15 +97,15 @@ namespace MaskTransitions
 
         void EndAnimation(float? totalTime = null)
         {
-            float animationTime = totalTime ?? individualTransitionTime;
+            float animationTime = totalTime ?? _individualTransitionTime;
 
-            maskRect.sizeDelta = new Vector2(maxSize, maxSize);
-            parentMaskRect.sizeDelta = Vector2.zero;
-            parentMaskRect.rotation = Quaternion.identity;
+            _maskRect.sizeDelta = new Vector2(_maxSize, _maxSize);
+            _parentMaskRect.sizeDelta = Vector2.zero;
+            _parentMaskRect.rotation = Quaternion.identity;
 
-            parentMaskRect.DOSizeDelta(new Vector2(maxSize, maxSize), animationTime).SetEase(Ease.InOutQuad);
-            if (rotation)
-                parentMaskRect.DORotate(new Vector3(0, 0, 180), animationTime).SetEase(Ease.InOutQuad);
+            _parentMaskRect.DOSizeDelta(new Vector2(_maxSize, _maxSize), animationTime).SetEase(Ease.InOutQuad);
+            if (_rotation)
+                _parentMaskRect.DORotate(new Vector3(0, 0, 180), animationTime).SetEase(Ease.InOutQuad);
         }
         #endregion
 
