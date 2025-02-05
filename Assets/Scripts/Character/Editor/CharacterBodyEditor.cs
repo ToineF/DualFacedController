@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Character.Editor
 {
-    
+ #if UnityEditor   
     [CustomEditor(typeof(CharacterBody))]
     public class CharacterBodyEditor : UnityEditor.Editor
     {
@@ -20,4 +20,5 @@ namespace Character.Editor
                 data.SetBodyData();
         }
     }
+#endif
 }
