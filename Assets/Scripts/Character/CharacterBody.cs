@@ -4,26 +4,43 @@ namespace Cattac.Character
 {
     public class CharacterBody : MonoBehaviour
     {
-        [field: Header("References")]
-        [field: SerializeField]
-        public JointToggler Head { get; set; }
-        [field: SerializeField] public JointToggler Tail { get; set; }
+        [Header("Data")]
+        [SerializeField] private CharacterBodyData _bodyData;
+        
+        [Header("References")]
+        [SerializeField] private Rigidbody[] _soloMiceRigidbodies;
+        [SerializeField] private Rigidbody[] _attachedMiceRigidbodies;
+        [SerializeField] private SpringJoint[] _bodyPartsRigidbodies;
 
-        public void ToggleJointSeparation(bool separate, bool isHead)
+        public void SetBodyData()
         {
-            var joint = isHead ? Head : Tail;
-            if (separate) Separate(joint);
-            else Reattach(joint);
+            for (int i = 0; i < _soloMiceRigidbodies.Length; i++)
+            {
+                SetRbData(_soloMiceRigidbodies[i], _bodyData.SeparatedMouseRigidbody);
+                SetRbData(_attachedMiceRigidbodies[i], _bodyData.AttachedMouseRigidbody);
+            }
+
+            foreach (var joint in _bodyPartsRigidbodies)
+            {
+                SetJointData(joint);
+            }
+            
+            Debug.Log("Body data updated");
         }
 
-        private void Separate(JointToggler joint)
+        private void SetRbData(Rigidbody rb, RigidbodyData rbData)
         {
-            //joint.enabled = false;
+            rb.angularDrag = rbData.AngularDrag;
+            rb.drag = rbData.LinearDrag;
+            rb.mass = rbData.Mass;
         }
 
-        private void Reattach(JointToggler joint)
+        private void SetJointData(SpringJoint joint)
         {
-            //joint.enabled = true;
+            joint.spring = _bodyData.Spring;
+            joint.damper = _bodyData.Damper;
+            joint.maxDistance = _bodyData.MaxDistance;
+            joint.tolerance = _bodyData.Tolerance;
         }
     }
 }
