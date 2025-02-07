@@ -11,8 +11,9 @@ namespace Cattac.Character
         public Action OnSeparate { get; set; }
         public Action OnConnect { get; set; }
 
-        public Vector2 Direction => _direction;
-        public Vector2 LastDirection => _lastDirection;
+        public Vector3 Direction { get; private set; }
+        public Vector2 InputDirection => _inputDirection;
+        public Vector2 LastInputDirection => _lastInputDirection;
 
         public IGrabbable CurrentGrabbable
         {
@@ -52,8 +53,8 @@ namespace Cattac.Character
 
         private float _snakeTimer;
 
-        private Vector2 _direction;
-        private Vector2 _lastDirection;
+        private Vector2 _inputDirection;
+        private Vector2 _lastInputDirection;
         private RaycastHit _lastGroundHit;
 
         private IGrabbable _currentGrabbable;
@@ -77,8 +78,8 @@ namespace Cattac.Character
         private void CheckMovements()
         {
             var targetDirection = _isLeftHead ? UserInput.Instance.LeftMoveInput : UserInput.Instance.RightMoveInput;
-            _direction = Vector3.Lerp(_direction, targetDirection, _data.TurnLerp);
-            if (_direction.magnitude > 0.1f) _lastDirection = _direction;
+            _inputDirection = Vector3.Lerp(_inputDirection, targetDirection, _data.TurnLerp);
+            if (_inputDirection.magnitude > 0.1f) _lastInputDirection = _inputDirection;
 
         }
 
@@ -198,11 +199,12 @@ namespace Cattac.Character
 
         private void MoveSelf()
         {
-            var force = new Vector3(_direction.x, 0, _direction.y) * _data.Speed;
-            force = _camera.transform.forward * force.z + _camera.transform.right * force.x;
-            force = Vector3.ProjectOnPlane(force, _lastGroundHit.normal);
-            CurrentRigidbody.AddForce(force, ForceMode.Impulse);
-            ApplyGrabbableForce(force);
+            Direction = new Vector3(_inputDirection.x, 0, _inputDirection.y) * _data.Speed;
+            Direction = _camera.transform.forward * Direction.z + _camera.transform.right * Direction.x;
+            Direction = Vector3.ProjectOnPlane(Direction, _lastGroundHit.normal);
+            
+            CurrentRigidbody.AddForce(Direction, ForceMode.Impulse);
+            ApplyGrabbableForce(Direction);
             ApplyGravity();
         }
 
@@ -240,7 +242,7 @@ namespace Cattac.Character
         {
             _snakeTimer += Time.deltaTime;
             var s = Mathf.Sin((_snakeTimer + _data.SnakeOffset) / _data.SnakeFrequency) * _data.SnakeAmplitude;
-            var directionVector = Vector3.Cross(new Vector3(_direction.x, 0, _direction.y), Vector3.down);
+            var directionVector = Vector3.Cross(new Vector3(_inputDirection.x, 0, _inputDirection.y), Vector3.down);
             CurrentRigidbody.AddForce(directionVector * s, ForceMode.Impulse);
         }
 
