@@ -199,12 +199,12 @@ namespace Cattac.Character
         {
             Direction = new Vector3(_inputDirection.x, 0, _inputDirection.y) * _data.Speed;
             Direction = _camera.transform.forward * Direction.z + _camera.transform.right * Direction.x;
-            Direction = new Vector3(Direction.x, 0, Direction.z);;
-            //Direction = Vector3.ProjectOnPlane(Direction, _lastGroundHit.normal);
+            Direction = new Vector3(Direction.x, 0, Direction.z);
+            Direction = Vector3.ProjectOnPlane(Direction, _lastGroundHit.normal);
             
             CurrentRigidbody.AddForce(Direction, ForceMode.Impulse);
             ApplyGrabbableForce(Direction);
-            //ApplyGravity();
+            ApplyGravity();
         }
 
         private void ApplyGrabbableForce(Vector3 force)
@@ -214,6 +214,8 @@ namespace Cattac.Character
 
         private void ApplyGravity()
         {
+            Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out _lastGroundHit, _data.GroundDetectionDistance, _data.GroundLayer, QueryTriggerInteraction.Ignore);
+            return;
             //if (Physics.Raycast(transform.position, Vector3.down, out hit, _groundDetectionDistance, _groundLayer))
             //AntoineFoucault.Utilities.ColliderExtensions.GetCapsulePoints(Collider, out Vector3 p1, out Vector3 p2);
             if (Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out _lastGroundHit, _data.GroundDetectionDistance, _data.GroundLayer, QueryTriggerInteraction.Ignore))
