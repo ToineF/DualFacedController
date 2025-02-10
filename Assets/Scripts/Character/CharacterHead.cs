@@ -80,7 +80,6 @@ namespace Cattac.Character
             var targetDirection = _isLeftHead ? UserInput.Instance.LeftMoveInput : UserInput.Instance.RightMoveInput;
             _inputDirection = Vector3.Lerp(_inputDirection, targetDirection, _data.TurnLerp);
             if (_inputDirection.magnitude > 0.1f) _lastInputDirection = _inputDirection;
-
         }
 
         private void CheckGrab()
@@ -88,9 +87,8 @@ namespace Cattac.Character
             IsGrabbing = _isLeftHead ? UserInput.Instance.LeftGrabInput : UserInput.Instance.RightGrabInput;
             //Rigidbody.isKinematic = IsGrabbing;
 
-            var isJumping = _isLeftHead
-                ? UserInput.Instance.LeftGrabInputReleased
-                : UserInput.Instance.RightGrabInputReleased;
+            var isJumping = IsGrabbing;
+            //var isJumping = _isLeftHead ? UserInput.Instance.LeftGrabInputReleased : UserInput.Instance.RightGrabInputReleased;
 
             //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
             // Update timer
@@ -201,11 +199,12 @@ namespace Cattac.Character
         {
             Direction = new Vector3(_inputDirection.x, 0, _inputDirection.y) * _data.Speed;
             Direction = _camera.transform.forward * Direction.z + _camera.transform.right * Direction.x;
-            Direction = Vector3.ProjectOnPlane(Direction, _lastGroundHit.normal);
+            Direction = new Vector3(Direction.x, 0, Direction.z);;
+            //Direction = Vector3.ProjectOnPlane(Direction, _lastGroundHit.normal);
             
             CurrentRigidbody.AddForce(Direction, ForceMode.Impulse);
             ApplyGrabbableForce(Direction);
-            ApplyGravity();
+            //ApplyGravity();
         }
 
         private void ApplyGrabbableForce(Vector3 force)
@@ -217,8 +216,7 @@ namespace Cattac.Character
         {
             //if (Physics.Raycast(transform.position, Vector3.down, out hit, _groundDetectionDistance, _groundLayer))
             //AntoineFoucault.Utilities.ColliderExtensions.GetCapsulePoints(Collider, out Vector3 p1, out Vector3 p2);
-            if (Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out _lastGroundHit,
-                    _data.GroundDetectionDistance, _data.GroundLayer, QueryTriggerInteraction.Ignore))
+            if (Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out _lastGroundHit, _data.GroundDetectionDistance, _data.GroundLayer, QueryTriggerInteraction.Ignore))
             {
                 float groundHeight = _lastGroundHit.point.y;
                 float currentHeight = transform.position.y;
