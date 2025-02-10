@@ -37,7 +37,7 @@ namespace Cattac.Interactables.Collectibles
             yield return new WaitForSeconds(_uiWinDelay);
             //_owner.Manager.Collectibles.AddCoin();
             //manager.Feedbacks.PlayFeedback(manager.Data.FeedbacksData.CoinFeedback, transform.position, Quaternion.identity, null, _muteAudioFeedback);
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }
