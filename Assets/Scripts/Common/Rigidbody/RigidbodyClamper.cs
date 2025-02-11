@@ -8,6 +8,6 @@ public class RigidbodyClamper : MonoBehaviour
 
     private void LateUpdate()
     {
-        _rigidbody.velocity = Vector3.ClampMagnitude(_rigidbody.velocity, _maxVelocity);
+        _rigidbody.linearVelocity = Vector3.ClampMagnitude(_rigidbody.linearVelocity, _maxVelocity);
     }
 }

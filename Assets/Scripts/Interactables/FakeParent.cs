@@ -20,7 +20,7 @@ namespace Cattac.Interactables
         public void OnUngrab(CharacterHead characterHead)
         {
             _rigidbodyToApproach = null;
-            _selfRigidbody.velocity = Vector3.zero;
+            _selfRigidbody.linearVelocity = Vector3.zero;
             _selfRigidbody.angularVelocity = Vector3.zero;
             OnUngrabInternal(characterHead.CurrentRigidbody);
         }

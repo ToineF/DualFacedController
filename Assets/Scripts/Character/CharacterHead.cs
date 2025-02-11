@@ -230,7 +230,7 @@ namespace Cattac.Character
                 Vector3 force = distanceToTarget * _data.AdditionalGravity * Vector3.up;
 
                 // Apply damping force to gradually reduce the force
-                Vector3 velocity = Vector3.up * CurrentRigidbody.velocity.y;
+                Vector3 velocity = Vector3.up * CurrentRigidbody.linearVelocity.y;
                 force -= velocity * _data.GravityDamper;
 
                 // Apply the force to the Rigidbody

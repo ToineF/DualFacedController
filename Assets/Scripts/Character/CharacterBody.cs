@@ -30,8 +30,8 @@ namespace Cattac.Character
 
         private void SetRbData(Rigidbody rb, RigidbodyData rbData)
         {
-            rb.angularDrag = rbData.AngularDrag;
-            rb.drag = rbData.LinearDrag;
+            rb.angularDamping = rbData.AngularDrag;
+            rb.linearDamping = rbData.LinearDrag;
             rb.mass = rbData.Mass;
         }
 
