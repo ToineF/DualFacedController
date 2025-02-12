@@ -36,6 +36,7 @@ namespace MaskTransitions
             else
                 Destroy(gameObject);
 
+            transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
         }
 
