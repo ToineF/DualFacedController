@@ -728,6 +728,17 @@ namespace AntoineFoucault.Utilities
             return transform;
         }
 
+        public static GameObject[] GetChildren(this Transform transform)
+        {
+            var children = new GameObject[transform.childCount];
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                children[i] = transform.GetChild(i).gameObject;
+            }
+
+            return children;
+        }
+
         public static void ToggleActivation(GameObject gameObject)
         {
             gameObject.SetActive(!gameObject.activeInHierarchy);
