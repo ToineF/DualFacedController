@@ -11,8 +11,10 @@ public class UserInput : MonoBehaviour
     public bool RightGrabInput {get; private set;}
     public bool LeftSeparationInput {get; private set;}
     public bool LeftGrabInputReleased { get; private set;}
+    public bool LeftGrabInputPressed { get; private set;}
     public bool RightSeparationInput {get; private set;}
     public bool RightGrabInputReleased { get; private set;}
+    public bool RightGrabInputPressed { get; private set;}
 
     [SerializeField] private PlayerInput _playerInput;
 
@@ -55,8 +57,10 @@ public class UserInput : MonoBehaviour
         // To get onReleased event use : _leftGrabAction.WasReleasedThisFrame();
         LeftGrabInput = _leftGrabAction.IsPressed();
         LeftGrabInputReleased = _leftGrabAction.WasReleasedThisFrame();
+        LeftGrabInputPressed = _leftGrabAction.WasPressedThisFrame();
         RightGrabInput = _rightGrabAction.IsPressed();
         RightGrabInputReleased = _rightGrabAction.WasReleasedThisFrame();
+        RightGrabInputPressed = _rightGrabAction.WasPressedThisFrame();
         LeftSeparationInput = _leftSeparateAction.WasPressedThisFrame();
         RightSeparationInput = _rightSeparateAction.WasPressedThisFrame();
     }

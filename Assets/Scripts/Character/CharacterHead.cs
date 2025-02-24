@@ -88,14 +88,14 @@ namespace Cattac.Character
             //Rigidbody.isKinematic = IsGrabbing;
 
             var isJumping = IsGrabbing;
-            //var isJumping = _isLeftHead ? UserInput.Instance.LeftGrabInputReleased : UserInput.Instance.RightGrabInputReleased;
+            var isGrabbingThisFrame = _isLeftHead ? UserInput.Instance.LeftGrabInputPressed : UserInput.Instance.RightGrabInputPressed;
 
             //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
             // Update timer
             _jumpTimer -= Time.deltaTime;
             if (_jumpTimer <= 0 && isJumping) ApplyForceWithDecay(CurrentRigidbody);
 
-            if (isJumping)
+            if (isGrabbingThisFrame)
             {
                 if (_currentGrabbable == null)
                     Grab();
