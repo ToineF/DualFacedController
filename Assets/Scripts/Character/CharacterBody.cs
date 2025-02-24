@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Cattac.Character
 {
@@ -11,6 +12,11 @@ namespace Cattac.Character
         [SerializeField] private Rigidbody[] _soloMiceRigidbodies;
         [SerializeField] private Rigidbody[] _attachedMiceRigidbodies;
         [SerializeField] private SpringJoint[] _bodyPartsRigidbodies;
+
+        private void Start()
+        {
+            SetBodyData();
+        }
 
         public void SetBodyData()
         {
