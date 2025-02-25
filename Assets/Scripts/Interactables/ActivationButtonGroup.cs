@@ -16,6 +16,11 @@ namespace Cattac.Interactables
             }
         }
 
+        private void Update()
+        {
+            CheckActivation();
+        }
+
         private void CheckActivation()
         {
             foreach (var button in _buttons)
