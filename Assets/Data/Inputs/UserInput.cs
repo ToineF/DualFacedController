@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,25 +6,8 @@ public class UserInput : MonoBehaviour
 {
     public static UserInput Instance;
 
-    public Vector2 LeftMoveInput {get; private set;}
-    public Vector2 RightMoveInput {get; private set;}
-    public bool LeftGrabInput {get; private set;}
-    public bool RightGrabInput {get; private set;}
-    public bool LeftSeparationInput {get; private set;}
-    public bool LeftGrabInputReleased { get; private set;}
-    public bool LeftGrabInputPressed { get; private set;}
-    public bool RightSeparationInput {get; private set;}
-    public bool RightGrabInputReleased { get; private set;}
-    public bool RightGrabInputPressed { get; private set;}
-
-    [SerializeField] private PlayerInput _playerInput;
-
-    private InputAction _leftMoveAction;
-    private InputAction _rightMoveAction;
-    private InputAction _leftGrabAction;
-    private InputAction _rightGrabAction;
-    private InputAction _leftSeparateAction;
-    private InputAction _rightSeparateAction;
+    public PlayerInputReferences LeftHead { get; set; }
+    public PlayerInputReferences RightHead { get; set; }
     
     private void Awake()
     {
@@ -31,38 +15,48 @@ public class UserInput : MonoBehaviour
         {
             Instance = this;
         }
+    }
 
-        SetupInputActions();
+    public PlayerInputReferences GetHead(bool isLeft)
+    {
+        return isLeft ? LeftHead : RightHead;
     }
 
     private void Update()
     {
-        UpdateInputs();
+        LeftHead?.UpdateInputs();
+        RightHead?.UpdateInputs();
+    }
+}
+
+
+[Serializable]
+public class PlayerInputReferences
+{
+    [field:SerializeField] public InputAction MoveInputReference { get; private set; }
+    [field:SerializeField] public InputAction GrabInputReference { get; private set; }
+    [field:SerializeField] public InputAction SeparationInputReference { get; private set; }
+    
+    public Vector2 MoveInput {get; private set;}
+    public bool GrabInput {get; private set;}
+    public bool GrabInputReleased { get; private set;}
+    public bool GrabInputPressed { get; private set;}
+    public bool SeparationInput {get; private set;}
+
+    public PlayerInputReferences(InputAction moveInputReference, InputAction grabInputReference,
+        InputAction separationInputReference)
+    {
+        MoveInputReference = moveInputReference;
+        GrabInputReference = grabInputReference;
+        SeparationInputReference = separationInputReference;
     }
 
-    private void SetupInputActions()
+    public void UpdateInputs()
     {
-        // Here use InputActionReference (reference in the inspector) instead of strings
-        _leftMoveAction = _playerInput.actions["MoveLeft"];
-        _rightMoveAction = _playerInput.actions["MoveRight"];
-        _leftGrabAction = _playerInput.actions["GrabLeft"];
-        _rightGrabAction = _playerInput.actions["GrabRight"];
-        _leftSeparateAction = _playerInput.actions["SeparateLeft"];
-        _rightSeparateAction = _playerInput.actions["SeparateRight"];
-    }
-    private void UpdateInputs()
-    {
-        LeftMoveInput = _leftMoveAction.ReadValue<Vector2>();
-        RightMoveInput = _rightMoveAction.ReadValue<Vector2>();
-        // To get onPressed event use : _leftGrabAction.WasPressedThisFrame();
-        // To get onReleased event use : _leftGrabAction.WasReleasedThisFrame();
-        LeftGrabInput = _leftGrabAction.IsPressed();
-        LeftGrabInputReleased = _leftGrabAction.WasReleasedThisFrame();
-        LeftGrabInputPressed = _leftGrabAction.WasPressedThisFrame();
-        RightGrabInput = _rightGrabAction.IsPressed();
-        RightGrabInputReleased = _rightGrabAction.WasReleasedThisFrame();
-        RightGrabInputPressed = _rightGrabAction.WasPressedThisFrame();
-        LeftSeparationInput = _leftSeparateAction.WasPressedThisFrame();
-        RightSeparationInput = _rightSeparateAction.WasPressedThisFrame();
+        MoveInput = MoveInputReference.ReadValue<Vector2>();
+        GrabInput = GrabInputReference.IsPressed();
+        GrabInputReleased = GrabInputReference.WasReleasedThisFrame();
+        GrabInputPressed = GrabInputReference.WasPressedThisFrame();
+        SeparationInput = SeparationInputReference.IsPressed();
     }
 }

@@ -70,6 +70,7 @@ namespace Cattac.Character
 
         private void Update()
         {
+            if (UserInput.Instance.GetHead(_isLeftHead) == null) return;
             CheckMovements();
             CheckGrab();
             CheckAbility();
@@ -77,18 +78,18 @@ namespace Cattac.Character
 
         private void CheckMovements()
         {
-            var targetDirection = _isLeftHead ? UserInput.Instance.LeftMoveInput : UserInput.Instance.RightMoveInput;
+            var targetDirection = UserInput.Instance.GetHead(_isLeftHead).MoveInput;
             _inputDirection = Vector3.Lerp(_inputDirection, targetDirection, _data.TurnLerp);
             if (_inputDirection.magnitude > 0.1f) _lastInputDirection = _inputDirection;
         }
 
         private void CheckGrab()
         {
-            IsGrabbing = _isLeftHead ? UserInput.Instance.LeftGrabInput : UserInput.Instance.RightGrabInput;
+            IsGrabbing = UserInput.Instance.GetHead(_isLeftHead).GrabInput;
             //Rigidbody.isKinematic = IsGrabbing;
 
             var isJumping = IsGrabbing;
-            var isGrabbingThisFrame = _isLeftHead ? UserInput.Instance.LeftGrabInputPressed : UserInput.Instance.RightGrabInputPressed;
+            var isGrabbingThisFrame = UserInput.Instance.GetHead(_isLeftHead).GrabInputPressed;
 
             //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
             // Update timer
@@ -157,16 +158,14 @@ namespace Cattac.Character
 
         private void CheckSeparation()
         {
-            if ((_isLeftHead ? UserInput.Instance.LeftSeparationInput : UserInput.Instance.RightSeparationInput) ==
-                false) return;
+            if (UserInput.Instance.GetHead(_isLeftHead).SeparationInput == false) return;
             ToggleSeparation();
         }
 
         private void CheckAbility()
         {
             if (_ability == null) return;
-            if ((_isLeftHead ? UserInput.Instance.LeftSeparationInput : UserInput.Instance.RightSeparationInput) ==
-                false) return;
+            if (UserInput.Instance.GetHead(_isLeftHead).SeparationInput == false) return;
 
             _ability.UseAbility(this);
         }
