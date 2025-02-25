@@ -13,23 +13,30 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [Header("Button Parameters")] [SerializeField]
     private string _targetScene;
 
-    [SerializeField] private float _originalScale = 1;
+    [Header("Scale")] [SerializeField] private float _originalScale = 1;
     [SerializeField] private float _hoverScale = 1.1f;
     [SerializeField] private float _hoverScaleDuration = 0.3f;
     [SerializeField] private float _notHoverScaleDuration = 0.5f;
 
+    [Header("Rotation")] [SerializeField] private float _zRotation;
+    [SerializeField] private Ease _rotationInEase = Ease.InOutQuad;
+    [SerializeField] private Ease _rotationOutEase = Ease.InOutQuad;
+    [SerializeField] private float _rotationInTime = .2f;
+    [SerializeField] private float _rotationOutTime = .2f;
+    private Vector3 _originalRotation;
+
     private void Start()
     {
         _menuManager = MenuManager.MenuManagerInstance;
+        _originalRotation = transform.localEulerAngles;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (_menuManager.CanClickButtons)
-        {
-            transform.DOKill();
-            transform.DOScale(new Vector3(_hoverScale, _hoverScale), _hoverScaleDuration);
-        }
+        if (_menuManager.CanClickButtons == false) return;
+
+        transform.DOKill();
+        transform.DOScale(new Vector3(_hoverScale, _hoverScale), _hoverScaleDuration);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -42,15 +49,16 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         TryClickButtonTransition(() => SceneManager.LoadScene(_targetScene));
     }
-    
+
     public void RestartScene()
     {
         TryClickButtonTransition(() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex));
     }
-    
+
     public void GoToNextScene()
     {
-        TryClickButtonTransition(() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1 % SceneManager.sceneCount));
+        TryClickButtonTransition(() =>
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1 % SceneManager.sceneCount));
     }
 
     public void QuitGame()
@@ -65,5 +73,27 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         _menuManager.SetButtonsUnclickable();
 
         _menuManager.Transition.SetTransition(() => action?.Invoke());
+    }
+
+    public void OnSelect()
+    {
+        if (_menuManager.CanClickButtons == false) return;
+
+        transform.DOKill();
+        transform.DOLocalRotate(
+            new Vector3(_originalRotation.x, _originalRotation.y,
+                _originalRotation.z + _zRotation), _rotationInTime).SetEase(_rotationInEase);
+        transform.DOScale(new Vector3(_hoverScale, _hoverScale), _hoverScaleDuration);
+
+    }
+
+    public void OnDeselect()
+    {
+        transform.DOKill();
+        transform.DOLocalRotate(
+            new Vector3(_originalRotation.x, _originalRotation.y,
+                _originalRotation.z), _rotationOutTime).SetEase(_rotationOutEase);
+        transform.DOScale(new Vector3(_originalScale, _originalScale), _notHoverScaleDuration);
+
     }
 }
