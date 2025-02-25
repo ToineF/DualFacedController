@@ -19,12 +19,14 @@ namespace Cattac.Character.Visuals
 
         private Transform _parent;
         private Vector3 _offset;
+        private Camera _camera;
 
         private void Start()
         {
             _offset = transform.localPosition;
             _parent = transform.parent;
             transform.SetParent(null);
+            _camera = Camera.main;
         }
 
         private void LateUpdate()
@@ -44,11 +46,15 @@ namespace Cattac.Character.Visuals
         {
             Vector3 moveDirection = _characterHead.InputDirection;
             moveDirection = new Vector3(moveDirection.x, 0, moveDirection.y);
+            moveDirection = _camera.transform.forward * moveDirection.z + _camera.transform.right * moveDirection.x;
+            moveDirection.y = 0;
+
             int orientation = _isOrientationInverted ? -1 : 1;
 
             Vector3 point = transform.position - moveDirection * orientation;
             Vector3 direction = point - transform.position;
             if (direction.magnitude < 0.001f) return;
+            
             Quaternion toRotation = Quaternion.LookRotation(direction, transform.up);
             transform.localRotation =
                 Quaternion.Lerp(transform.localRotation, toRotation, _lookAtLerp * Time.deltaTime);
