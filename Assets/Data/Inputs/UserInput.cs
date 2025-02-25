@@ -42,6 +42,7 @@ public class UserInput : MonoBehaviour
 
     private void SetupInputActions()
     {
+        // Here use InputActionReference (reference in the inspector) instead of strings
         _leftMoveAction = _playerInput.actions["MoveLeft"];
         _rightMoveAction = _playerInput.actions["MoveRight"];
         _leftGrabAction = _playerInput.actions["GrabLeft"];
