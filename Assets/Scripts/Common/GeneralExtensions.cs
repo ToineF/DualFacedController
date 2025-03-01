@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System;
+using DG.Tweening;
 using UnityEditor;
 
 namespace AntoineFoucault.Utilities
@@ -865,7 +866,42 @@ namespace AntoineFoucault.Utilities
             }
             return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
         }
+    }
+    
+    public static class Tween
+    {
+        /// <summary>
+        /// Tweens a float to a given value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="target"></param>
+        /// <param name="time"></param>
+        /// <param name="ease"></param>
+        public static void DOFloat(this float value, float target, float time, Ease ease = Ease.Unset)
+        {
+            DOTween.To(() => value, x => value = x, target, time).SetEase(ease);
+        }
 
+        /// <summary>
+        /// Tweens an int to a given value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="target"></param>
+        /// <param name="time"></param>
+        /// <param name="ease"></param>
+        public static void DOInt(this int value, int target, float time, Ease ease = Ease.Unset)
+        {
+            DOTween.To(() => value, x => value = x, target, time).SetEase(ease);
+        }
+
+        [Serializable]
+        public struct DoTweenPunchFeedback
+        {
+            [SerializeField] public float PunchTime;
+            [SerializeField] public Vector3 PunchDirection;
+            [SerializeField] public int PunchVibrato;
+            [SerializeField] public float PunchElasticity;
+        }
 
     }
 }
