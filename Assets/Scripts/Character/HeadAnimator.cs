@@ -44,7 +44,7 @@ namespace Cattac.Character.Visuals
 
         private void RotateDirection()
         {
-            Vector3 moveDirection = _characterHead.InputDirection;
+            Vector3 moveDirection = _characterHead.NormalizedDirection;
             moveDirection = new Vector3(moveDirection.x, 0, moveDirection.y);
             moveDirection = _camera.transform.forward * moveDirection.z + _camera.transform.right * moveDirection.x;
             moveDirection.y = 0;

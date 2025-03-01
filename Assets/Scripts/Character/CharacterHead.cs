@@ -12,8 +12,9 @@ namespace Cattac.Character
         public Action OnConnect { get; set; }
 
         public Vector3 Direction { get; private set; }
+        public Vector2 NormalizedDirection { get; private set; }
         public Vector2 InputDirection => _inputDirection;
-        public Vector2 LastInputDirection => _lastInputDirection;
+        public Vector2 LastNormalizedDirection => _lastNormalizedDirection;
 
         public IGrabbable CurrentGrabbable
         {
@@ -54,7 +55,7 @@ namespace Cattac.Character
         private float _snakeTimer;
 
         private Vector2 _inputDirection;
-        private Vector2 _lastInputDirection;
+        private Vector2 _lastNormalizedDirection;
         private RaycastHit _lastGroundHit;
 
         private IGrabbable _currentGrabbable;
@@ -78,9 +79,9 @@ namespace Cattac.Character
 
         private void CheckMovements()
         {
-            var targetDirection = UserInput.Instance.GetHead(_isLeftHead).MoveInput;
-            _inputDirection = Vector3.Lerp(_inputDirection, targetDirection, _data.TurnLerp);
-            if (_inputDirection.magnitude > 0.1f) _lastInputDirection = _inputDirection;
+            _inputDirection = UserInput.Instance.GetHead(_isLeftHead).MoveInput;
+            NormalizedDirection = Vector3.Lerp(NormalizedDirection, _inputDirection, _data.TurnLerp);
+            if (NormalizedDirection.magnitude > 0.1f) _lastNormalizedDirection = NormalizedDirection;
         }
 
         private void CheckGrab()
@@ -196,7 +197,7 @@ namespace Cattac.Character
 
         private void MoveSelf()
         {
-            Direction = new Vector3(_inputDirection.x, 0, _inputDirection.y) * _data.Speed;
+            Direction = new Vector3(NormalizedDirection.x, 0, NormalizedDirection.y) * _data.Speed;
             Direction = _camera.transform.forward * Direction.z + _camera.transform.right * Direction.x;
             Direction = new Vector3(Direction.x, 0, Direction.z);
             Direction = Vector3.ProjectOnPlane(Direction, _lastGroundHit.normal);
@@ -241,7 +242,7 @@ namespace Cattac.Character
         {
             _snakeTimer += Time.deltaTime;
             var s = Mathf.Sin((_snakeTimer + _data.SnakeOffset) / _data.SnakeFrequency) * _data.SnakeAmplitude;
-            var directionVector = Vector3.Cross(new Vector3(_inputDirection.x, 0, _inputDirection.y), Vector3.down);
+            var directionVector = Vector3.Cross(new Vector3(NormalizedDirection.x, 0, NormalizedDirection.y), Vector3.down);
             CurrentRigidbody.AddForce(directionVector * s, ForceMode.Impulse);
         }
 

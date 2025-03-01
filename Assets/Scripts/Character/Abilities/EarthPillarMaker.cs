@@ -44,7 +44,7 @@ namespace Cattac.Character.Ability
         {
             var pillar = _earthPillars[_currentEarthPillarIndex];
             pillar.gameObject.SetActive(true);
-            var lastDirection = user.LastInputDirection.normalized;
+            var lastDirection = user.LastNormalizedDirection.normalized;
             var targetPosition = user.transform.position +
                                  new Vector3(lastDirection.x, 0, lastDirection.y) * _distanceFromUser +
                                  Vector3.up * _upRaycastOffset;
