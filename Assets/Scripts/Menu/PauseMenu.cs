@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
@@ -6,7 +7,7 @@ namespace Cattac.Character
 {
     public class PauseMenu : SubMenu
     {
-        /*public UnityEvent OnPause;
+        public UnityEvent OnPause;
         public UnityEvent OnResume;
         public bool GameIsPaused { get; private set; } = false;
 
@@ -17,24 +18,23 @@ namespace Cattac.Character
         [SerializeField] private SubMenu[] _subMenusToClose;
 
 
-        private new void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
-            Inputs.Player.Pause.performed += StartTogglePause;
-        }
-
-        private new void OnDisable()
-        {
-            Inputs.Player.Pause.performed -= StartTogglePause;
-        }
-
-        protected override void StartScript(CharacterManager manager)
-        {
-            base.StartScript(manager);
+            //Inputs.Player.Pause.performed += StartTogglePause;
             _globalPauseUIMenu.alpha = 0;
         }
 
-        private void StartTogglePause(InputAction.CallbackContext context)
+        private void OnDisable()
+        {
+            //Inputs.Player.Pause.performed -= StartTogglePause;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape)) StartTogglePause();
+        }
+
+        private void StartTogglePause()
         {
             //if (Manager.States.IsInMovableState() == false) return; //SPECIFIC SCENES WHERE WE DONT WANT THE PLAYER TO PAUSE
                                                                     // + specific moments when you don't want the player to be able to pause (ex : Quit Game Transition)
@@ -50,7 +50,7 @@ namespace Cattac.Character
         public void Resume()
         {
             Time.timeScale = 1f;
-            Manager.Inputs.EnableInputs(true);
+            //Manager.Inputs.EnableInputs(true);
             GameIsPaused = false;
             _globalPauseUIMenu.alpha = 0f;
             _globalPauseUIMenu.interactable = false;
@@ -64,14 +64,15 @@ namespace Cattac.Character
                 transform.GetChild(i).gameObject.SetActive(false);
             }
             CloseMenu(this);
-            Manager.CameraManager.SetCursorVisible(false);
+            
+            SetCursorVisible(false);
             OnResume?.Invoke();
         }
 
         public void Pause()
         {
             Time.timeScale = 0f;
-            Manager.Inputs.EnableInputs(false);
+            //Manager.Inputs.EnableInputs(false);
             GameIsPaused = true;
             _globalPauseUIMenu.alpha = 1f;
             _globalPauseUIMenu.interactable = true;
@@ -81,14 +82,20 @@ namespace Cattac.Character
                 transform.GetChild(i).gameObject.SetActive(true);
             }
             OpenMenu(this, FirstSelectedButton);
-            Manager.CameraManager.SetCursorVisible(true);
+            SetCursorVisible(true);
             OnPause?.Invoke();
         }
 
-        protected override void TryCloseSubMenu(InputAction.CallbackContext context)
+        /*protected override void TryCloseSubMenu(InputAction.CallbackContext context)
         {
             if (!CanPressCancel) return;
             Resume();
         }*/
+        
+        private void SetCursorVisible(bool isVisible)
+        {
+            Cursor.lockState = isVisible ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = isVisible;
+        }
     }
 }
