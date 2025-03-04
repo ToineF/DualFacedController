@@ -1412,6 +1412,7 @@ GameObject:
   - component: {fileID: 5269863105303370355}
   - component: {fileID: 1641006093691537910}
   - component: {fileID: 6035156323312971386}
+  - component: {fileID: 4187305534603952839}
   m_Layer: 0
   m_Name: Cage
   m_TagString: Untagged
@@ -1507,9 +1508,57 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1641006093691537910}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4830251150657823072}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4187305534603952839}
+        m_TargetAssemblyTypeName: Cattac.Interactables.Cage, Assembly-CSharp
+        m_MethodName: GetCage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onTriggerExit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4187305534603952839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5931321672747108814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd02be825c8489e9b2f6abc532d7c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6218408750282414682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,7 +1859,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6422282897410268004}
   - component: {fileID: 7989041568624807619}
-  - component: {fileID: 4902686173286730567}
   - component: {fileID: 4830251150657823072}
   - component: {fileID: 6942864227827588805}
   m_Layer: 0
@@ -1860,19 +1908,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4902686173286730567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7590708376171874856}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dd02be825c8489e9b2f6abc532d7c6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 7989041568624807619}
 --- !u!65 &4830251150657823072
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -9,9 +9,6 @@ namespace Cattac.Collectibles
 {
     public class CollectiblesUI : MonoBehaviour
     {
-        [Header("References")] [SerializeField]
-        private CollectiblesManager _collectiblesManager;
-
         [SerializeField] private CanvasGroup _collectiblesUI;
 
         [Header("Visibility")] [SerializeField]
@@ -21,40 +18,44 @@ namespace Cattac.Collectibles
         [SerializeField] private float _disappearFadeTime;
         [SerializeField] private float _stayFadeTime;
 
-        [Header("Children")]
-        //[SerializeField] private Transform _childrenUIParent;
-        //[SerializeField] private Image _childHiddenImagePrefab;
-        //[SerializeField] private Image _childFoundImagePrefab;
-        [SerializeField]
-        private GameObject[] _childrenImages;
-
-        [Header("Cheese")] [SerializeField] private Animator _cheeseAnimator;
-        [SerializeField] private CanvasGroup _cheesesUI;
+        [Header("Cheese")]
+        [SerializeField] private Animator _cheeseAnimator;
         [SerializeField] private TMP_Text _cheesesCountText;
-        [SerializeField] private TMP_Text _maxCheesesCountText;
 
-        [Header("Mices")] [SerializeField] private CanvasGroup _miceUI;
-        [SerializeField] private TMP_Text _miceCountText;
-        [SerializeField] private TMP_Text _maxMiceCountText;
+        [Header("Mices")]
+        [SerializeField] private Animator _miceParentAnimator;
+        [SerializeField] private Transform _miceUIParent;
+        [SerializeField] private Animator _miceImagePrefab;
 
-        [Header("Feedbacks")] [SerializeField]
-        private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _cheeseFeedbacks;
-
+        [Header("Feedbacks")]
+        [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _cheeseFeedbacks;
         [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _miceFeedbacks;
 
-        private Image[] _collectiblesImage;
-        private Coroutine _currentVisibilityCoroutine;
+        private CollectiblesManager _collectiblesManager;
+        private LevelCollectiblesData _levelCollectiblesData;
+        
+        private Animator[] _miceAnimators;
+        private Coroutine _miceCoroutine;
+        private Coroutine _cheeseCoroutine;
         private bool _isVisible;
         private bool _highPriority;
 
         private void Start()
         {
+            _collectiblesManager = MainGame.Instance.CollectiblesManager;
+            _levelCollectiblesData = MainGame.Instance.LevelCollectiblesData;
+            
             _collectiblesManager.OnCheeseGain += UpdateCheeseUI;
             _collectiblesManager.OnCheeseGainPreview += ShowUICollectible;
-            _collectiblesManager.OnMouseGain += UpdateMouseUI;
+            _levelCollectiblesData.OnMouseGain += UpdateMouseUI;
 
-            UpdateCheeseUI();
-            UpdateMouseUI();
+            InitCheeseUI();
+            InitMouseUI();
+        }
+
+        private void InitCheeseUI()
+        {
+            _cheesesCountText.text = _collectiblesManager.Cheeses.ToString("D3");
         }
 
         private void UpdateCheeseUI()
@@ -66,51 +67,52 @@ namespace Cattac.Collectibles
                 _cheeseFeedbacks.PunchVibrato, _cheeseFeedbacks.PunchElasticity);
             _cheesesCountText.text = _collectiblesManager.Cheeses.ToString("D3");
             _cheeseAnimator.SetBool("isVisible", true);
-            ShowUICollectible();
+            ShowUICollectible(_cheeseAnimator);
         }
 
-        private void UpdateMouseUI()
+        private void InitMouseUI()
         {
-            if (_miceCountText == null) return;
-
-            _miceCountText.transform.DOComplete();
-            _miceCountText.transform.DOPunchPosition(_miceFeedbacks.PunchDirection, _miceFeedbacks.PunchTime,
-                _miceFeedbacks.PunchVibrato, _miceFeedbacks.PunchElasticity);
-            _miceCountText.text = _collectiblesManager.Mice.ToString();
-            ShowUICollectible();
+            _miceAnimators = new Animator[_levelCollectiblesData.Mice.Count];
+            for (int i = 0; i < _miceAnimators.Length; i++)
+            {
+                _miceAnimators[i] = Instantiate(_miceImagePrefab, _miceUIParent);
+            }
         }
-
-        /*private void Update()
+        
+        private void UpdateMouseUI(int index)
         {
-            CheckForUIHide();
-        }*/
+            if (index < 0 || index >= _miceAnimators.Length) return;
 
-        /*private void CheckForUIHide()
-        {
-            //if (_childrenManager.Manager.States.IsInState(_childrenManager.Manager.States.IdleState)) // Stop moving
-            //{
-            //ShowHideUIAfterTime(_hideTime, true);
-            //}
-            //else if (!_childrenManager.Manager.States.IsInState(_childrenManager.Manager.States.IdleState)) // Starts moving
-            //{
-            //if (_currentVisibilityCoroutine != null) ShowHideUIAfterTime(0, false);
-            //}
-        }*/
+            _miceAnimators[index].SetTrigger("isVisible");
+            _miceParentAnimator.SetBool("isVisible", true);
+            ShowUICollectible(_miceParentAnimator);
+        }
 
         private void ShowUICollectible()
         {
+            ShowUICollectible(null);
+        }
+        
+        private void ShowUICollectible(Animator animator)
+        {
             _highPriority = true;
             ShowHideUIImmediate(true, true);
-            ShowHideUIAfterTime(_stayFadeTime, false, true);
+            ShowHideUIAfterTime(animator, _stayFadeTime, false, true);
         }
 
-        private void ShowHideUIAfterTime(float time, bool isVisible, bool highPriority = false)
+        private void ShowHideUIAfterTime(Animator animator, float time, bool isVisible, bool highPriority = false)
         {
             if (isVisible == _isVisible && !highPriority) return;
             if (_highPriority && !highPriority) return;
             _isVisible = isVisible;
-            if (_currentVisibilityCoroutine != null) StopCoroutine(_currentVisibilityCoroutine);
-            _currentVisibilityCoroutine = StartCoroutine(ShowHideUIAfterTimeRoutine(time, isVisible));
+            if (animator == _cheeseAnimator) StartCoroutine(ref _cheeseCoroutine, animator, time, isVisible);
+            else StartCoroutine(ref _miceCoroutine, animator, time, isVisible);
+        }
+
+        private void StartCoroutine(ref Coroutine coroutine, Animator animator, float time, bool isVisible)
+        {
+            if (coroutine != null) StopCoroutine(coroutine);
+            coroutine = StartCoroutine(ShowHideUIAfterTimeRoutine(animator, time, isVisible));
         }
 
         private void ShowHideUIImmediate(bool isVisible, bool highPriority = false)
@@ -122,12 +124,12 @@ namespace Cattac.Collectibles
             //_collectiblesUI.DOFade(isVisible ? 1 : 0, isVisible ? _appearFadeTime : _disappearFadeTime);
         }
 
-        private IEnumerator ShowHideUIAfterTimeRoutine(float time, bool isVisible)
+        private IEnumerator ShowHideUIAfterTimeRoutine(Animator animator, float time, bool isVisible)
         {
             yield return new WaitForSeconds(time);
 
             //_collectiblesUI.DOFade(isVisible ? 1 : 0, isVisible ? _appearFadeTime : _disappearFadeTime);
-            _cheeseAnimator.SetBool("isVisible", isVisible);
+            animator.SetBool("isVisible", isVisible);
             _highPriority = false;
         }
     }

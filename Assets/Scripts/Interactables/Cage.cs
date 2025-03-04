@@ -4,11 +4,9 @@ namespace Cattac.Interactables
 {
     public class Cage : MonoBehaviour
     {
-        [SerializeField] private Animator _animator;
-
-        private void Update()
+        public void GetCage()
         {
-            if (Input.GetKeyDown(KeyCode.N)) _animator.enabled = true;
+            MainGame.Instance.LevelCollectiblesData.SaveMouse(this);
         }
     }
 }
