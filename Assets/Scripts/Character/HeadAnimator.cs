@@ -12,6 +12,7 @@ namespace Cattac.Character.Visuals
     public class HeadAnimator : MonoBehaviour
     {
         [SerializeField] private CharacterHead _characterHead;
+        [SerializeField] private Transform _neighbourBodyPart;
 
         [SerializeField] private Animator _animator;
         [SerializeField] private bool _isOrientationInverted;
@@ -44,7 +45,14 @@ namespace Cattac.Character.Visuals
 
         private void RotateDirection()
         {
-            Vector3 moveDirection = _characterHead.NormalizedDirection;
+            var neighbourPosition = _neighbourBodyPart.position;
+            neighbourPosition.y = 0;
+            var position = transform.position;
+            position.y = 0;
+            Quaternion _lookRotation = Quaternion.LookRotation((neighbourPosition - position).normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * _lookAtLerp);
+            
+            /*Vector3 moveDirection = _characterHead.NormalizedDirection;
             moveDirection = new Vector3(moveDirection.x, 0, moveDirection.y);
             moveDirection = _camera.transform.forward * moveDirection.z + _camera.transform.right * moveDirection.x;
             moveDirection.y = 0;
@@ -57,7 +65,7 @@ namespace Cattac.Character.Visuals
             
             Quaternion toRotation = Quaternion.LookRotation(direction, transform.up);
             transform.localRotation =
-                Quaternion.Lerp(transform.localRotation, toRotation, _lookAtLerp * Time.deltaTime);
+                Quaternion.Lerp(transform.localRotation, toRotation, _lookAtLerp * Time.deltaTime);*/
         }
     }
 }
