@@ -45,27 +45,32 @@ namespace Cattac.Character.Visuals
 
         private void RotateDirection()
         {
-            var neighbourPosition = _neighbourBodyPart.position;
-            neighbourPosition.y = 0;
-            var position = transform.position;
-            position.y = 0;
-            Quaternion _lookRotation = Quaternion.LookRotation((neighbourPosition - position).normalized);
-            transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * _lookAtLerp);
-            
-            /*Vector3 moveDirection = _characterHead.NormalizedDirection;
-            moveDirection = new Vector3(moveDirection.x, 0, moveDirection.y);
-            moveDirection = _camera.transform.forward * moveDirection.z + _camera.transform.right * moveDirection.x;
-            moveDirection.y = 0;
+            if (_characterHead.IsSeparated)
+            {
+                Vector3 moveDirection = _characterHead.NormalizedDirection;
+                moveDirection = new Vector3(moveDirection.x, 0, moveDirection.y);
+                moveDirection = _camera.transform.forward * moveDirection.z + _camera.transform.right * moveDirection.x;
+                moveDirection.y = 0;
 
-            int orientation = _isOrientationInverted ? -1 : 1;
+                int orientation = _isOrientationInverted ? -1 : 1;
 
-            Vector3 point = transform.position - moveDirection * orientation;
-            Vector3 direction = point - transform.position;
-            if (direction.magnitude < 0.001f) return;
+                Vector3 point = transform.position - moveDirection * orientation;
+                Vector3 direction = point - transform.position;
+                if (direction.magnitude < 0.001f) return;
             
-            Quaternion toRotation = Quaternion.LookRotation(direction, transform.up);
-            transform.localRotation =
-                Quaternion.Lerp(transform.localRotation, toRotation, _lookAtLerp * Time.deltaTime);*/
+                Quaternion toRotation = Quaternion.LookRotation(direction, transform.up);
+                transform.localRotation =
+                    Quaternion.Lerp(transform.localRotation, toRotation, _lookAtLerp * Time.deltaTime);
+            }
+            else
+            {
+                var neighbourPosition = _neighbourBodyPart.position;
+                neighbourPosition.y = 0;
+                var position = transform.position;
+                position.y = 0;
+                Quaternion _lookRotation = Quaternion.LookRotation((neighbourPosition - position).normalized);
+                transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * _lookAtLerp);
+            }
         }
     }
 }
