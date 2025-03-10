@@ -11,6 +11,7 @@ namespace Cattac.Character
         public Action OnSeparate { get; set; }
         public Action OnConnect { get; set; }
 
+        public bool IsMovementBlocked => NormalizedDirection.sqrMagnitude > .5f && CurrentRigidbody.linearVelocity.sqrMagnitude < 30;
         public Vector3 Direction { get; private set; }
         public Vector2 NormalizedDirection { get; private set; }
         public Vector2 InputDirection => _inputDirection;
@@ -71,6 +72,7 @@ namespace Cattac.Character
 
         private void Update()
         {
+            if (_isLeftHead) Debug.Log(IsMovementBlocked);
             if (UserInput.Instance.GetHead(_isLeftHead) == null) return;
             CheckMovements();
             CheckGrab();
