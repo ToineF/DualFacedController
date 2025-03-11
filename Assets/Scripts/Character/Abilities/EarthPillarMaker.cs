@@ -40,7 +40,7 @@ namespace Cattac.Character.Ability
             }
         }
 
-        public override void UseAbility(CharacterHead user)
+        public override void UseAbility(CharacterHead user, bool use)
         {
             var pillar = _earthPillars[_currentEarthPillarIndex];
             pillar.gameObject.SetActive(true);

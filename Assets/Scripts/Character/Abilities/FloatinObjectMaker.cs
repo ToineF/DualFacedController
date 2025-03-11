@@ -29,7 +29,7 @@ namespace Cattac.Character.Ability
                 _currentObject.transform.position.z), _followLerp);
         }
 
-        public override void UseAbility(CharacterHead user)
+        public override void UseAbility(CharacterHead user, bool use)
         {
             var lastDirection = user.LastNormalizedDirection.normalized;
             _currentTargetPosition = user.transform.position +

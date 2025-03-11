@@ -72,7 +72,6 @@ namespace Cattac.Character
 
         private void Update()
         {
-            if (_isLeftHead) Debug.Log(IsMovementBlocked);
             if (UserInput.Instance.GetHead(_isLeftHead) == null) return;
             CheckMovements();
             CheckGrab();
@@ -161,16 +160,16 @@ namespace Cattac.Character
 
         private void CheckSeparation()
         {
-            if (UserInput.Instance.GetHead(_isLeftHead).SeparationInput == false) return;
+            if (UserInput.Instance.GetHead(_isLeftHead).SeparationInputPressed == false) return;
             ToggleSeparation();
         }
 
         private void CheckAbility()
         {
             if (_ability == null) return;
-            if (UserInput.Instance.GetHead(_isLeftHead).SeparationInput == false) return;
-
-            _ability.UseAbility(this);
+            
+            if (UserInput.Instance.GetHead(_isLeftHead).SeparationInputPressed) _ability.UseAbility(this, true);
+            else if (UserInput.Instance.GetHead(_isLeftHead).SeparationInputReleased) _ability.UseAbility(this, false);
         }
 
         private void ToggleSeparation()

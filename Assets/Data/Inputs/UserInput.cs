@@ -41,7 +41,8 @@ public class PlayerInputReferences
     public bool GrabInput {get; private set;}
     public bool GrabInputReleased { get; private set;}
     public bool GrabInputPressed { get; private set;}
-    public bool SeparationInput {get; private set;}
+    public bool SeparationInputPressed {get; private set;}
+    public bool SeparationInputReleased {get; private set;}
 
     public PlayerInputReferences(InputAction moveInputReference, InputAction grabInputReference,
         InputAction separationInputReference)
@@ -57,6 +58,7 @@ public class PlayerInputReferences
         GrabInput = GrabInputReference.IsPressed();
         GrabInputReleased = GrabInputReference.WasReleasedThisFrame();
         GrabInputPressed = GrabInputReference.WasPressedThisFrame();
-        SeparationInput = SeparationInputReference.IsPressed();
+        SeparationInputPressed = SeparationInputReference.WasPressedThisFrame();
+        SeparationInputReleased = SeparationInputReference.WasReleasedThisFrame();
     }
 }
