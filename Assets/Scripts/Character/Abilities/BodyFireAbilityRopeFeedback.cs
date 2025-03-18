@@ -11,12 +11,15 @@ namespace Cattac.Character.Ability
 
         private void Update()
         {
-            _materialReference.SetFloat("_Saturation", _ability.FireAmount);
             UpdateRing(_ability.FireAmount);
+            _materialReference.SetFloat("_Saturation", _ability.FireAmount);
         }
 
         private void UpdateRing(float fireAmount)
         {
+            //var oldFireAmount = _materialReference.GetFloat("_Saturation");
+            
+            //if (oldFireAmount )
             //if ()
             //_rings[]
         }

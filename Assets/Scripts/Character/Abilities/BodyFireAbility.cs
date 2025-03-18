@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
 
 namespace Cattac.Character.Ability
 {
     public class BodyFireAbility : MonoBehaviour
     {
+        public Action OnFireOverflow;
+        public Action OnWaterOverflow;
+
         public float FireAmount => _fireAmount;
         
         [Header("References")]
@@ -27,8 +31,13 @@ namespace Cattac.Character.Ability
 
         private void Update()
         {
+            var lastFireAmount = _fireAmount;
             if (_fireActivated) _fireAmount -= Time.deltaTime * _rate;
             if (_waterActivated) _fireAmount += Time.deltaTime * _rate;
+            
+            if (_fireAmount < 0.01f && lastFireAmount >= 0.01f) OnWaterOverflow?.Invoke();
+            if (_fireAmount > 0.99f && lastFireAmount <= 0.99f) OnFireOverflow?.Invoke();
+            
             _fireAmount = Mathf.Clamp01(_fireAmount);
         }
     }
