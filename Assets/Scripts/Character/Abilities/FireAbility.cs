@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
 
 namespace Cattac.Character.Ability
 {
     public class FireAbility : Ability
     {
+        public Action OnAbilityActivated;
+        public Action OnAbilityDeactivated;
+        
         [SerializeField] private ParticleSystem _fireVFX;
         [SerializeField] private bool _isFire;
         [SerializeField] private Collider _collider;
@@ -12,6 +16,8 @@ namespace Cattac.Character.Ability
             _fireVFX.Stop();
             if (use) _fireVFX.Play();
             _collider.gameObject.SetActive(use);
+            if (use) OnAbilityActivated?.Invoke();
+            else OnAbilityDeactivated?.Invoke();
         }
     }
 }
