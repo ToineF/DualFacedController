@@ -81,7 +81,16 @@ namespace Cattac.Character
         private void CheckMovements()
         {
             _inputDirection = UserInput.Instance.GetHead(_isLeftHead).MoveInput;
-            NormalizedDirection = Vector3.Lerp(NormalizedDirection, _inputDirection, _data.TurnLerp);
+            float lerpSpeed;
+            if (_inputDirection.magnitude > 0.1f) // Acceleration
+            {
+                lerpSpeed = Mathf.Lerp(_data.DecelerationLerp, _data.AccelerationLerp, _inputDirection.magnitude);
+            }
+            else // Deceleration phase
+            {
+                lerpSpeed = Mathf.Lerp(_data.AccelerationLerp, _data.DecelerationLerp, (1 - _inputDirection.magnitude));
+            }
+            NormalizedDirection = Vector3.Lerp(NormalizedDirection, _inputDirection, lerpSpeed);
             if (NormalizedDirection.magnitude > 0.1f) _lastNormalizedDirection = NormalizedDirection;
         }
 

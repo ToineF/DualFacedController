@@ -8,6 +8,8 @@ namespace Cattac.Character
         [field:Header("Movements")]
         [field:SerializeField] public float Speed { get; private set; }
         [field:SerializeField, Range(0, 1)] public float TurnLerp { get; private set; }
+        [field:SerializeField, Range(0, 1)] public float DecelerationLerp { get; private set; }
+        [field:SerializeField, Range(0, 1)] public float AccelerationLerp { get; private set; }
         
         [field:Header("Ground Detection")]
         [field:SerializeField] public float AdditionalGravity {get; private set;}
