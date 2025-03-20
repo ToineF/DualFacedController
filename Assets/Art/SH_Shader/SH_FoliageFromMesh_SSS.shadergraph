@@ -260,6 +260,9 @@
         },
         {
             "m_Id": "757ca6ae21f54f8ea79ad1a3d8c07bdf"
+        },
+        {
+            "m_Id": "da126c44b46e409988be7f9575386707"
         }
     ],
     "m_GroupDatas": [
@@ -763,9 +766,9 @@
             },
             "m_InputSlot": {
                 "m_Node": {
-                    "m_Id": "25f2ed82717e4c2ca4411837b7bf0bed"
+                    "m_Id": "07764b86339e47ab955755b49bc592e2"
                 },
-                "m_SlotId": 1
+                "m_SlotId": 0
             }
         },
         {
@@ -773,13 +776,13 @@
                 "m_Node": {
                     "m_Id": "81ca6668acc440e78a9aec3b921abb19"
                 },
-                "m_SlotId": 7
+                "m_SlotId": 0
             },
             "m_InputSlot": {
                 "m_Node": {
-                    "m_Id": "07764b86339e47ab955755b49bc592e2"
+                    "m_Id": "25f2ed82717e4c2ca4411837b7bf0bed"
                 },
-                "m_SlotId": 0
+                "m_SlotId": 1
             }
         },
         {
@@ -1249,6 +1252,9 @@
             },
             {
                 "m_Id": "512e35922e03439890d8f6e2cb4dd564"
+            },
+            {
+                "m_Id": "da126c44b46e409988be7f9575386707"
             }
         ]
     },
@@ -2015,7 +2021,7 @@
     "m_ActiveSubTarget": {
         "m_Id": "b01898250f6146a285e3b3e624b79c1e"
     },
-    "m_AllowMaterialOverride": false,
+    "m_AllowMaterialOverride": true,
     "m_SurfaceType": 0,
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
@@ -2664,6 +2670,36 @@
     },
     "m_Labels": [],
     "m_Channel": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.ColorRGBMaterialSlot",
+    "m_ObjectId": "23753d9d789c4c28b692cf7699303c8b",
+    "m_Id": 0,
+    "m_DisplayName": "Specular Color",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Specular",
+    "m_StageCapability": 2,
+    "m_Value": {
+        "x": 0.5,
+        "y": 0.5,
+        "z": 0.5
+    },
+    "m_DefaultValue": {
+        "x": 0.5,
+        "y": 0.5,
+        "z": 0.5
+    },
+    "m_Labels": [],
+    "m_ColorMode": 0,
+    "m_DefaultColor": {
+        "r": 0.5,
+        "g": 0.5,
+        "b": 0.5,
+        "a": 1.0
+    }
 }
 
 {
@@ -3809,7 +3845,7 @@
     "m_ObjectId": "57a6148e57924b0bb5827df45c47ab3b",
     "m_Title": "Object To World",
     "m_Position": {
-        "x": -2886.0,
+        "x": -2885.999755859375,
         "y": -1139.0
     }
 }
@@ -3940,7 +3976,7 @@
     "m_ObjectId": "5c3a54f43c2e44d7a7e983135c1e653b",
     "m_Title": "Opposing World Space Light",
     "m_Position": {
-        "x": -2242.0,
+        "x": -2241.999755859375,
         "y": -1387.0
     }
 }
@@ -5931,8 +5967,8 @@
     "m_ObjectId": "87cd7149fd1a4349b806f0c2ffa6b004",
     "m_Title": "Wind",
     "m_Position": {
-        "x": -3630.0,
-        "y": -2708.0
+        "x": -3629.999755859375,
+        "y": -2707.999755859375
     }
 }
 
@@ -8266,6 +8302,40 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
+    "m_ObjectId": "da126c44b46e409988be7f9575386707",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "SurfaceDescription.Specular",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "23753d9d789c4c28b692cf7699303c8b"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedDescriptor": "SurfaceDescription.Specular"
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "da94a3b22b574600ad373a4656121df7",
     "m_Id": 2,
@@ -9185,8 +9255,8 @@
     "m_ObjectId": "fc1f8e667ba24ead9a06e07db84d7e8a",
     "m_Title": "QuadScatter",
     "m_Position": {
-        "x": -3042.0,
-        "y": -3418.0
+        "x": -3041.999755859375,
+        "y": -3417.999755859375
     }
 }
 
