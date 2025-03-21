@@ -710,6 +710,20 @@ namespace AntoineFoucault.Utilities
                 go.SetActive(value);
             }
         }
+        
+        /// <summary>
+        /// ActivatesDeactivates all GameObjects from a IEnumerable of Monobehaviors, depending on the given true or false/ value.
+        /// </summary>
+        /// <param name="gameObjects"></param>
+        /// <param name="value"></param>
+        public static void SetAllActive(this IEnumerable<MonoBehaviour> monoBehaviours, bool value)
+        {
+            foreach (MonoBehaviour monoBehaviour in monoBehaviours)
+            {
+                monoBehaviour.gameObject.SetActive(value);
+            }
+        }
+        
         public static Transform Clear(this Transform transform)
         {
             while (transform.childCount > 0)

@@ -1,4 +1,4 @@
-using System;
+using Cattac.Character.Multiplayer;
 using Cattac.Collectibles;
 using UnityEngine;
 
@@ -10,6 +10,7 @@ public class MainGame : MonoBehaviour
     public static MainGame Instance;
     [field:SerializeField] public CollectiblesManager CollectiblesManager { get; private set; }
     [field:SerializeField] public LevelCollectiblesData LevelCollectiblesData { get; private set; }
+    [field:SerializeField] public PlayersManager PlayersManager { get; private set; }
     
     private void Awake()
     {

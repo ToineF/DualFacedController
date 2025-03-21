@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,8 +8,6 @@ namespace Cattac.Character.Multiplayer
 {
     public class PlayersManager : MonoBehaviour
     {
-        public static PlayersManager Instance;
-        
         [SerializeField] private PlayerConnexionManager _playerConnexionManager;
         
         private InputAction _leftMoveAction;
@@ -18,16 +18,37 @@ namespace Cattac.Character.Multiplayer
         private InputAction _rightSeparateAction;
 
         private List<PlayerInput> _playersInputs = new List<PlayerInput>();
-
-        private void Awake()
-        {
-            Instance = this;
-        }
         
         private void Start()
         {
+        }
+
+        private void OnEnable()
+        {
+            
+            foreach (var playerInput in _playersInputs.ToList())
+            {
+                //var input = playerInput.actions.FindActionMap("Player");
+                //input.Enable();
+                playerInput.gameObject.SetActive(true);
+                //playerInput.ActivateInput();
+            }
             _playerConnexionManager.OnPlayerJoin += OnPlayerJoined;
             _playerConnexionManager.OnPlayerLeft += OnPlayerLeft;
+        }
+        
+        private void OnDisable()
+        {
+            //_playerConnexionManager.enabled = false;
+            foreach (var playerInput in _playersInputs)
+            {
+                //var input = playerInput.actions.FindActionMap("Player");
+                //input.Disable();
+                playerInput.gameObject.SetActive(false);
+                //playerInput.DeactivateInput();
+            }
+            _playerConnexionManager.OnPlayerJoin -= OnPlayerJoined;
+            _playerConnexionManager.OnPlayerLeft -= OnPlayerLeft;
         }
 
         private void OnPlayerJoined(PlayerInput playerInput)
@@ -69,6 +90,17 @@ namespace Cattac.Character.Multiplayer
         {
             UserInput.Instance.LeftHead = new PlayerInputReferences(_leftMoveAction, _leftGrabAction, _leftSeparateAction);
             UserInput.Instance.RightHead = new PlayerInputReferences(_rightMoveAction, _rightGrabAction, _rightSeparateAction);
+        }
+
+        public void Activate(bool activate)
+        {
+            _playerConnexionManager.enabled = activate;
+            Debug.Log("Players Manager : " + activate);
+            foreach (var playerInput in _playersInputs)
+            {
+                if (activate) playerInput.ActivateInput();
+                else playerInput.DeactivateInput();
+            }
         }
     }
 }

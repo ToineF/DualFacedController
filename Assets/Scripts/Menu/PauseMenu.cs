@@ -44,13 +44,11 @@ namespace Cattac.Character
             else
                 Pause();
         }
-        
-
 
         public void Resume()
         {
             Time.timeScale = 1f;
-            //Manager.Inputs.EnableInputs(true);
+            MainGame.Instance.PlayersManager.gameObject.SetActive(true);
             GameIsPaused = false;
             _globalPauseUIMenu.alpha = 0f;
             _globalPauseUIMenu.interactable = false;
@@ -72,7 +70,7 @@ namespace Cattac.Character
         public void Pause()
         {
             Time.timeScale = 0f;
-            //Manager.Inputs.EnableInputs(false);
+            MainGame.Instance.PlayersManager.gameObject.SetActive(false);
             GameIsPaused = true;
             _globalPauseUIMenu.alpha = 1f;
             _globalPauseUIMenu.interactable = true;

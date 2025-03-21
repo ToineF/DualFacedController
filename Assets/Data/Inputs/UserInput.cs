@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class UserInput : MonoBehaviour
 {
-    public static UserInput Instance;
+    public static UserInput Instance {get; private set;}
 
     public PlayerInputReferences LeftHead { get; set; }
     public PlayerInputReferences RightHead { get; set; }

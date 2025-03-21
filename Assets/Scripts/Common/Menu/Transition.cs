@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class Transition : MonoBehaviour
@@ -30,8 +28,8 @@ public class Transition : MonoBehaviour
             switch (_transitionMode)
             {
                 case AnimationMode.Fade:
-                    _fadeImage.DOFade(1, 0);
-                    _fadeImage.DOFade(0, _fadeTime);
+                    _fadeImage.DOFade(1, 0).SetUpdate(true);
+                    _fadeImage.DOFade(0, _fadeTime).SetUpdate(true);
                     break;
                 case AnimationMode.Animation:
                     AnimationTransition("TransitionIn");
