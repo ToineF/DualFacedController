@@ -535,6 +535,18 @@ namespace AntoineFoucault.Utilities
             return vector;
         }
 
+
+        public static Vector2Int Normalize(this Vector2Int vector)
+        {
+            return new Vector2Int(Math.Sign(vector.x), Math.Sign(vector.y));
+        }
+        
+        public static Vector3Int Normalize(this Vector3Int vector)
+        {
+            return new Vector3Int(Math.Sign(vector.x), Math.Sign(vector.y), Math.Sign(vector.z));
+        }
+
+
     }
 
     public static class CollectionsExtensions
