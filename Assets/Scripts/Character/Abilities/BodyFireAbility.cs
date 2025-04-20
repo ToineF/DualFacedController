@@ -13,8 +13,8 @@ namespace Cattac.Character.Ability
         public float FireAmount => _fireAmount;
         
         [Header("References")]
-        [SerializeField] private FireAbility _fireAbility;
-        [SerializeField] private FireAbility _waterAbility;
+        [SerializeField] private FireWaterSwitchAbility _fireAbility;
+        [SerializeField] private FireWaterSwitchAbility _waterAbility;
         
         [Header("Settings")]
         [SerializeField] private float _gaugeIncreaseRate;
@@ -24,20 +24,21 @@ namespace Cattac.Character.Ability
         private float _fireAmount = 0.5f;
         private bool _fireActivated;
         private bool _waterActivated;
+        private float _gaugeDecreaseTimer;
 
         private void Start()
         {
-            _fireAbility.OnAbilityActivated += () => _fireActivated = true;
-            _fireAbility.OnAbilityDeactivated += () => _fireActivated = false;
-            _waterAbility.OnAbilityActivated += () => _waterActivated = true;
-            _waterAbility.OnAbilityDeactivated += () => _waterActivated = false;
+            _fireAbility.CurrentAbility.OnAbilityActivated += () => _fireActivated = true;
+            _fireAbility.CurrentAbility.OnAbilityDeactivated += () => _fireActivated = false;
+            _waterAbility.CurrentAbility.OnAbilityActivated += () => _waterActivated = true;
+            _waterAbility.CurrentAbility.OnAbilityDeactivated += () => _waterActivated = false;
         }
 
         private void Update()
         {
             var lastFireAmount = _fireAmount;
-            if (_fireActivated) _fireAmount -= Time.deltaTime * _gaugeIncreaseRate;
-            if (_waterActivated) _fireAmount += Time.deltaTime * _gaugeIncreaseRate;
+            if (_fireActivated) _fireAmount += Time.deltaTime * _gaugeIncreaseRate;
+            if (_waterActivated) _fireAmount -= Time.deltaTime * _gaugeIncreaseRate;
 
             // When no ability used, gauge returns to center
             if (_fireActivated == false && _waterActivated == false) _gaugeDecreaseTimer += Time.deltaTime;

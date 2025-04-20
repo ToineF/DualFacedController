@@ -7,6 +7,8 @@ namespace Cattac.Character.Ability
     {
         public Action OnAbilityActivated;
         public Action OnAbilityDeactivated;
+
+        public bool IsFire => _isFire;
         
         [SerializeField] private ParticleSystem _fireVFX;
         [SerializeField] private bool _isFire;
