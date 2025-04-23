@@ -18,14 +18,9 @@ namespace Cattac.Character.Multiplayer
         private InputAction _rightSeparateAction;
 
         private List<PlayerInput> _playersInputs = new List<PlayerInput>();
-        
-        private void Start()
-        {
-        }
 
         private void OnEnable()
         {
-            
             foreach (var playerInput in _playersInputs.ToList())
             {
                 //var input = playerInput.actions.FindActionMap("Player");
@@ -53,7 +48,7 @@ namespace Cattac.Character.Multiplayer
 
         private void OnPlayerJoined(PlayerInput playerInput)
         {
-            Debug.Log("PlayerJoined : " + playerInput);
+            Debug.Log($"PlayerJoined : { playerInput } connected");
             _playersInputs.Add(playerInput);
             UpdateInputs(playerInput);
         }
@@ -94,7 +89,7 @@ namespace Cattac.Character.Multiplayer
 
         public void Activate(bool activate)
         {
-            _playerConnexionManager.enabled = activate;
+            //_playerConnexionManager.enabled = activate;
             Debug.Log("Players Manager : " + activate);
             foreach (var playerInput in _playersInputs)
             {

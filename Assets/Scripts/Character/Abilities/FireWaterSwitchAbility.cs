@@ -10,7 +10,7 @@ namespace Cattac.Character.Ability
         [SerializeField] private FireAbility _originalAbility;
         [SerializeField] private FireAbility _overflowAbility;
 
-        private void Start()
+        private void Awake()
         {
             CurrentAbility = _originalAbility;
         }

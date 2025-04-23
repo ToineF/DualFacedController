@@ -27,7 +27,7 @@
                     "name": "GrabLeft",
                     "type": "Button",
                     "id": "408ae4fe-32be-4f95-9871-a654e7a7ce69",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -443,7 +443,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "cf95c900-de8d-4875-8bee-e84fa44649c5",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -452,7 +452,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "72072a13-5106-4213-a7de-c5f91794e3e8",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -516,6 +516,15 @@
                     "type": "PassThrough",
                     "id": "2bdd8713-ebcd-4f39-a3a5-0febdf02cecc",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "c8e6ceea-277a-478a-a000-79bf66c029fa",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1014,6 +1023,28 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85c65314-009b-4bac-8cb6-49ad0e3ab0bc",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "039aa579-7e96-434c-80bd-b40925fe929f",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

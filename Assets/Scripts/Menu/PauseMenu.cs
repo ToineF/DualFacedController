@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
@@ -10,6 +9,8 @@ namespace Cattac.Character
         public UnityEvent OnPause;
         public UnityEvent OnResume;
         public bool GameIsPaused { get; private set; } = false;
+        
+        [field:SerializeField] public PlayerInput InputActionAsset { get; private set; }
 
         [Header("References")]
         [SerializeField] private CanvasGroup _globalPauseUIMenu;
@@ -17,9 +18,11 @@ namespace Cattac.Character
         [Header("Options Menu")]
         [SerializeField] private SubMenu[] _subMenusToClose;
 
+        private InputAction _pauseAction;
 
         private void OnEnable()
         {
+            _pauseAction = InputActionAsset.actions["Pause"];
             //Inputs.Player.Pause.performed += StartTogglePause;
             _globalPauseUIMenu.alpha = 0;
         }
@@ -31,7 +34,7 @@ namespace Cattac.Character
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape)) StartTogglePause();
+            if (_pauseAction.WasPressedThisFrame()) StartTogglePause();
         }
 
         private void StartTogglePause()
