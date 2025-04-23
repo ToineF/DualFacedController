@@ -14,20 +14,21 @@ namespace Cattac.Interactables
         [Header("Feedback")] [SerializeField] private Transform _visual;
         [SerializeField] private float _punchAmount = 1f;
         [SerializeField] private float _punchTime;
-	[SerializeField] private AudioSource _boingSFX;
+	    [SerializeField] private AudioSource _boingSFX;
 
         //private HashSet<Rigidbody> _movedRigidbodies = new HashSet<Rigidbody>();
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log(other.name);
             if (other.TryGetComponent(out Rigidbody rb) == false) return;
 
             StartCoroutine(ApplyForceWithDecay(rb));
             _visual.DOComplete();
             _visual.DOPunchScale(_punchAmount * Vector3.one, _punchTime);
-	    _boingSFX.volume = Random.Range(0.7f, 1.0f);
-	    _boingSFX.pitch = Random.Range(0.8f, 1.2f);
-	    _boingSFX.Play();
+	        _boingSFX.volume = Random.Range(0.7f, 1.0f);
+	        _boingSFX.pitch = Random.Range(0.8f, 1.2f);
+	        _boingSFX.Play();
         }
 
         private IEnumerator ApplyForceWithDecay(Rigidbody rb)

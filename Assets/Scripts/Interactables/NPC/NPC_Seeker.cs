@@ -22,7 +22,10 @@ namespace Cattac.Interactables.NPC
         {
             Target = GetTarget();
             _lookAt.Target = Target?.gameObject;
+            UpdateInternal();
         }
+
+        protected virtual void UpdateInternal() { }
 
         private CharacterHead GetTarget()
         {
@@ -39,8 +42,7 @@ namespace Cattac.Interactables.NPC
                 if (hit.collider == null || hit.collider.TryGetComponent(out CharacterHead head) == false) continue;
 
                 var distanceToHit = head.transform.position - transform.position;
-                if (Physics.Raycast(transform.position, distanceToHit, distanceToHit.magnitude, _obstaclesLayer))
-                    continue;
+                if (Physics.Raycast(transform.position, distanceToHit, distanceToHit.magnitude, _obstaclesLayer)) continue;
 
                 float currentAngle = Vector3.Angle(transform.forward, distanceToHit.normalized);
                 float distanceMagnitude = distanceToHit.magnitude;
