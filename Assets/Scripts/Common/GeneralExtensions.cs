@@ -600,34 +600,34 @@ namespace AntoineFoucault.Utilities
             return values.Select((b, i) => object.Equals(b, val) ? i : -1).Where(i => i != -1).ToArray();
         }
 
-        public static GameObject GetRandomPonderatedGameObject(this IList<PonderableGameObject> list)
+        public static T GetRandomWeightedItem<T>(this IList<WeightedItem<T>> list)
         {
             int total = 0;
-            Dictionary<int, GameObject> gameObjectToSpawn = new Dictionary<int, GameObject>();
+            Dictionary<int, T> items = new Dictionary<int, T>();
             foreach (var go in list)
             {
-                gameObjectToSpawn.Add(total, go.GameObject);
-                total += go.Probability;
+                items.Add(total, go.Item);
+                total += go.Weight;
             }
 
             int randomIndex = UnityEngine.Random.Range(0, total);
             int max = 0;
 
-            foreach (var go in gameObjectToSpawn)
+            foreach (var go in items)
             {
                 if (go.Key > randomIndex) continue;
                 if (max < go.Key) max = go.Key;
             }
 
-            return gameObjectToSpawn[max];
+            return items[max];
         }
 
 
         [Serializable]
-        public struct PonderableGameObject
+        public struct WeightedItem<T>
         {
-            public int Probability;
-            public GameObject GameObject;
+            public int Weight;
+            public T Item;
         }
     }
 
