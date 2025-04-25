@@ -1,10 +1,11 @@
-﻿using Cattac.Character;
+﻿using System;
 using UnityEngine;
 
 namespace Cattac.Interactables.NPC
 {
     public class NPC_Seeker : MonoBehaviour
     {
+        public Action<IDetectable, IDetectable> OnTargetChange;
         public IDetectable Target { get; private set; }
 
         [Header("References")] [SerializeField]
@@ -20,7 +21,9 @@ namespace Cattac.Interactables.NPC
 
         private void Update()
         {
+            var oldTarget = Target;
             Target = GetTarget();
+            if (oldTarget != Target) OnTargetChange?.Invoke(oldTarget, Target);
             _lookAt.Target = Target?.gameObject;
             UpdateInternal();
         }

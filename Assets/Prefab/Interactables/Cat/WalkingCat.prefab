@@ -12,7 +12,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _npc_seeker
       value: 
-      objectReference: {fileID: 5590190265260518306}
+      objectReference: {fileID: 6806417768206304678}
     - target: {fileID: 2543753514336829209, guid: b4961c024862ba440bc4a25beb486cfd,
         type: 3}
       propertyPath: m_Height
@@ -21,17 +21,27 @@ PrefabInstance:
     - target: {fileID: 2543753514336829209, guid: b4961c024862ba440bc4a25beb486cfd,
         type: 3}
       propertyPath: m_Radius
-      value: 0.7
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053533381820542028, guid: b4961c024862ba440bc4a25beb486cfd,
+        type: 3}
+      propertyPath: _lookAtLerp
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3176375754366201855, guid: b4961c024862ba440bc4a25beb486cfd,
         type: 3}
       propertyPath: m_Name
-      value: WalkingCat Variant
+      value: WalkingCat
       objectReference: {fileID: 0}
     - target: {fileID: 3176375754366201855, guid: b4961c024862ba440bc4a25beb486cfd,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7840037968075374042, guid: b4961c024862ba440bc4a25beb486cfd,
+        type: 3}
+      propertyPath: m_Mass
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8350447138959045633, guid: b4961c024862ba440bc4a25beb486cfd,
         type: 3}
@@ -51,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 8350447138959045633, guid: b4961c024862ba440bc4a25beb486cfd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14
+      value: 51.7
       objectReference: {fileID: 0}
     - target: {fileID: 8350447138959045633, guid: b4961c024862ba440bc4a25beb486cfd,
         type: 3}
@@ -61,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 8350447138959045633, guid: b4961c024862ba440bc4a25beb486cfd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.1
+      value: 53
       objectReference: {fileID: 0}
     - target: {fileID: 8350447138959045633, guid: b4961c024862ba440bc4a25beb486cfd,
         type: 3}
@@ -109,6 +119,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3176375754366201855, guid: b4961c024862ba440bc4a25beb486cfd,
         type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 385373036975003448}
+    - targetCorrespondingSourceObject: {fileID: 3176375754366201855, guid: b4961c024862ba440bc4a25beb486cfd,
+        type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 6806417768206304678}
+    - targetCorrespondingSourceObject: {fileID: 3176375754366201855, guid: b4961c024862ba440bc4a25beb486cfd,
+        type: 3}
       insertIndex: -1
       addedObject: {fileID: 5590190265260518306}
   m_SourcePrefab: {fileID: 100100000, guid: b4961c024862ba440bc4a25beb486cfd, type: 3}
@@ -118,6 +136,42 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 883958394154070884}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &385373036975003448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2328558450217196699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 169c136360354fbebc0802511d02b9e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Seeker>k__BackingField: {fileID: 6806417768206304678}
+  <Mover>k__BackingField: {fileID: 5590190265260518306}
+--- !u!114 &6806417768206304678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2328558450217196699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e75f4a62e97784597d12b3c4f87a24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lookAt: {fileID: 2748364654134877992}
+  _maxSeekAngle: 45
+  _seekRadius: 9.12
+  _seekDistance: 23.1
+  _seekLayer:
+    serializedVersion: 2
+    m_Bits: 320
+  _obstaclesLayer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &5590190265260518306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,20 +184,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5864858ae24a4c5b934d54fedad88709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lookAt: {fileID: 2748364654134877992}
-  _maxSeekAngle: 45
-  _seekRadius: 9.12
-  _seekDistance: 17.3
-  _seekLayer:
-    serializedVersion: 2
-    m_Bits: 320
-  _obstaclesLayer:
-    serializedVersion: 2
-    m_Bits: 1
   _rigidbody: {fileID: 6956121369296899774}
   _speed: 20
-  _acceleration: 0.86
-  _deceleration: 0.008
+  _acceleration: 0.081
+  _deceleration: 0.036
 --- !u!114 &2748364654134877992 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3053533381820542028, guid: b4961c024862ba440bc4a25beb486cfd,

@@ -229,27 +229,6 @@ namespace Cattac.Character
         private void ApplyGravity()
         {
             Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out _lastGroundHit, _data.GroundDetectionDistance, _data.GroundLayer, QueryTriggerInteraction.Ignore);
-            return;
-            //if (Physics.Raycast(transform.position, Vector3.down, out hit, _groundDetectionDistance, _groundLayer))
-            //AntoineFoucault.Utilities.ColliderExtensions.GetCapsulePoints(Collider, out Vector3 p1, out Vector3 p2);
-            if (Physics.SphereCast(transform.position, Collider.radius, Vector3.down, out _lastGroundHit, _data.GroundDetectionDistance, _data.GroundLayer, QueryTriggerInteraction.Ignore))
-            {
-                float groundHeight = _lastGroundHit.point.y;
-                float currentHeight = transform.position.y;
-
-                // Calculate the difference from the target height
-                float distanceToTarget = (groundHeight + _data.RestPositionFromGround) - currentHeight;
-
-                // Apply spring force to float the character
-                Vector3 force = distanceToTarget * _data.AdditionalGravity * Vector3.up;
-
-                // Apply damping force to gradually reduce the force
-                Vector3 velocity = Vector3.up * CurrentRigidbody.linearVelocity.y;
-                force -= velocity * _data.GravityDamper;
-
-                // Apply the force to the Rigidbody
-                CurrentRigidbody.AddForce(force, ForceMode.Impulse);
-            }
         }
 
         private void MoveSnake()
@@ -259,13 +238,13 @@ namespace Cattac.Character
             var directionVector = Vector3.Cross(new Vector3(NormalizedDirection.x, 0, NormalizedDirection.y), Vector3.down);
             CurrentRigidbody.AddForce(directionVector * s, ForceMode.Impulse);
         }
-
-/*#if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.gray;
-        Gizmos.DrawSphere(transform.position, _grabRadius);
-    }
-#endif*/
+        
+        public Cat_State OnDetect(Cat_StateManager catStateManager)
+        {
+            if (IsSeparated)
+                return catStateManager.Cat_Chase_Mouse;
+            else
+                return catStateManager.Cat_State_LookAtDivinity;
+        }
     }
 }

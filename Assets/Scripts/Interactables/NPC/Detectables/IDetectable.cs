@@ -4,6 +4,7 @@ namespace Cattac.Interactables.NPC
 {
     public interface IDetectable
     {
-        GameObject gameObject { get; }
+        public GameObject gameObject { get; }
+        public Cat_State OnDetect(Cat_StateManager catStateManager);
     }
 }
