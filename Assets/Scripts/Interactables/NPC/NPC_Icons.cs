@@ -14,8 +14,8 @@ namespace Cattac.Interactables.NPC
 
         private void Update()
         {
-            _spriteRenderer.sprite = _npc_seeker.Target ? _seekingSprite : _idleSprite;
-            _spriteRenderer.color = Color.Lerp(_spriteRenderer.color, _npc_seeker.Target ? _seekingColor : _idleColor,
+            _spriteRenderer.sprite = _npc_seeker.Target != null ? _seekingSprite : _idleSprite;
+            _spriteRenderer.color = Color.Lerp(_spriteRenderer.color, _npc_seeker.Target != null ? _seekingColor : _idleColor,
                 _colorLerp);
         }
     }

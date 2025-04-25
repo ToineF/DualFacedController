@@ -5,7 +5,7 @@ namespace Cattac.Interactables.NPC
 {
     public class NPC_Seeker : MonoBehaviour
     {
-        public CharacterHead Target { get; private set; }
+        public IDetectable Target { get; private set; }
 
         [Header("References")] [SerializeField]
         private NPC_LookAt _lookAt;
@@ -27,7 +27,7 @@ namespace Cattac.Interactables.NPC
 
         protected virtual void UpdateInternal() { }
 
-        private CharacterHead GetTarget()
+        private IDetectable GetTarget()
         {
             RaycastHit[] hits = Physics.SphereCastAll(transform.position, _seekRadius, transform.forward, _seekDistance,
                 _seekLayer, QueryTriggerInteraction.Ignore);
@@ -35,13 +35,13 @@ namespace Cattac.Interactables.NPC
             if (hits.Length <= 0) return null;
 
             float currentMinDistance = float.PositiveInfinity;
-            CharacterHead target = null;
+            IDetectable target = null;
 
             foreach (var hit in hits)
             {
-                if (hit.collider == null || hit.collider.TryGetComponent(out CharacterHead head) == false) continue;
+                if (hit.collider == null || hit.collider.TryGetComponent(out IDetectable head) == false) continue;
 
-                var distanceToHit = head.transform.position - transform.position;
+                var distanceToHit = head.gameObject.transform.position - transform.position;
                 if (Physics.Raycast(transform.position, distanceToHit, distanceToHit.magnitude, _obstaclesLayer)) continue;
 
                 float currentAngle = Vector3.Angle(transform.forward, distanceToHit.normalized);

@@ -21,7 +21,7 @@ namespace Cattac.Interactables.NPC
                 return;
             }
 
-            var movement = (Target.transform.position - _rigidbody.position).normalized * (_speed * Time.deltaTime);
+            var movement = (Target.gameObject.transform.position - _rigidbody.position).normalized * (_speed * Time.deltaTime);
             movement.y = 0;
             _movement = Vector3.Lerp(movement, _movement, _acceleration);
             _rigidbody.position += _movement;

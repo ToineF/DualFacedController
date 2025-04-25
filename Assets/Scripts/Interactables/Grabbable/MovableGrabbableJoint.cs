@@ -14,7 +14,7 @@ namespace Cattac.Interactables
         public void OnGrab(CharacterHead characterHead)
         {
             var newJoint = _jointObject.gameObject.AddComponent<HingeJoint>();
-            newJoint.connectedBody = characterHead.CurrentRigidbody;
+            newJoint.connectedBody = characterHead.GrabParent;
             _joints[characterHead.gameObject] = newJoint;
 
             //_joint.autoConfigureConnectedAnchor = false;

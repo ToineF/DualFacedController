@@ -1,12 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using Cattac.Interactables;
+using Cattac.Interactables.NPC;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Cattac.Character
 {
-    public class CharacterHead : MonoBehaviour
+    public class CharacterHead : MonoBehaviour, IDetectable
     {
         public Action OnSeparate { get; set; }
         public Action OnConnect { get; set; }
@@ -46,6 +47,9 @@ namespace Cattac.Character
 
         [Header("Input Properties")] [SerializeField]
         private bool _isLeftHead;
+        
+        [field:Header("Grab")]
+        [field:SerializeField] public Rigidbody GrabParent { get; private set; }
 
         [Header("Ability")]
         [SerializeField] private Ability.Ability _ability;
@@ -121,15 +125,15 @@ namespace Cattac.Character
 
         private void Grab()
         {
-            var colliders = Physics.OverlapSphere(transform.position, _data.GrabRadius, _data.GrabLayerMask);
+            var colliders = Physics.OverlapSphere(GrabParent.transform.position, _data.GrabRadius, _data.GrabLayerMask);
             if (colliders.Length < 1) return;
-            var minDistance = (transform.position - colliders[0].transform.position).sqrMagnitude;
+            var minDistance = (GrabParent.transform.position - colliders[0].transform.position).sqrMagnitude;
             var closestCollider = colliders[0];
             if (colliders.Length > 1)
             {
                 for (int i = 1; i < colliders.Length; i++)
                 {
-                    var currentDistance = (transform.position - colliders[i].transform.position).sqrMagnitude;
+                    var currentDistance = (GrabParent.transform.position - colliders[i].transform.position).sqrMagnitude;
                     if (currentDistance < minDistance)
                     {
                         closestCollider = colliders[i];
