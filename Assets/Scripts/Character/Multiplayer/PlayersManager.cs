@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -89,12 +88,18 @@ namespace Cattac.Character.Multiplayer
 
         public void Activate(bool activate)
         {
-            //_playerConnexionManager.enabled = activate;
-            Debug.Log("Players Manager : " + activate);
             foreach (var playerInput in _playersInputs)
             {
-                if (activate) playerInput.ActivateInput();
-                else playerInput.DeactivateInput();
+                if (activate)
+                {
+                    playerInput.actions.FindActionMap("UnityUI").Disable();
+                    playerInput.actions.FindActionMap("Player").Enable();
+                }
+                else
+                {
+                    playerInput.actions.FindActionMap("UnityUI").Enable();
+                    playerInput.actions.FindActionMap("Player").Disable();
+                }
             }
         }
     }

@@ -23,13 +23,8 @@ namespace Cattac.Character
         private void OnEnable()
         {
             _pauseAction = InputActionAsset.actions["Pause"];
-            //Inputs.Player.Pause.performed += StartTogglePause;
             _globalPauseUIMenu.alpha = 0;
-        }
-
-        private void OnDisable()
-        {
-            //Inputs.Player.Pause.performed -= StartTogglePause;
+            SetCursorVisible(false);
         }
 
         private void Update()
@@ -51,7 +46,7 @@ namespace Cattac.Character
         public void Resume()
         {
             Time.timeScale = 1f;
-            MainGame.Instance.PlayersManager.gameObject.SetActive(true);
+            MainGame.Instance.PlayersManager.Activate(true);
             GameIsPaused = false;
             _globalPauseUIMenu.alpha = 0f;
             _globalPauseUIMenu.interactable = false;
@@ -65,7 +60,6 @@ namespace Cattac.Character
                 transform.GetChild(i).gameObject.SetActive(false);
             }
             CloseMenu(this);
-            
             SetCursorVisible(false);
             OnResume?.Invoke();
         }
@@ -73,7 +67,7 @@ namespace Cattac.Character
         public void Pause()
         {
             Time.timeScale = 0f;
-            MainGame.Instance.PlayersManager.gameObject.SetActive(false);
+            MainGame.Instance.PlayersManager.Activate(false);
             GameIsPaused = true;
             _globalPauseUIMenu.alpha = 1f;
             _globalPauseUIMenu.interactable = true;
