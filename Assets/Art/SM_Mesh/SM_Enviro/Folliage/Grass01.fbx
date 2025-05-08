@@ -1,0 +1,98 @@
+;FBX 6.1.0 project file
+;Created by Tree IT
+
+FBXHeaderExtension:  {
+ FBXHeaderVersion: 1003
+ FBXVersion: 6100
+}
+
+Definitions:  {
+ Version: 100
+ Count: 3
+ ObjectType: "Model" {
+  Count: 1
+ }
+ ObjectType: "Geometry" {
+  Count: 1
+ }
+ ObjectType: "Texture" {
+  Count: 1
+ }
+}
+
+Objects: {
+ Model: "Model::testgrass_01_basecolor_0", "Mesh" {
+  Version: 232
+  MultiLayer: 0
+  MultiTake: 1
+  Shading: Y
+  Culling: "CullingOn"
+  Vertices: 20.14229,3.22305,-18.36161,10.94360,54.75343,-19.94697,-28.03173,48.39147,-2.17949,-18.81804,-3.22305,-0.59153,10.94360,54.75343,-19.94697,20.14229,3.22305,-18.36161,-28.03173,48.39147,-2.17949,-18.81804,-3.22305,-0.59153,
+            9.30731,2.15040,10.25780,0.10112,53.72284,8.67114,-17.18925,49.42205,-30.79760,-7.98306,-2.15040,-29.21094,0.10112,53.72284,8.67114,9.30731,2.15040,10.25780,-17.18925,49.42205,-30.79760,-7.98306,-2.15040,-29.21094
+  PolygonVertexIndex: 1,0,-3,0,3,-3,5,4,-7,7,5,-7,9,8,-11,8,11,-11,13,12,-15,15,13,-15
+  GeometryVersion: 124
+  LayerElementNormal: 0 {
+   Version: 101
+   Name: ""
+   MappingInformationType: "ByVertice"
+   ReferenceInformationType: "Direct"
+   Normals: -19.92092,11.67563,-45.47346,-17.77772,25.26101,-40.58119,-19.92092,11.67563,-45.47346,-17.77772,25.26102,-40.58119,16.21622,31.10941,37.01673,18.76719,20.33568,42.83984,18.76719,20.33568,42.83984,16.21621,31.10941,37.01673,
+            41.72388,22.31870,-19.02612,35.81622,32.42616,-16.33222,41.72388,22.31870,-19.02612,35.81622,32.42616,-16.33223,-41.09486,23.68653,18.73928,-45.60934,9.39338,20.79789,-45.60934,9.39338,20.79789,-41.09486,23.68653,18.73928
+  }
+  LayerElementColor: 0 {
+   Version: 101
+   Name: ""
+   MappingInformationType: "ByVertice"
+   ReferenceInformationType: "Direct"
+   Colors: 0.00392,0.85882,0.00000,1.00000,0.04314,0.85882,0.03137,1.00000,0.04314,0.85882,0.03137,1.00000,0.00392,0.85882,0.00000,1.00000,0.04314,0.85882,0.03137,1.00000,0.00392,0.85882,0.00000,1.00000,0.04314,0.85882,0.03137,1.00000,0.00392,0.85882,0.00000,1.00000,
+            0.00392,0.85882,0.00000,1.00000,0.04314,0.85882,0.03137,1.00000,0.04314,0.85882,0.03137,1.00000,0.00392,0.85882,0.00000,1.00000,0.04314,0.85882,0.03137,1.00000,0.00392,0.85882,0.00000,1.00000,0.04314,0.85882,0.03137,1.00000,0.00392,0.85882,0.00000,1.00000
+  }
+  LayerElementUV: 0 {
+   Version: 101
+   Name: ""
+   MappingInformationType: "ByVertice"
+   ReferenceInformationType: "Direct"
+   UV: 0.00000,0.00000,0.00000,1.00000,1.00000,1.00000,1.00000,0.00000,0.00000,1.00000,0.00000,0.00000,1.00000,1.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,1.00000,1.00000,1.00000,0.00000,0.00000,1.00000,0.00000,0.00000,1.00000,1.00000,1.00000,0.00000
+  }
+  LayerElementTexture: 0 {
+   Version: 101
+   Name: "testgrass_01_basecolor"
+   MappingInformationType: "AllSame"
+   ReferenceInformationType: "IndexToDirect"
+   TextureId: 0
+  }
+  Layer: 0 {
+   Version: 100
+   LayerElement: {
+    Type: "LayerElementNormal"
+    TypedIndex: 0
+   }
+   LayerElement: {
+    Type: "LayerElementColor"
+    TypedIndex: 0
+   }
+   LayerElement: {
+    Type: "LayerElementUV"
+    TypedIndex: 0
+   }
+   LayerElement: {
+    Type: "LayerElementTexture"
+    TypedIndex: 0
+   }
+  }
+ }
+ Texture: "Texture::testgrass_01_basecolor", "" {
+  Version: 202
+  TextureName: "Texture::testgrass_01_basecolor"
+  FileName: "testgrass_01_basecolor.png"
+  RelativeFilename: "testgrass_01_basecolor.png"
+  ModelUVTranslation: 0,0
+  ModelUVScaling: 1,1
+ }
+}
+
+Connections: {
+ Connect: "OO", "Model::testgrass_01_basecolor_0", "Model::Scene"
+ Connect: "OO", "Texture::testgrass_01_basecolor", "Model::testgrass_01_basecolor_0"
+}
+
