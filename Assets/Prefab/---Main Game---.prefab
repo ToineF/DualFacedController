@@ -407,7 +407,7 @@ MonoBehaviour:
   m_NotificationBehavior: 3
   m_MaxPlayerCount: 2
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 1
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -415,7 +415,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_JoinAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Join
       m_Type: 0
@@ -423,9 +423,34 @@ MonoBehaviour:
       m_Id: 4f2ac831-31f8-4839-8f22-5033ecfe05ae
       m_Processors: 
       m_Interactions: 
-      m_SingletonActionBindings: []
+      m_SingletonActionBindings:
+      - m_Name: 1D Axis
+        m_Id: 989c4678-4554-436c-9b35-fbacca863b47
+        m_Path: 1DAxis
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 4
+      - m_Name: negative
+        m_Id: b314680e-7345-4682-879b-0320bd75cd55
+        m_Path: 
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 8
+      - m_Name: positive
+        m_Id: f91d0fb1-196b-4358-8998-d8d7876973b6
+        m_Path: 
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 8
       m_Flags: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: 8686156566535385278, guid: bb999ec1c0c9b9a40b8dbb5a9f089910,
+      type: 3}
   m_PlayerPrefab: {fileID: 8709849263620989532, guid: aca7f2b6f9cdb844e80c1285ff640845,
     type: 3}
   m_SplitScreen: 0
