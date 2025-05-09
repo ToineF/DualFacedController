@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Playables;
 using Cattac.Character;
+using Cattac.Character.Multiplayer;
 
 namespace Cattac.Cutscenes
 {
@@ -30,7 +31,7 @@ namespace Cattac.Cutscenes
 
             if (_currentInteractionSequence.StopPlayerMovements)
             {
-                character.transform.parent.parent.parent.gameObject.SetActive(false);
+                MainGame.Instance.PlayersManager.SetInput(InputType.CUTSCENE);
             }
 
             _character = character;
@@ -55,7 +56,7 @@ namespace Cattac.Cutscenes
 
         private void EndSequence()
         {
-            _character.transform.parent.parent.parent.gameObject.SetActive(true);
+            MainGame.Instance.PlayersManager.SetInput(InputType.GAMEPLAY);
         }
 
         private void ReadSequenceElement()

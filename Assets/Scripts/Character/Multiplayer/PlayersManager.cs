@@ -86,20 +86,28 @@ namespace Cattac.Character.Multiplayer
             UserInput.Instance.RightHead = new PlayerInputReferences(_rightMoveAction, _rightGrabAction, _rightSeparateAction);
         }
 
-        public void Activate(bool activate)
+        public void SetInput(InputType inputType)
         {
             foreach (var playerInput in _playersInputs)
             {
-                if (activate)
+                switch (inputType)
                 {
-                    playerInput.actions.FindActionMap("UnityUI").Disable();
-                    playerInput.actions.FindActionMap("Player").Enable();
+                    case InputType.GAMEPLAY:
+                        playerInput.actions.FindActionMap("UnityUI").Disable();
+                        playerInput.actions.FindActionMap("Player").Enable();
+                        break;
+                    
+                    case InputType.PAUSE:
+                        playerInput.actions.FindActionMap("UnityUI").Enable();
+                        playerInput.actions.FindActionMap("Player").Disable();
+                        break;
+                    
+                    case InputType.CUTSCENE:
+                        playerInput.actions.FindActionMap("UnityUI").Disable();
+                        playerInput.actions.FindActionMap("Player").Disable();
+                        break;
                 }
-                else
-                {
-                    playerInput.actions.FindActionMap("UnityUI").Enable();
-                    playerInput.actions.FindActionMap("Player").Disable();
-                }
+                
             }
         }
     }
