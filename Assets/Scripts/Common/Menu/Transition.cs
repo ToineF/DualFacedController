@@ -53,8 +53,8 @@ public class Transition : MonoBehaviour
                 yield return new WaitForSeconds(_fadeTime);
                 break;
             case AnimationMode.Animation:
-                float _animationDuration = AnimationTransition("TransitionOut");
-                yield return new WaitForSeconds(_animationDuration);
+                float animationDuration = AnimationTransition("TransitionOut");
+                yield return new WaitForSeconds(animationDuration);
                 break;
             default:
                 yield return new WaitForSeconds(0f);
