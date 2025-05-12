@@ -36,13 +36,13 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (_menuManager.CanClickButtons == false) return;
 
         transform.DOKill();
-        transform.DOScale(new Vector3(_hoverScale, _hoverScale), _hoverScaleDuration);
+        transform.DOScale(new Vector3(_hoverScale, _hoverScale), _hoverScaleDuration).SetUpdate(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.DOKill();
-        transform.DOScale(new Vector3(_originalScale, _originalScale), _notHoverScaleDuration);
+        transform.DOScale(new Vector3(_originalScale, _originalScale), _notHoverScaleDuration).SetUpdate(true);
     }
 
     public void GoToScene()
@@ -82,8 +82,8 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         transform.DOKill();
         transform.DOLocalRotate(
             new Vector3(_originalRotation.x, _originalRotation.y,
-                _originalRotation.z + _zRotation), _rotationInTime).SetEase(_rotationInEase);
-        transform.DOScale(new Vector3(_hoverScale, _hoverScale), _hoverScaleDuration);
+                _originalRotation.z + _zRotation), _rotationInTime).SetEase(_rotationInEase).SetUpdate(true);
+        transform.DOScale(new Vector3(_hoverScale, _hoverScale), _hoverScaleDuration).SetUpdate(true);
 
     }
 
@@ -92,8 +92,8 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         transform.DOKill();
         transform.DOLocalRotate(
             new Vector3(_originalRotation.x, _originalRotation.y,
-                _originalRotation.z), _rotationOutTime).SetEase(_rotationOutEase);
-        transform.DOScale(new Vector3(_originalScale, _originalScale), _notHoverScaleDuration);
+                _originalRotation.z), _rotationOutTime).SetEase(_rotationOutEase).SetUpdate(true);
+        transform.DOScale(new Vector3(_originalScale, _originalScale), _notHoverScaleDuration).SetUpdate(true);
 
     }
 }
