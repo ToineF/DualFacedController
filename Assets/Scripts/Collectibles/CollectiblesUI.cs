@@ -11,11 +11,7 @@ namespace Cattac.Collectibles
     {
         [SerializeField] private CanvasGroup _collectiblesUI;
 
-        [Header("Visibility")] [SerializeField]
-        private float _hideTime;
-
-        [SerializeField] private float _appearFadeTime;
-        [SerializeField] private float _disappearFadeTime;
+        [Header("Visibility")]
         [SerializeField] private float _stayFadeTime;
 
         [Header("Cheese")]

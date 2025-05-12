@@ -10,6 +10,8 @@ public class DebugMode : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+    private bool _isUIVisible;
+
 //#if UNITY_EDITOR
 
     private void Update()
@@ -29,6 +31,16 @@ public class DebugMode : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.F4)) // Toggle Canvas
+        {
+            _isUIVisible = !_isUIVisible;
+            var canvasArray = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+            foreach (var canvas in canvasArray)
+            {
+                canvas.enabled = _isUIVisible;
+            }
         }
     }
 
