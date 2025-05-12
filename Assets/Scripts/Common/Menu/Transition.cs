@@ -48,8 +48,8 @@ public class Transition : MonoBehaviour
         switch (_transitionMode)
         {
             case AnimationMode.Fade:
-                _fadeImage.DOFade(0, 0);
-                _fadeImage.DOFade(1, _fadeTime);
+                _fadeImage.DOFade(0, 0).SetUpdate(true);
+                _fadeImage.DOFade(1, _fadeTime).SetUpdate(true);
                 yield return new WaitForSeconds(_fadeTime);
                 break;
             case AnimationMode.Animation:

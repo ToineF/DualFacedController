@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MaskTransitions
 {
@@ -10,6 +11,26 @@ namespace MaskTransitions
         public void SwitchScene()
         {
             TransitionManager.Instance.LoadLevel(sceneToLoadName);
+        }
+        
+        public void RestartScene()
+        {
+            TransitionManager.Instance.LoadLevel(SceneManager.GetActiveScene().name);
+        }
+        
+        public void RestartSceneRaw()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        
+        public void SwitchNextScene()
+        {
+            TransitionManager.Instance.LoadLevel(SceneManager.GetSceneAt(SceneManager.GetActiveScene().buildIndex + 1).name);
+        }
+        
+        public void SwitchNextSceneRaw()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
         public void PlayTransition()
