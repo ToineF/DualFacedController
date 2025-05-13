@@ -50,14 +50,14 @@ public class Transition : MonoBehaviour
             case AnimationMode.Fade:
                 _fadeImage.DOFade(0, 0).SetUpdate(true);
                 _fadeImage.DOFade(1, _fadeTime).SetUpdate(true);
-                yield return new WaitForSeconds(_fadeTime);
+                yield return new WaitForSecondsRealtime(_fadeTime);
                 break;
             case AnimationMode.Animation:
                 float animationDuration = AnimationTransition("TransitionOut");
-                yield return new WaitForSeconds(animationDuration);
+                yield return new WaitForSecondsRealtime(animationDuration);
                 break;
             default:
-                yield return new WaitForSeconds(0f);
+                yield return new WaitForSecondsRealtime(0f);
                 break;
         }
         
