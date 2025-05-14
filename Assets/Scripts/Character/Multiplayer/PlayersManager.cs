@@ -5,9 +5,12 @@ using UnityEngine.InputSystem;
 
 namespace Cattac.Character.Multiplayer
 {
+    /// <summary>
+    /// Handles the connexion and deconnexion of player, updating the inputs and enabling/disabling the action maps
+    /// </summary>
     public class PlayersManager : MonoBehaviour
     {
-        [SerializeField] private PlayerConnexionManager _playerConnexionManager;
+        [SerializeField] private PlayerInputManager _playerInputManager;
         
         private InputAction _leftMoveAction;
         private InputAction _rightMoveAction;
@@ -18,32 +21,19 @@ namespace Cattac.Character.Multiplayer
 
         private List<PlayerInput> _playersInputs = new List<PlayerInput>();
 
+
         private void OnEnable()
         {
-            foreach (var playerInput in _playersInputs.ToList())
-            {
-                //var input = playerInput.actions.FindActionMap("Player");
-                //input.Enable();
-                playerInput.gameObject.SetActive(true);
-                //playerInput.ActivateInput();
-            }
-            _playerConnexionManager.OnPlayerJoin += OnPlayerJoined;
-            _playerConnexionManager.OnPlayerLeft += OnPlayerLeft;
+            _playerInputManager.onPlayerJoined += OnPlayerJoined;
+            _playerInputManager.onPlayerLeft += OnPlayerLeft;
         }
-        
+
         private void OnDisable()
         {
-            //_playerConnexionManager.enabled = false;
-            foreach (var playerInput in _playersInputs)
-            {
-                //var input = playerInput.actions.FindActionMap("Player");
-                //input.Disable();
-                playerInput.gameObject.SetActive(false);
-                //playerInput.DeactivateInput();
-            }
-            _playerConnexionManager.OnPlayerJoin -= OnPlayerJoined;
-            _playerConnexionManager.OnPlayerLeft -= OnPlayerLeft;
+            _playerInputManager.onPlayerJoined -= OnPlayerJoined;
+            _playerInputManager.onPlayerLeft -= OnPlayerLeft;
         }
+
 
         private void OnPlayerJoined(PlayerInput playerInput)
         {
@@ -61,6 +51,12 @@ namespace Cattac.Character.Multiplayer
 
         private void UpdateInputs(PlayerInput lastPlayerInput)
         {
+            // Disable or enable joining based on player count
+            if (_playersInputs.Count >= _playerInputManager.maxPlayerCount && _playerInputManager.joiningEnabled)
+                _playerInputManager.DisableJoining();
+            else if (_playersInputs.Count < _playerInputManager.maxPlayerCount && !_playerInputManager.joiningEnabled)
+                _playerInputManager.EnableJoining();
+            
             if (_playersInputs.Count == 1)
             {
                 _leftMoveAction = lastPlayerInput.actions["MoveLeft"];
