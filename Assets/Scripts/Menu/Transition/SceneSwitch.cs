@@ -25,7 +25,7 @@ namespace MaskTransitions
         
         public void SwitchNextScene()
         {
-            TransitionManager.Instance.LoadLevel(SceneManager.GetSceneAt(SceneManager.GetActiveScene().buildIndex + 1).name);
+            TransitionManager.Instance.LoadLevel((SceneManager.GetActiveScene().buildIndex + 1));
         }
         
         public void SwitchNextSceneRaw()

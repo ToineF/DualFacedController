@@ -134,6 +134,11 @@ namespace MaskTransitions
         {
             StartCoroutine(LoadLevelWithWait(sceneName, delay));
         }
+        
+        public void LoadLevel(int sceneIndex, float delay = 0f)
+        {
+            StartCoroutine(LoadLevelWithWait(sceneIndex, delay));
+        }
 
         IEnumerator LoadLevelWithWait(string sceneName, float delay)
         {
@@ -145,6 +150,25 @@ namespace MaskTransitions
             yield return animationTween.WaitForCompletion();
 
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+
+            EndAnimation();
+        }
+        
+        IEnumerator LoadLevelWithWait(int sceneIndex, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
+            Tween animationTween = StartAnimationForLoad();
+
+            // Wait for the animation to complete
+            yield return animationTween.WaitForCompletion();
+
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
 
             while (!asyncLoad.isDone)
             {
