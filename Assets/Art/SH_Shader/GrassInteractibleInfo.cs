@@ -1,27 +1,15 @@
-using Cattac.Character;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class GrassInteractibleInfo : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer _meshRenderer;
-    [SerializeField] private GameObject _gameObject;
-
-    private Material _material;
-    private void OnEnable()
-    {
-        _material = _meshRenderer.sharedMaterial;
-    }
-
+    [SerializeField] private Material _material;
+    [SerializeField] private GameObject _gameObject1;
+    [SerializeField] private GameObject _gameObject2;
+    
     private void Update()
     {
-        if (_gameObject == null || _material == null) return;
-        _material.SetVector("_Target", _gameObject.transform.position);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.GetComponent<CharacterHead>() == false) return;
-        _gameObject = other.gameObject;
+        if (_gameObject1 == null || _gameObject2 == null || _material == null) return;
+        _material.SetVector("_Target", _gameObject1.transform.position);
+        _material.SetVector("_Target2", _gameObject2.transform.position);
     }
 }
