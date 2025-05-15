@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cattac.Interactables;
+using NaughtyAttributes;
+using UnityEditor;
 using UnityEngine;
 
 namespace Cattac.Collectibles
@@ -17,6 +20,13 @@ namespace Cattac.Collectibles
             if (index == -1) return;
 
             OnMouseGain?.Invoke(index);
+        }
+
+        [Button("Find Mice in Scene")]
+        public void AssignMice()
+        {
+            Mice = GameObject.FindObjectsOfType<Cage>().Reverse().ToList();
+            EditorUtility.SetDirty(gameObject);
         }
     }
 }
