@@ -1,32 +1,32 @@
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using Cattac.Interactables;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Cattac.Interactables;
 //using NaughtyAttributes;
-//using UnityEditor;
-//using UnityEngine;
+using UnityEditor;
+using UnityEngine;
 
-//namespace Cattac.Collectibles
-//{
-//    public class LevelCollectiblesData : MonoBehaviour
-//    {
-//        public Action<int> OnMouseGain;
-        
-//        [field:SerializeField] public List<Cage> Mice { get; private set; }
-        
-//        public void SaveMouse(Cage mouse)
-//        {
-//            var index = Mice.FindIndex(e => e == mouse);
-//            if (index == -1) return;
+namespace Cattac.Collectibles
+{
+    public class LevelCollectiblesData : MonoBehaviour
+    {
+        public Action<int> OnMouseGain;
 
-//            OnMouseGain?.Invoke(index);
-//        }
+        [field: SerializeField] public List<Cage> Mice { get; private set; }
 
-//        [Button("Find Mice in Scene")]
-//        public void AssignMice()
-//        {
-//            Mice = GameObject.FindObjectsOfType<Cage>().Reverse().ToList();
-//            EditorUtility.SetDirty(gameObject);
-//        }
-//    }
-//}
+        public void SaveMouse(Cage mouse)
+        {
+            var index = Mice.FindIndex(e => e == mouse);
+            if (index == -1) return;
+
+            OnMouseGain?.Invoke(index);
+        }
+
+        //[Button("Find Mice in Scene")]
+        public void AssignMice()
+        {
+            Mice = GameObject.FindObjectsOfType<Cage>().Reverse().ToList();
+            EditorUtility.SetDirty(gameObject);
+        }
+    }
+}
