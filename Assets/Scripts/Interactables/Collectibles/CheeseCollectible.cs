@@ -10,7 +10,6 @@ namespace Cattac.Interactables.Collectibles
         [Header("Coin")]
         [SerializeField] private float _turnSpeed;
         [SerializeField] private float _uiWinDelay;
-        [SerializeField] private bool _muteAudioFeedback;
         [SerializeField] private GameObject _children;
 
         protected override void OnPickUp()
@@ -19,8 +18,6 @@ namespace Cattac.Interactables.Collectibles
 
             _children.SetActive(true);
             _children.transform.SetParent(transform.parent);
-            //manager.Collectibles.AddCoinPreview();
-            //.Feedbacks.PlayFeedback(manager.Data.FeedbacksData.CoinPreviewFeedback, transform.position, Quaternion.identity, null, _muteAudioFeedback);
             MainGame.Instance.CollectiblesManager.AddCheese();
             StartCoroutine(AddCoinToCount());
         }
@@ -35,8 +32,6 @@ namespace Cattac.Interactables.Collectibles
         private IEnumerator AddCoinToCount()
         {
             yield return new WaitForSeconds(_uiWinDelay);
-            //_owner.Manager.Collectibles.AddCoin();
-            //manager.Feedbacks.PlayFeedback(manager.Data.FeedbacksData.CoinFeedback, transform.position, Quaternion.identity, null, _muteAudioFeedback);
             Destroy(gameObject);
         }
     }

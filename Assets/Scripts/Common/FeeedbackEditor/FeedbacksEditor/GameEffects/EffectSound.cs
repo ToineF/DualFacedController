@@ -24,7 +24,7 @@ namespace FeedbacksEditor
 
         public override string ToString()
         {
-            return $"Play Sound {((Clips.Count < 1 || Clips[0] == null) ? "null" : Clips[0].name + $" and {Clips.Count - 1} others")}";
+            return $"Play Sound {(Clips.Count < 1 || Clips[0] == null ? "null" : Clips[0].name + (Clips.Count > 1 && Clips[0] != null ? $" and {Clips.Count - 1} others" : ""))}";
         }
     }
 }
