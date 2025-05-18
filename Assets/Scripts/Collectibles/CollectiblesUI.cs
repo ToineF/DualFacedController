@@ -10,7 +10,8 @@ namespace Cattac.Collectibles
         [SerializeField] private CanvasGroup _collectiblesUI;
 
         [Header("Visibility")]
-        [SerializeField] private float _stayFadeTime;
+        [SerializeField] private float _cheeseStayFadeTime;
+        [SerializeField] private float _miceStayFadeTime;
 
         [Header("Cheese")]
         [SerializeField] private Animator _cheeseAnimator;
@@ -40,7 +41,6 @@ namespace Cattac.Collectibles
             _levelCollectiblesData = MainGame.Instance.LevelCollectiblesData;
             
             _collectiblesManager.OnCheeseGain += UpdateCheeseUI;
-            _collectiblesManager.OnCheeseGainPreview += ShowUICollectible;
             _levelCollectiblesData.OnMouseGain += UpdateMouseUI;
 
             InitCheeseUI();
@@ -63,7 +63,7 @@ namespace Cattac.Collectibles
             }
             _cheesesCountText.text = _collectiblesManager.Cheeses.ToString("D3");
             _cheeseAnimator.SetBool("isVisible", true);
-            ShowUICollectible(_cheeseAnimator);
+            ShowUICollectible(_cheeseAnimator, _cheeseStayFadeTime);
         }
 
         private void InitMouseUI()
@@ -81,19 +81,14 @@ namespace Cattac.Collectibles
 
             _miceAnimators[index].SetTrigger("isVisible");
             _miceParentAnimator.SetBool("isVisible", true);
-            ShowUICollectible(_miceParentAnimator);
-        }
-
-        private void ShowUICollectible()
-        {
-            ShowUICollectible(null);
+            ShowUICollectible(_miceParentAnimator, _miceStayFadeTime);
         }
         
-        private void ShowUICollectible(Animator animator)
+        private void ShowUICollectible(Animator animator, float stayFadeTime)
         {
             _highPriority = true;
             ShowHideUIImmediate(true, true);
-            ShowHideUIAfterTime(animator, _stayFadeTime, false, true);
+            ShowHideUIAfterTime(animator, stayFadeTime, false, true);
         }
 
         private void ShowHideUIAfterTime(Animator animator, float time, bool isVisible, bool highPriority = false)
