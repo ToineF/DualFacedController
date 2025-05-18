@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -17,6 +15,8 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [SerializeField] private float _hoverScale = 1.1f;
     [SerializeField] private float _hoverScaleDuration = 0.3f;
     [SerializeField] private float _notHoverScaleDuration = 0.5f;
+    [SerializeField] private Ease _scaleInEase = Ease.Linear;
+    [SerializeField] private Ease _scaleOutEase = Ease.Linear;
 
     [Header("Rotation")] [SerializeField] private float _zRotation;
     [SerializeField] private Ease _rotationInEase = Ease.InOutQuad;
@@ -36,13 +36,13 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (_menuManager.CanClickButtons == false) return;
 
         transform.DOKill();
-        transform.DOScale(new Vector3(_hoverScale, _hoverScale), _hoverScaleDuration).SetUpdate(true);
+        transform.DOScale(new Vector3(_hoverScale, _hoverScale), _hoverScaleDuration).SetEase(_scaleInEase).SetUpdate(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.DOKill();
-        transform.DOScale(new Vector3(_originalScale, _originalScale), _notHoverScaleDuration).SetUpdate(true);
+        transform.DOScale(new Vector3(_originalScale, _originalScale), _notHoverScaleDuration).SetEase(_scaleOutEase).SetUpdate(true);
     }
 
     public void GoToScene()
