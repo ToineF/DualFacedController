@@ -1,3 +1,4 @@
+using Cattac.Character;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -40,6 +41,15 @@ public class DebugMode : MonoBehaviour
             foreach (var canvas in canvasArray)
             {
                 canvas.enabled = _isUIVisible;
+            }
+        }
+        
+        if (Input.GetKeyDown(KeyCode.F5)) // Fly
+        {
+            var heads = FindObjectsByType<CharacterHead>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            foreach (var head in heads)
+            {
+                head.CurrentRigidbody.AddForce(Vector3.up * 10000f, ForceMode.Impulse);
             }
         }
     }
