@@ -215,7 +215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 310.66187, y: -119.85718}
+  m_AnchoredPosition: {x: 318.46, y: -120}
   m_SizeDelta: {x: 200, y: 49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1349356486298505088
@@ -1097,16 +1097,23 @@ MonoBehaviour:
   _miceStayFadeTime: 4
   _cheeseAnimator: {fileID: 3267344499391114478}
   _cheesesCountText: {fileID: 9040815832820566034}
-  _cheesesTransforms:
+  _moveCheesesTransforms:
   - {fileID: 1117148593069786875}
+  _scaleCheesesTransforms:
+  - {fileID: 3289542808538401008}
   _miceParentAnimator: {fileID: 6132122158946849364}
   _miceUIParent: {fileID: 3700847914022829941}
   _miceImagePrefab: {fileID: 6611893552097613339, guid: 249f40f707dde5a4ca767d1ed068fb0b,
     type: 3}
-  _cheeseFeedbacks:
+  _moveCheeseFeedbacks:
     PunchTime: 0.4
     PunchDirection: {x: 0, y: 15, z: 0}
-    PunchVibrato: 10
+    PunchVibrato: 8
+    PunchElasticity: 10
+  _scaleCheeseFeedbacks:
+    PunchTime: 0.4
+    PunchDirection: {x: 0.1, y: 0.1, z: 0}
+    PunchVibrato: 8
     PunchElasticity: 10
 --- !u!1 &7066180487992629750
 GameObject:

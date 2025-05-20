@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using UnityEngine.Serialization;
 
 namespace Cattac.Collectibles
 {
@@ -16,7 +17,8 @@ namespace Cattac.Collectibles
         [Header("Cheese")]
         [SerializeField] private Animator _cheeseAnimator;
         [SerializeField] private TMP_Text _cheesesCountText;
-        [SerializeField] private Transform[] _cheesesTransforms;
+        [SerializeField] private Transform[] _moveCheesesTransforms;
+        [SerializeField] private Transform[] _scaleCheesesTransforms;
 
         [Header("Mices")]
         [SerializeField] private Animator _miceParentAnimator;
@@ -24,7 +26,8 @@ namespace Cattac.Collectibles
         [SerializeField] private Animator _miceImagePrefab;
 
         [Header("Feedbacks")]
-        [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _cheeseFeedbacks;
+        [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _moveCheeseFeedbacks;
+        [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _scaleCheeseFeedbacks;
 
         private CollectiblesManager _collectiblesManager;
         private LevelCollectiblesData _levelCollectiblesData;
@@ -56,10 +59,15 @@ namespace Cattac.Collectibles
         {
             if (_cheesesCountText == null) return;
 
-            foreach (var cheesesTransform in _cheesesTransforms)
+            foreach (var cheesesTransform in _moveCheesesTransforms)
             {
                 cheesesTransform.transform.DOComplete();
-                cheesesTransform.transform.DOPunchPosition(_cheeseFeedbacks.PunchDirection, _cheeseFeedbacks.PunchTime, _cheeseFeedbacks.PunchVibrato, _cheeseFeedbacks.PunchElasticity);
+                cheesesTransform.transform.DOPunchPosition(_moveCheeseFeedbacks.PunchDirection, _moveCheeseFeedbacks.PunchTime, _moveCheeseFeedbacks.PunchVibrato, _moveCheeseFeedbacks.PunchElasticity);
+            }
+            foreach (var cheesesTransform in _scaleCheesesTransforms)
+            {
+                cheesesTransform.transform.DOComplete();
+                cheesesTransform.transform.DOPunchScale(_scaleCheeseFeedbacks.PunchDirection, _scaleCheeseFeedbacks.PunchTime, _scaleCheeseFeedbacks.PunchVibrato, _scaleCheeseFeedbacks.PunchElasticity);
             }
             _cheesesCountText.text = _collectiblesManager.Cheeses.ToString("D3");
             _cheeseAnimator.SetBool("isVisible", true);
