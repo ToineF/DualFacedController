@@ -22,11 +22,13 @@ namespace Cattac.Collectibles
             OnMouseGain?.Invoke(index);
         }
 
+        #if UNITY_EDITOR
         //[Button("Find Mice in Scene")]
         public void AssignMice()
         {
             Mice = GameObject.FindObjectsOfType<Cage>().Reverse().ToList();
             EditorUtility.SetDirty(gameObject);
         }
+        #endif
     }
 }
