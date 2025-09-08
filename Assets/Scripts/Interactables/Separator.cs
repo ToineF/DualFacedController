@@ -13,12 +13,16 @@ namespace Cattac.Interactables
 
             characterHead.CurrentGrabbable = null;
             characterHead.SetSeparation(_separate);
+            OnGrabInternal(characterHead);
         }
+        
+        protected virtual void OnGrabInternal(CharacterHead characterHead) { }
 
         public void OnUngrab(CharacterHead characterHead)
         {
-
+            OnUngrabInternal(characterHead);
         }
+        protected virtual void OnUngrabInternal(CharacterHead characterHead) { }
 
         public void AddForce(Vector3 force)
         {
