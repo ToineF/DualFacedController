@@ -5,10 +5,14 @@ namespace Cattac.Interactables.NPC
 {
     public class Cat_StateManager : MonoBehaviour
     {
+        public System.Action<Cat_State> OnStateSwitch { get; set; }
+        
         [field:Header("Listeners")]
         [field:SerializeField] public NPC_Seeker Seeker { get; private set; }
         [field:Header("Components")]
         [field:SerializeField] public NPC_MoveTo Mover { get; private set; }
+        [field:Header("Data")]
+        [field:SerializeField] public NPC_Data Data { get; private set; }
         
         
         public Cat_State CurrentState { get; private set; }
@@ -45,6 +49,7 @@ namespace Cattac.Interactables.NPC
             CurrentState.ExitState(this);
             CurrentState = newState;
             newState.StartState(this);
+            OnStateSwitch?.Invoke(newState);
         }
     }
 }

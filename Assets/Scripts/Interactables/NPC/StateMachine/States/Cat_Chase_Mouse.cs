@@ -1,3 +1,5 @@
+using DG.Tweening;
+
 namespace Cattac.Interactables.NPC.States
 {
     /// <summary>
@@ -5,6 +7,11 @@ namespace Cattac.Interactables.NPC.States
     /// </summary>
     public class Cat_Chase_Mouse : Cat_State
     {
+        /*public override void StartState(Cat_StateManager stateManager)
+        {
+            stateManager.Mover.transform.DOMove(stateManager.Seeker.Target.gameObject.transform.position, stateManager.Data.ChaseMouseDuration).SetEase(stateManager.Data.ChaseMouseEase);
+        }*/
+
         public override void UpdateState(Cat_StateManager stateManager)
         {
             stateManager.Mover.UpdateInternal(stateManager.Seeker.Target);
