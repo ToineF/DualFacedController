@@ -94,7 +94,7 @@ namespace Cattac.Character
             {
                 lerpSpeed = Mathf.Lerp(_data.AccelerationLerp, _data.DecelerationLerp, (1 - _inputDirection.magnitude));
             }
-            NormalizedDirection = Vector3.Lerp(NormalizedDirection, _inputDirection, lerpSpeed);
+            NormalizedDirection = Vector3.Lerp(NormalizedDirection, _inputDirection, lerpSpeed * Time.deltaTime);
             if (NormalizedDirection.magnitude > 0.1f) _lastNormalizedDirection = NormalizedDirection;
         }
 
