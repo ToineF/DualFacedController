@@ -3,12 +3,12 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     [field:SerializeField] public Transition Transition { get;  private set; }
-    public static MenuManager MenuManagerInstance { get; private set; }
+    public static MenuManager Instance { get; private set; }
     public bool CanClickButtons {get; private set;}
 
     private void Awake()
     {
-        MenuManagerInstance = this;
+        Instance = this;
         CanClickButtons = true;
     }
 
