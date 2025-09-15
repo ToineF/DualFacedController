@@ -11,6 +11,7 @@ namespace Cattac.Character.Visuals
     /// </summary>
     public class HeadAnimator : MonoBehaviour
     {
+        public CharacterHead CharacterHead => _characterHead;
         [SerializeField] private CharacterHead _characterHead;
         [SerializeField] private Transform _neighbourBodyPart;
 
