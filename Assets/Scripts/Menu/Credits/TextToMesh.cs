@@ -1,6 +1,8 @@
 using System.Text;
 using Cattac.Interactables.Collectibles;
 using NaughtyAttributes;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 namespace Cattac.Character.Credits
@@ -19,6 +21,7 @@ namespace Cattac.Character.Credits
             var childCount = _mesh.transform.childCount - 1;
             var parent = new GameObject();
             parent.transform.SetParent(transform);
+            parent.AddComponent<CreditsTextDoScale>();
             StringBuilder parentName = new StringBuilder();
             for (int i = 0; i < _text.Length; i++)
             {
@@ -29,7 +32,9 @@ namespace Cattac.Character.Credits
                 }
 
                 int index = childCount - (_text[i] - 'A');
-                var cheese = Instantiate(_cheeseCollectiblePrefab, transform.position - Vector3.right * i * _charEspacement, Quaternion.identity, parent.transform);
+                var cheese = PrefabUtility.InstantiatePrefab(_cheeseCollectiblePrefab.gameObject).GameObject();
+                cheese.transform.position = transform.position - Vector3.right * i * _charEspacement;
+                cheese.transform.SetParent(parent.transform);
                 var letter = Instantiate(_mesh.transform.GetChild(index), cheese.transform);
                 letter.localPosition = Vector3.zero;
                 parentName.Append(_text[i]);
