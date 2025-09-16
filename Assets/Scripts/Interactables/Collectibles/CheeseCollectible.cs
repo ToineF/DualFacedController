@@ -16,8 +16,11 @@ namespace Cattac.Interactables.Collectibles
         {
             if (_owner == null) return;
 
-            _children.SetActive(true);
-            _children.transform.SetParent(transform.parent);
+            if (_children != null)
+            {
+                _children.SetActive(true);
+                _children.transform.SetParent(transform.parent);
+            }
             MainGame.Instance.CollectiblesManager.AddCheese();
             StartCoroutine(AddCoinToCount());
         }
