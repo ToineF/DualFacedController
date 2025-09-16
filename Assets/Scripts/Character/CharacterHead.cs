@@ -212,7 +212,8 @@ namespace Cattac.Character
         private void MoveSelf()
         {
             Direction = new Vector3(NormalizedDirection.x, 0, NormalizedDirection.y) * _data.Speed;
-            Direction = _camera.transform.forward * Direction.z + _camera.transform.right * Direction.x;
+            Direction = Quaternion.AngleAxis(_camera.transform.eulerAngles.y, Vector3.up) * Direction;
+            //Direction = _camera.transform.forward * Direction.z + _camera.transform.right * Direction.x;
             Direction = new Vector3(Direction.x, 0, Direction.z);
             Direction = Vector3.ProjectOnPlane(Direction, _lastGroundHit.normal);
             

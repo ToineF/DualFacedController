@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
-namespace SOHNE.Accessibility.Colorblindness
+namespace Menu.Options
 {
     public enum ColorblindTypes
     {

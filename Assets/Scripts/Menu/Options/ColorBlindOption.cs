@@ -1,22 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
-using SOHNE.Accessibility.Colorblindness;
 
-public class ColorBlindButtons : MonoBehaviour
+namespace Menu.Options
 {
-    [SerializeField] private Button[] _buttons;
-
-    private void Start()
-    {
-	for (int i=0; i<_buttons.Length; i++)
+	public class ColorBlindButtons : MonoBehaviour
 	{
-	    int index = i;
-	    _buttons[i].onClick.AddListener(() => OnClick(index));
-	}
-    }
+		[SerializeField] private Button[] _buttons;
 
-    private void OnClick(int index)
-    {
-	Colorblindness.Instance.InitChange(index);
-    }
+		private void Start()
+		{
+			for (int i = 0; i < _buttons.Length; i++)
+			{
+				int index = i;
+				_buttons[i].onClick.AddListener(() => OnClick(index));
+			}
+		}
+
+		private void OnClick(int index)
+		{
+			Colorblindness.Instance.InitChange(index);
+		}
+	}
 }
