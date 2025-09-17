@@ -6,7 +6,7 @@ namespace Cattac.Character.Credits
 {
     public class CreditsTextDoScale : MonoBehaviour
     {
-        [SerializeField] private float _maxTime;
+        [SerializeField] private float _maxTime = 5f;
         
         [Header("Tweens")]
         [SerializeField] private float _writeTimeBetweenChars = 0.15f;
@@ -16,7 +16,7 @@ namespace Cattac.Character.Credits
         [SerializeField] private float _eraseDisparitionDuration = 0.5f;
         [SerializeField] private Ease _eraseEase = Ease.OutBack;
         
-        private void Start()
+        public void Initialize()
         {
             StartCoroutine(Spawn());
             StartCoroutine(Erase());
@@ -24,14 +24,19 @@ namespace Cattac.Character.Credits
 
         private IEnumerator Spawn()
         {
+            var children = new Transform[transform.childCount];
             for (int i = 0; i < transform.childCount; i++)
             {
                 transform.GetChild(i).localScale = Vector3.zero;
+                children[i] = transform.GetChild(i);
             }
 
-            for (int i = 0; i < transform.childCount; i++)
+            foreach (var child in children)
             {
-                transform.GetChild(i).DOScale(Vector3.one, _writeApparitionDuration).SetEase(_writeEase);
+                if (child != null)
+                {
+                    child.DOScale(Vector3.one, _writeApparitionDuration).SetEase(_writeEase);
+                }
                 yield return new WaitForSeconds(_writeTimeBetweenChars);
             }
         }
@@ -41,7 +46,9 @@ namespace Cattac.Character.Credits
             yield return new WaitForSeconds(_maxTime);
             for (int i = 0; i < transform.childCount; i++)
             {
-                transform.GetChild(i).DOScale(Vector3.zero, _eraseDisparitionDuration).SetEase(_eraseEase);
+                var child = transform.GetChild(i);
+                child.DOKill();
+                child.DOScale(Vector3.zero, _eraseDisparitionDuration).SetEase(_eraseEase).OnComplete(() => child.gameObject.SetActive((false)));
                 yield return new WaitForSeconds(_eraseTimeBetweenChars);
             }
         }
