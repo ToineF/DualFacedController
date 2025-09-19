@@ -39,7 +39,7 @@ namespace Menu.Options
             }
         }
 
-        void SearchVolumes() => volumes = GameObject.FindObjectsOfType<Volume>();
+        void SearchVolumes() => volumes = GameObject.FindObjectsByType<Volume>(default);
 
         #region Enable/Disable
         private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;

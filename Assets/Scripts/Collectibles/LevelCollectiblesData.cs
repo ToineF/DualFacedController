@@ -26,7 +26,7 @@ namespace Cattac.Collectibles
         //[Button("Find Mice in Scene")]
         public void AssignMice()
         {
-            Mice = GameObject.FindObjectsOfType<Cage>().Reverse().ToList();
+            Mice = GameObject.FindObjectsByType<Cage>(FindObjectsSortMode.InstanceID).Reverse().ToList();
             EditorUtility.SetDirty(gameObject);
         }
         #endif

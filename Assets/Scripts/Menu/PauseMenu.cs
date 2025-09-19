@@ -10,8 +10,6 @@ namespace Cattac.Character
         public UnityEvent OnResume;
         public bool GameIsPaused { get; private set; } = false;
         
-        [field:SerializeField] public PlayerInput InputActionAsset { get; private set; }
-
         [Header("References")]
         [SerializeField] private CanvasGroup _globalPauseUIMenu;
 
@@ -20,9 +18,9 @@ namespace Cattac.Character
 
         private InputAction _pauseAction;
 
-        private void OnEnable()
+        protected override void OnStartInternal(PlayerInput playerInput)
         {
-            _pauseAction = InputActionAsset.actions["Pause"];
+            _pauseAction = playerInput.actions["Pause"];
             _globalPauseUIMenu.alpha = 0;
             SetCursorVisible(false);
         }
@@ -81,11 +79,11 @@ namespace Cattac.Character
             OnPause?.Invoke();
         }
 
-        /*protected override void TryCloseSubMenu(InputAction.CallbackContext context)
+        protected override void TryCloseSubMenu(InputAction.CallbackContext context)
         {
-            if (!CanPressCancel) return;
+            if (!_canPressCancel) return;
             Resume();
-        }*/
+        }
         
         private void SetCursorVisible(bool isVisible)
         {

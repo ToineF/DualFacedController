@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
-    public class SubMenu : MonoBehaviour
+public class SubMenu : MonoBehaviour
     {
         [field: Header("Current Menu")]
         [field: SerializeField]
@@ -33,7 +34,7 @@ using UnityEngine.EventSystems;
             submenu.CanvasGroup.alpha = 1;
             submenu.CanvasGroup.blocksRaycasts = true;
             if (firstSelected != null) EventSystem.current.SetSelectedGameObject(firstSelected);
-            //submenu.Inputs.UnityUI.Cancel.performed += submenu.TryCloseSubMenu;
+            submenu._action.performed += submenu.TryCloseSubMenu;
         }
 
         protected void CloseMenu(SubMenu submenu, GameObject firstSelected = null)
@@ -42,50 +43,47 @@ using UnityEngine.EventSystems;
             submenu.CanvasGroup.alpha = 0;
             submenu.CanvasGroup.blocksRaycasts = false;
             if (firstSelected != null) EventSystem.current.SetSelectedGameObject(firstSelected);
-            //submenu.Inputs.UnityUI.Cancel.performed -= submenu.TryCloseSubMenu;
+            submenu._action.performed -= submenu.TryCloseSubMenu;
         }
         
         // New Input System
-        /*
+        
         #region Cancel Input
 
         // Inputs
-        public PlayerInputs Inputs { get; private set; }
-        public static bool CanPressCancel { get; set; } = true;
-
-        private void Awake()
+        private InputAction _action;
+        protected bool _canPressCancel = true;
+        
+        protected void Start()
         {
-            Inputs = new PlayerInputs();
+            var inputPrefab = MainGame.Instance.PlayerInputPrefab;
+            _action = inputPrefab.actions["Cancel"];
+            _action.performed += PressCancel;
+            OnStartInternal(inputPrefab);
         }
-
-        protected void OnEnable()
-        {
-            Inputs.Enable();
-            Inputs.UnityUI.Cancel.canceled += PressCancel;
-        }
+        protected virtual void OnStartInternal(PlayerInput inputPrefab) { }
 
         protected void OnDisable()
         {
-            Inputs.Disable();
-            Inputs.UnityUI.Cancel.canceled -= PressCancel;
+            _action.performed -= PressCancel;
         }
 
         protected virtual void TryCloseSubMenu(InputAction.CallbackContext context)
         {
             //if (CanvasGroup.alpha == 0) return;
             if (TopSubmenu == null) return;
-            if (!CanPressCancel) return;
+            if (!_canPressCancel) return;
 
 
             Debug.Log("Close : " + gameObject.name);
-            CanPressCancel = false;
+            _canPressCancel = false;
             CloseSubMenu();
         }
 
         private void PressCancel(InputAction.CallbackContext context)
         {
-            CanPressCancel = true;
+            _canPressCancel = true;
         }
 
-        #endregion*/
+        #endregion
     }

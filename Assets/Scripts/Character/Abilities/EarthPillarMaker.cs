@@ -11,7 +11,7 @@ namespace Cattac.Character.Ability
         [SerializeField] private int _maxEarthPillarCount = 3;
         [SerializeField] private int _earthPillarPoolCount = 5;
         [SerializeField] private float _distanceFromUser = 1f;
-        [SerializeField] private float _sphereCastRadius = 3f;
+        //[SerializeField] private float _sphereCastRadius = 3f;
         [SerializeField] private float _upRaycastOffset;
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private LayerMask _objectsLayer;
