@@ -1,14 +1,18 @@
 using System.Collections;
+using BulletEditor;
 using UnityEngine;
+using UnityEngine.Audio;
+
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-
-    public AudioSource MainMusicSource { get => _mainMusicSource; private set => _mainMusicSource = value; }
-    public AudioSource SfxSource { get => _sfxSource; private set => _sfxSource = value; }
-
+    
+    
     [SerializeField] private AudioSource _mainMusicSource;
-    [SerializeField] private AudioSource _sfxSource;
+    [SerializeField] private AudioSource _sfxSourcePrefab;
+    private ObjectPooling<AudioSource> _sfxSource = new ObjectPooling<AudioSource>();
+
+    private int _sfxSourceIndex;
 
     private void Awake()
     {
@@ -22,12 +26,17 @@ public class AudioManager : MonoBehaviour
             transform.SetParent(null);
             DontDestroyOnLoad(this);
         }
+        
+        _sfxSource.Initialize(20, _sfxSourcePrefab, transform);
+    }
+    
+    public void PlayResource(AudioResource resource)
+    {
+        var source = _sfxSource.GetFreeObject();
+        source.resource = resource;
+        source.Play();
     }
 
-    public void PlayClip(AudioClip clip)
-    {
-        SfxSource.PlayOneShot(clip);
-    }
 
     public void FadeAudioSourceVolume(AudioSource source, float time, float volume)
     {

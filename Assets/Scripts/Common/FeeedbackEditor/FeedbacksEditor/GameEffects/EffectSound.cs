@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace FeedbacksEditor
 {
@@ -12,11 +13,11 @@ namespace FeedbacksEditor
     [Serializable]
     public class EffectSound : GameEffect
     {
-        public List<AudioClip> Clips = new List<AudioClip>();
+        public List<AudioResource> Clips = new List<AudioResource>();
         public override IEnumerator Execute(GameEvent gameEvent, GameObject target)
         {
             var clip = Clips.GetRandomItem();
-            AudioManager.Instance?.PlayClip(clip);
+            AudioManager.Instance?.PlayResource(clip);
             yield break;
         }
 

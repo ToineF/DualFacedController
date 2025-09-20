@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Cattac.Interactables;
 using Cattac.Interactables.NPC;
+using FeedbacksEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -55,7 +56,7 @@ namespace Cattac.Character
         [SerializeField] private Ability.Ability _ability;
 
         [Header("Feedbacks")]
-        [SerializeField] private AudioSource _squeakNoise;
+        [SerializeField] private GameEvent _squeakFeedback;
 
         private float _snakeTimer;
 
@@ -151,9 +152,7 @@ namespace Cattac.Character
 
         private async void ApplyForceWithDecay(Rigidbody rb)
         {
-            _squeakNoise.volume = Random.Range(0.7f, 1f);
-            _squeakNoise.pitch = Random.Range(0.9f, 1.1f);
-            _squeakNoise.Play();
+            GameEventsManager.PlayEvent(_squeakFeedback, gameObject);
 
             float currentForce = _data.JumpForce;
             _jumpTimer = _data.MinJumpsInterval;

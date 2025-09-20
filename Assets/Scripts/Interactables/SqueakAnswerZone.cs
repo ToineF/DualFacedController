@@ -1,15 +1,16 @@
 using Cattac.Character;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Cattac.Interactables
 {
     public class SqueakAnswerZone : MonoBehaviour, IGrabbable
     {
-        [SerializeField] private AudioClip _meowSound;
+        [SerializeField] private AudioResource _meowSound;
         public void OnGrab(CharacterHead characterHead)
         {
             characterHead.CurrentGrabbable = null;
-            AudioManager.Instance.PlayClip(_meowSound);
+            AudioManager.Instance.PlayResource(_meowSound);
         }
 
         public void OnUngrab(CharacterHead characterHead)
