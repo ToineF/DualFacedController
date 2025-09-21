@@ -5,6 +5,7 @@ namespace BulletEditor
     public class ObjectPooling<T> where T : Component
     {
         public int Count => _pool.Length;
+        public T[] Pool => _pool;
         
         private T[] _pool;
         private int _index;
