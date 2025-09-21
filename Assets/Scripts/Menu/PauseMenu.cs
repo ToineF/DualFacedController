@@ -87,7 +87,7 @@ namespace Cattac.Character
         
         private void SetCursorVisible(bool isVisible)
         {
-            Cursor.lockState = isVisible ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.lockState = isVisible ? CursorLockMode.None : CursorLockMode.Confined;
             Cursor.visible = isVisible;
         }
     }
