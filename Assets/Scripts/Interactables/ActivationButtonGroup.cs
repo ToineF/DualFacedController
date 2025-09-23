@@ -16,10 +16,10 @@ namespace Cattac.Interactables
             }
         }
 
-        private void Update()
+        /*private void Update()
         {
             CheckActivation();
-        }
+        }*/
 
         private void CheckActivation()
         {

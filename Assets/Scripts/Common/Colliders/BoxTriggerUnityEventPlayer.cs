@@ -4,6 +4,9 @@ using UnityEngine.Events;
 
 public class BoxTriggerUnityEventPlayer : BoxTrigger
 {
+    public UnityEvent OnTriggerEnter => _onTriggerEnter;
+    public UnityEvent OnTriggerExit => _onTriggerExit;
+    
     [SerializeField] private UnityEvent _onTriggerEnter;
     [SerializeField] private UnityEvent _onTriggerExit;
 
