@@ -32,7 +32,12 @@ namespace Cattac.Character.Credits
                 }
 
                 int index = childCount - (_text[i] - 'A');
-                var cheese = PrefabUtility.InstantiatePrefab(_cheeseCollectiblePrefab.gameObject).GameObject();
+		    GameObject cheese = null;
+		#if UNITY_EDITOR
+                cheese = PrefabUtility.InstantiatePrefab(_cheeseCollectiblePrefab.gameObject).GameObject();
+		#else
+		    cheese = GameObject.Instantiate(_cheeseCollectiblePrefab.gameObject);
+		#endif
                 cheese.transform.position = transform.position - Vector3.right * i * _charEspacement;
                 cheese.transform.SetParent(parent.transform);
                 var letter = Instantiate(_mesh.transform.GetChild(index), cheese.transform);
