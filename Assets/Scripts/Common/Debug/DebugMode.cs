@@ -49,7 +49,7 @@ public class DebugMode : MonoBehaviour
             var heads = FindObjectsByType<CharacterHead>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
             foreach (var head in heads)
             {
-                head.CurrentRigidbody.AddForce(Vector3.up * 10000f, ForceMode.Impulse);
+                head.CurrentRigidbody.AddForce(Vector3.up * 1000f, ForceMode.Impulse);
             }
         }
     }
