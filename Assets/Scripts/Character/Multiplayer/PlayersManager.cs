@@ -19,6 +19,9 @@ namespace Cattac.Character.Multiplayer
         private InputAction _rightSeparateAction;
 
         private List<PlayerInput> _playersInputs = new List<PlayerInput>();
+        
+        private bool _isPause = false;
+        private bool _isCutscene = false;
 
 
         private void OnEnable()
@@ -87,23 +90,34 @@ namespace Cattac.Character.Multiplayer
             {
                 switch (inputType)
                 {
-                    case InputType.GAMEPLAY:
-                        playerInput.actions.FindActionMap("UnityUI").Disable();
-                        playerInput.actions.FindActionMap("Player").Enable();
+                    case InputType.PAUSE_RESUME:
+                        _isPause = false;
+                        UpdateInputMaps(playerInput);
                         break;
                     
                     case InputType.PAUSE:
-                        playerInput.actions.FindActionMap("UnityUI").Enable();
-                        playerInput.actions.FindActionMap("Player").Disable();
+                        _isPause = true;
+                        UpdateInputMaps(playerInput);
                         break;
                     
                     case InputType.CUTSCENE:
-                        playerInput.actions.FindActionMap("UnityUI").Disable();
-                        playerInput.actions.FindActionMap("Player").Disable();
+                        _isCutscene = true;
+                        UpdateInputMaps(playerInput);
+                        break;
+                    case InputType.CUTSCENE_RESUME:
+                        _isCutscene = false;
+                        UpdateInputMaps(playerInput);
                         break;
                 }
-                
             }
+        }
+
+        private void UpdateInputMaps(PlayerInput playerInput)
+        {
+            if (_isPause) playerInput.actions.FindActionMap("UnityUI").Enable();
+            else playerInput.actions.FindActionMap("UnityUI").Disable();
+            if (_isCutscene || _isPause) playerInput.actions.FindActionMap("Player").Disable();
+            else playerInput.actions.FindActionMap("Player").Enable();
         }
     }
 }

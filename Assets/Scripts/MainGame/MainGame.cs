@@ -9,10 +9,10 @@ using UnityEngine.InputSystem;
 public class MainGame : MonoBehaviour
 {
     public static MainGame Instance;
-    [field:SerializeField] public CollectiblesManager CollectiblesManager { get; private set; }
-    [field:SerializeField] public LevelCollectiblesData LevelCollectiblesData { get; private set; }
     [field:SerializeField] public PlayersManager PlayersManager { get; private set; }
     [field:SerializeField] public PlayerInput PlayerInputPrefab { get; private set; }
+    [field:SerializeField] public CollectiblesManager CollectiblesManager { get; private set; }
+    [field:SerializeField] public LevelCollectiblesData LevelCollectiblesData { get; private set; }
     
     private void Awake()
     {

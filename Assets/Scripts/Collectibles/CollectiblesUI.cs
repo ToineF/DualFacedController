@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
-using UnityEngine.Serialization;
 
 namespace Cattac.Collectibles
 {
@@ -29,7 +28,7 @@ namespace Cattac.Collectibles
         [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _moveCheeseFeedbacks;
         [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _scaleCheeseFeedbacks;
 
-        private CollectiblesManager _collectiblesManager;
+        private CheeseCollectibleManager _cheeseCollectibleManager;
         private LevelCollectiblesData _levelCollectiblesData;
         
         private Animator[] _miceAnimators;
@@ -40,10 +39,10 @@ namespace Cattac.Collectibles
 
         private void Start()
         {
-            _collectiblesManager = MainGame.Instance.CollectiblesManager;
+            _cheeseCollectibleManager = MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager;
             _levelCollectiblesData = MainGame.Instance.LevelCollectiblesData;
             
-            _collectiblesManager.OnCheeseGain += UpdateCheeseUI;
+            _cheeseCollectibleManager.OnCheeseGain += UpdateCheeseUI;
             _levelCollectiblesData.OnMouseGain += UpdateMouseUI;
 
             InitCheeseUI();
@@ -52,7 +51,7 @@ namespace Cattac.Collectibles
 
         private void InitCheeseUI()
         {
-            _cheesesCountText.text = _collectiblesManager.Cheeses.ToString("D3");
+            _cheesesCountText.text = _cheeseCollectibleManager.Cheeses.ToString("D3");
         }
 
         private void UpdateCheeseUI()
@@ -69,7 +68,7 @@ namespace Cattac.Collectibles
                 cheesesTransform.transform.DOComplete();
                 cheesesTransform.transform.DOPunchScale(_scaleCheeseFeedbacks.PunchDirection, _scaleCheeseFeedbacks.PunchTime, _scaleCheeseFeedbacks.PunchVibrato, _scaleCheeseFeedbacks.PunchElasticity);
             }
-            _cheesesCountText.text = _collectiblesManager.Cheeses.ToString("D3");
+            _cheesesCountText.text = _cheeseCollectibleManager.Cheeses.ToString("D3");
             _cheeseAnimator.SetBool("isVisible", true);
             ShowUICollectible(_cheeseAnimator, _cheeseStayFadeTime);
         }

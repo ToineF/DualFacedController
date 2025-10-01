@@ -56,7 +56,7 @@ namespace Cattac.Cutscenes
 
         private void EndSequence()
         {
-            MainGame.Instance.PlayersManager.SetInput(InputType.GAMEPLAY);
+            MainGame.Instance.PlayersManager.SetInput(InputType.CUTSCENE_RESUME);
         }
 
         private void ReadSequenceElement()

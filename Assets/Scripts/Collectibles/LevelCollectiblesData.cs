@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cattac.Interactables;
-//using NaughtyAttributes;
+using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,7 +23,7 @@ namespace Cattac.Collectibles
         }
 
         #if UNITY_EDITOR
-        //[Button("Find Mice in Scene")]
+        [Button("Find Mice in Scene")]
         public void AssignMice()
         {
             Mice = GameObject.FindObjectsByType<Cage>(FindObjectsSortMode.InstanceID).Reverse().ToList();

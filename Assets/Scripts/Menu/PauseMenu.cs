@@ -44,7 +44,7 @@ namespace Cattac.Character
         public void Resume()
         {
             Time.timeScale = 1f;
-            MainGame.Instance.PlayersManager.SetInput(Multiplayer.InputType.GAMEPLAY);
+            MainGame.Instance.PlayersManager.SetInput(Multiplayer.InputType.PAUSE_RESUME);
             GameIsPaused = false;
             _globalPauseUIMenu.alpha = 0f;
             _globalPauseUIMenu.interactable = false;
