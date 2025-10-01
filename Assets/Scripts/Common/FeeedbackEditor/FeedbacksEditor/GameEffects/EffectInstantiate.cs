@@ -11,6 +11,7 @@ namespace FeedbacksEditor
     public class EffectInstantiate : GameEffect
     {
         public GameObject Prefab;
+        [SerializeField] private bool _setParent = false;
 
         public override IEnumerator Execute(GameEvent gameEvent, GameObject target)
         {
@@ -19,7 +20,7 @@ namespace FeedbacksEditor
                 if (target == null)
                     GameObject.Instantiate(Prefab, null);
                 else
-                    GameObject.Instantiate(Prefab, target.transform.position, Quaternion.identity);
+                    GameObject.Instantiate(Prefab, target.transform.position, Quaternion.identity, _setParent ? target.transform : null);
             }
             else Debug.LogWarning("Prefab of EffectInstantiate is null");
             yield break;

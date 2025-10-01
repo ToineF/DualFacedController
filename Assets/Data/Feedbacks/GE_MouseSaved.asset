@@ -15,11 +15,19 @@ MonoBehaviour:
   Effects:
   - rid: 6908415572512604235
   - rid: 6908415572512604233
+  - rid: 4844066740049543245
   - rid: 6908415572512604230
-  - rid: 6908415572512604238
   references:
     version: 2
     RefIds:
+    - rid: 4844066740049543245
+      type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        HapticParams:
+          LowFrequency: 0.3
+          HighFrequency: 0.3
+          Time: 0.14
     - rid: 6908415572512604230
       type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
@@ -32,6 +40,7 @@ MonoBehaviour:
         Enabled: 1
         Prefab: {fileID: 3289944924467647439, guid: 6eb319c694b107a4cbb7d9fca8b6779c,
           type: 3}
+        _setParent: 0
     - rid: 6908415572512604235
       type: {class: EffectShakeCamera, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
@@ -63,8 +72,3 @@ MonoBehaviour:
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
-    - rid: 6908415572512604238
-      type: {class: EffectFreezeFrame, ns: FeedbacksEditor, asm: Assembly-CSharp}
-      data:
-        Enabled: 1
-        Timer: 0.07

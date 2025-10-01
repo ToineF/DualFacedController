@@ -14,30 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Effects:
   - rid: 6908415572512604235
-  - rid: 6908415572512604238
-  - rid: 4057238618792525921
+  - rid: 4844066740049543244
   - rid: 6908415572512604233
+  - rid: 6908415572512604238
   references:
     version: 2
     RefIds:
-    - rid: 4057238618792525921
-      type: {class: EffectWait, ns: FeedbacksEditor, asm: Assembly-CSharp}
+    - rid: 4844066740049543244
+      type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
-        Timer: 0.2
+        HapticParams:
+          LowFrequency: 1
+          HighFrequency: 1
+          Time: 0.15
     - rid: 6908415572512604233
       type: {class: EffectInstantiate, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         Prefab: {fileID: 3289944924467647439, guid: 6eb319c694b107a4cbb7d9fca8b6779c,
           type: 3}
+        _setParent: 1
     - rid: 6908415572512604235
       type: {class: EffectShakeCamera, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         ScreenShakeParams:
-          Strength: 2.5
-          Duration: 0.14
+          Strength: 10
+          Duration: 0.15
           Curve:
             serializedVersion: 2
             m_Curve:
