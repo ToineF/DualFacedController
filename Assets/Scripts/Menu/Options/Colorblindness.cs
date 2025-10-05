@@ -9,14 +9,14 @@ namespace Menu.Options
     public enum ColorblindTypes
     {
         Normal = 0,
-        Protanopia,
-        Protanomaly,
-        Deuteranopia,
-        Deuteranomaly,
-        Tritanopia,
-        Tritanomaly,
-        Achromatopsia,
-        Achromatomaly,
+        Protanopia = 1,
+        Protanomaly = 2,
+        Deuteranopia = 3,
+        Deuteranomaly = 4,
+        Tritanopia = 5,
+        Tritanomaly = 6,
+        Achromatopsia = 7,
+        Achromatomaly = 8,
     }
 
     public class Colorblindness : MonoBehaviour
@@ -52,6 +52,7 @@ namespace Menu.Options
             if (Instance == null)
             {
                 Instance = this;
+                transform.SetParent(null);
                 DontDestroyOnLoad(gameObject);
             }
             else if (Instance != this)
