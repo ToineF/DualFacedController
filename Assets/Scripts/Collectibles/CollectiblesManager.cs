@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Cattac.Collectibles
@@ -8,9 +7,10 @@ namespace Cattac.Collectibles
     /// </summary>
     public class CollectiblesManager : MonoBehaviour
     {
-        public CheeseCollectibleManager CheeseCollectiblesManager;
-        public MouseCollectibleManager MouseCollectibleManager;
         [field:SerializeField] public Transform MouseCameraParent { get; private set; }
+        
+        public CheeseCollectibleManager CheeseCollectiblesManager { get; private set; }
+        public MouseCollectibleManager MouseCollectibleManager { get; private set; }
 
         private void Awake()
         {

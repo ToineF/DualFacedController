@@ -14,5 +14,10 @@ namespace Cattac.Collectibles
             Cheeses++;
             OnCheeseGain?.Invoke();
         }
+
+        public void SetCheeses(int cheeses)
+        {
+            Cheeses = cheeses;
+        }
     }
 }
