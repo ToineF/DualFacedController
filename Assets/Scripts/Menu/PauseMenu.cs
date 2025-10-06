@@ -16,13 +16,15 @@ namespace Cattac.Character
         [Header("Options Menu")]
         [SerializeField] private SubMenu[] _subMenusToClose;
 
+        private CursorManager _cursorManager;
         private InputAction _pauseAction;
 
         protected override void OnStartInternal(PlayerInput playerInput)
         {
             _pauseAction = playerInput.actions["Pause"];
             _globalPauseUIMenu.alpha = 0;
-            SetCursorVisible(false);
+            _cursorManager = CursorManager.Instance;
+            _cursorManager.SetCursorVisible(false);
         }
 
         private void Update()
@@ -58,7 +60,7 @@ namespace Cattac.Character
                 transform.GetChild(i).gameObject.SetActive(false);
             }
             CloseMenu(this);
-            SetCursorVisible(false);
+            _cursorManager.SetCursorVisible(false);
             OnResume?.Invoke();
         }
 
@@ -75,7 +77,7 @@ namespace Cattac.Character
                 transform.GetChild(i).gameObject.SetActive(true);
             }
             OpenMenu(this, FirstSelectedButton);
-            SetCursorVisible(true);
+            _cursorManager.SetCursorVisible(true);
             OnPause?.Invoke();
         }
 
@@ -85,10 +87,6 @@ namespace Cattac.Character
             Resume();
         }
         
-        private void SetCursorVisible(bool isVisible)
-        {
-            Cursor.lockState = isVisible ? CursorLockMode.None : CursorLockMode.Confined;
-            Cursor.visible = isVisible;
-        }
+        
     }
 }
