@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Cattac.Character
 {
@@ -8,9 +9,8 @@ namespace Cattac.Character
 
         private static CutsceneSaveSystem Instance;
 
-        [SerializeField] private GameObject[] _showOnNeverSeen;
-        [SerializeField] private GameObject[] _showOnAlreadySeen;
-
+        [SerializeField] private UnityEvent _onNeverSeen;
+        [SerializeField] private UnityEvent _onAlreadySeen;
         private void Start()
         {
             bool seen = PlayerPrefs.HasKey(_introCutsceneSeenKey) && PlayerPrefs.GetInt(_introCutsceneSeenKey) == 1;
@@ -23,15 +23,8 @@ namespace Cattac.Character
 
         private void ShowThings(bool alreadySeen)
         {
-            foreach (var go in _showOnAlreadySeen)
-            {
-                go.SetActive(alreadySeen);
-            }
-
-            foreach (var go in _showOnNeverSeen)
-            {
-                go.SetActive(alreadySeen == false);
-            }
+            if (alreadySeen) _onAlreadySeen?.Invoke();
+            else _onNeverSeen?.Invoke();
         }
     }
 }

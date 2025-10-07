@@ -14,14 +14,19 @@ namespace Cattac.Collectibles.Save
                 transform.SetParent(null);
                 DontDestroyOnLoad(this);
                 
-                //#if UNITY_EDITOR
-                PlayerPrefs.DeleteAll();
-                //#endif
+                #if UNITY_EDITOR
+                ResetPrefs();
+                #endif
             }
             else if (Instance != this)
             {
                 Destroy(gameObject);
             }
+        }
+
+        public void ResetPrefs()
+        {
+            PlayerPrefs.DeleteAll();
         }
     }
 }
