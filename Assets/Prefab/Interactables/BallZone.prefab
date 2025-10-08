@@ -61,9 +61,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+        m_TargetAssemblyTypeName: Common.DebugLog.DebugLog, Assembly-CSharp
+        m_MethodName: Log
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -72,7 +72,9 @@ MonoBehaviour:
           m_StringArgument: Open
           m_BoolArgument: 1
         m_CallState: 2
-  _stayTime: 3
+  _oneShot: 0
+  _stayTime: 1
+  _ballAmount: 2
 --- !u!65 &237315635101145880
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -136,18 +138,33 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3d5fe8fde708b1d4084a8562557cb88d,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 248.3661
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d5fe8fde708b1d4084a8562557cb88d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 248.3661
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d5fe8fde708b1d4084a8562557cb88d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 230.3176
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d5fe8fde708b1d4084a8562557cb88d,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 15.72
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3d5fe8fde708b1d4084a8562557cb88d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.32528
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3d5fe8fde708b1d4084a8562557cb88d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -3.11
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3d5fe8fde708b1d4084a8562557cb88d,
         type: 3}
