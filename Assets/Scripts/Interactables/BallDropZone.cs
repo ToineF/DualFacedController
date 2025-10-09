@@ -7,7 +7,7 @@ namespace Cattac.Interactables
     public class BallDropZone : BoxTrigger
     {
         [Header("Drop Zone Params")] public UnityEvent OnBallStay;
-        [SerializeField] private bool _oneShot;
+        [SerializeField] private bool _oneShotBall;
         [SerializeField] private float _stayTime;
         [SerializeField] private int _ballAmount;
 
@@ -30,7 +30,7 @@ namespace Cattac.Interactables
             if (_timer < 0)
             {
                 OnBallStay?.Invoke();
-                if (_oneShot) Destroy(this);
+                if (_oneShotBall) Destroy(this);
             }
         }
 
