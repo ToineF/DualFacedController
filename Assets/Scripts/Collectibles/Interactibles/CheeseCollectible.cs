@@ -1,5 +1,6 @@
 using System.Collections;
 using Cattac.Character;
+using FeedbacksEditor;
 using Interactables.Collectibles;
 using UnityEngine;
 
@@ -11,16 +12,13 @@ namespace Cattac.Interactables.Collectibles
         [SerializeField] private float _turnSpeed;
         [SerializeField] private float _uiWinDelay;
         [SerializeField] private GameObject _children;
+        [SerializeField] private GameEvent _feedback;
 
         protected override void OnPickUp()
         {
             if (_owner == null) return;
 
-            if (_children != null)
-            {
-                _children.SetActive(true);
-                _children.transform.SetParent(transform.parent);
-            }
+            GameEventsManager.PlayEvent(_feedback, gameObject);
             MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.AddCheese();
             StartCoroutine(AddCoinToCount());
         }

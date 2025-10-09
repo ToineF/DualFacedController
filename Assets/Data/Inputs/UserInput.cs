@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class UserInput : MonoBehaviour
 {
@@ -33,23 +34,21 @@ public class UserInput : MonoBehaviour
 [Serializable]
 public class PlayerInputReferences
 {
-    [field:SerializeField] public InputAction MoveInputReference { get; private set; }
-    [field:SerializeField] public InputAction GrabInputReference { get; private set; }
-    [field:SerializeField] public InputAction SeparationInputReference { get; private set; }
+    public InputAction MoveInputReference { get; private set; }
+    public InputAction GrabInputReference { get; private set; }
+    public InputAction EmoteInputReference { get; private set; }
     
     public Vector2 MoveInput {get; private set;}
     public bool GrabInput {get; private set;}
     public bool GrabInputReleased { get; private set;}
     public bool GrabInputPressed { get; private set;}
-    public bool SeparationInputPressed {get; private set;}
-    public bool SeparationInputReleased {get; private set;}
-
+    public Vector2 EmoteDirection {get; private set;}
     public PlayerInputReferences(InputAction moveInputReference, InputAction grabInputReference,
-        InputAction separationInputReference)
+        InputAction emoteInputReference)
     {
         MoveInputReference = moveInputReference;
         GrabInputReference = grabInputReference;
-        SeparationInputReference = separationInputReference;
+        EmoteInputReference = emoteInputReference;
     }
 
     public void UpdateInputs()
@@ -58,7 +57,6 @@ public class PlayerInputReferences
         GrabInput = GrabInputReference.IsPressed();
         GrabInputReleased = GrabInputReference.WasReleasedThisFrame();
         GrabInputPressed = GrabInputReference.WasPressedThisFrame();
-        SeparationInputPressed = SeparationInputReference.WasPressedThisFrame();
-        SeparationInputReleased = SeparationInputReference.WasReleasedThisFrame();
+        EmoteDirection = EmoteInputReference.ReadValue<Vector2>();
     }
 }

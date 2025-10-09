@@ -15,8 +15,8 @@ namespace Cattac.Character.Multiplayer
         private InputAction _rightMoveAction;
         private InputAction _leftGrabAction;
         private InputAction _rightGrabAction;
-        private InputAction _leftSeparateAction;
-        private InputAction _rightSeparateAction;
+        private InputAction _leftEmoteAction;
+        private InputAction _rightEmoteAction;
 
         private List<PlayerInput> _playersInputs = new List<PlayerInput>();
         
@@ -63,16 +63,16 @@ namespace Cattac.Character.Multiplayer
             {
                 _leftMoveAction = lastPlayerInput.actions["MoveLeft"];
                 _leftGrabAction = lastPlayerInput.actions["GrabLeft"];
-                _leftSeparateAction = lastPlayerInput.actions["SeparateLeft"];
+                _leftEmoteAction = lastPlayerInput.actions["EmoteLeft"];
                 _rightMoveAction = lastPlayerInput.actions["MoveRight"];
                 _rightGrabAction = lastPlayerInput.actions["GrabRight"];
-                _rightSeparateAction = lastPlayerInput.actions["SeparateRight"];
+                _rightEmoteAction = lastPlayerInput.actions["EmoteRight"];
             }
             else if (_playersInputs.Count == 2)
             {
                 _rightMoveAction = lastPlayerInput.actions["MoveLeft"];
                 _rightGrabAction = lastPlayerInput.actions["GrabLeft"];
-                _rightSeparateAction = lastPlayerInput.actions["SeparateLeft"];
+                _rightEmoteAction = lastPlayerInput.actions["EmoteLeft"];
             }
             
             SetPlayers();
@@ -80,8 +80,8 @@ namespace Cattac.Character.Multiplayer
         
         public void SetPlayers()
         {
-            UserInput.Instance.LeftHead = new PlayerInputReferences(_leftMoveAction, _leftGrabAction, _leftSeparateAction);
-            UserInput.Instance.RightHead = new PlayerInputReferences(_rightMoveAction, _rightGrabAction, _rightSeparateAction);
+            UserInput.Instance.LeftHead = new PlayerInputReferences(_leftMoveAction, _leftGrabAction, _leftEmoteAction);
+            UserInput.Instance.RightHead = new PlayerInputReferences(_rightMoveAction, _rightGrabAction, _rightEmoteAction);
         }
 
         public void SetInput(InputType inputType)

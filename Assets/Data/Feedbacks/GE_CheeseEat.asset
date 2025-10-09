@@ -10,25 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d94c7b0b9b104aa382d2be7cbe15745c, type: 3}
-  m_Name: GE_BumperBoing
+  m_Name: GE_CheeseEat
   m_EditorClassIdentifier: 
   Effects:
-  - rid: 6908415572512604230
   - rid: 4844066740049543246
+  - rid: 6908415572512604230
+  - rid: 4057238800850485319
   references:
     version: 2
     RefIds:
+    - rid: 4057238800850485319
+      type: {class: EffectInstantiate, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Prefab: {fileID: 5265399086723982659, guid: feef9f9dd24150343b89a1a5b9e50091,
+          type: 3}
+        _setParent: 0
     - rid: 4844066740049543246
       type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         HapticParams:
-          LowFrequency: 0.15
-          HighFrequency: 0.15
-          Time: 0.12
+          LowFrequency: 0.06
+          HighFrequency: 0.06
+          Time: 0.1
     - rid: 6908415572512604230
       type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         Clips:
-        - {fileID: 6418180475301049370, guid: 958be84339af1ea44827bb9ebd644f55, type: 2}
+        - {fileID: 6418180475301049370, guid: 8e4f9a1b7ab4dec40a4cf4490523b9b2, type: 2}

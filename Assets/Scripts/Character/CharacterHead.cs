@@ -52,9 +52,6 @@ namespace Cattac.Character
         [field:Header("Grab")]
         [field:SerializeField] public Rigidbody GrabParent { get; private set; }
 
-        [Header("Ability")]
-        [SerializeField] private Ability.Ability _ability;
-
         [Header("Feedbacks")]
         [SerializeField] private GameEvent _squeakFeedback;
 
@@ -80,7 +77,6 @@ namespace Cattac.Character
             if (UserInput.Instance.GetHead(_isLeftHead) == null) return;
             CheckMovements();
             CheckGrab();
-            CheckAbility();
         }
 
         private void CheckMovements()
@@ -168,20 +164,6 @@ namespace Cattac.Character
                 // Wait until the next frame
                 await Task.Delay(1);
             }
-        }
-
-        private void CheckSeparation()
-        {
-            if (UserInput.Instance.GetHead(_isLeftHead).SeparationInputPressed == false) return;
-            ToggleSeparation();
-        }
-
-        private void CheckAbility()
-        {
-            if (_ability == null) return;
-            
-            if (UserInput.Instance.GetHead(_isLeftHead).SeparationInputPressed) _ability.UseAbility(this, true);
-            else if (UserInput.Instance.GetHead(_isLeftHead).SeparationInputReleased) _ability.UseAbility(this, false);
         }
 
         private void ToggleSeparation()
