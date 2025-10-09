@@ -4,6 +4,7 @@ using Cattac.Interactables;
 using Cattac.Interactables.NPC;
 using FeedbacksEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Cattac.Character
@@ -46,8 +47,8 @@ namespace Cattac.Character
         [field: SerializeField] public CapsuleCollider Collider { get; set; }
         [SerializeField] private CharacterHeadData _data;
 
-        [Header("Input Properties")] [SerializeField]
-        private bool _isLeftHead;
+        [Header("Input Properties")]
+        [field:SerializeField, FormerlySerializedAs("_isLeftHead")] public bool IsLeftHead { get; private set; }
         
         [field:Header("Grab")]
         [field:SerializeField] public Rigidbody GrabParent { get; private set; }
@@ -74,14 +75,14 @@ namespace Cattac.Character
 
         private void Update()
         {
-            if (UserInput.Instance.GetHead(_isLeftHead) == null) return;
+            if (UserInput.Instance.GetHead(IsLeftHead) == null) return;
             CheckMovements();
             CheckGrab();
         }
 
         private void CheckMovements()
         {
-            _inputDirection = UserInput.Instance.GetHead(_isLeftHead).MoveInput;
+            _inputDirection = UserInput.Instance.GetHead(IsLeftHead).MoveInput;
             float lerpSpeed;
             if (_inputDirection.magnitude > 0.1f) // Acceleration
             {
@@ -97,11 +98,11 @@ namespace Cattac.Character
 
         private void CheckGrab()
         {
-            IsGrabbing = UserInput.Instance.GetHead(_isLeftHead).GrabInput;
+            IsGrabbing = UserInput.Instance.GetHead(IsLeftHead).GrabInput;
             //Rigidbody.isKinematic = IsGrabbing;
 
             var isJumping = IsGrabbing;
-            var isGrabbingThisFrame = UserInput.Instance.GetHead(_isLeftHead).GrabInputPressed;
+            var isGrabbingThisFrame = UserInput.Instance.GetHead(IsLeftHead).GrabInputPressed;
 
             //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
             // Update timer
