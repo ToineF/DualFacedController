@@ -37,6 +37,7 @@ namespace Cattac.Collectibles
         private bool _isVisible;
         private bool _highPriority;
 
+
         private void Start()
         {
             _cheeseCollectibleManager = MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager;
@@ -82,13 +83,17 @@ namespace Cattac.Collectibles
             }
         }
         
-        private void UpdateMouseUI(int index)
+        private void UpdateMouseUI(int index, bool hasFeedbacks)
         {
             if (index < 0 || index >= _miceAnimators.Length) return;
 
             _miceAnimators[index].SetTrigger("isVisible");
-            _miceParentAnimator.SetBool("isVisible", true);
-            ShowUICollectible(_miceParentAnimator, _miceStayFadeTime);
+		
+            if (hasFeedbacks)
+            {
+                _miceParentAnimator.SetBool("isVisible", true);
+                ShowUICollectible(_miceParentAnimator, _miceStayFadeTime);
+            }
         }
         
         private void ShowUICollectible(Animator animator, float stayFadeTime)

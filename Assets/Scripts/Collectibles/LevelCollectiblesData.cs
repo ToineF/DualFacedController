@@ -10,7 +10,7 @@ namespace Cattac.Collectibles
 {
     public class LevelCollectiblesData : MonoBehaviour
     {
-        public Action<int> OnMouseGain;
+        public Action<int, bool> OnMouseGain { get; set; }
 
         [field: SerializeField] public List<Cage> Mice { get; private set; }
 
@@ -19,7 +19,7 @@ namespace Cattac.Collectibles
             var index = Mice.FindIndex(e => e == mouse);
             if (index == -1) return;
 
-            OnMouseGain?.Invoke(index);
+            OnMouseGain?.Invoke(index, true);
         }
 
         #if UNITY_EDITOR
