@@ -4,7 +4,7 @@ namespace Cattac.Collectibles
 {
     public class CheeseCollectibleManager
     {
-        public Action OnCheeseGain;
+        public Action<bool> OnCheeseGain { get; set; }
         public int Cheeses { get; private set; }
         public int MaxCheeses { get; private set; }
         public int MaxMice { get; private set; }
@@ -12,12 +12,13 @@ namespace Cattac.Collectibles
         public void AddCheese()
         {
             Cheeses++;
-            OnCheeseGain?.Invoke();
+            OnCheeseGain?.Invoke(true);
         }
 
         public void SetCheeses(int cheeses)
         {
             Cheeses = cheeses;
+            OnCheeseGain?.Invoke(false);
         }
     }
 }

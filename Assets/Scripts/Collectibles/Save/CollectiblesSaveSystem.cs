@@ -9,16 +9,16 @@ namespace Cattac.Collectibles.Save
     {
         [SerializeField] private CollectiblesManager _collectiblesManager;
         [SerializeField] private int _mouseIDOffset = 0;
-        
+
         private string _cheeseKey = "Cheeses";
         private string _miceKey = "Mice_";
 
         private IEnumerator Start()
         {
-	    _collectiblesManager.CheeseCollectiblesManager.OnCheeseGain += OnCheeseGain;
+            _collectiblesManager.CheeseCollectiblesManager.OnCheeseGain += OnCheeseGain;
             _collectiblesManager.MouseCollectibleManager.OnMouseGet += OnMouseGet;
 
-	    yield return new WaitForEndOfFrame();  // Wait after all Start initializations are done
+            yield return new WaitForEndOfFrame(); // Wait after all Start initializations are done
 
             InitializeCheeses();
             InitializeMice();
@@ -30,10 +30,9 @@ namespace Cattac.Collectibles.Save
             _collectiblesManager.CheeseCollectiblesManager.SetCheeses(cheeses);
         }
 
-        private void OnCheeseGain()
+        private void OnCheeseGain(bool hasFeedbacks)
         {
-            var currentCheeses = PlayerPrefs.GetInt(_cheeseKey);
-            PlayerPrefs.SetInt(_cheeseKey, currentCheeses + 1);
+            PlayerPrefs.SetInt(_cheeseKey, _collectiblesManager.CheeseCollectiblesManager.Cheeses);
         }
 
         private void InitializeMice()
@@ -41,7 +40,7 @@ namespace Cattac.Collectibles.Save
             var mice = MainGame.Instance.LevelCollectiblesData.Mice;
             for (int i = 0; i < mice.Count; i++)
             {
-                var isSaved = PlayerPrefs.GetInt(_miceKey+(i+_mouseIDOffset)) == 1;
+                var isSaved = PlayerPrefs.GetInt(_miceKey + (i + _mouseIDOffset)) == 1;
                 if (isSaved)
                 {
                     mice[i].gameObject.SetActive(false);
@@ -49,7 +48,7 @@ namespace Cattac.Collectibles.Save
                 }
             }
         }
-        
+
         private void OnMouseGet(Cage cage, float time, Ease ease)
         {
             var mice = MainGame.Instance.LevelCollectiblesData.Mice;
@@ -57,7 +56,7 @@ namespace Cattac.Collectibles.Save
             {
                 if (cage == mice[i])
                 {
-                    PlayerPrefs.SetInt(_miceKey+(i+_mouseIDOffset), 1);
+                    PlayerPrefs.SetInt(_miceKey + (i + _mouseIDOffset), 1);
                     return;
                 }
             }

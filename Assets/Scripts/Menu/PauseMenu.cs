@@ -55,10 +55,6 @@ namespace Cattac.Character
             {
                 CloseMenu(submenu);
             }
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                transform.GetChild(i).gameObject.SetActive(false);
-            }
             CloseMenu(this);
             _cursorManager.SetCursorVisible(false);
             OnResume?.Invoke();
@@ -72,10 +68,6 @@ namespace Cattac.Character
             _globalPauseUIMenu.alpha = 1f;
             _globalPauseUIMenu.interactable = true;
             _globalPauseUIMenu.blocksRaycasts = true;
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                transform.GetChild(i).gameObject.SetActive(true);
-            }
             OpenMenu(this, FirstSelectedButton);
             _cursorManager.SetCursorVisible(true);
             OnPause?.Invoke();
