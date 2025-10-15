@@ -38,6 +38,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _CloudText:
+        m_Texture: {fileID: 2800000, guid: 1e55bc38f9ddfd7479595378830a7e70, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -52,14 +56,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _HorizonBlend: 2.76
-    - _NadirBound: 0.22
+    - _CloudDistanceFadePower: 0.5
+    - _HorizonBlend: 0.86
+    - _IsCloud: 1
+    - _NadirBound: 0.09
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ZenithBorder: 0.22
+    - _ZenithBorder: 0.33
     m_Colors:
-    - _GroundColor: {r: 0.4485409, g: 0.6132076, b: 0, a: 1}
-    - _HorizonColor: {r: 0.33161268, g: 0.8679245, b: 0.7864573, a: 1}
-    - _SkyColor: {r: 0.1273585, g: 0.6497628, b: 1, a: 1}
+    - _CloudAnim: {r: 0, g: 0, b: 0, a: 0}
+    - _CloudColor: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
+    - _CloudScale: {r: 0.2, g: 0.2, b: 0, a: 0}
+    - _GroundColor: {r: 0.53453183, g: 0.774353, b: 0.7924528, a: 1}
+    - _HorizonColor: {r: 0.2236116, g: 0.62077254, b: 0.7075472, a: 1}
+    - _SkyColor: {r: 0.20198467, g: 0.52080363, b: 0.8396226, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
