@@ -1,24 +1,25 @@
 using UnityEngine;
 using AntoineFoucault.Utilities;
 using System;
+using NaughtyAttributes;
 
 public abstract class GenericTrigger : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] protected bool _oneShot = false;
-    [SerializeField] protected bool _isTrigger = true;
+    [Foldout("Trigger"), SerializeField] protected bool _oneShot = false;
+    [Foldout("Trigger"), SerializeField] protected bool _isTrigger = true;
 
     [Header("Filters")]
-    [SerializeField] protected GameObject[] _gameObjectsToIgnore;
-    [SerializeField] protected LayerMask _layersToDetect = -1;
+    [Foldout("Trigger"), SerializeField] protected GameObject[] _gameObjectsToIgnore;
+    [Foldout("Trigger"), SerializeField] protected LayerMask _layersToDetect = -1;
 
     [Header("Gizmo Settings")]
-    [SerializeField] protected bool _displayGizmos = true;
-    [SerializeField] protected bool _showOnlyWhileSelected = true;
-    [SerializeField] protected Color _gizmoColor = Color.green;
-    [SerializeField] protected Color _gizmoSelectedColor = Color.red;
-    [SerializeField] protected Color _gizmoWireColor = Color.black;
-    [SerializeField] protected Color _gizmoSelectedWireColor = Color.white;
+    [Foldout("Trigger"), SerializeField] protected bool _displayGizmos = true;
+    [Foldout("Trigger"), SerializeField] protected bool _showOnlyWhileSelected = true;
+    [Foldout("Trigger"), SerializeField] protected Color _gizmoColor = Color.green;
+    [Foldout("Trigger"), SerializeField] protected Color _gizmoSelectedColor = Color.red;
+    [Foldout("Trigger"), SerializeField] protected Color _gizmoWireColor = Color.black;
+    [Foldout("Trigger"), SerializeField] protected Color _gizmoSelectedWireColor = Color.white;
 
     protected Collider _collider;
 
