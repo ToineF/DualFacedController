@@ -20,11 +20,16 @@ namespace Cattac.Interactables.NPC.States
             var target = stateManager.Seeker.Target.gameObject;
             var animators = GameObject.FindObjectsByType < HeadAnimator>(FindObjectsSortMode.InstanceID);
             GameObject animator = null;
+            GameObject otherHead = null;
             foreach (var VARIABLE in animators)
             {
                 if (VARIABLE.CharacterHead.gameObject == target)
                 {
                     animator =  VARIABLE.gameObject;
+                }
+                else
+                {
+                    otherHead = VARIABLE.gameObject;
                 }
             }
             var targetPos = target.transform.position;
@@ -40,7 +45,7 @@ namespace Cattac.Interactables.NPC.States
             yield return new WaitForSeconds(1f);
             mover.transform.DOLocalMove(moverOriginalPos, stateManager.Data.ChaseMouseDuration).SetEase(stateManager.Data.ChaseMouseEase);
             yield return new WaitForSeconds(1f);
-            target.transform.parent.localPosition = Vector3.up;
+            target.transform.parent.position = otherHead.transform.position;
             animator?.SetActive(true);
             target?.SetActive(true);
 
