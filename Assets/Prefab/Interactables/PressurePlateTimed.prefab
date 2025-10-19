@@ -13,6 +13,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PressurePlateTimed
       objectReference: {fileID: 0}
+    - target: {fileID: 1543238139321490777, guid: d677e6469e533944a8e8889a149528a8,
+        type: 3}
+      propertyPath: _onTriggerExit.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543238139321490777, guid: d677e6469e533944a8e8889a149528a8,
+        type: 3}
+      propertyPath: _onTriggerEnter.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8710095593165790330, guid: d677e6469e533944a8e8889a149528a8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -78,8 +88,7 @@ PrefabInstance:
       propertyPath: _onTriggerExit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 2100000, guid: ced8ec6909c8d1443b38305f6952c120, type: 2}
-    m_RemovedComponents:
-    - {fileID: 1543238139321490777, guid: d677e6469e533944a8e8889a149528a8, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -129,7 +138,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _deactivateTimer: 3
-  _eventPlayer: {fileID: 0}
+  _pressurePlate: {fileID: 8881073035479608768}
   _onTimerEnd:
     m_PersistentCalls:
       m_Calls:
@@ -162,3 +171,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8881073035479608768 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1543238139321490777, guid: d677e6469e533944a8e8889a149528a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 7950337916983079065}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7441655120933646057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a43224faaafa4993acc7446bf0a0d773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

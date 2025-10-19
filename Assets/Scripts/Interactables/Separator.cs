@@ -15,14 +15,14 @@ namespace Cattac.Interactables
             if (_makeKinematic && _currentHead) return; // Ensure no two heads are attached at the same time if kinematic
 
             characterHead.CurrentGrabbable = null;
-            characterHead.SetSeparation(_separate);
-            OnGrabInternal(characterHead);
             if (_makeKinematic)
             {
                 characterHead.TogetherRigidbody.isKinematic = _separate;
                 _currentHead = characterHead;
                 characterHead.OnConnect += Reconnect;
             }
+            characterHead.SetSeparation(_separate);
+            OnGrabInternal(characterHead);
         }
 
         private void Reconnect()

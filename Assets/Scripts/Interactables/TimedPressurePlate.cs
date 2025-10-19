@@ -9,7 +9,7 @@ namespace Cattac.Interactables
         public bool IsTicking => _isTicking;
         
         [SerializeField] private float _deactivateTimer;
-        [SerializeField] private BoxTriggerUnityEventPlayer _eventPlayer;
+        [SerializeField] private PressurePlate _pressurePlate;
         [SerializeField] private UnityEvent _onTimerEnd;
         [SerializeField] private UnityEvent _onDeactivated;
 
@@ -18,7 +18,7 @@ namespace Cattac.Interactables
 
         private void Awake()
         {
-            _eventPlayer.OnTriggerEnter.AddListener(ResetTimerSelf);
+            _pressurePlate.OnTriggerEnterEvent.AddListener(ResetTimerSelf);
         }
 
         private void ResetTimerSelf()
@@ -51,8 +51,8 @@ namespace Cattac.Interactables
         {
             _isTicking = false;
             _timer = _deactivateTimer;
-            _eventPlayer.OnTriggerEnter.RemoveListener(ResetTimerSelf);
-            _eventPlayer.OnTriggerExit.RemoveListener(ResetTimerSelf);
+            _pressurePlate.OnTriggerEnterEvent.RemoveListener(ResetTimerSelf);
+            _pressurePlate.OnTriggerExitEvent.RemoveListener(ResetTimerSelf);
             _onDeactivated?.Invoke();
         }
     }
