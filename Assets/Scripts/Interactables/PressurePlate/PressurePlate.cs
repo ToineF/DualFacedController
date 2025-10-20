@@ -9,8 +9,11 @@ namespace Cattac.Interactables
         public UnityEvent OnTriggerEnterEvent  => _onTriggerEnter;
         public UnityEvent OnTriggerExitEvent => _onTriggerExit;
         
+        public int CurrentCount => _currentColliders.Count;
+        
         [SerializeField] private UnityEvent _onTriggerEnter;
         [SerializeField] private UnityEvent _onTriggerExit;
+        [SerializeField] private bool _disableOnEnter = false;
         
         private HashSet<GameObject> _currentColliders = new();
 
@@ -36,6 +39,7 @@ namespace Cattac.Interactables
             if (lastCount == 0 && currentCount > 0)
             {
                 _onTriggerEnter.Invoke();
+                if (_disableOnEnter) Destroy(this);
             }
             else if (lastCount > 0 && currentCount == 0 )
             {
