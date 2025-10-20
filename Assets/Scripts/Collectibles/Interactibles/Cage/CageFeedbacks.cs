@@ -21,6 +21,7 @@ namespace Cattac.Interactables
         [Header("Disparition")]
         [SerializeField] private string _hideAnimation;
         [SerializeField] private float _hideBeforeTime = 4f;
+        [SerializeField] private GameEvent _hideFeedback;
         
         private void Start()
         {
@@ -55,6 +56,7 @@ namespace Cattac.Interactables
 
         private void Hide()
         {
+            GameEventsManager.PlayEvent(_hideFeedback, gameObject);
             _mouseAnimator.SetTrigger(_hideAnimation);
             MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseHide?.Invoke(_cage);
             MainGame.Instance.PlayersManager.SetInput(InputType.CUTSCENE_RESUME);

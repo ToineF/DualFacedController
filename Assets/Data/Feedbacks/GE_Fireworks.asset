@@ -10,44 +10,44 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d94c7b0b9b104aa382d2be7cbe15745c, type: 3}
-  m_Name: GE_MouseSaved
+  m_Name: GE_Fireworks
   m_EditorClassIdentifier: 
   Effects:
   - rid: 6908415572512604235
+  - rid: 4844066740049543244
   - rid: 6908415572512604233
-  - rid: 4844066740049543245
-  - rid: 6908415572512604230
+  - rid: 4844067163136065607
   references:
     version: 2
     RefIds:
-    - rid: 4844066740049543245
+    - rid: 4844066740049543244
       type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         HapticParams:
-          LowFrequency: 0.3
-          HighFrequency: 0.3
-          Time: 0.14
-    - rid: 6908415572512604230
+          LowFrequency: 1
+          HighFrequency: 1
+          Time: 0.15
+    - rid: 4844067163136065607
       type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         Clips:
-        - {fileID: 8300000, guid: 1468619f951199a45918de603f963f14, type: 3}
+        - {fileID: 8300000, guid: b4a73848431534a44abfc81967caf138, type: 3}
     - rid: 6908415572512604233
       type: {class: EffectInstantiate, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         Prefab: {fileID: 3289944924467647439, guid: 6eb319c694b107a4cbb7d9fca8b6779c,
           type: 3}
-        _setParent: 0
+        _setParent: 1
     - rid: 6908415572512604235
       type: {class: EffectShakeCamera, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         ScreenShakeParams:
-          Strength: 2.5
-          Duration: 0.14
+          Strength: 3
+          Duration: 0.15
           Curve:
             serializedVersion: 2
             m_Curve:
