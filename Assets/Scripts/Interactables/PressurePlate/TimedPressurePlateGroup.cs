@@ -5,6 +5,8 @@ namespace Cattac.Interactables
 {
     public class TimedPressurePlateGroup : MonoBehaviour
     {
+        public TimedPressurePlate[] PressurePlates => _pressurePlates;
+        
         [SerializeField] private UnityEvent _onAllActivated;
         [SerializeField] private TimedPressurePlate[] _pressurePlates;
 
