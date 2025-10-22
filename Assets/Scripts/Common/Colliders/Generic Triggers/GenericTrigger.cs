@@ -52,7 +52,7 @@ public abstract class GenericTrigger : MonoBehaviour
 
         OnEnterTriggerInternal(other);
         _triggered = true;
-        if (_oneShot) Destroy(gameObject);
+        //if (_oneShot) Destroy(gameObject);
     }
 
     protected virtual void OnEnterTriggerInternal(Collider other)

@@ -14,10 +14,13 @@ namespace Cattac.Interactables.Collectibles
         [SerializeField] private GameObject _children;
         [SerializeField] private GameEvent _feedback;
 
+        private bool _isTriggered;
+
         protected override void OnPickUp()
         {
-            if (_owner == null) return;
+            if (_owner == null || _isTriggered) return;
 
+            _isTriggered = true;
             GameEventsManager.PlayEvent(_feedback, gameObject);
             MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.AddCheese();
             StartCoroutine(AddCoinToCount());

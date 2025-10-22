@@ -6,7 +6,11 @@ namespace Cattac.Interactables
     public class TimedPressurePlate : MonoBehaviour
     {
         public UnityEvent OnTimerReset;
+        public UnityEvent OnTimerEnd => _onTimerEnd;
+        public UnityEvent OnDeactived => _onDeactivated;
         public bool IsTicking => _isTicking;
+
+        public float RemainingTime => (_deactivateTimer - _timer)/Mathf.Max(_deactivateTimer, 0.0001f);
         
         [SerializeField] private float _deactivateTimer;
         [SerializeField] private PressurePlate _pressurePlate;
@@ -43,6 +47,7 @@ namespace Cattac.Interactables
             if (_timer <= 0)
             {
                 _isTicking = false;
+                _timer = 0;
                 _onTimerEnd?.Invoke();
             }
         }
