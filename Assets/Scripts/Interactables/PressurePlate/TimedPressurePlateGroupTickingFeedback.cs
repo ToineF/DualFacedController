@@ -20,9 +20,10 @@ namespace Cattac.Interactables
             {
                 pressurePlate.OnTimerReset.AddListener(OnTriggerEnterEvent);
                 pressurePlate.OnTimerEnd.AddListener(OnTriggerExitEvent);
-                pressurePlate.OnDeactived.AddListener(() => Destroy(pressurePlate));
+                pressurePlate.OnDeactived.AddListener(OnDeactivated);
             }
         }
+
 
         private void OnTriggerEnterEvent()
         {
@@ -34,6 +35,18 @@ namespace Cattac.Interactables
         {
             _isTicking =  false;
             _timer = 0;
+        }
+        private void OnDeactivated()
+        {
+            _isTicking = false;
+            foreach (var pressurePlate in _group.PressurePlates)
+            {
+                pressurePlate.OnTimerReset.RemoveListener(OnTriggerEnterEvent);
+                pressurePlate.OnTimerEnd.RemoveListener(OnTriggerExitEvent);
+                pressurePlate.OnDeactived.RemoveListener(OnDeactivated);
+                Destroy(pressurePlate);
+            }
+            Destroy(this);
         }
         
         private void Update()
