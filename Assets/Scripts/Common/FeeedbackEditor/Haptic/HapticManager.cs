@@ -28,8 +28,8 @@ namespace Common.Haptic
                 return;
             }
                 
-            if (Gamepad.current == null) return;
-            Gamepad.current.SetMotorSpeeds(lowFrequency, highFrequency);
+            if (Gamepad.all.Count < 0) return;
+            SetAllMotorSpeeds(lowFrequency, highFrequency);
             _instance.StartCoroutine(_instance.VibrateController(time));
         }
 
@@ -45,7 +45,15 @@ namespace Common.Haptic
         private IEnumerator VibrateController(float time)
         {
             yield return new WaitForSeconds(time);
-            Gamepad.current.SetMotorSpeeds(0, 0);
+            SetAllMotorSpeeds(0, 0);
+        }
+
+        private static void SetAllMotorSpeeds(float lowFrequency, float highFrequency)
+        {
+            foreach (var gamepad in Gamepad.all)
+            {
+                gamepad.SetMotorSpeeds(lowFrequency, highFrequency);
+            }
         }
     }
 
