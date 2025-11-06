@@ -16,10 +16,14 @@ namespace Cattac.Collectibles
 
         public void SaveMouse(Cage mouse)
         {
-            var index = Mice.FindIndex(e => e == mouse);
-            if (index == -1) return;
-
-            OnMouseGain?.Invoke(index, true);
+            for (int i = 0; i < Mice.Count; i++)
+            {
+                if (Mice[i].Data == mouse.Data)
+                {
+                    OnMouseGain?.Invoke(i, true);
+                    return;
+                }
+            }
         }
 
         #if UNITY_EDITOR

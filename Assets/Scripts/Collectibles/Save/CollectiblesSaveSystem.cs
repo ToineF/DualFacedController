@@ -2,13 +2,13 @@ using Cattac.Interactables;
 using DG.Tweening;
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 namespace Cattac.Collectibles.Save
 {
     public class CollectiblesSaveSystem : MonoBehaviour
     {
         [SerializeField] private CollectiblesManager _collectiblesManager;
-        [SerializeField] private int _mouseIDOffset = 0;
 
         private string _cheeseKey = "Cheeses";
         private string _miceKey = "Mice_";
@@ -37,26 +37,36 @@ namespace Cattac.Collectibles.Save
 
         private void InitializeMice()
         {
-            var mice = MainGame.Instance.LevelCollectiblesData.Mice;
-            for (int i = 0; i < mice.Count; i++)
+            var miceInScene = MainGame.Instance.LevelCollectiblesData.Mice;
+            var miceData = MainGame.Instance.CollectiblesFactory.Mice;
+            for (int i = 0; i < miceInScene.Count; i++)
             {
-                var isSaved = PlayerPrefs.GetInt(_miceKey + (i + _mouseIDOffset)) == 1;
-                if (isSaved)
+                for (int j = 0; j < miceData.Length; j++)
                 {
-                    mice[i].gameObject.SetActive(false);
-                    MainGame.Instance.LevelCollectiblesData.OnMouseGain?.Invoke(i, false);
+                    if (miceInScene[i].Data == miceData[j])
+                    {
+                        var isSaved = PlayerPrefs.GetInt(_miceKey + j) == 1;
+                        if (isSaved)
+                        {
+                            miceInScene[i].gameObject.SetActive(false);
+                            MainGame.Instance.LevelCollectiblesData.OnMouseGain?.Invoke(i, false);
+                        }
+
+                        break;
+                    }
                 }
+                
             }
         }
 
         private void OnMouseGet(Cage cage, float time, Ease ease)
         {
-            var mice = MainGame.Instance.LevelCollectiblesData.Mice;
-            for (int i = 0; i < mice.Count; i++)
+            var miceData = MainGame.Instance.CollectiblesFactory.Mice;
+            for (int i = 0; i < miceData.Length; i++)
             {
-                if (cage == mice[i])
+                if (cage.Data == miceData[i])
                 {
-                    PlayerPrefs.SetInt(_miceKey + (i + _mouseIDOffset), 1);
+                    PlayerPrefs.SetInt(_miceKey + i, 1);
                     return;
                 }
             }

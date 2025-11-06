@@ -1,7 +1,8 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class DoTweenComponent : MonoBehaviour
+
+public class DoScaleYComponent : MonoBehaviour
 {
     [SerializeField] private float _duration;
     [SerializeField] private Ease _ease;
