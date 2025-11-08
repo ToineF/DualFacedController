@@ -2,7 +2,7 @@ using Cattac.Interactables;
 using DG.Tweening;
 using UnityEngine;
 using System.Collections;
-using System.Linq;
+using Cattac.Interactables.MouseCollection;
 
 namespace Cattac.Collectibles.Save
 {
@@ -10,29 +10,53 @@ namespace Cattac.Collectibles.Save
     {
         [SerializeField] private CollectiblesManager _collectiblesManager;
 
-        private string _cheeseKey = "Cheeses";
+        private string _currentCheeseKey = "CurrentCheeses";
+        private string _totalCheeseKey = "TotalCheeses";
         private string _miceKey = "Mice_";
 
-        private IEnumerator Start()
+        private void Start()
         {
             _collectiblesManager.CheeseCollectiblesManager.OnCheeseGain += OnCheeseGain;
             _collectiblesManager.MouseCollectibleManager.OnMouseGet += OnMouseGet;
-
-            yield return new WaitForEndOfFrame(); // Wait after all Start initializations are done
-
+            
             InitializeCheeses();
             InitializeMice();
         }
 
         private void InitializeCheeses()
         {
-            var cheeses = PlayerPrefs.GetInt(_cheeseKey);
+            var cheeses = PlayerPrefs.GetInt(_currentCheeseKey);
             _collectiblesManager.CheeseCollectiblesManager.SetCheeses(cheeses);
         }
 
         private void OnCheeseGain(bool hasFeedbacks)
         {
-            PlayerPrefs.SetInt(_cheeseKey, _collectiblesManager.CheeseCollectiblesManager.Cheeses);
+            PlayerPrefs.SetInt(_currentCheeseKey, _collectiblesManager.CheeseCollectiblesManager.Cheeses);
+        }
+
+        /// <summary>
+        /// Updates the total cheeses count and resets the current cheeses count
+        /// </summary>
+        public void OnTotalCheeseGain()
+        {
+            var totalCheeses = PlayerPrefs.GetInt(_totalCheeseKey);
+            var currentCheeses = PlayerPrefs.GetInt(_currentCheeseKey);
+            PlayerPrefs.SetInt(_totalCheeseKey, totalCheeses + currentCheeses);
+            PlayerPrefs.SetInt(_currentCheeseKey, 0);
+
+            // Update the collectiblesManagers
+            InitializeCheeses();
+        }
+
+        /// <summary>
+        /// Checks if a target amount of cheeses is superior or equals to the total cheeses count
+        /// </summary>
+        /// <param name="targetCheeses"></param>
+        /// <returns></returns>
+        public bool HasMoreThanTotalCheese(int targetCheeses)
+        {
+            var totalCheeses = PlayerPrefs.GetInt(_totalCheeseKey);
+            return targetCheeses >= totalCheeses;
         }
 
         private void InitializeMice()
@@ -70,6 +94,26 @@ namespace Cattac.Collectibles.Save
                     return;
                 }
             }
+        }
+
+        /// <summary>
+        /// Is a SavedMouseData saved?
+        /// </summary>
+        /// <param name="targetData"></param>
+        /// <returns></returns>
+        public bool IsMouseUnlocked(SavedMouseData targetData)
+        {
+            var miceData = MainGame.Instance.CollectiblesFactory.Mice;
+            for (int i = 0; i < miceData.Length; i++)
+            {
+                if (miceData[i] == targetData)
+                {
+                    var isSaved = PlayerPrefs.GetInt(_miceKey + i) == 1;
+                    return isSaved;
+                }
+            }
+
+            return false;
         }
     }
 }
