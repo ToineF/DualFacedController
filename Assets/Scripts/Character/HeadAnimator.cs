@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace Cattac.Character.Visuals
@@ -36,6 +34,7 @@ namespace Cattac.Character.Visuals
             RotateDirection();
             UpdateAnimation();
             transform.position = _parent.transform.position + _offset;
+            transform.GetChild(0).gameObject.SetActive(_parent.gameObject.activeInHierarchy); // Visual becomes inactive when parent is inactive
         }
 
         private void UpdateAnimation()
