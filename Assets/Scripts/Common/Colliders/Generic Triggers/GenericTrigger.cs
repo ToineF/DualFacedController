@@ -31,7 +31,10 @@ public abstract class GenericTrigger : MonoBehaviour
     {
         _collider = GetComponent<Collider>();
         _collider.isTrigger = _isTrigger;
+        AwakeInternal();
     }
+    
+    protected virtual void AwakeInternal() { }
 
     #region Trigger
 

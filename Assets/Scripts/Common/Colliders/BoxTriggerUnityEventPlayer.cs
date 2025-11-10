@@ -4,21 +4,21 @@ using UnityEngine.Events;
 
 public class BoxTriggerUnityEventPlayer : BoxTrigger
 {
-    public UnityEvent OnTriggerEnter => _onTriggerEnter;
-    public UnityEvent OnTriggerExit => _onTriggerExit;
+    public UnityEvent<CharacterHead> OnTriggerEnter => _onTriggerEnter;
+    public UnityEvent<CharacterHead> OnTriggerExit => _onTriggerExit;
     
-    [SerializeField] private UnityEvent _onTriggerEnter;
-    [SerializeField] private UnityEvent _onTriggerExit;
+    [SerializeField] private UnityEvent<CharacterHead> _onTriggerEnter;
+    [SerializeField] private UnityEvent<CharacterHead> _onTriggerExit;
 
     protected override void OnEnterTriggerInternal(Collider other)
     {
-        if (other.GetComponent<CharacterHead>() == false) return;
-        _onTriggerEnter?.Invoke();
+        if (other.TryGetComponent(out CharacterHead head) == false) return;
+        _onTriggerEnter?.Invoke(head);
     }
     
     protected override void OnExitTriggerInternal(Collider other)
     {
-        if (other.GetComponent<CharacterHead>() == false) return;
-        _onTriggerExit?.Invoke();
+        if (other.TryGetComponent(out CharacterHead head) == false) return;
+        _onTriggerExit?.Invoke(head);
     }
 }
