@@ -32,6 +32,7 @@ namespace Cattac.Interactables
             {
                 int index = i;
                 _mouths[index].OnTriggerEnter.AddListener(c => StartCoroutine(Enter(c, index)));
+                _mouths[index].gameObject.SetActive(index <= 0);
             }
         }
 
