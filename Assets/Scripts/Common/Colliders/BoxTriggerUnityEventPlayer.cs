@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cattac.Character;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,16 +10,21 @@ public class BoxTriggerUnityEventPlayer : BoxTrigger
     
     [SerializeField] private UnityEvent<CharacterHead> _onTriggerEnter;
     [SerializeField] private UnityEvent<CharacterHead> _onTriggerExit;
+    [SerializeField] private int _minimumPlayerToActivate = 1;
+
+    private List<CharacterHead> _characters = new(); 
 
     protected override void OnEnterTriggerInternal(Collider other)
     {
         if (other.TryGetComponent(out CharacterHead head) == false) return;
-        _onTriggerEnter?.Invoke(head);
+        _characters.Add(head);
+        if (_characters.Count >= _minimumPlayerToActivate) _onTriggerEnter?.Invoke(head);
     }
     
     protected override void OnExitTriggerInternal(Collider other)
     {
         if (other.TryGetComponent(out CharacterHead head) == false) return;
-        _onTriggerExit?.Invoke(head);
+        _characters.Remove(head);
+        if (_characters.Count < _minimumPlayerToActivate)  _onTriggerExit?.Invoke(head);
     }
 }
