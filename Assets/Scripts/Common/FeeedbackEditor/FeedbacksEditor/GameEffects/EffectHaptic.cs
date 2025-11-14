@@ -11,10 +11,11 @@ namespace FeedbacksEditor
     public class EffectHaptic : GameEffect
     {
         public HapticFeedback HapticParams;
+        public static bool UseHaptic { get; set; } = true;
         
         public override IEnumerator Execute(GameEvent gameEvent, GameObject target)
         {
-            HapticManager.VibrateForTime(HapticParams);
+            HapticManager.VibrateForTime(UseHaptic ? HapticParams : HapticFeedback.NoForce);
             yield break;
         }
 

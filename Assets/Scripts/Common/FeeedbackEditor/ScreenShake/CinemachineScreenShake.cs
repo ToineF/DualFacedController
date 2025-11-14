@@ -10,7 +10,7 @@ namespace Common.ScreenShake
         private static CinemachineScreenShake _instance;
 
         [SerializeField] private ScreenShakeType _orderingType = ScreenShakeType.MAXIMUM;
-        
+
         [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
 
         private Dictionary<ScreenShakeType, Func<float>> _orderingActions = new();
@@ -23,7 +23,8 @@ namespace Common.ScreenShake
         private void Awake()
         {
             _instance = this;
-            _cinemachinePerlin = _cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            _cinemachinePerlin =
+                _cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         }
 
         private void Start()
@@ -48,12 +49,13 @@ namespace Common.ScreenShake
             _cinemachinePerlin.m_AmplitudeGain = GetShakeOffset();
         }
 
-        private float UpdateShakeElement(ScreenShakeElement shakeElement)
+        private float UpdateShakeElement(int index)
         {
+            var shakeElement = _shakeElements[index];
             shakeElement.Timer += UnityEngine.Time.deltaTime;
             if (shakeElement.Timer > shakeElement.Params.Duration)
             {
-                _shakeElements.Remove(shakeElement);
+                _shakeElements.RemoveAt(index);
                 return 0f;
             }
 
@@ -74,8 +76,8 @@ namespace Common.ScreenShake
 
             for (int i = _shakeElements.Count - 1; i >= 0; i--)
             {
-                if (i == _shakeElements.Count - 1) targetMagnitude = UpdateShakeElement(_shakeElements[i]);
-                else UpdateShakeElement(_shakeElements[i]);
+                var offset = UpdateShakeElement(i);
+                if (i == _shakeElements.Count - 1) targetMagnitude = offset;
             }
 
             return targetMagnitude;
@@ -89,14 +91,11 @@ namespace Common.ScreenShake
             for (int i = _shakeElements.Count - 1; i >= 0; i--)
             {
                 var strength = _shakeElements[i].Params.Strength;
+                var offset = UpdateShakeElement(i);
                 if (strength > max)
                 {
-                    targetOffset = UpdateShakeElement(_shakeElements[i]);
+                    targetOffset = offset;
                     max = strength;
-                }
-                else
-                {
-                    UpdateShakeElement(_shakeElements[i]);
                 }
             }
 
@@ -109,7 +108,7 @@ namespace Common.ScreenShake
 
             for (int i = _shakeElements.Count - 1; i >= 0; i--)
             {
-                targetOffset += UpdateShakeElement(_shakeElements[i]);
+                targetOffset += UpdateShakeElement(i);
             }
 
             return targetOffset;

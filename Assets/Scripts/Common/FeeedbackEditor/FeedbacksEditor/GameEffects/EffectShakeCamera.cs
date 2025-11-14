@@ -11,10 +11,11 @@ namespace FeedbacksEditor
     public class EffectShakeCamera : GameEffect
     {
         public ScreenShakeParams ScreenShakeParams;
+        public static bool UseCameraShake { get; set; } = true; 
         
         public override IEnumerator Execute(GameEvent gameEvent, GameObject target)
         {
-            CinemachineScreenShake.Shake(ScreenShakeParams);
+            CinemachineScreenShake.Shake(UseCameraShake ? ScreenShakeParams : ScreenShakeParams.NoForce);
             yield break;
         }
 

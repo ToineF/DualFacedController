@@ -70,5 +70,7 @@ namespace Common.Haptic
             HighFrequency = high;
             Time = time;
         }
+
+        public static HapticFeedback NoForce => new HapticFeedback(0, 0, 0);
     }
 }
