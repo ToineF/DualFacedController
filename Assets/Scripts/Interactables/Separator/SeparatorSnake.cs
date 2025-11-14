@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Cattac.Character;
 using DG.Tweening;
+using FeedbacksEditor;
 using UnityEngine;
 
 namespace Cattac.Interactables
@@ -12,6 +13,7 @@ namespace Cattac.Interactables
     public class SeparatorSnake : MonoBehaviour
     {
         public Action<GameObject> OnMouthSpit;
+        public Action<GameObject> OnBodyPartEnter;
         
         [SerializeField] private BoxTriggerUnityEventPlayer[] _mouths;
         [SerializeField] private float _spitForce = 1;
@@ -23,6 +25,11 @@ namespace Cattac.Interactables
         [SerializeField] private float _bodyScaleTime;
         [SerializeField] private Vector3 _bodyScaleForce;
         [SerializeField] private Ease _bodyScaleEase;
+        
+        [Header("Feedbacks")]
+        [SerializeField] private FeedbacksEditor.GameEvent _enterEvent;
+        [SerializeField] private FeedbacksEditor.GameEvent _bodyScaleEvent;
+        [SerializeField] private FeedbacksEditor.GameEvent _exitEvent;
 
         private int _bodyIndex = -1;
         
@@ -57,6 +64,9 @@ namespace Cattac.Interactables
             // Disable player
             player.CurrentRigidbody.gameObject.SetActive(false);
             
+            // Play enter feedback
+            GameEventsManager.PlayEvent(_enterEvent, _mouths[mouthIndex].gameObject);
+            
             // Play body animation
             for (int i = 0; i < _bodyParts.Length; i++)
             {
@@ -64,8 +74,12 @@ namespace Cattac.Interactables
                 part.transform.DOKill();
                 part.transform.DOPunchScale(_bodyScaleForce, _bodyScaleTime).SetEase(_bodyScaleEase);
                 player.CurrentRigidbody.transform.DOMove(part.transform.position, _waitTimeByBodyParts); // Move player along the body to ensure the camera follows
+                GameEventsManager.PlayEvent(_bodyScaleEvent, part);
                 yield return new WaitForSeconds(_waitTimeByBodyParts);
             }
+            
+            // Play exit feedback
+            GameEventsManager.PlayEvent(_exitEvent, _mouths[otherMouthIndex].gameObject);
             
             // Play event for mouth-spit
             OnMouthSpit?.Invoke(_mouths[otherMouthIndex].gameObject);
