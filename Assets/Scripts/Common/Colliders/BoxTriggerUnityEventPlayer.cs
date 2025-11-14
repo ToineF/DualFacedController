@@ -12,7 +12,7 @@ public class BoxTriggerUnityEventPlayer : BoxTrigger
     [SerializeField] private UnityEvent<CharacterHead> _onTriggerExit;
     [SerializeField] private int _minimumPlayerToActivate = 1;
 
-    private List<CharacterHead> _characters = new(); 
+    private HashSet<CharacterHead> _characters = new(); 
 
     protected override void OnEnterTriggerInternal(Collider other)
     {

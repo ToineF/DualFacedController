@@ -27,11 +27,12 @@ namespace Cattac.Interactables
         [SerializeField] private Ease _bodyScaleEase;
         
         [Header("Feedbacks")]
-        [SerializeField] private FeedbacksEditor.GameEvent _enterEvent;
-        [SerializeField] private FeedbacksEditor.GameEvent _bodyScaleEvent;
-        [SerializeField] private FeedbacksEditor.GameEvent _exitEvent;
+        [SerializeField] private GameEvent _enterEvent;
+        [SerializeField] private GameEvent _bodyScaleEvent;
+        [SerializeField] private GameEvent _exitEvent;
 
         private int _bodyIndex = -1;
+        private bool _canEnter = true;
         
         private void Awake()
         {
@@ -45,6 +46,10 @@ namespace Cattac.Interactables
 
         private IEnumerator Enter(CharacterHead player, int mouthIndex)
         {
+            // Check if coroutine is playing
+            if (_canEnter == false) yield break;
+            _canEnter = false;
+            
             int otherMouthIndex = (mouthIndex + 1) % _mouths.Length;
             
             // If not separated, separate
@@ -103,6 +108,9 @@ namespace Cattac.Interactables
             // Enable other head
             yield return  new WaitForSeconds(_enabledWaitTime);
             _mouths[otherMouthIndex].gameObject.SetActive(true);
+
+            // Allow coroutine to restart
+            _canEnter = true;
         }
     }
 }
