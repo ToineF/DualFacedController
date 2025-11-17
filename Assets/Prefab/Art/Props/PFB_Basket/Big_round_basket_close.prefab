@@ -95,11 +95,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dcc9d515b58ba0b43ae84afced755f31,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4802062131082668383}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dcc9d515b58ba0b43ae84afced755f31,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5622968195377388059}
+      addedObject: {fileID: 7617793273399116816}
   m_SourcePrefab: {fileID: 100100000, guid: dcc9d515b58ba0b43ae84afced755f31, type: 3}
 --- !u!1 &4619594364216596364 stripped
 GameObject:
@@ -107,8 +103,8 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5538707674436987613}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &4802062131082668383
-BoxCollider:
+--- !u!136 &7617793273399116816
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -125,33 +121,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.01229779, y: 0.012297785, z: 0.0071698837}
-  m_Center: {x: 0.00000001862645, y: 0, z: 0.0011797694}
---- !u!54 &5622968195377388059
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4619594364216596364}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  serializedVersion: 2
+  m_Radius: 0.00583149
+  m_Height: 0.012549314
+  m_Direction: 2
+  m_Center: {x: 0.000000018676122, y: -3.453006e-18, z: -0.0016295679}
