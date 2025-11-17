@@ -13,7 +13,7 @@ namespace Cattac.Interactables
         [SerializeField] private Animator _animator;
         [SerializeField] private string _mouthOpenKey;
 
-        private void Awake()
+        private void Start()
         {
             _separatorSnake.OnMouthSpit += MouthOpen;
             _mouth.OnTriggerEnter.AddListener(MouseClose);
