@@ -1,5 +1,6 @@
 using Cattac.Character.Multiplayer;
 using Cattac.Collectibles;
+using Cattac.Collectibles.Save;
 using Cattac.Interactables.MouseCollection;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,6 +16,7 @@ public class MainGame : MonoBehaviour
     [field:SerializeField] public CollectiblesManager CollectiblesManager { get; private set; }
     [field:SerializeField] public LevelCollectiblesData LevelCollectiblesData { get; private set; }
     [field:SerializeField] public SavedMouseFactory CollectiblesFactory { get; private set; }
+    [field:SerializeField] public CollectiblesSaveSystem CollectiblesSaveSystem { get; private set; }
     
     private void Awake()
     {

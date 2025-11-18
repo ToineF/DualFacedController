@@ -12,23 +12,23 @@ namespace Cattac.Collectibles.Hub
     /// </summary>
     public class HubCollectiblesManager : MonoBehaviour
     {
-        [SerializeField] private CollectiblesSaveSystem _saveSystem;
         [SerializeField] private HubCheeseReward[] _cheeses;
         [SerializeField] private HubSavedMouse[] _mice;
 
         private void Start()
         {
-            _saveSystem.OnTotalCheeseGain();
+            var saveSystem = MainGame.Instance.CollectiblesSaveSystem;
+            saveSystem.OnTotalCheeseGain();
             
             foreach (var cheese in _cheeses)
             {
-                var active = _saveSystem.HasMoreThanTotalCheese(cheese.TargetAmount);
+                var active = saveSystem.HasMoreThanTotalCheese(cheese.TargetAmount);
                 cheese.ObjectToActivate.SetActive(!active);
             }
             
             foreach (var mouse in _mice)
             {
-                var active = _saveSystem.IsMouseUnlocked(mouse.Data);
+                var active = saveSystem.IsMouseUnlocked(mouse.Data);
                 mouse.ObjectToActivate.SetActive(active);
             }
         }

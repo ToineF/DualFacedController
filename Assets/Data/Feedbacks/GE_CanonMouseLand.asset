@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d94c7b0b9b104aa382d2be7cbe15745c, type: 3}
+  m_Name: GE_CanonMouseLand
+  m_EditorClassIdentifier: 
+  Effects:
+  - rid: 3516777370358120520
+  - rid: 6908415572512604235
+  - rid: 4844066740049543244
+  - rid: 6908415572512604233
+  - rid: 6908415572512604238
+  - rid: 4844067163136065607
+  references:
+    version: 2
+    RefIds:
+    - rid: 3516777370358120520
+      type: {class: EffectWait, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Timer: 0.4
+    - rid: 4844066740049543244
+      type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        HapticParams:
+          LowFrequency: 1
+          HighFrequency: 1
+          Time: 0.15
+    - rid: 4844067163136065607
+      type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Clips:
+        - {fileID: 8300000, guid: b4a73848431534a44abfc81967caf138, type: 3}
+    - rid: 6908415572512604233
+      type: {class: EffectInstantiate, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Prefab: {fileID: 3289944924467647439, guid: 6eb319c694b107a4cbb7d9fca8b6779c,
+          type: 3}
+        _setParent: 1
+        _rotationToParent: 0
+    - rid: 6908415572512604235
+      type: {class: EffectShakeCamera, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        ScreenShakeParams:
+          Strength: 8
+          Duration: 0.15
+          Curve:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 34
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 34
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+    - rid: 6908415572512604238
+      type: {class: EffectFreezeFrame, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Timer: 0.05

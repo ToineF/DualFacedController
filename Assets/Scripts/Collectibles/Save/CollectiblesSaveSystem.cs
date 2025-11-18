@@ -1,7 +1,6 @@
 using Cattac.Interactables;
 using DG.Tweening;
 using UnityEngine;
-using System.Collections;
 using Cattac.Interactables.MouseCollection;
 
 namespace Cattac.Collectibles.Save

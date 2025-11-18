@@ -7,6 +7,8 @@ namespace Cattac.Interactables.MouseCollection
     /// </summary>
     public class SavedMouseMesh : MonoBehaviour
     {
+        [field:SerializeField] public Animator Animator { get; private set; }
+        
         [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
         [SerializeField] private GameObject _mask;
         
