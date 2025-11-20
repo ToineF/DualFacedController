@@ -13,15 +13,17 @@ namespace Cattac.Collectibles.EndLevel
     /// </summary>
     public class EndLevelCelebration : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private Transform[] _miceSlots;
+        [Header("References")] [SerializeField]
+        private Transform[] _miceSlots;
+
         [SerializeField] private GameObject _canon;
         [SerializeField] private Transform _canonTransform;
         [SerializeField] private Animator _canonAnimator;
         [SerializeField] private SceneSwitch _sceneSwitch;
+        [SerializeField] private Animator _playerZoneAnimator;
 
-        [Header("Feedbacks")]
-        [SerializeField] private GameObject _enterZoneCamera;
+        [Header("Feedbacks")] [SerializeField] private GameObject _enterZoneCamera;
+        [SerializeField] private string _playZoneAnimation;
         [SerializeField] private float _waitTimeBetweenFalls = 0.5f;
         [SerializeField] private GameEvent _mouseLandFeedback;
         [SerializeField] private GameEvent _waveStartFeedback;
@@ -47,7 +49,7 @@ namespace Cattac.Collectibles.EndLevel
         [SerializeField] private float _waitTransitionDuration;
 
         private List<SavedMouseMesh> _miceMeshes = new();
-        
+
         public void Celebrate()
         {
             StartCoroutine(MakeAllMiceAppear());
@@ -58,10 +60,13 @@ namespace Cattac.Collectibles.EndLevel
             var saveSystem = MainGame.Instance.CollectiblesSaveSystem;
             var mice = MainGame.Instance.LevelCollectiblesData.Mice;
 
-            if (_miceSlots.Length != mice.Count) Debug.LogError($"The number of MiceSlots ({_miceSlots.Length}) isn't equal to the number of mice in the level ({mice.Count})!");
-            
+            if (_miceSlots.Length != mice.Count)
+                Debug.LogError(
+                    $"The number of MiceSlots ({_miceSlots.Length}) isn't equal to the number of mice in the level ({mice.Count})!");
+
             // Make every saved mouse appear on screen
-	    _enterZoneCamera.SetActive(true);
+            _enterZoneCamera.SetActive(true);
+            _playerZoneAnimator.Play(_playZoneAnimation);
             for (int i = 0; i < mice.Count; i++)
             {
                 var data = mice[i].Data;
@@ -79,21 +84,24 @@ namespace Cattac.Collectibles.EndLevel
             {
                 mouse.Animator.SetBool(_waveBoolName, true);
             }
+
             GameEventsManager.PlayEvent(_waveStartFeedback, gameObject);
 
             yield return new WaitForSeconds(_waveTime);
-	    _launchCamera.SetActive(true);
-	    yield return new WaitForSeconds(_afterLaunchCameraWaitTime);
-	    
-            
+            _launchCamera.SetActive(true);
+            yield return new WaitForSeconds(_afterLaunchCameraWaitTime);
+
+
             // Turn every mouse towards the canon
             Vector3 canonPosition = _canonTransform.position;
             foreach (var mouse in _miceMeshes)
             {
-                var direction = new Vector3(canonPosition.x, mouse.transform.position.y, canonPosition.z) - mouse.transform.position;
+                var direction = new Vector3(canonPosition.x, mouse.transform.position.y, canonPosition.z) -
+                                mouse.transform.position;
                 mouse.Animator.SetBool(_waveBoolName, false);
                 mouse.transform.DOLookAt(mouse.transform.position - direction, _jumpDuration).SetEase(_jumpEase);
             }
+
             yield return new WaitForSeconds(_jumpDuration);
 
 
@@ -109,8 +117,8 @@ namespace Cattac.Collectibles.EndLevel
                 yield return new WaitForSeconds(_timeBetweenJumps);
             }
 
-            
-	    yield return new WaitForSeconds(_beforeLaunchWaitTime);
+
+            yield return new WaitForSeconds(_beforeLaunchWaitTime);
 
             // Launches the mice in the sky
             _canonAnimator.SetTrigger(_canonLaunchTriggerName);
@@ -120,7 +128,7 @@ namespace Cattac.Collectibles.EndLevel
             GameEventsManager.PlayEvent(_smokeEndEvent, _smokeFeedbackEnd.gameObject);
 
             yield return new WaitForSeconds(_waitTransitionDuration);
-            
+
             // Return to hub
             _sceneSwitch.SwitchScene();
         }
