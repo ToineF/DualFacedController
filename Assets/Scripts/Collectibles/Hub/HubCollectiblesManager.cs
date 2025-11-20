@@ -1,5 +1,3 @@
-using Cattac.Collectibles.Save;
-using Cattac.Interactables;
 using NaughtyAttributes;
 using System.Linq;
 using UnityEditor;

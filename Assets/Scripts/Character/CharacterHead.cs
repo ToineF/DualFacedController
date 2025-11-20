@@ -111,7 +111,7 @@ namespace Cattac.Character
 
             if (isGrabbingThisFrame)
             {
-                if (_currentGrabbable == null)
+                if (GrabParent && _currentGrabbable == null)
                     Grab();
                 else
                 {
