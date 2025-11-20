@@ -15,7 +15,7 @@ namespace FeedbacksEditor
         
         public override IEnumerator Execute(GameEvent gameEvent, GameObject target)
         {
-            CinemachineScreenShake.Shake(UseCameraShake ? ScreenShakeParams : ScreenShakeParams.NoForce);
+            CinemachineScreenShakeManager.Shake(UseCameraShake ? ScreenShakeParams : ScreenShakeParams.NoForce);
             yield break;
         }
 
