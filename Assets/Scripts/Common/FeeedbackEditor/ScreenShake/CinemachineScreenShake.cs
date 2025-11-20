@@ -20,17 +20,20 @@ namespace Common.ScreenShake
             _cinemachinePerlin = _cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         }
 
+        private void OnEnable()
+        {
+	    _cinemachinePerlin.m_AmplitudeGain = 0;
+        }
+
         private void Start()
         {
-            _cinemachinePerlin.m_AmplitudeGain = 0;
             _screenShakeManager = CinemachineScreenShakeManager.Instance;
         }
         
         private void Update()
         {
-            if (_screenShakeManager.IsShaking == false) return;
-
-            _cinemachinePerlin.m_AmplitudeGain = _screenShakeManager.GetShakeOffset(_orderingType);
+            if (_screenShakeManager.IsShaking == false) _cinemachinePerlin.m_AmplitudeGain = 0;
+	    else _cinemachinePerlin.m_AmplitudeGain = _screenShakeManager.GetShakeOffset(_orderingType);
         }
     }
 }

@@ -98,6 +98,7 @@ namespace Cattac.Character
 
         private void CheckGrab()
         {
+	    
             IsGrabbing = UserInput.Instance.GetHead(IsLeftHead).GrabInput;
             //Rigidbody.isKinematic = IsGrabbing;
 
@@ -109,9 +110,9 @@ namespace Cattac.Character
             _jumpTimer -= Time.deltaTime;
             if (_jumpTimer <= 0 && isJumping) ApplyForceWithDecay(CurrentRigidbody);
 
-            if (isGrabbingThisFrame)
+            if (GrabParent && isGrabbingThisFrame)
             {
-                if (GrabParent && _currentGrabbable == null)
+                if (_currentGrabbable == null)
                     Grab();
                 else
                 {
