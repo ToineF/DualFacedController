@@ -3,15 +3,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private MenuManager _menuManager;
 
-    [Header("Button Parameters")] [SerializeField]
-    private string _targetScene;
+    [Header("Button Parameters")] 
+    [SerializeField] private string _targetScene;
     [SerializeField] private Selectable _selectable;
 
     [Header("Scale")] [SerializeField] private float _originalScale = 1;
