@@ -20,14 +20,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_HouseRoof01 2
+  m_Name: M_Bumper
   m_Shader: {fileID: -6465566751694194690, guid: 5b54f343e04dc244481288ae31e3b3e1,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
-  - _BASESWITCH_UV
+  - _BASESWITCH_TRIPLANAR
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -37,16 +37,16 @@ Material:
     RenderType: TransparentCutout
   disabledShaderPasses:
   - MOTIONVECTORS
-  m_LockedProperties: _ColorAmp
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _AO:
-        m_Texture: {fileID: 2800000, guid: dd64d2d3587a1a349b717710b4908585, type: 3}
+        m_Texture: {fileID: 2800000, guid: de2babffbd13da14eb5234fd5e035713, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: d34bac079f88bbb49a28670ae1a06174, type: 3}
+        m_Texture: {fileID: 2800000, guid: d06321bdc6a87a84e9774657973fce66, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
@@ -62,15 +62,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Roughtness:
-        m_Texture: {fileID: 2800000, guid: 4a69eddc6263539439485c8ee25ba96e, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SSSMask:
-        m_Texture: {fileID: 2800000, guid: 14e9599bab0390d468e5637061f549aa, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _normalMap:
-        m_Texture: {fileID: 2800000, guid: 1c121f0469a18124f9c9f8b668bf8a81, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7ccef25f4e975994cbfe2807ee520b6a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -88,15 +88,15 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha: 0.5
-    - _AlphaClip: 1
+    - _AlphaClip: 0.5
     - _AlphaToMask: 1
-    - _BASESWITCH: 1
+    - _BASESWITCH: 2
     - _Blend: 1
     - _BlendModePreserveSpecular: 1
     - _CastShadows: 1
     - _ColorAmp: 1
     - _Color_Amplify: 1
-    - _Cull: 0
+    - _Cull: 2
     - _DstBlend: 0
     - _EmissionMult: 0
     - _GradiantOrFlat: 1
@@ -109,8 +109,8 @@ Material:
     - _IsSSS: 0
     - _IsWind: 0
     - _MetalicValue: 0
-    - _NormalStrengh: 1
-    - _OffSetSpeed: 1.01
+    - _NormalStrengh: 0.5
+    - _OffSetSpeed: 3
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -118,29 +118,29 @@ Material:
     - _ReflectionStrenght: 0
     - _RoughnessAmp: 1
     - _RoughnessMapOnOff: 0
-    - _RoughtnessValue: 0.7
-    - _SSSBorderSmoothness: 112.99
-    - _SSSIntensity: 104.97
-    - _SSSMaskIntensity: 1.64
-    - _SSSRange: 198.66
+    - _RoughtnessValue: 0.65
+    - _SSSBorderSmoothness: 0
+    - _SSSIntensity: 0
+    - _SSSMaskIntensity: 0
+    - _SSSRange: 0
     - _SrcBlend: 1
     - _Surface: 0
-    - _Tile: 0.07
+    - _Tile: 0.04
     - _TileBlending: 1
     - _UVMultiply: 1
     - _WindAmplitude: 1
-    - _WindNoiseScale: 1.37
-    - _WindOffsetSpeed: 0
-    - _WindSpeed: 11.44
+    - _WindNoiseScale: 10
+    - _WindOffsetSpeed: 1
+    - _WindSpeed: 0
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
-    - _ColorVariation: {r: 0.75686276, g: 0.75686276, b: 0.75686276, a: 0}
-    - _SSSColor: {r: 1, g: 1, b: 1, a: 1}
-    - _WindDirection: {r: -0.01, g: 0, b: 0, a: 0}
+    - _ColorVariation: {r: 1, g: 1, b: 1, a: 0}
+    - _SSSColor: {r: 0, g: 0, b: 0, a: 0}
+    - _WindDirection: {r: 0, g: 0, b: 0, a: 0}
     - _WindDirection_1: {r: 0.25, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
