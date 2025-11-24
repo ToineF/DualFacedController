@@ -9,9 +9,9 @@ namespace Cattac.Collectibles.Save
     {
         [SerializeField] private CollectiblesManager _collectiblesManager;
 
-        private string _currentCheeseKey = "CurrentCheeses";
-        private string _totalCheeseKey = "TotalCheeses";
-        private string _miceKey = "Mice_";
+        private const string _currentCheeseKey = "CurrentCheeses";
+        private const string _totalCheeseKey = "TotalCheeses";
+        private const string _miceKey = "Mice_";
 
         private void Start()
         {

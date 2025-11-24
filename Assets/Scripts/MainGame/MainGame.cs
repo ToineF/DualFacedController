@@ -20,6 +20,7 @@ public class MainGame : MonoBehaviour
     
     private void Awake()
     {
+        if (Instance != null) Debug.LogError("Multiples instances of MainGame!");
         Instance = this;
     }
 
