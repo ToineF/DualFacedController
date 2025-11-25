@@ -34,7 +34,7 @@ namespace Menu.Options
 
             set
             {
-                if (_currentType >= maxType) _currentType = 0;
+                if (_currentType > maxType) _currentType = 0;
                 else _currentType = value;
             }
         }
