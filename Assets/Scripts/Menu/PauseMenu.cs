@@ -9,12 +9,14 @@ namespace Cattac.Character
         public UnityEvent OnPause;
         public UnityEvent OnResume;
         public bool GameIsPaused { get; private set; } = false;
-        
-        [Header("References")]
-        [SerializeField] private CanvasGroup _globalPauseUIMenu;
 
-        [Header("Options Menu")]
-        [SerializeField] private SubMenu[] _subMenusToClose;
+        [Header("References")] [SerializeField]
+        private CanvasGroup _globalPauseUIMenu;
+
+        [Header("Options Menu")] [SerializeField]
+        private SubMenu[] _subMenusToClose;
+
+        [SerializeField] private bool _active = true;
 
         private CursorManager _cursorManager;
         private InputAction _pauseAction;
@@ -24,19 +26,20 @@ namespace Cattac.Character
             _pauseAction = playerInput.actions["Pause"];
             _globalPauseUIMenu.alpha = 0;
             _cursorManager = CursorManager.Instance;
-            _cursorManager.SetCursorVisible(false);
+            Resume();
+
+            if (_active == false) Destroy(this);
         }
 
         private void Update()
         {
-            if (_pauseAction.WasPressedThisFrame()) StartTogglePause();
+            if (_active && _pauseAction.WasPressedThisFrame()) StartTogglePause();
         }
 
         private void StartTogglePause()
         {
             //if (Manager.States.IsInMovableState() == false) return; //SPECIFIC SCENES WHERE WE DONT WANT THE PLAYER TO PAUSE
-                                                                    // + specific moments when you don't want the player to be able to pause (ex : Quit Game Transition)
-
+            // + specific moments when you don't want the player to be able to pause (ex : Quit Game Transition)
             if (GameIsPaused)
                 Resume();
             else
@@ -55,6 +58,7 @@ namespace Cattac.Character
             {
                 CloseMenu(submenu);
             }
+
             CloseMenu(this);
             _cursorManager.SetCursorVisible(false);
             OnResume?.Invoke();
@@ -78,7 +82,5 @@ namespace Cattac.Character
             if (!_canPressCancel) return;
             Resume();
         }
-        
-        
     }
 }
