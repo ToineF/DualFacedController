@@ -24,6 +24,7 @@ namespace Cattac.Collectibles.EndLevel
 
         [Header("Feedbacks")] [SerializeField] private GameObject _enterZoneCamera;
         [SerializeField] private string _playZoneAnimation;
+        [SerializeField] private float _waitBeforeMiceAppear = 1f;
         [SerializeField] private float _waitTimeBetweenFalls = 0.5f;
         [SerializeField] private GameEvent _mouseLandFeedback;
         [SerializeField] private GameEvent _waveStartFeedback;
@@ -64,9 +65,12 @@ namespace Cattac.Collectibles.EndLevel
                 Debug.LogError(
                     $"The number of MiceSlots ({_miceSlots.Length}) isn't equal to the number of mice in the level ({mice.Count})!");
 
-            // Make every saved mouse appear on screen
+            // Change camera and limit player play zone
             _enterZoneCamera.SetActive(true);
             _playerZoneAnimator.Play(_playZoneAnimation);
+            yield return new WaitForSeconds(_waitBeforeMiceAppear);
+
+            // Make every saved mouse appear on screen
             for (int i = 0; i < mice.Count; i++)
             {
                 var data = mice[i].Data;
