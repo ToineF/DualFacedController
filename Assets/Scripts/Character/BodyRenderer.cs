@@ -13,10 +13,11 @@ namespace Cattac.Character.Visuals
         {
             for (int i = 0; i < Bones.Length; i++)
             {
-                var otherIndex = i + 1 >= Bones.Length ? -1 : 1;
+                var index = i;
+                if (i + 1 >= Bones.Length) index--;
                 var boneTransform = Bones[i].transform;
-                boneTransform.position = OriginalPoints[i].position + _positionOffset;
-                boneTransform.LookAt(OriginalPoints[i + otherIndex].position + _positionOffset);
+                boneTransform.position = OriginalPoints[index].position + _positionOffset;
+                boneTransform.LookAt(OriginalPoints[index + 1].position + _positionOffset);
                 boneTransform.Rotate(_rotationOffset);
             }
         }
