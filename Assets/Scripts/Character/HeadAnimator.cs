@@ -12,18 +12,19 @@ namespace Cattac.Character.Visuals
         public CharacterHead CharacterHead => _characterHead;
         [SerializeField] private CharacterHead _characterHead;
         [SerializeField] private Transform _neighbourBodyPart;
+        [SerializeField] private Vector3 _positionOffset;
 
         [SerializeField] private Animator _animator;
         [SerializeField] private bool _isOrientationInverted;
         [SerializeField] private float _lookAtLerp;
 
         private Transform _parent;
-        private Vector3 _offset;
+        private Vector3 _startOffset;
         private Camera _camera;
 
         private void Start()
         {
-            _offset = transform.localPosition;
+            _startOffset = transform.localPosition;
             _parent = transform.parent;
             transform.SetParent(null);
             _camera = Camera.main;
@@ -33,7 +34,7 @@ namespace Cattac.Character.Visuals
         {
             RotateDirection();
             UpdateAnimation();
-            transform.position = _parent.transform.position + _offset;
+            transform.position = _parent.transform.position + _startOffset + _positionOffset;
             transform.GetChild(0).gameObject.SetActive(_parent.gameObject.activeInHierarchy); // Visual becomes inactive when parent is inactive
         }
 
