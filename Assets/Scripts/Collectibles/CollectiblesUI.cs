@@ -2,41 +2,43 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace Cattac.Collectibles
 {
     public class CollectiblesUI : MonoBehaviour
     {
-        [SerializeField] private CanvasGroup _collectiblesUI;
-
-        [Header("Visibility")] [SerializeField]
-        private float _cheeseStayFadeTime;
-
-        [SerializeField] private float _miceStayFadeTime;
-
-        [Header("Cheese")] [SerializeField] private Animator _cheeseAnimator;
+        [SerializeField] private bool _useFeedbacks = true;
+        
+        [Header("Cheese")] [SerializeField] private float _cheeseStayFadeTime;
+        [SerializeField] private Animator _cheeseAnimator;
         [SerializeField] private TMP_Text _cheesesCountText;
         [SerializeField] private Transform[] _moveCheesesTransforms;
         [SerializeField] private Transform[] _scaleCheesesTransforms;
-
-        [Header("Mices")] [SerializeField] private Animator _miceParentAnimator;
-        [SerializeField] private Transform _miceUIParent;
-        [SerializeField] private Animator _miceImagePrefab;
-
-        [Header("Feedbacks")] [SerializeField]
-        private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _moveCheeseFeedbacks;
-
+        [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _moveCheeseFeedbacks;
         [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _scaleCheeseFeedbacks;
 
-        private CheeseCollectibleManager _cheeseCollectibleManager;
+        [Header("Mices")] [SerializeField] private float _miceStayFadeTime;
+        [SerializeField] private float _micesUIAppearDelay;
+        [SerializeField] private float _waitTimeBetweenMiceAppear;
+        [SerializeField] private float _waitTimeBetweenMiceDisappear;
+        [SerializeField] private Animator _miceParentAnimator;
+        [SerializeField] private Transform _miceUIParent;
+        [SerializeField] private Animator _miceImagePrefab;
+        [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _appearMouseScaleFeedback;
+        [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _disappearMouseRotateFeedback;
+        [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _disappearMouseScaleFeedback;
+
         private LevelCollectiblesData _levelCollectiblesData;
+        private bool _isVisible;
+        private bool _highPriority;
+        private readonly int _animatorVisibility = Animator.StringToHash("isVisible");
+
+        private CheeseCollectibleManager _cheeseCollectibleManager;
+        private Coroutine _cheeseCoroutine;
 
         private Animator[] _miceAnimators;
         private Coroutine _miceCoroutine;
-        private Coroutine _cheeseCoroutine;
-        private bool _isVisible;
-        private bool _highPriority;
-
 
         private void Start()
         {
@@ -50,6 +52,8 @@ namespace Cattac.Collectibles
             InitMouseUI();
         }
 
+        #region Cheeses
+
         private void InitCheeseUI()
         {
             _cheesesCountText.text = _cheeseCollectibleManager.Cheeses.ToString("D3");
@@ -61,7 +65,7 @@ namespace Cattac.Collectibles
 
             _cheesesCountText.text = _cheeseCollectibleManager.Cheeses.ToString("D3");
 
-            if (hasFeedbacks)
+            if (_useFeedbacks && hasFeedbacks)
             {
                 foreach (var cheesesTransform in _moveCheesesTransforms)
                 {
@@ -79,10 +83,14 @@ namespace Cattac.Collectibles
                         _scaleCheeseFeedbacks.PunchElasticity);
                 }
 
-                if (_cheeseAnimator) _cheeseAnimator.SetBool("isVisible", true);
+                if (_cheeseAnimator) _cheeseAnimator.SetBool(_animatorVisibility, true);
                 ShowUICollectible(_cheeseAnimator, _cheeseStayFadeTime);
             }
         }
+
+        #endregion
+
+        #region Mices
 
         private void InitMouseUI()
         {
@@ -93,18 +101,50 @@ namespace Cattac.Collectibles
             }
         }
 
-        private void UpdateMouseUI(int index, bool hasFeedbacks)
+        private async void UpdateMouseUI(int index, bool hasFeedbacks)
         {
             if (index < 0 || index >= _miceAnimators.Length) return;
 
-            _miceAnimators[index].SetTrigger("isVisible");
+            await Task.Delay((int)(_micesUIAppearDelay * 1000));
 
-            if (hasFeedbacks)
+
+            if (_useFeedbacks && hasFeedbacks)
             {
-                if (_miceParentAnimator) _miceParentAnimator.SetBool("isVisible", true);
-                ShowUICollectible(_miceParentAnimator, _miceStayFadeTime);
+                //if (_miceParentAnimator) _miceParentAnimator.SetBool(_animatorVisibility, true);
+                foreach (var animator in _miceAnimators)
+                {
+                    await Task.Delay((int)(_waitTimeBetweenMiceAppear * 1000));
+                    animator.transform.DOComplete();
+                    animator.transform
+                        .DOScale(_appearMouseScaleFeedback.PunchDirection, _appearMouseScaleFeedback.PunchTime)
+                        .SetEase(_appearMouseScaleFeedback.Ease);
+                    //animator.Play("CageMouseIcon_Appear");
+                }
+            }
+
+            _miceAnimators[index].SetTrigger(_animatorVisibility);
+
+            if (_useFeedbacks && hasFeedbacks)
+            {
+                //ShowUICollectible(_miceParentAnimator, _miceStayFadeTime);
+                await Task.Delay((int)(_miceStayFadeTime * 1000));
+                foreach (var animator in _miceAnimators)
+                {
+                    await Task.Delay((int)(_waitTimeBetweenMiceDisappear * 1000));
+                    animator.transform
+                        .DOScale(_disappearMouseScaleFeedback.PunchDirection, _disappearMouseScaleFeedback.PunchTime)
+                        .SetEase(_disappearMouseScaleFeedback.Ease);
+                    animator.transform
+                        .DOLocalRotate(_disappearMouseRotateFeedback.PunchDirection, _disappearMouseRotateFeedback.PunchTime,
+                            RotateMode.FastBeyond360).SetEase(_disappearMouseRotateFeedback.Ease);
+                    //animator.Play("CageMouseIcon_Disappear");
+                }
             }
         }
+
+        #endregion
+
+        #region Generic
 
         private void ShowUICollectible(Animator animator, float stayFadeTime)
         {
@@ -118,11 +158,12 @@ namespace Cattac.Collectibles
             if (isVisible == _isVisible && !highPriority) return;
             if (_highPriority && !highPriority) return;
             _isVisible = isVisible;
-            if (animator == _cheeseAnimator) StartCoroutine(ref _cheeseCoroutine, animator, time, isVisible);
-            else StartCoroutine(ref _miceCoroutine, animator, time, isVisible);
+            if (animator == _cheeseAnimator)
+                StartCollectiblesCoroutine(ref _cheeseCoroutine, animator, time, isVisible);
+            else StartCollectiblesCoroutine(ref _miceCoroutine, animator, time, isVisible);
         }
 
-        private void StartCoroutine(ref Coroutine coroutine, Animator animator, float time, bool isVisible)
+        private void StartCollectiblesCoroutine(ref Coroutine coroutine, Animator animator, float time, bool isVisible)
         {
             if (coroutine != null) StopCoroutine(coroutine);
             coroutine = StartCoroutine(ShowHideUIAfterTimeRoutine(animator, time, isVisible));
@@ -133,17 +174,16 @@ namespace Cattac.Collectibles
             if (isVisible == _isVisible && !highPriority) return;
             if (_highPriority && !highPriority) return;
             _isVisible = isVisible;
-
-            //_collectiblesUI.DOFade(isVisible ? 1 : 0, isVisible ? _appearFadeTime : _disappearFadeTime);
         }
 
         private IEnumerator ShowHideUIAfterTimeRoutine(Animator animator, float time, bool isVisible)
         {
             yield return new WaitForSeconds(time);
 
-            //_collectiblesUI.DOFade(isVisible ? 1 : 0, isVisible ? _appearFadeTime : _disappearFadeTime);
-            if (animator) animator.SetBool("isVisible", isVisible);
+            if (animator) animator.SetBool(_animatorVisibility, isVisible);
             _highPriority = false;
         }
+
+        #endregion
     }
 }

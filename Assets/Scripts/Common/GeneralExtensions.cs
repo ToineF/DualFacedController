@@ -927,6 +927,7 @@ namespace AntoineFoucault.Utilities
             [SerializeField] public Vector3 PunchDirection;
             [SerializeField] public int PunchVibrato;
             [SerializeField] public float PunchElasticity;
+            [SerializeField] public Ease Ease;
         }
 
     }

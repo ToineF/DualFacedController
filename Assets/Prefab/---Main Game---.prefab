@@ -1594,29 +1594,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728d6f6925ff14943af200a561a0fd32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collectiblesUI: {fileID: 7247484109977716242}
+  _useFeedbacks: 0
   _cheeseStayFadeTime: 100000000
-  _miceStayFadeTime: 1e+11
   _cheeseAnimator: {fileID: 0}
   _cheesesCountText: {fileID: 6927832320041565153}
   _moveCheesesTransforms:
   - {fileID: 9152664459002303711}
   _scaleCheesesTransforms:
   - {fileID: 1162646625017314089}
-  _miceParentAnimator: {fileID: 0}
-  _miceUIParent: {fileID: 6610800539954328124}
-  _miceImagePrefab: {fileID: 6611893552097613339, guid: 249f40f707dde5a4ca767d1ed068fb0b,
-    type: 3}
   _moveCheeseFeedbacks:
     PunchTime: 0.4
     PunchDirection: {x: 0, y: 15, z: 0}
     PunchVibrato: 8
     PunchElasticity: 10
+    Ease: 0
   _scaleCheeseFeedbacks:
     PunchTime: 0.4
     PunchDirection: {x: 0.1, y: 0.1, z: 0}
     PunchVibrato: 8
     PunchElasticity: 10
+    Ease: 0
+  _miceStayFadeTime: 1e+11
+  _micesUIAppearDelay: 0
+  _waitTimeBetweenMiceAppear: 0
+  _waitTimeBetweenMiceDisappear: 0
+  _miceParentAnimator: {fileID: 0}
+  _miceUIParent: {fileID: 6610800539954328124}
+  _miceImagePrefab: {fileID: 6611893552097613339, guid: 249f40f707dde5a4ca767d1ed068fb0b,
+    type: 3}
+  _appearMouseScaleFeedback:
+    PunchTime: 0
+    PunchDirection: {x: 0, y: 0, z: 0}
+    PunchVibrato: 0
+    PunchElasticity: 0
+    Ease: 0
+  _disappearMouseRotateFeedback:
+    PunchTime: 0
+    PunchDirection: {x: 0, y: 0, z: 0}
+    PunchVibrato: 0
+    PunchElasticity: 0
+    Ease: 0
+  _disappearMouseScaleFeedback:
+    PunchTime: 0
+    PunchDirection: {x: 0, y: 0, z: 0}
+    PunchVibrato: 0
+    PunchElasticity: 0
+    Ease: 0
 --- !u!1 &3539111708058697386
 GameObject:
   m_ObjectHideFlags: 0
@@ -2967,29 +2990,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728d6f6925ff14943af200a561a0fd32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collectiblesUI: {fileID: 8567575198550558452}
+  _useFeedbacks: 1
   _cheeseStayFadeTime: 2
-  _miceStayFadeTime: 5
   _cheeseAnimator: {fileID: 3267344499391114478}
   _cheesesCountText: {fileID: 9040815832820566034}
   _moveCheesesTransforms:
   - {fileID: 1117148593069786875}
   _scaleCheesesTransforms:
   - {fileID: 3289542808538401008}
-  _miceParentAnimator: {fileID: 6132122158946849364}
-  _miceUIParent: {fileID: 3700847914022829941}
-  _miceImagePrefab: {fileID: 6611893552097613339, guid: 249f40f707dde5a4ca767d1ed068fb0b,
-    type: 3}
   _moveCheeseFeedbacks:
     PunchTime: 0.4
     PunchDirection: {x: 0, y: 15, z: 0}
     PunchVibrato: 8
     PunchElasticity: 10
+    Ease: 0
   _scaleCheeseFeedbacks:
     PunchTime: 0.4
     PunchDirection: {x: 0.1, y: 0.1, z: 0}
     PunchVibrato: 8
     PunchElasticity: 10
+    Ease: 0
+  _miceStayFadeTime: 4.5
+  _micesUIAppearDelay: 2
+  _waitTimeBetweenMiceAppear: 0.1
+  _waitTimeBetweenMiceDisappear: 0.1
+  _miceParentAnimator: {fileID: 6132122158946849364}
+  _miceUIParent: {fileID: 3700847914022829941}
+  _miceImagePrefab: {fileID: 6611893552097613339, guid: 249f40f707dde5a4ca767d1ed068fb0b,
+    type: 3}
+  _appearMouseScaleFeedback:
+    PunchTime: 0.4
+    PunchDirection: {x: 1, y: 1, z: 1}
+    PunchVibrato: 0
+    PunchElasticity: 0
+    Ease: 30
+  _disappearMouseRotateFeedback:
+    PunchTime: 0.8
+    PunchDirection: {x: 0, y: 0, z: -360}
+    PunchVibrato: 0
+    PunchElasticity: 0
+    Ease: 12
+  _disappearMouseScaleFeedback:
+    PunchTime: 0.4
+    PunchDirection: {x: 0, y: 0, z: 0}
+    PunchVibrato: 0
+    PunchElasticity: 0
+    Ease: 12
 --- !u!1 &6881021105076192083
 GameObject:
   m_ObjectHideFlags: 0
@@ -3284,7 +3330,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -34.5}
+  m_AnchoredPosition: {x: 0, y: -170}
   m_SizeDelta: {x: 1920, y: 666}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1513720511580762459
@@ -3307,7 +3353,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7066180487992629750}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: ec9af469f7b890d43b028d6cd1e8df87, type: 2}
   m_CullingMode: 0
@@ -4000,6 +4046,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543002070696917606, guid: 6f83fe99463cb114ebd31ec7710b684b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -550.7967
       objectReference: {fileID: 0}
     - target: {fileID: 1564298307910007169, guid: 6f83fe99463cb114ebd31ec7710b684b,
         type: 3}
@@ -4891,12 +4942,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!225 &7247484109977716242 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 7517214413716314856, guid: 6f83fe99463cb114ebd31ec7710b684b,
-    type: 3}
-  m_PrefabInstance: {fileID: 920632941598694650}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &9152664459002303711 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8341358229400291365, guid: 6f83fe99463cb114ebd31ec7710b684b,
@@ -4914,17 +4959,17 @@ PrefabInstance:
     - target: {fileID: 1187938659420145336, guid: 5136bc614137fc941b83140cee5b369c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 181.27571
+      value: -0.3242868
       objectReference: {fileID: 0}
     - target: {fileID: 1187938659420145336, guid: 5136bc614137fc941b83140cee5b369c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 94.515366
+      value: 67.7725
       objectReference: {fileID: 0}
     - target: {fileID: 1187938659420145336, guid: 5136bc614137fc941b83140cee5b369c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -132.33607
+      value: -62.336067
       objectReference: {fileID: 0}
     - target: {fileID: 1187938659420145336, guid: 5136bc614137fc941b83140cee5b369c,
         type: 3}
