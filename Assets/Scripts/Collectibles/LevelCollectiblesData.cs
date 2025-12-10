@@ -12,6 +12,7 @@ namespace Cattac.Collectibles
     {
         public Action<int, bool> OnMouseGain { get; set; }
 
+        // Here instead of having reference to cages, have references to SavedMouseData (the Data) to support multiple scenes
         [field: SerializeField] public List<Cage> Mice { get; private set; }
 
         public void SaveMouse(Cage mouse)

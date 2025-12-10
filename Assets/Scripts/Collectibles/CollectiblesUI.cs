@@ -98,6 +98,7 @@ namespace Cattac.Collectibles
             for (int i = 0; i < _miceAnimators.Length; i++)
             {
                 _miceAnimators[i] = Instantiate(_miceImagePrefab, _miceUIParent, false);
+                if (_useFeedbacks) _miceAnimators[i].transform.localScale = Vector3.zero;
             }
         }
 
