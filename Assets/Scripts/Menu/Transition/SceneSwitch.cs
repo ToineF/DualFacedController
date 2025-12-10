@@ -13,6 +13,11 @@ namespace MaskTransitions
             TransitionManager.Instance.LoadLevel(sceneToLoadName);
         }
         
+        public void SwitchSceneRaw()
+        {
+            SceneManager.LoadScene(sceneToLoadName);
+        }
+        
         public void RestartScene()
         {
             TransitionManager.Instance.LoadLevel(SceneManager.GetActiveScene().name);
