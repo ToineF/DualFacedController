@@ -73,7 +73,7 @@ namespace Cattac.Collectibles.EndLevel
             // Make every saved mouse appear on screen
             for (int i = 0; i < mice.Count; i++)
             {
-                var data = mice[i].Data;
+                var data = mice[i];
                 if (saveSystem.IsMouseUnlocked(data))
                 {
                     var newMouse = Instantiate(data.Mesh, _miceSlots[i].position, Quaternion.identity);

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cattac.Interactables;
 using DG.Tweening;
 using UnityEngine;
@@ -13,10 +15,14 @@ namespace Cattac.Collectibles.Save
         private const string _totalCheeseKey = "TotalCheeses";
         private const string _miceKey = "Mice_";
 
-        private void Start()
+        private Cage[] _cages;
+
+        private async void Start()
         {
             _collectiblesManager.CheeseCollectiblesManager.OnCheeseGain += OnCheeseGain;
             _collectiblesManager.MouseCollectibleManager.OnMouseGet += OnMouseGet;
+
+            await Task.Delay(1);
             
             InitializeCheeses();
             InitializeMice();
@@ -60,25 +66,32 @@ namespace Cattac.Collectibles.Save
 
         private void InitializeMice()
         {
-            var miceInScene = MainGame.Instance.LevelCollectiblesData.Mice;
+            _cages = GameObject.FindObjectsByType<Cage>(FindObjectsSortMode.None);
+            var miceDataInScene = MainGame.Instance.LevelCollectiblesData.Mice;
             var miceData = MainGame.Instance.CollectiblesFactory.Mice;
-            for (int i = 0; i < miceInScene.Count; i++)
+            for (int i = 0; i < miceDataInScene.Count; i++)
             {
                 for (int j = 0; j < miceData.Length; j++)
                 {
-                    if (miceInScene[i].Data == miceData[j])
+                    if (miceDataInScene[i] == miceData[j])
                     {
                         var isSaved = PlayerPrefs.GetInt(_miceKey + j) == 1;
                         if (isSaved)
                         {
-                            miceInScene[i].gameObject.SetActive(false);
+                            foreach (var cage in _cages)
+                            {
+                                if (cage.Data == miceData[j])
+                                {
+                                    cage.gameObject.SetActive(false);
+                                }
+                            }
+
                             MainGame.Instance.LevelCollectiblesData.OnMouseGain?.Invoke(i, false);
                         }
 
                         break;
                     }
                 }
-                
             }
         }
 
