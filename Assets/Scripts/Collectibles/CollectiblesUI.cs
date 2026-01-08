@@ -3,6 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 using System.Threading.Tasks;
+using FeedbacksEditor;
 
 namespace Cattac.Collectibles
 {
@@ -28,6 +29,7 @@ namespace Cattac.Collectibles
         [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _appearMouseScaleFeedback;
         [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _disappearMouseRotateFeedback;
         [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _disappearMouseScaleFeedback;
+        [SerializeField] private GameEvent _mouseUIIconAppearEvent;
 
         private LevelCollectiblesData _levelCollectiblesData;
         private bool _isVisible;
@@ -120,6 +122,7 @@ namespace Cattac.Collectibles
                         .DOScale(_appearMouseScaleFeedback.PunchDirection, _appearMouseScaleFeedback.PunchTime)
                         .SetEase(_appearMouseScaleFeedback.Ease);
                     //animator.Play("CageMouseIcon_Appear");
+                    GameEventsManager.PlayEvent(_mouseUIIconAppearEvent, animator.gameObject);
                 }
             }
 

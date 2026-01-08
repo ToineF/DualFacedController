@@ -45,7 +45,7 @@ namespace Cattac.Interactables.NPC
 
         public void SwitchState(Cat_State newState)
         {
-            Debug.Log($"From state {CurrentState.ToString()} to new state : {newState.ToString()}");
+            //Debug.Log($"From state {CurrentState.ToString()} to new state : {newState.ToString()}");
             CurrentState.ExitState(this);
             CurrentState = newState;
             newState.StartState(this);

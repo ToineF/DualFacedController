@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Cattac.Interactables
@@ -15,10 +14,17 @@ namespace Cattac.Interactables
         {
             _rb.AddTorque(_vector3Up * _turnSpeed, _forceMode);
         }*/
-
+        
+        // void FixedUpdate()
+        // {
+        //     _rb.angularVelocity = _vector3Up * _turnSpeed;
+        // }
+        
         void FixedUpdate()
         {
-            _rb.angularVelocity = _vector3Up * _turnSpeed;
+            _rb.MoveRotation(
+                _rb.rotation * Quaternion.Euler(_vector3Up * (_turnSpeed * Time.fixedDeltaTime))
+            );
         }
     }
 }
