@@ -3,6 +3,9 @@ using AntoineFoucault.Utilities;
 
 namespace Cattac.Cutscenes
 {
+    /// <summary>
+    /// A collider that triggers a cutscene on enter
+    /// </summary>
     public class CutsceneCollider : BoxTrigger
     {
         [SerializeField] private Cutscene _cutscene;
@@ -19,7 +22,7 @@ namespace Cattac.Cutscenes
             // Start Cutscene
             if (_cutscene != null)
             {
-                CutsceneManager.Instance.StartNewSequence(_cutscene, head);
+                CutsceneManager.Instance.StartNewSequence(_cutscene);
             }
 
             // Clear

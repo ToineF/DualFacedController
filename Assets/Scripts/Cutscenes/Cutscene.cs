@@ -11,5 +11,7 @@ namespace Cattac.Cutscenes
 
         [field: SerializeField] public bool StopPlayerMovements { get; private set; }
         [field: SerializeField] public List<UnityEvent> OnSkipEvents { get; private set; }
+
+        public void Play() => CutsceneManager.Instance.StartNewSequence(this);
     }
 }

@@ -11,8 +11,6 @@ namespace Cattac.Cutscenes
 
         [SerializeField] private CutsceneWaitForTimeManager _waitForTimeManager;
 
-        private CharacterHead _character;
-
         // Skip
         private float _skipCutsceneTime;
         private bool _isSkippingCutscene;
@@ -25,7 +23,7 @@ namespace Cattac.Cutscenes
             Instance = this;
         }
 
-        public void StartNewSequence(Cutscene cutscene, CharacterHead character)
+        public void StartNewSequence(Cutscene cutscene)
         {
             _currentInteractionSequence = cutscene;
 
@@ -33,8 +31,6 @@ namespace Cattac.Cutscenes
             {
                 MainGame.Instance.PlayersManager.SetInput(InputType.CUTSCENE);
             }
-
-            _character = character;
 
             GoToSequenceAt(0);
         }
