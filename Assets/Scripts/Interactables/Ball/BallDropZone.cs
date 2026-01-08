@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,6 +18,8 @@ namespace Cattac.Interactables
         [SerializeField] private bool _oneShotBall;
         [SerializeField] private float _stayTime;
         [SerializeField] private int _ballAmount;
+        [SerializeField] private bool _approachObjectOnEnter = false;
+        [SerializeField] private float _approachObjectOnEnterLerp;
 
         private float _timer;
         private bool _timeTicks;
@@ -59,6 +62,12 @@ namespace Cattac.Interactables
             {
                 _timeTicks = true;
                 OnBallAdded?.Invoke();
+                if (_approachObjectOnEnter)
+                {
+                    ball.TryGetComponent<Rigidbody>(out var rb);
+                    rb.isKinematic = true;
+                    rb.DOMove(transform.position, _approachObjectOnEnterLerp);
+                }
             }
         }
         
