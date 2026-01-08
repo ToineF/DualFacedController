@@ -13,19 +13,16 @@ namespace Cattac.Interactables.ChaseSequence
         [SerializeField] private LayerMask _detectedLayer;
         [SerializeField] private Collider _detectionCollider;
         [SerializeField] private Animator _animator;
+        [SerializeField] private bool _moveOnStart = false;
 
         private int _currentSplineIndex = -1;
         private Transform _target;
-        private bool _movementCompleted;
+        private bool _movementCompleted = true;
 
         private void Start()
         {
             _splineAnimate.MaxSpeed = _moveSpeed;
-            _target = MainGame.Instance.PlayerController.transform.GetChild(1)
-                .GetChild(0); // PlayerController > Body > Snake (6)
-            if (_target == null) Debug.LogError("PlayerController is missing");
-
-            StartNewSpline();
+            if (_moveOnStart) StartNewSpline();
         }
 
         private void StartNewSpline()
