@@ -1,10 +1,17 @@
+using System;
 using System.Collections;
+using FeedbacksEditor;
 using UnityEngine;
 
 namespace Cattac.Interactables
 {
+    /// <summary>
+    /// Activates the party ambiance after some time, and switch between lights for the ambiance
+    /// </summary>
     public class Dancefloor : MonoBehaviour
     {
+        public Action OnPartyStart;
+        
         [Header("Timing")] [SerializeField] private float _timeBeforeParty;
         
         [Header("References")]
@@ -13,19 +20,23 @@ namespace Cattac.Interactables
         [SerializeField] private GameObject[] _gameObjectsToDisable;
         [SerializeField] private RotatingRigidbody[] _rotatingRigidbodies;
         [SerializeField] private float _lightFrequency;
-        [SerializeField] private GameObject _cheesePrefab;
+        [SerializeField] private GameEvent _turnOnEvent;
+        [SerializeField] private AudioSource _partyMusic;
 
         private int _currentLightIndex;
         
         private void Start()
         {
             StartCoroutine(StartParty());
-            
         }
 
         private IEnumerator StartParty()
         {
             yield return new WaitForSeconds(_timeBeforeParty);
+
+            GameEventsManager.PlayEvent(_turnOnEvent, gameObject);
+            _partyMusic.Play();
+            OnPartyStart?.Invoke();
             
             StartCoroutine(StartNextLight());
             foreach (var go in _gameObjectsToEnable)
