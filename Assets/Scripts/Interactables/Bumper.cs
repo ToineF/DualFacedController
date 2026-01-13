@@ -1,7 +1,9 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using System.Collections;
 using FeedbacksEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Cattac.Interactables
 {
@@ -17,6 +19,9 @@ namespace Cattac.Interactables
         [SerializeField] private float _punchTime;
 	    [SerializeField] private GameEvent _boingFeedback;
 
+        [SerializeField] private float _timeBetweenBumps = 0.2f;
+        
+        private float _currentTimeBetweenBumps;
         //private HashSet<Rigidbody> _movedRigidbodies = new HashSet<Rigidbody>();
 
         private void OnTriggerEnter(Collider other)
@@ -25,9 +30,13 @@ namespace Cattac.Interactables
             if (other.TryGetComponent(out Rigidbody rb) == false) return;
 
             StartCoroutine(ApplyForceWithDecay(rb));
-            _visual.DOComplete();
-            _visual.DOPunchScale(_punchAmount * Vector3.one, _punchTime);
-	        GameEventsManager.PlayEvent(_boingFeedback, gameObject);
+            if (_currentTimeBetweenBumps < 0)
+            {
+                _currentTimeBetweenBumps = _timeBetweenBumps;
+                _visual.DOComplete();
+                _visual.DOPunchScale(_punchAmount * Vector3.one, _punchTime);
+                GameEventsManager.PlayEvent(_boingFeedback, gameObject);
+            }
         }
 
         private IEnumerator ApplyForceWithDecay(Rigidbody rb)
@@ -47,6 +56,11 @@ namespace Cattac.Interactables
                 // Wait until the next frame
                 yield return null;
             }
+        }
+
+        private void Update()
+        {
+            _currentTimeBetweenBumps -= Time.deltaTime;
         }
     }
 }

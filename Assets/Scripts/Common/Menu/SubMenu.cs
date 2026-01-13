@@ -34,7 +34,7 @@ public class SubMenu : MonoBehaviour
             submenu.CanvasGroup.alpha = 1;
             submenu.CanvasGroup.blocksRaycasts = true;
             if (firstSelected != null) EventSystem.current.SetSelectedGameObject(firstSelected);
-            submenu._action.performed += submenu.TryCloseSubMenu;
+            if (submenu._action != null) submenu._action.performed += submenu.TryCloseSubMenu;
         }
 
         protected void CloseMenu(SubMenu submenu, GameObject firstSelected = null)
@@ -43,7 +43,7 @@ public class SubMenu : MonoBehaviour
             submenu.CanvasGroup.alpha = 0;
             submenu.CanvasGroup.blocksRaycasts = false;
             if (firstSelected != null) EventSystem.current.SetSelectedGameObject(firstSelected);
-            submenu._action.performed -= submenu.TryCloseSubMenu;
+            if (submenu._action != null) submenu._action.performed -= submenu.TryCloseSubMenu;
         }
         
         // New Input System

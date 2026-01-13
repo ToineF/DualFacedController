@@ -14,9 +14,9 @@ namespace Cattac.Collectibles.Save
                 transform.SetParent(null);
                 DontDestroyOnLoad(this);
                 
-                #if UNITY_EDITOR
+                //#if UNITY_EDITOR
                 ResetPrefs();
-                #endif
+                //#endif
             }
             else if (Instance != this)
             {
