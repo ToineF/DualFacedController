@@ -13,6 +13,7 @@ namespace Cattac.Interactables
         [SerializeField] private Animator _mouseAnimator;
         
         [Header("Apparition")]
+        [SerializeField] private string _saveAnimation;
         [SerializeField] private Ease _rollEase;
         [SerializeField] private string _landAnimation;
         [SerializeField] private float _duration = 2f;
@@ -30,7 +31,7 @@ namespace Cattac.Interactables
 
         private void OnGetCage()
         {
-            _mouseAnimator.enabled = true;
+            _mouseAnimator.SetTrigger(_saveAnimation);
             var parent = MainGame.Instance.CollectiblesManager.MouseCameraParent;
             transform.SetParent(parent, true);
             transform.DOLocalMove(Vector3.zero, _duration).SetEase(_rollEase);
