@@ -52,6 +52,15 @@ public class DebugMode : MonoBehaviour
                 head.CurrentRigidbody.AddForce(Vector3.up * 1000f, ForceMode.Impulse);
             }
         }
+        
+        if (Input.GetKeyDown(KeyCode.F6)) // Speed up
+        {
+            var heads = FindObjectsByType<CharacterHead>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            foreach (var head in heads)
+            {
+                head.CurrentRigidbody.linearVelocity = head.CurrentRigidbody.linearVelocity.normalized * 200;
+            }
+        }
     }
 
 //#endif
