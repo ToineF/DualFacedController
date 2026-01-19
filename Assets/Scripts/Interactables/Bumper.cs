@@ -13,6 +13,7 @@ namespace Cattac.Interactables
         [SerializeField] float _forceDecayRate = 1f; // Rate at which the force decreases over time
         [SerializeField] int _framesOfForce = 10; // Number of frames the force will be applied
         [SerializeField] private ForceMode _forceMode;
+        [SerializeField] private bool _ignoreY;
 
         [Header("Feedback")] [SerializeField] private Transform _visual;
         [SerializeField] private float _punchAmount = 1f;
@@ -44,6 +45,7 @@ namespace Cattac.Interactables
             float currentForce = _initialForce;
             var direction = rb.transform.position - transform.position;
             direction.Normalize();
+            if (_ignoreY) direction.y = 0;
 
             // Apply force over several frames with decay
             for (int i = 0; i < _framesOfForce; i++)
