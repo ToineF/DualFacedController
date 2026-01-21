@@ -5,6 +5,7 @@ namespace Cattac.Interactables
 {
     public class TimedPressurePlateGroup : MonoBehaviour
     {
+        public UnityEvent OnAllActivated =>  _onAllActivated;
         public TimedPressurePlate[] PressurePlates => _pressurePlates;
         
         [SerializeField] private UnityEvent _onAllActivated;
@@ -22,13 +23,7 @@ namespace Cattac.Interactables
         {
             if (AreAllActivated())
             {
-                Debug.Log("All activated youhou");
-                foreach (var pressurePlate in _pressurePlates)
-                {
-                    pressurePlate.Deactivate();
-                }
-
-                _onAllActivated?.Invoke();
+                AllActivated();
             }
             else
             {
@@ -39,6 +34,17 @@ namespace Cattac.Interactables
                         pressurePlate.ResetTimer();
                 }
             }
+        }
+
+        public void AllActivated()
+        {
+            Debug.Log("All activated youhou");
+            foreach (var pressurePlate in _pressurePlates)
+            {
+                pressurePlate.Deactivate();
+            }
+
+            _onAllActivated?.Invoke();
         }
 
         private bool AreAllActivated()

@@ -40,10 +40,15 @@ namespace Cattac.Interactables
             _timer -= Time.deltaTime;
             if (_timer < 0 && _timeTicks)
             {
-                _timeTicks = false;
-                OnConditionMet?.Invoke();
-                if (_oneShotBall) Destroy(this);
+                BallEnter();
             }
+        }
+
+        public void BallEnter()
+        {
+            _timeTicks = false;
+            OnConditionMet?.Invoke();
+            if (_oneShotBall) Destroy(this);
         }
 
         protected override void OnExitTriggerInternal(Collider other)

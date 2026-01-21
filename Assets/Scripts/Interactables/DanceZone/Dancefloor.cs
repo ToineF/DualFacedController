@@ -34,9 +34,14 @@ namespace Cattac.Interactables
         {
             yield return new WaitForSeconds(_timeBeforeParty);
 
+            StartPartyImmediate();
+        }
+
+        public void StartPartyImmediate(bool minigame = true)
+        {
             GameEventsManager.PlayEvent(_turnOnEvent, gameObject);
             _partyMusic.Play();
-            OnPartyStart?.Invoke();
+            if (minigame) OnPartyStart?.Invoke();
             
             StartCoroutine(StartNextLight());
             foreach (var go in _gameObjectsToEnable)
