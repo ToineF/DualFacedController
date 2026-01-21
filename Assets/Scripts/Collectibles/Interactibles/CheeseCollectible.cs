@@ -8,6 +8,8 @@ namespace Cattac.Interactables.Collectibles
 {
     public class CheeseCollectible : MagneticCollectible<CharacterHead>
     {
+        public System.Action OnPickUpEvent;
+        
         [Header("Coin")]
         [SerializeField] private float _turnSpeed;
         [SerializeField] private float _uiWinDelay;
@@ -22,6 +24,7 @@ namespace Cattac.Interactables.Collectibles
 
             _isTriggered = true;
             GameEventsManager.PlayEvent(_feedback, gameObject);
+            OnPickUpEvent?.Invoke();
             MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.AddCheese();
             StartCoroutine(AddCoinToCount());
         }
