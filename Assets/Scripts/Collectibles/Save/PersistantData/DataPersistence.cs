@@ -7,6 +7,11 @@ namespace Cattac.Collectibles.Save
     /// </summary>
     public abstract class DataPersistence : MonoBehaviour
     {
+        public int Index
+        {
+            get => _index; 
+            set => _index = value;
+        }
         [SerializeField] private int _index;
 
         private void Start()
@@ -28,6 +33,5 @@ namespace Cattac.Collectibles.Save
         
         protected void SetID(bool value) => DataPersistenceManager.SetID(_index, value);
         
-        public void SetIndex(int value) => _index = value;
     }
 }
