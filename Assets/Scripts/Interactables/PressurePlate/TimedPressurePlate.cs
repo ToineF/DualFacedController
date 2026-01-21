@@ -52,7 +52,7 @@ namespace Cattac.Interactables
             }
         }
 
-        public void Deactivate()
+        public void Deactivate(bool playEvent = true)
         {
             _isTicking = false;
             _timer = _deactivateTimer;

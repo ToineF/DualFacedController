@@ -35,35 +35,6 @@ namespace Cattac.Collectibles.Save
             // Set current cheese number
             var cheesesAmount = PlayerPrefs.GetInt(_currentCheeseKey);
             _collectiblesManager.CheeseCollectiblesManager.SetCheeses(cheesesAmount);
-            
-            // Find all cheeses and deactivate them if already picked up
-            //var cheesesInScene= GameObject.FindObjectsByType<CheeseCollectible>(FindObjectsSortMode.None);
-            // for (int i = 0; i < cheesesInScene.Length; i++)
-            // {
-            //     for (int j = 0; j < miceData.Length; j++)
-            //     {
-            //         if (miceDataInScene[i] == miceData[j])
-            //         {
-            //             var isSaved = PlayerPrefs.GetInt(_miceKey + j) == 1;
-            //             if (isSaved)
-            //             {
-            //                 foreach (var cage in _cages)
-            //                 {
-            //                     if (cage.Data == miceData[j])
-            //                     {
-            //                         cage.gameObject.SetActive(false);
-            //                     }
-            //                 }
-            //
-            //                 MainGame.Instance.LevelCollectiblesData.OnMouseGain?.Invoke(i, false);
-            //             }
-            //
-            //             break;
-            //         }
-            //     }
-            // }
-            
-            // Make more generic save system for doors, scenettes and other?
         }
 
         private void OnCheeseGain(bool hasFeedbacks)
@@ -96,7 +67,7 @@ namespace Cattac.Collectibles.Save
             return targetCheeses >= totalCheeses;
         }
 
-        private void InitializeMice()
+        private void InitializeMice() // Can be improved with new system and only do it in the cages' script
         {
             _cages = GameObject.FindObjectsByType<Cage>(FindObjectsSortMode.None);
             var miceDataInScene = MainGame.Instance.LevelCollectiblesData.Mice;

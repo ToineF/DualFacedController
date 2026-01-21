@@ -52,6 +52,7 @@ namespace Cattac.Collectibles.Save
                 data.SetIndex(i);
                 EditorUtility.SetDirty(data);
             }
+            Debug.Log($"Persistent data baked in {SceneManager.GetActiveScene().name}");
         }
         #endif
 
