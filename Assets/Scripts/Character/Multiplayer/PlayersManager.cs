@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 namespace Cattac.Character.Multiplayer
 {
@@ -10,7 +12,7 @@ namespace Cattac.Character.Multiplayer
     public class PlayersManager : MonoBehaviour
     {
         [SerializeField] private PlayerInputManager _playerInputManager;
-        
+
         private InputAction _leftMoveAction;
         private InputAction _rightMoveAction;
         private InputAction _leftGrabAction;
@@ -19,7 +21,7 @@ namespace Cattac.Character.Multiplayer
         private InputAction _rightEmoteAction;
 
         private List<PlayerInput> _playersInputs = new List<PlayerInput>();
-        
+
         private bool _isPause = false;
         private bool _isCutscene = false;
 
@@ -36,14 +38,13 @@ namespace Cattac.Character.Multiplayer
             _playerInputManager.onPlayerLeft -= OnPlayerLeft;
         }
 
-
         private void OnPlayerJoined(PlayerInput playerInput)
         {
-            Debug.Log($"PlayerJoined : { playerInput } connected");
+            Debug.Log($"PlayerJoined : {playerInput} connected");
             _playersInputs.Add(playerInput);
             UpdateInputs(playerInput);
         }
-        
+
         private void OnPlayerLeft(PlayerInput playerInput)
         {
             Debug.Log("PlayerLeft : " + playerInput);
@@ -58,7 +59,7 @@ namespace Cattac.Character.Multiplayer
                 _playerInputManager.DisableJoining();
             else if (_playersInputs.Count < _playerInputManager.maxPlayerCount && !_playerInputManager.joiningEnabled)
                 _playerInputManager.EnableJoining();
-            
+
             if (_playersInputs.Count == 1)
             {
                 _leftMoveAction = lastPlayerInput.actions["MoveLeft"];
@@ -74,14 +75,15 @@ namespace Cattac.Character.Multiplayer
                 _rightGrabAction = lastPlayerInput.actions["GrabLeft"];
                 _rightEmoteAction = lastPlayerInput.actions["EmoteLeft"];
             }
-            
+
             SetPlayers();
         }
-        
-        public void SetPlayers()
+
+        private void SetPlayers()
         {
             UserInput.Instance.LeftHead = new PlayerInputReferences(_leftMoveAction, _leftGrabAction, _leftEmoteAction);
-            UserInput.Instance.RightHead = new PlayerInputReferences(_rightMoveAction, _rightGrabAction, _rightEmoteAction);
+            UserInput.Instance.RightHead =
+                new PlayerInputReferences(_rightMoveAction, _rightGrabAction, _rightEmoteAction);
         }
 
         public void SetInput(InputType inputType)
@@ -94,12 +96,12 @@ namespace Cattac.Character.Multiplayer
                         _isPause = false;
                         UpdateInputMaps(playerInput);
                         break;
-                    
+
                     case InputType.PAUSE:
                         _isPause = true;
                         UpdateInputMaps(playerInput);
                         break;
-                    
+
                     case InputType.CUTSCENE:
                         _isCutscene = true;
                         UpdateInputMaps(playerInput);
@@ -118,6 +120,84 @@ namespace Cattac.Character.Multiplayer
             else playerInput.actions.FindActionMap("UnityUI").Disable();
             if (_isCutscene || _isPause) playerInput.actions.FindActionMap("Player").Disable();
             else playerInput.actions.FindActionMap("Player").Enable();
+        }
+
+        // OTHER TESTS (TO CLEAN)
+
+        [SerializeField] private PlayerInput _playerInputPrefab;
+
+        private static List<InputDevice> _connectedDevices = new List<InputDevice>();
+        private static int _joinedCount;
+        private InputAction _joinAction;
+
+
+        private void Awake()
+        {
+            _joinAction = new InputAction(binding: "/*/<button>");
+            _joinAction.started += OnJoinPressed;
+            BeginJoining();
+        }
+
+        private void Start()
+        {
+            if (_joinedCount > 0)
+            {
+                Debug.Log("Scene Reload Start");
+                foreach (var device in _connectedDevices)
+                {
+                    Debug.Log($"PlayerJoined : {device} linked");
+                    CreateInput(device);
+                }
+
+                if (_joinedCount >= _playerInputManager.maxPlayerCount) EndJoining();
+                Debug.Log("Scene Reload End");
+            }
+        }
+
+        private void OnJoinPressed(InputAction.CallbackContext context)
+        {
+            JoinPlayer(context.control.device);
+        }
+
+        private void JoinPlayer(InputDevice device)
+        {
+            // Ignore Mouse
+            if (device is Mouse) return;
+
+            if (_connectedDevices.Contains(device))
+            {
+                Debug.Log($"PlayerJoined : {device} already connected");
+                return;
+            }
+
+            _connectedDevices.Add(device);
+            Debug.Log($"PlayerJoined : {device} connected");
+
+            CreateInput(device);
+            
+            _joinedCount++;
+            if (_joinedCount >= _playerInputManager.maxPlayerCount) EndJoining();
+        }
+
+        private void CreateInput(InputDevice device)
+        {
+            PlayerInput.Instantiate(_playerInputPrefab.gameObject, pairWithDevice: device);
+        }
+
+        private void BeginJoining()
+        {
+            _joinAction.Enable();
+        }
+
+        private void EndJoining()
+        {
+            Debug.Log("End joining");
+            _joinAction.Disable();
+        }
+
+        private void OnDestroy()
+        {
+            _joinAction.started -= OnJoinPressed;
         }
     }
 }
