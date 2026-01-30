@@ -29,7 +29,7 @@ namespace Cattac.Cutscenes
 
             if (_currentInteractionSequence.StopPlayerMovements)
             {
-                MainGame.Instance.PlayersManager.SetInput(InputType.CUTSCENE);
+                MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
             }
 
             GoToSequenceAt(0);
@@ -52,7 +52,7 @@ namespace Cattac.Cutscenes
 
         private void EndSequence()
         {
-            MainGame.Instance.PlayersManager.SetInput(InputType.CUTSCENE_RESUME);
+            MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE_RESUME);
         }
 
         private void ReadSequenceElement()
