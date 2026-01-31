@@ -15,6 +15,7 @@ namespace Cattac.Character
         [field:SerializeField] public float GravityDamper {get; private set;}
         [field:SerializeField] public float RestPositionFromGround {get; private set;}
         [field:SerializeField] public float GroundDetectionDistance {get; private set;}
+        [field:SerializeField] public float GroundDetectionUpOffset {get; private set;}
         [field:SerializeField] public LayerMask GroundLayer {get; private set;}
         
         [field:Header("Grab")]
