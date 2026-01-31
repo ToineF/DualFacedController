@@ -9,7 +9,8 @@ namespace Cattac.Character.Multiplayer
     /// </summary>
     public class PlayersManager : MonoBehaviour
     {
-        public static PlayersAmount PlayersAmount { get; set; }
+        public static System.Action<int> OnPlayerJoinedEvent { get; set; }
+        public static PlayersAmount PlayersAmount { get; set; } = PlayersAmount.TWO;
         public PlayersInputsUpdater Inputs { get; private set; } =  new PlayersInputsUpdater();
         
         [SerializeField] private PlayerInputManager _playerInputManager;
@@ -63,10 +64,11 @@ namespace Cattac.Character.Multiplayer
             if (_joinedCount > 0)
             {
                 Debug.Log("Scene Reload Start");
-                foreach (var device in _connectedDevices)
+                for (var i = 0; i < _connectedDevices.Count; i++) 
                 {
-                    Debug.Log($"Device joined : {device} linked");
-                    CreateInputForDevice(device);
+                    Debug.Log($"Device joined : {_connectedDevices[i]} linked");
+                    CreateInputForDevice(_connectedDevices[i]);
+                    OnPlayerJoinedEvent?.Invoke(i+1);
                 }
 
                 CheckEndJoining();
@@ -93,6 +95,7 @@ namespace Cattac.Character.Multiplayer
             CreateInputForDevice(device);
 
             _joinedCount++;
+            OnPlayerJoinedEvent?.Invoke(_joinedCount);
             CheckEndJoining();
         }
 
