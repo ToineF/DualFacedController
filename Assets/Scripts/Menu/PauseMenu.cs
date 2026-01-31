@@ -10,13 +10,12 @@ namespace Cattac.Character
         public UnityEvent OnResume;
         public bool GameIsPaused { get; private set; } = false;
 
-        [Header("References")] [SerializeField]
-        private CanvasGroup _globalPauseUIMenu;
+        [Header("References")] [SerializeField] private CanvasGroup _globalPauseUIMenu;
 
-        [Header("Options Menu")] [SerializeField]
-        private SubMenu[] _subMenusToClose;
+        [Header("Options Menu")] [SerializeField] private SubMenu[] _subMenusToClose;
 
         [SerializeField] private bool _active = true;
+        [SerializeField] private bool _showCursorOnStart = false;
 
         private CursorManager _cursorManager;
         private InputAction _pauseAction;
@@ -27,6 +26,7 @@ namespace Cattac.Character
             _globalPauseUIMenu.alpha = 0;
             _cursorManager = CursorManager.Instance;
             Resume();
+            if (_showCursorOnStart) _cursorManager.SetCursorVisible(true);
 
             if (_active == false) Destroy(this);
         }
@@ -49,7 +49,7 @@ namespace Cattac.Character
         public void Resume()
         {
             Time.timeScale = 1f;
-            MainGame.Instance.PlayersManager.SetInput(Multiplayer.InputType.PAUSE_RESUME);
+            MainGame.Instance.PlayersManager.Inputs.SetInput(Multiplayer.InputType.PAUSE_RESUME);
             GameIsPaused = false;
             _globalPauseUIMenu.alpha = 0f;
             _globalPauseUIMenu.interactable = false;
@@ -67,7 +67,7 @@ namespace Cattac.Character
         public void Pause()
         {
             Time.timeScale = 0f;
-            MainGame.Instance.PlayersManager.SetInput(Multiplayer.InputType.PAUSE);
+            MainGame.Instance.PlayersManager.Inputs.SetInput(Multiplayer.InputType.PAUSE);
             GameIsPaused = true;
             _globalPauseUIMenu.alpha = 1f;
             _globalPauseUIMenu.interactable = true;

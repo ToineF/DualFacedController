@@ -38,7 +38,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (_menuManager.CanClickButtons == false) return;
 
         OnSelect();
-        _selectable.Select();
+        _selectable?.Select();
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -38,7 +38,7 @@ namespace Cattac.Interactables
             transform.DOLocalRotate(Vector3.zero, _duration).SetEase(_rollEase).OnComplete(Land);
             
             MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseGet?.Invoke(_cage, _duration, _rollEase);
-            MainGame.Instance.PlayersManager.SetInput(InputType.CUTSCENE);
+            MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
         }
 
         private void Land()
@@ -60,7 +60,7 @@ namespace Cattac.Interactables
             GameEventsManager.PlayEvent(_hideFeedback, gameObject);
             _mouseAnimator.SetTrigger(_hideAnimation);
             MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseHide?.Invoke(_cage);
-            MainGame.Instance.PlayersManager.SetInput(InputType.CUTSCENE_RESUME);
+            MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE_RESUME);
         }
     }
 }

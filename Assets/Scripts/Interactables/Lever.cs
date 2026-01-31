@@ -23,7 +23,7 @@ namespace Cattac.Interactables
                 {
                     if (isInverted == false)
                     {
-                        Debug.Log("RIGHT");
+                        //Debug.Log("Lever to the RIGHT");
                         _onLeverRight?.Invoke();
                         _isLeft = false;
                     }
@@ -32,7 +32,7 @@ namespace Cattac.Interactables
                 {
                     if (isInverted)
                     {
-                        Debug.Log("LEFT");
+                        //Debug.Log("Lever to the LEFT");
                         _onLeverLeft?.Invoke();
                         _isLeft = true;
                     }

@@ -9,115 +9,117 @@ namespace Cattac.Character.Multiplayer
     /// </summary>
     public class PlayersManager : MonoBehaviour
     {
+        public static System.Action<int, bool> OnPlayerJoinedEvent { get; set; }
+        public static PlayersAmount PlayersAmount { get; set; } = PlayersAmount.ONE;
+        public PlayersInputsUpdater Inputs { get; private set; } =  new PlayersInputsUpdater();
+        
         [SerializeField] private PlayerInputManager _playerInputManager;
+        [SerializeField] private PlayerInput _playerInputPrefab;
         
-        private InputAction _leftMoveAction;
-        private InputAction _rightMoveAction;
-        private InputAction _leftGrabAction;
-        private InputAction _rightGrabAction;
-        private InputAction _leftEmoteAction;
-        private InputAction _rightEmoteAction;
-
-        private List<PlayerInput> _playersInputs = new List<PlayerInput>();
-        
-        private bool _isPause = false;
-        private bool _isCutscene = false;
-
+        private static List<InputDevice> _connectedDevices = new List<InputDevice>();
+        private static int _joinedCount;
+        private InputAction _joinAction = new InputAction(binding: "/*/<button>");
 
         private void OnEnable()
         {
             _playerInputManager.onPlayerJoined += OnPlayerJoined;
             _playerInputManager.onPlayerLeft += OnPlayerLeft;
+            InputSystem.onDeviceChange += OnDeviceChange;
+            _joinAction.started += OnJoinPressed;
+            _joinAction.Enable();
         }
 
         private void OnDisable()
         {
             _playerInputManager.onPlayerJoined -= OnPlayerJoined;
             _playerInputManager.onPlayerLeft -= OnPlayerLeft;
+            InputSystem.onDeviceChange -= OnDeviceChange;
+            _joinAction.started -= OnJoinPressed;
         }
 
+        private void Start()
+        {
+            ReconnectDevices();
+        }
 
         private void OnPlayerJoined(PlayerInput playerInput)
         {
-            Debug.Log($"PlayerJoined : { playerInput } connected");
-            _playersInputs.Add(playerInput);
-            UpdateInputs(playerInput);
+            Debug.Log($"PlayerJoined : {playerInput} connected");
+            Inputs.AddInput(playerInput);
         }
-        
+
         private void OnPlayerLeft(PlayerInput playerInput)
         {
             Debug.Log("PlayerLeft : " + playerInput);
-            _playersInputs.Remove(playerInput);
-            UpdateInputs(playerInput);
+            Inputs.RemoveInput(playerInput);
         }
 
-        private void UpdateInputs(PlayerInput lastPlayerInput)
+        private void OnJoinPressed(InputAction.CallbackContext context)
         {
-            // Disable or enable joining based on player count
-            if (_playersInputs.Count >= _playerInputManager.maxPlayerCount && _playerInputManager.joiningEnabled)
-                _playerInputManager.DisableJoining();
-            else if (_playersInputs.Count < _playerInputManager.maxPlayerCount && !_playerInputManager.joiningEnabled)
-                _playerInputManager.EnableJoining();
-            
-            if (_playersInputs.Count == 1)
-            {
-                _leftMoveAction = lastPlayerInput.actions["MoveLeft"];
-                _leftGrabAction = lastPlayerInput.actions["GrabLeft"];
-                _leftEmoteAction = lastPlayerInput.actions["EmoteLeft"];
-                _rightMoveAction = lastPlayerInput.actions["MoveRight"];
-                _rightGrabAction = lastPlayerInput.actions["GrabRight"];
-                _rightEmoteAction = lastPlayerInput.actions["EmoteRight"];
-            }
-            else if (_playersInputs.Count == 2)
-            {
-                _rightMoveAction = lastPlayerInput.actions["MoveLeft"];
-                _rightGrabAction = lastPlayerInput.actions["GrabLeft"];
-                _rightEmoteAction = lastPlayerInput.actions["EmoteLeft"];
-            }
-            
-            SetPlayers();
-        }
-        
-        public void SetPlayers()
-        {
-            UserInput.Instance.LeftHead = new PlayerInputReferences(_leftMoveAction, _leftGrabAction, _leftEmoteAction);
-            UserInput.Instance.RightHead = new PlayerInputReferences(_rightMoveAction, _rightGrabAction, _rightEmoteAction);
+            JoinPlayer(context.control.device);
         }
 
-        public void SetInput(InputType inputType)
+        private void ReconnectDevices()
         {
-            foreach (var playerInput in _playersInputs)
+            if (_joinedCount > 0)
             {
-                switch (inputType)
+                Debug.Log("Scene Reload Start");
+                for (var i = 0; i < _connectedDevices.Count; i++) 
                 {
-                    case InputType.PAUSE_RESUME:
-                        _isPause = false;
-                        UpdateInputMaps(playerInput);
-                        break;
-                    
-                    case InputType.PAUSE:
-                        _isPause = true;
-                        UpdateInputMaps(playerInput);
-                        break;
-                    
-                    case InputType.CUTSCENE:
-                        _isCutscene = true;
-                        UpdateInputMaps(playerInput);
-                        break;
-                    case InputType.CUTSCENE_RESUME:
-                        _isCutscene = false;
-                        UpdateInputMaps(playerInput);
-                        break;
+                    Debug.Log($"Device joined : {_connectedDevices[i]} linked");
+                    CreateInputForDevice(_connectedDevices[i]);
+                    OnPlayerJoinedEvent?.Invoke(i+1, false);
                 }
+
+                CheckEndJoining();
+                Debug.Log("Scene Reload End");
             }
         }
 
-        private void UpdateInputMaps(PlayerInput playerInput)
+        private void JoinPlayer(InputDevice device)
         {
-            if (_isPause) playerInput.actions.FindActionMap("UnityUI").Enable();
-            else playerInput.actions.FindActionMap("UnityUI").Disable();
-            if (_isCutscene || _isPause) playerInput.actions.FindActionMap("Player").Disable();
-            else playerInput.actions.FindActionMap("Player").Enable();
+            if (device == null) return;
+            
+            // Ignore Mouse
+            if (device is Mouse) return;
+
+            if (_connectedDevices.Contains(device))
+            {
+                Debug.Log($"Device Joined : {device} already connected");
+                return;
+            }
+
+            _connectedDevices.Add(device);
+            Debug.Log($"Device Joined : {device} connected");
+
+            CreateInputForDevice(device);
+
+            _joinedCount++;
+            OnPlayerJoinedEvent?.Invoke(_joinedCount, true);
+            CheckEndJoining();
+        }
+
+        private void CreateInputForDevice(InputDevice device)
+        {
+            PlayerInput.Instantiate(_playerInputPrefab.gameObject, pairWithDevice: device);
+        }
+
+        private void CheckEndJoining()
+        {
+            if (_joinedCount >= Mathf.Min(_playerInputManager.maxPlayerCount, (int)PlayersAmount))
+            {
+                Debug.Log("End joining");
+                _joinAction.Disable();
+            }
+        }
+
+        // Disconnection
+        private void OnDeviceChange(InputDevice device, InputDeviceChange change)
+        {
+            if (change == InputDeviceChange.Removed && _connectedDevices.Contains(device))
+            {
+                Debug.Log($"Warning : Device Removed : {device}");
+            }
         }
     }
 }
