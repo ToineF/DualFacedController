@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Cattac.Character.Multiplayer
@@ -17,9 +18,24 @@ namespace Cattac.Character.Multiplayer
             PlayersManager.OnPlayerJoinedEvent -= OnJoined;
         }
 
-        private void OnJoined(int number)
+        private void OnJoined(int number, bool firstTime)
         {
-            if (Mathf.Min((int)PlayersManager.PlayersAmount, number) == _targetNumber) _feedback.enabled = true;
+            if (firstTime &&  Mathf.Min((int)PlayersManager.PlayersAmount, _targetNumber) == number)
+            {
+                _feedback.enabled = true;
+                StartCoroutine(Disable(2));
+            }
+            else
+            {
+                StartCoroutine(Disable(0));
+            }
+        }
+
+        private IEnumerator Disable(float waitTime)
+        {
+            yield return new WaitForSeconds(waitTime);
+            
+            _feedback.gameObject.SetActive(false);
         }
     }
 }
