@@ -10,11 +10,9 @@ namespace Cattac.Character
         public UnityEvent OnResume;
         public bool GameIsPaused { get; private set; } = false;
 
-        [Header("References")] [SerializeField]
-        private CanvasGroup _globalPauseUIMenu;
+        [Header("References")] [SerializeField] private CanvasGroup _globalPauseUIMenu;
 
-        [Header("Options Menu")] [SerializeField]
-        private SubMenu[] _subMenusToClose;
+        [Header("Options Menu")] [SerializeField] private SubMenu[] _subMenusToClose;
 
         [SerializeField] private bool _active = true;
         [SerializeField] private bool _showCursorOnStart = false;

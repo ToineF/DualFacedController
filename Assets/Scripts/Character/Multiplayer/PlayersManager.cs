@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,11 +9,12 @@ namespace Cattac.Character.Multiplayer
     /// </summary>
     public class PlayersManager : MonoBehaviour
     {
+        public static PlayersAmount PlayersAmount { get; set; }
         public PlayersInputsUpdater Inputs { get; private set; } =  new PlayersInputsUpdater();
         
         [SerializeField] private PlayerInputManager _playerInputManager;
         [SerializeField] private PlayerInput _playerInputPrefab;
-
+        
         private static List<InputDevice> _connectedDevices = new List<InputDevice>();
         private static int _joinedCount;
         private InputAction _joinAction = new InputAction(binding: "/*/<button>");
@@ -103,7 +103,7 @@ namespace Cattac.Character.Multiplayer
 
         private void CheckEndJoining()
         {
-            if (_joinedCount >= _playerInputManager.maxPlayerCount)
+            if (_joinedCount >= Mathf.Min(_playerInputManager.maxPlayerCount, (int)PlayersAmount))
             {
                 Debug.Log("End joining");
                 _joinAction.Disable();
