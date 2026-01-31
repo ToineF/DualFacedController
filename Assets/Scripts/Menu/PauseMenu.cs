@@ -17,6 +17,7 @@ namespace Cattac.Character
         private SubMenu[] _subMenusToClose;
 
         [SerializeField] private bool _active = true;
+        [SerializeField] private bool _showCursorOnStart = false;
 
         private CursorManager _cursorManager;
         private InputAction _pauseAction;
@@ -27,6 +28,7 @@ namespace Cattac.Character
             _globalPauseUIMenu.alpha = 0;
             _cursorManager = CursorManager.Instance;
             Resume();
+            if (_showCursorOnStart) _cursorManager.SetCursorVisible(true);
 
             if (_active == false) Destroy(this);
         }
