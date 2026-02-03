@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cattac.Character.Multiplayer;
+using Cattac.Cutscenes;
 using Cattac.Interactables.MouseCollection;
 using DG.Tweening;
 using FeedbacksEditor;
@@ -70,6 +72,8 @@ namespace Cattac.Collectibles.EndLevel
             _playerZoneAnimator.Play(_playZoneAnimation);
             yield return new WaitForSeconds(_waitBeforeMiceAppear);
 
+            MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
+
             // Make every saved mouse appear on screen
             for (int i = 0; i < mice.Count; i++)
             {
@@ -92,44 +96,44 @@ namespace Cattac.Collectibles.EndLevel
             GameEventsManager.PlayEvent(_waveStartFeedback, gameObject);
 
             yield return new WaitForSeconds(_waveTime);
-            _launchCamera.SetActive(true);
-            yield return new WaitForSeconds(_afterLaunchCameraWaitTime);
+            // _launchCamera.SetActive(true);
+            // yield return new WaitForSeconds(_afterLaunchCameraWaitTime);
+            //
+            //
+            // // Turn every mouse towards the canon
+            // Vector3 canonPosition = _canonTransform.position;
+            // foreach (var mouse in _miceMeshes)
+            // {
+            //     var direction = new Vector3(canonPosition.x, mouse.transform.position.y, canonPosition.z) -
+            //                     mouse.transform.position;
+            //     mouse.Animator.SetBool(_waveBoolName, false);
+            //     mouse.transform.DOLookAt(mouse.transform.position - direction, _jumpDuration).SetEase(_jumpEase);
+            // }
 
-
-            // Turn every mouse towards the canon
-            Vector3 canonPosition = _canonTransform.position;
-            foreach (var mouse in _miceMeshes)
-            {
-                var direction = new Vector3(canonPosition.x, mouse.transform.position.y, canonPosition.z) -
-                                mouse.transform.position;
-                mouse.Animator.SetBool(_waveBoolName, false);
-                mouse.transform.DOLookAt(mouse.transform.position - direction, _jumpDuration).SetEase(_jumpEase);
-            }
-
-            yield return new WaitForSeconds(_jumpDuration);
-
-
-            // Each mouse jumps into the canon
-            foreach (var mouse in _miceMeshes)
-            {
-                mouse.Animator.SetTrigger(_rollTriggerName);
-                mouse.transform.SetParent(_canonTransform, true);
-                mouse.transform.DOLocalMove(Vector3.zero, _jumpDuration).SetEase(_jumpEase);
-                //mouse.transform.DOLocalRotate(Vector3.zero, _jumpDuration).SetEase(_jumpEase);
-                StartCoroutine(MouseJumpInCanon(mouse));
-
-                yield return new WaitForSeconds(_timeBetweenJumps);
-            }
-
-
-            yield return new WaitForSeconds(_beforeLaunchWaitTime);
-
-            // Launches the mice in the sky
-            _canonAnimator.SetTrigger(_canonLaunchTriggerName);
-            GameEventsManager.PlayEvent(_canonLaunchFeedback, _canon);
-            _smokeFeedback.DOMove(_smokeFeedbackEnd.position, _smokeDuration);
-            yield return new WaitForSeconds(_smokeDuration);
-            GameEventsManager.PlayEvent(_smokeEndEvent, _smokeFeedbackEnd.gameObject);
+            // yield return new WaitForSeconds(_jumpDuration);
+            //
+            //
+            // // Each mouse jumps into the canon
+            // foreach (var mouse in _miceMeshes)
+            // {
+            //     mouse.Animator.SetTrigger(_rollTriggerName);
+            //     mouse.transform.SetParent(_canonTransform, true);
+            //     mouse.transform.DOLocalMove(Vector3.zero, _jumpDuration).SetEase(_jumpEase);
+            //     //mouse.transform.DOLocalRotate(Vector3.zero, _jumpDuration).SetEase(_jumpEase);
+            //     StartCoroutine(MouseJumpInCanon(mouse));
+            //
+            //     yield return new WaitForSeconds(_timeBetweenJumps);
+            // }
+            //
+            //
+            // yield return new WaitForSeconds(_beforeLaunchWaitTime);
+            //
+            // // Launches the mice in the sky
+            // _canonAnimator.SetTrigger(_canonLaunchTriggerName);
+            // GameEventsManager.PlayEvent(_canonLaunchFeedback, _canon);
+            // _smokeFeedback.DOMove(_smokeFeedbackEnd.position, _smokeDuration);
+            // yield return new WaitForSeconds(_smokeDuration);
+            // GameEventsManager.PlayEvent(_smokeEndEvent, _smokeFeedbackEnd.gameObject);
 
             yield return new WaitForSeconds(_waitTransitionDuration);
 
