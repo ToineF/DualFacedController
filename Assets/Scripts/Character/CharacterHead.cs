@@ -214,7 +214,6 @@ namespace Cattac.Character
         {
             Physics.SphereCast(transform.position + Vector3.up * _data.GroundDetectionUpOffset, Collider.radius, Vector3.down, out _lastGroundHit, _data.GroundDetectionDistance, _data.GroundLayer, QueryTriggerInteraction.Ignore);
             //CurrentRigidbody.AddForce(Vector3.ProjectOnPlane(Vector3.down, _lastGroundHit.normal) * _data.AdditionalGravity, ForceMode.Impulse);
-            Debug.Log(Direction);
         }
 
         private void MoveSnake()

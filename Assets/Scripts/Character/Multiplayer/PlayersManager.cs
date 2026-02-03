@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace Cattac.Character.Multiplayer
@@ -9,8 +10,8 @@ namespace Cattac.Character.Multiplayer
     /// </summary>
     public class PlayersManager : MonoBehaviour
     {
-        public static System.Action<int, bool> OnPlayerJoinedEvent { get; set; }
-        public static PlayersAmount PlayersAmount { get; set; } = PlayersAmount.ONE;
+        public static UnityEvent<int, bool> OnPlayerJoinedEvent { get; set; } = new();
+        public static PlayersAmount PlayersAmount { get; private set; } = PlayersAmount.ONE;
         public PlayersInputsUpdater Inputs { get; private set; } =  new PlayersInputsUpdater();
         
         [SerializeField] private PlayerInputManager _playerInputManager;
@@ -120,6 +121,14 @@ namespace Cattac.Character.Multiplayer
             {
                 Debug.Log($"Warning : Device Removed : {device}");
             }
+        }
+
+        public static void ChangePlayerAmount(PlayersAmount  playersAmount)
+        {
+            PlayersAmount = playersAmount;
+            OnPlayerJoinedEvent.RemoveAllListeners();
+            _joinedCount = 0;
+            _connectedDevices.Clear();
         }
     }
 }

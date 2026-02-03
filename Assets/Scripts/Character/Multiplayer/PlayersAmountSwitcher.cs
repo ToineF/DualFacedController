@@ -9,13 +9,13 @@ namespace Cattac.Character.Multiplayer
     {
         public void SetOnePlayer()
         {
-            PlayersManager.PlayersAmount = PlayersAmount.ONE;
+            PlayersManager.ChangePlayerAmount(PlayersAmount.ONE);
             Debug.Log("PlayersAmountSwitcher.SetOnePlayer()");
         }
 
         public void SetTwoPlayers()
         {
-            PlayersManager.PlayersAmount = PlayersAmount.TWO;
+            PlayersManager.ChangePlayerAmount(PlayersAmount.TWO);
             Debug.Log("PlayersAmountSwitcher.SetTwoPlayers()");
         }
     }

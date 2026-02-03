@@ -10,22 +10,24 @@ namespace Cattac.Character.Multiplayer
 
         private void OnEnable()
         {
-            PlayersManager.OnPlayerJoinedEvent += OnJoined;
+            Debug.Log(PlayersManager.OnPlayerJoinedEvent);
+            PlayersManager.OnPlayerJoinedEvent.AddListener(OnJoined);
         }
 
         private void OnDisable()
         {
-            PlayersManager.OnPlayerJoinedEvent -= OnJoined;
+            PlayersManager.OnPlayerJoinedEvent.AddListener(OnJoined);
         }
 
         private void OnJoined(int number, bool firstTime)
         {
+            Debug.Log("Joined : " + number + " " + _targetNumber + " " + (int)PlayersManager.PlayersAmount);
             if (firstTime &&  Mathf.Min((int)PlayersManager.PlayersAmount, _targetNumber) == number)
             {
                 _feedback.enabled = true;
                 StartCoroutine(Disable(2));
             }
-            else
+            if (firstTime == false)
             {
                 StartCoroutine(Disable(0));
             }
