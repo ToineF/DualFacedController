@@ -21,7 +21,6 @@ namespace Cattac.Character.Multiplayer
 
         private void OnJoined(int number, bool firstTime)
         {
-            Debug.Log("Joined : " + number + " " + _targetNumber + " " + (int)PlayersManager.PlayersAmount);
             if (firstTime &&  Mathf.Min((int)PlayersManager.PlayersAmount, _targetNumber) == number)
             {
                 _feedback.enabled = true;
