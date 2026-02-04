@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using FeedbacksEditor;
 using UnityEngine.UI;
 
 public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -25,7 +26,16 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [SerializeField] private float _rotationOutTime = .2f;
     [SerializeField] private AnimationCurve _rotationInAnimationCurve;
     [SerializeField] private AnimationCurve _rotationOutAnimationCurve;
+
+    [Header("Animation")] [SerializeField] private float _danceRotationSelectedAngle = 5;
+    [SerializeField] private float _danceRotationAngle = 5;
+    [SerializeField] private float _danceRotationFrequency = 5;
+    
+    [Header("Feedbacks")]
+    [SerializeField] private GameEvent _onPointerEnterEvent;
+    
     private Vector3 _originalRotation;
+    private float _currentAnimationRotation;
 
     private void Start()
     {
@@ -85,6 +95,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             new Vector3(_originalRotation.x, _originalRotation.y,
                 _originalRotation.z + _zRotation), _rotationInTime).SetEase(_rotationInAnimationCurve).SetUpdate(true);
         transform.DOScale(new Vector3(_hoverScale, _hoverScale), _hoverScaleDuration).SetEase(_scaleInAnimationCurve).SetUpdate(true);
+        if (_onPointerEnterEvent != null) GameEventsManager.PlayEvent(_onPointerEnterEvent, gameObject);
     }
 
     public void OnDeselect()
@@ -94,5 +105,13 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             new Vector3(_originalRotation.x, _originalRotation.y,
                 _originalRotation.z), _rotationOutTime).SetEase(_rotationOutAnimationCurve).SetUpdate(true);
         transform.DOScale(new Vector3(_originalScale, _originalScale), _notHoverScaleDuration).SetEase(_scaleOutAnimationCurve).SetUpdate(true);
+    }
+
+    private void Update()
+    {
+        _currentAnimationRotation += Time.deltaTime * _danceRotationFrequency;
+        float maxAngle =  EventSystem.current.currentSelectedGameObject == gameObject ? _danceRotationSelectedAngle : _danceRotationAngle;
+        transform.localEulerAngles = new Vector3(_originalRotation.x, _originalRotation.y, _originalRotation.z + Mathf.Sin(_currentAnimationRotation) * maxAngle);
+            
     }
 }

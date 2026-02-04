@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9030425175947122235}
   - component: {fileID: 9030425175947122232}
   - component: {fileID: 4610467516169313547}
+  - component: {fileID: 8891246218937982514}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -237,9 +238,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _zRotation: 2
-  _rotationInTime: 0.1
-  _rotationOutTime: 0.2
+  _zRotation: 0
+  _rotationInTime: 0
+  _rotationOutTime: 0
   _rotationInAnimationCurve:
     serializedVersion: 2
     m_Curve:
@@ -324,6 +325,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _danceRotationSelectedAngle: 5
+  _danceRotationAngle: 1
+  _danceRotationFrequency: 2.5
+  _onPointerEnterEvent: {fileID: 11400000, guid: ca4b3163a4d76564cb5e88fe4c102858,
+    type: 2}
 --- !u!114 &4610467516169313547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,6 +375,21 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &8891246218937982514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9030425175947122229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d692c5de45054dc4b15ce25930429fe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 9030425175947122235}
+  _targetGameObject: {fileID: 9030425175947122229}
+  _feedback: {fileID: 11400000, guid: 396c58b32b7424d48b659d52576ade2c, type: 2}
 --- !u!1 &9030425176625303179
 GameObject:
   m_ObjectHideFlags: 0
