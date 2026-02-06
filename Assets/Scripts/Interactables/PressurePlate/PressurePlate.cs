@@ -8,7 +8,8 @@ namespace Cattac.Interactables
     {
         public UnityEvent OnTriggerEnterEvent  => _onTriggerEnter;
         public UnityEvent OnTriggerExitEvent => _onTriggerExit;
-        
+
+        public bool IsPressed => CurrentCount > 0;
         public int CurrentCount => _currentColliders.Count;
         
         [SerializeField] private UnityEvent _onTriggerEnter;
