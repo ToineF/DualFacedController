@@ -27,7 +27,7 @@ namespace Cattac.Interactables
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.name);
+            //Debug.Log(other.name);
             if (other.TryGetComponent(out Rigidbody rb) == false) return;
 
             StartCoroutine(ApplyForceWithDecay(rb));

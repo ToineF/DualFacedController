@@ -371,6 +371,59 @@ Transform:
   - {fileID: 5603693609478706822}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6152447760550032920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8843223276708491870}
+  - component: {fileID: 2810892187987927747}
+  m_Layer: 11
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8843223276708491870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6152447760550032920}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00051924173, y: -0.07208001, z: -0.000011409654, w: 0.99739873}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8311123979658693996}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2810892187987927747
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6152447760550032920}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 12.11
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8244209363117145611
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,7 +717,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6020787832015698678, guid: 53c38a26325a2c549a23f8934a173cb4, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2164999040054650026, guid: 53c38a26325a2c549a23f8934a173cb4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8843223276708491870}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53c38a26325a2c549a23f8934a173cb4, type: 3}
 --- !u!4 &8311123979658693996 stripped
