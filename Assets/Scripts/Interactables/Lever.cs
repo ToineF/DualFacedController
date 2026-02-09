@@ -5,6 +5,8 @@ namespace Cattac.Interactables
 {
     public class Lever : MonoBehaviour
     {
+        public UnityEvent OnLeverRight => _onLeverRight;
+        
         [SerializeField] private UnityEvent _onLeverLeft;
         [SerializeField] private UnityEvent _onLeverRight;
         [SerializeField] private Transform _lever;
