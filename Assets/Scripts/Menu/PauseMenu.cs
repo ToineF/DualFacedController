@@ -61,19 +61,21 @@ namespace Cattac.Character
 
             CloseMenu(this);
             _cursorManager.SetCursorVisible(false);
+            AudioManager.Instance.EnableMusicLowPass(false);
             OnResume?.Invoke();
         }
 
         public void Pause()
         {
             Time.timeScale = 0f;
-            MainGame.Instance.PlayersManager.Inputs.SetInput(Multiplayer.InputType.PAUSE);
+            AudioManager.Instance.EnableMusicLowPass(true);
             GameIsPaused = true;
             _globalPauseUIMenu.alpha = 1f;
             _globalPauseUIMenu.interactable = true;
             _globalPauseUIMenu.blocksRaycasts = true;
             OpenMenu(this, FirstSelectedButton);
             _cursorManager.SetCursorVisible(true);
+            MainGame.Instance.PlayersManager.Inputs.SetInput(Multiplayer.InputType.PAUSE);
             OnPause?.Invoke();
         }
 

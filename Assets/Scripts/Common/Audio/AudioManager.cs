@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     
     public AudioVolumeManager VolumeManager { get; private set; }
     [SerializeField] private AudioSource _mainMusicSource;
+    [SerializeField] private AudioLowPassFilter _mainMusicLowPassFilter;
     [SerializeField] private AudioSource _sfxSourcePrefab;
     private ObjectPooling<AudioSource> _sfxSource = new ObjectPooling<AudioSource>();
 
@@ -26,17 +27,17 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             transform.SetParent(null);
             DontDestroyOnLoad(this);
+            
+            _sfxSource.Initialize(20, _sfxSourcePrefab, transform);
+        
+            // Setup VolumeManager
+            VolumeManager = new AudioVolumeManager(_mainMusicSource, _sfxSource.Pool);
+            var musicVolume = _mainMusicSource.volume;
+            var sfxVolume = _sfxSourcePrefab.volume;
+            VolumeManager.SetVolume(SoundMode.Master, 1f);
+            VolumeManager.SetVolume(SoundMode.Music, musicVolume);
+            VolumeManager.SetVolume(SoundMode.SFX, sfxVolume);
         }
-        
-        _sfxSource.Initialize(20, _sfxSourcePrefab, transform);
-        
-        // Setup VolumeManager
-        VolumeManager = new AudioVolumeManager(_mainMusicSource, _sfxSource.Pool);
-        var musicVolume = _mainMusicSource.volume;
-        var sfxVolume = _sfxSourcePrefab.volume;
-        VolumeManager.SetVolume(SoundMode.Master, 1f);
-        VolumeManager.SetVolume(SoundMode.Music, musicVolume);
-        VolumeManager.SetVolume(SoundMode.SFX, sfxVolume);
     }
     
     public void PlayResource(AudioResource resource)
@@ -63,5 +64,10 @@ public class AudioManager : MonoBehaviour
             yield return null;
         }
         yield break;
+    }
+
+    public void EnableMusicLowPass(bool enable)
+    {
+        _mainMusicLowPassFilter.enabled = enable;
     }
 }
