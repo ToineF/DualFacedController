@@ -1,4 +1,3 @@
-using System;
 using AntoineFoucault.Utilities;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -7,6 +6,8 @@ namespace Cattac.Interactables.ChaseSequence
 {
     public class ChasedCat : MonoBehaviour
     {
+        public System.Action OnChaseEnd;
+        
         [SerializeField] private SplineContainer[] _splines;
         [SerializeField] private SplineAnimate _splineAnimate;
         [SerializeField] private float _moveSpeed;
@@ -41,6 +42,7 @@ namespace Cattac.Interactables.ChaseSequence
             _movementCompleted = enable;
             _detectionCollider.enabled = enable;
             _animator.SetBool("IsRunning", enable == false);
+            if(_currentSplineIndex >= _splines.Length - 1) OnChaseEnd?.Invoke();
         }
 
         private void OnSplineCompleted()

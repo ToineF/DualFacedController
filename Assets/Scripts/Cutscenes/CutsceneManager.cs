@@ -25,6 +25,8 @@ namespace Cattac.Cutscenes
 
         public void StartNewSequence(Cutscene cutscene)
         {
+            if (cutscene.HasPlayed) return;
+            
             _currentInteractionSequence = cutscene;
 
             if (_currentInteractionSequence.StopPlayerMovements)
@@ -53,6 +55,7 @@ namespace Cattac.Cutscenes
         private void EndSequence()
         {
             MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE_RESUME);
+            _currentInteractionSequence.OnEnd?.Invoke();
         }
 
         private void ReadSequenceElement()
