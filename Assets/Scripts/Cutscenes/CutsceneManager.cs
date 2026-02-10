@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Playables;
-using Cattac.Character;
 using Cattac.Character.Multiplayer;
 
 namespace Cattac.Cutscenes
@@ -8,6 +7,9 @@ namespace Cattac.Cutscenes
     public class CutsceneManager : MonoBehaviour
     {
         public static CutsceneManager Instance;
+
+        public System.Action OnCutsceneStart;
+        public System.Action OnCutsceneEnd;
 
         [SerializeField] private CutsceneWaitForTimeManager _waitForTimeManager;
 
@@ -27,6 +29,7 @@ namespace Cattac.Cutscenes
         {
             if (cutscene.HasPlayed) return;
             
+            
             _currentInteractionSequence = cutscene;
 
             if (_currentInteractionSequence.StopPlayerMovements)
@@ -34,6 +37,8 @@ namespace Cattac.Cutscenes
                 MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
             }
 
+            OnCutsceneStart?.Invoke();
+            
             GoToSequenceAt(0);
         }
 
@@ -56,6 +61,7 @@ namespace Cattac.Cutscenes
         {
             MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE_RESUME);
             _currentInteractionSequence.OnEnd?.Invoke();
+            OnCutsceneEnd?.Invoke();
         }
 
         private void ReadSequenceElement()
