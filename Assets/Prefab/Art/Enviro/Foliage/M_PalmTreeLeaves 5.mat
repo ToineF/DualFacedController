@@ -20,18 +20,19 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_PalmTreeLeaves 2
-  m_Shader: {fileID: -6465566751694194690, guid: faf6fac0af77c0341adb571dfd634992,
+  m_Name: M_PalmTreeLeaves 5
+  m_Shader: {fileID: -6465566751694194690, guid: 5b54f343e04dc244481288ae31e3b3e1,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _BASESWITCH_UV
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2450
   stringTagMap:
     RenderType: TransparentCutout
   disabledShaderPasses:
@@ -41,31 +42,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AO:
-        m_Texture: {fileID: 2800000, guid: f502ff731452b70448d7991628dfc967, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: 3b3faf60c3661dc47a90fccc2ce47978, type: 3}
+        m_Texture: {fileID: 2800000, guid: 870f35cc57d1337489463d0202058bff, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3b3faf60c3661dc47a90fccc2ce47978, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex_1:
-        m_Texture: {fileID: 2800000, guid: 83d85b20dd4ecf240bccecef2acbbfff, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex_2:
-        m_Texture: {fileID: 2800000, guid: 5ab11e35615fd3549b301df331c6c7bf, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex_3:
-        m_Texture: {fileID: 2800000, guid: f502ff731452b70448d7991628dfc967, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metalic:
@@ -73,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Opactity:
-        m_Texture: {fileID: 2800000, guid: 83d85b20dd4ecf240bccecef2acbbfff, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Roughtness:
@@ -84,12 +69,8 @@ Material:
         m_Texture: {fileID: 2800000, guid: 14e9599bab0390d468e5637061f549aa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SimpleWorldWind_6f5ad074e3994389ad963ca32a852944_WindTexture_2146595436_Texture2D:
+    - _SimpleWorldWind_42979f7e8b5745a4ae5d7a44be59ee19_WindTexture_2146595436_Texture2D:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _WindTexture:
-        m_Texture: {fileID: 2800000, guid: e533890e27b5744459cc7927b3eb004f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _normalMap:
@@ -110,11 +91,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_7822dd6f30dd4f548d4220de7854de7e: 74.1
-    - Vector1_c757b884625e4ed788ab2dc9baeacd70: 0.3
     - _Alpha: 0.5
     - _AlphaClip: 1
-    - _AlphaClip1: 0.5
     - _AlphaToMask: 1
     - _BASESWITCH: 1
     - _Blend: 1
@@ -125,12 +103,11 @@ Material:
     - _Cull: 0
     - _DstBlend: 0
     - _EmissionMult: 0
-    - _Float: 0
     - _GradiantOrFlat: 1
     - _IsAnimated: 0
     - _IsGlass: 0
     - _IsMetalicMap: 0
-    - _IsOpacityFromAlpha: 0
+    - _IsOpacityFromAlpha: 1
     - _IsOpacityInverted: 0
     - _IsReflection: 0
     - _IsSSS: 0
@@ -138,7 +115,6 @@ Material:
     - _MetalicAmp: 0
     - _MetalicValue: 0
     - _NormalStrengh: 1
-    - _NormalStrength: 0.5
     - _OffSetSpeed: 0.29
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -157,23 +133,19 @@ Material:
     - _Tile: 0.03
     - _TileBlending: 1
     - _UVMultiply: 1
-    - _WindAmplitude: 0.03
-    - _WindNoiseScale: 3.06
-    - _WindOffsetSpeed: 0.006
-    - _WindSpeed: 1
+    - _WindAmplitude: 3.17
+    - _WindNoiseScale: 1
+    - _WindOffsetSpeed: 0
+    - _WindSpeed: 20
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
-    - Color_c8f27e1b70544bc99b4cd796a4f63591: {r: 0.3418424, g: 0.5283019, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
-    - _ColorMultiply: {r: 1, g: 1, b: 1, a: 0}
     - _ColorVariation: {r: 1, g: 1, b: 1, a: 0}
-    - _RandomScale: {r: 0, g: 0.1, b: 0, a: 0}
     - _SSSColor: {r: 1, g: 1, b: 1, a: 1}
-    - _WindContrast: {r: 0, g: 0.31, b: 0, a: 0}
-    - _WindDirection: {r: 0, g: 1, b: 0, a: 0}
-    - _WindDirection_1: {r: 0, g: 10, b: 0, a: 0}
+    - _WindDirection: {r: -0.25, g: 0.25, b: 0, a: 0}
+    - _WindDirection_1: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
