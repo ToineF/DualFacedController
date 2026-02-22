@@ -14,6 +14,17 @@ namespace Common.Haptic
             _instance = this;
         }
         
+        private void Start()
+        {
+            StopHaptic();
+        }
+        
+        private void StopHaptic()
+        {
+            StopAllCoroutines();
+            SetAllMotorSpeeds(0, 0);
+        }
+        
         /// <summary>
         /// Start vibrating a gamepad for a set time in seconds
         /// </summary>
