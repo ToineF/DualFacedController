@@ -5,10 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class DebugMode : MonoBehaviour
 {
+    private static DebugMode _instance;
+
     private void Awake()
     {
-        transform.SetParent(null);
-        DontDestroyOnLoad(this);
+        if (_instance == null)
+        {
+            _instance = this;
+            transform.SetParent(null);
+            DontDestroyOnLoad(this);
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private bool _isUIVisible;
@@ -33,7 +43,7 @@ public class DebugMode : MonoBehaviour
             if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
-        
+
         if (Input.GetKeyDown(KeyCode.F4)) // Toggle Canvas
         {
             _isUIVisible = !_isUIVisible;
@@ -43,7 +53,7 @@ public class DebugMode : MonoBehaviour
                 canvas.enabled = _isUIVisible;
             }
         }
-        
+
         if (Input.GetKeyDown(KeyCode.F5)) // Fly
         {
             var heads = FindObjectsByType<CharacterHead>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
@@ -52,7 +62,7 @@ public class DebugMode : MonoBehaviour
                 head.CurrentRigidbody.AddForce(Vector3.up * 1000f, ForceMode.Impulse);
             }
         }
-        
+
         if (Input.GetKeyDown(KeyCode.F6)) // Speed up
         {
             var heads = FindObjectsByType<CharacterHead>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
