@@ -26,7 +26,7 @@ namespace FMOD
             }
             else if (Instance != this)
             {
-                Destroy(gameObject);
+                Destroy(this);
             }
         }
 

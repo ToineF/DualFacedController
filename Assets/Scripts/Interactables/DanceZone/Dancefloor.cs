@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using FeedbacksEditor;
+using FMOD;
 using UnityEngine;
 
 namespace Cattac.Interactables
@@ -21,7 +22,6 @@ namespace Cattac.Interactables
         [SerializeField] private RotatingRigidbody[] _rotatingRigidbodies;
         [SerializeField] private float _lightFrequency;
         [SerializeField] private GameEvent _turnOnEvent;
-        [SerializeField] private AudioSource _partyMusic;
 
         private int _currentLightIndex;
         
@@ -40,7 +40,7 @@ namespace Cattac.Interactables
         public void StartPartyImmediate(bool minigame = true)
         {
             GameEventsManager.PlayEvent(_turnOnEvent, gameObject);
-            _partyMusic.Play();
+            FMODAudioManager.Instance.PlayMusic(GameMusic.DISCO_ROOM);
             if (minigame) OnPartyStart?.Invoke();
             
             StartCoroutine(StartNextLight());

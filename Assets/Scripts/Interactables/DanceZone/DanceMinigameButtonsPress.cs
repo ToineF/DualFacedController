@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections;
 using AntoineFoucault.Utilities;
 using FeedbacksEditor;
 using NaughtyAttributes;
@@ -13,11 +12,9 @@ namespace Cattac.Interactables
         [SerializeField] private PressurePlate[] _pressurePlates;
         [SerializeField] private GameObject[] _spotlights;
 
-        [SerializeField, MinMaxSlider(0.01f, 10f)]
-        private Vector2 _spawnIntervalStart;
+        [SerializeField, MinMaxSlider(0.01f, 10f)] private Vector2 _spawnInterval;
 
-        [SerializeField, MinMaxSlider(0.01f, 10f)]
-        private Vector2 _spawnIntervalEnd;
+        [SerializeField] private float _waitTimeBetweenRounds;
 
         [SerializeField] private MeshRenderer[] _winHighlights;
         [SerializeField] private MeshRenderer[] _loseHighlights;
@@ -79,13 +76,12 @@ namespace Cattac.Interactables
                 if (_loseCount >= _maxWinCount) MinigameEnd();
             }
 
-            HighlightPressurePlates();
+            StartCoroutine(WaitBeforeNextRound());
         }
 
-        private void HighlightPressurePlates()
+        private IEnumerator WaitBeforeNextRound()
         {
-            var spawnInterval = _spawnIntervalStart; //Vector2.Lerp(_spawnIntervalStart, _spawnIntervalEnd, _totalMinigameTimer / _totalMinigameTime);
-            _spawnTimer = UnityEngine.Random.Range(spawnInterval.x, spawnInterval.y);
+            _spotlights.SetAllActive(false);
 
             foreach (var pressurePlate in _currentPressurePlates)
             {
@@ -93,14 +89,31 @@ namespace Cattac.Interactables
                 pressurePlate.OnTriggerEnterEvent.RemoveListener(OnPressurePlateEnter);
                 pressurePlate.OnTriggerExitEvent.RemoveListener(OnPressurePlateExit);
             }
+            
+            yield return new WaitForSeconds(_waitTimeBetweenRounds);
+            
+            HighlightPressurePlates();
+        }
 
-            _currentPressurePlates[0] = _pressurePlates.GetRandomItem();
-            _currentPressurePlates[1] =
-                _pressurePlates.GetRandomItemExcluding(_pressurePlates.ToList().IndexOf(_currentPressurePlates[0]));
-            _spotlights[0].transform.position = new Vector3(_currentPressurePlates[0].transform.position.x,
-                _spotlights[0].transform.position.y, _currentPressurePlates[0].transform.position.z);
-            _spotlights[1].transform.position = new Vector3(_currentPressurePlates[1].transform.position.x,
-                _spotlights[1].transform.position.y, _currentPressurePlates[1].transform.position.z);
+        private void HighlightPressurePlates()
+        {
+            _spawnTimer = UnityEngine.Random.Range(_spawnInterval.x, _spawnInterval.y);
+
+            PressurePlate plate1 = null;
+            PressurePlate plate2 = null;
+            while (plate1 == null || plate2 == null)
+            {
+                var newPlate = _pressurePlates.GetRandomItem();
+                if (_currentPressurePlates[0] == newPlate || _currentPressurePlates[1] == newPlate || (plate1 != null && plate1 == newPlate)) continue;
+                if (plate1 == null) plate1 = newPlate;
+                else if  (plate2 == null) plate2 = newPlate;
+            }
+            
+            _currentPressurePlates[0] = plate1;
+            _currentPressurePlates[1] = plate2;
+            _spotlights.SetAllActive(true);
+            _spotlights[0].transform.position = new Vector3(_currentPressurePlates[0].transform.position.x, _spotlights[0].transform.position.y, _currentPressurePlates[0].transform.position.z);
+            _spotlights[1].transform.position = new Vector3(_currentPressurePlates[1].transform.position.x, _spotlights[1].transform.position.y, _currentPressurePlates[1].transform.position.z);
             GameEventsManager.PlayEvent(_highlightPressurePlatesEvent, gameObject);
 
             _enteredPressurePlatesCount = 0;
@@ -144,6 +157,13 @@ namespace Cattac.Interactables
             _minigameEndActivate.SetAllActive(true);
             _spotlights.SetAllActive(false);
             _minigameEndDeactivate.SetAllActive(false);
+
+            foreach (var pressurePlate in _currentPressurePlates)
+            {
+                if (pressurePlate == null) continue;
+                pressurePlate.OnTriggerEnterEvent.RemoveListener(OnPressurePlateEnter);
+                pressurePlate.OnTriggerExitEvent.RemoveListener(OnPressurePlateExit);
+            }
 
             Debug.Log("End minigame");
         }

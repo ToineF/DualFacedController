@@ -1175,6 +1175,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5986301476887070626}
+  - {fileID: 8197357645312937922}
   - {fileID: 3615678902833923998}
   - {fileID: 8834871998391068905}
   - {fileID: 585096025419873836}
@@ -1293,6 +1294,90 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2389163845569178888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8197357645312937922}
+  - component: {fileID: 3522440481847849165}
+  - component: {fileID: 8768533039656738172}
+  m_Layer: 0
+  m_Name: FMODManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8197357645312937922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389163845569178888}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1463.3, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3214724071079703064}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3522440481847849165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389163845569178888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81df8961529a184438be3d779f7dd788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _musicReferences:
+  - Guid:
+      Data1: -1743313811
+      Data2: 1271282746
+      Data3: 357088184
+      Data4: -1968302132
+    Path: event:/ChinampasLevel
+  - Guid:
+      Data1: 769338688
+      Data2: 1160715598
+      Data3: -955192949
+      Data4: -26880460
+    Path: event:/DiscoRoom
+  - Guid:
+      Data1: -1081049516
+      Data2: 1196007794
+      Data3: 892607928
+      Data4: 1320871828
+    Path: event:/MainMenu
+  - Guid:
+      Data1: -1740235090
+      Data2: 1316803131
+      Data3: 628274849
+      Data4: 1630231040
+    Path: event:/BossTemple
+--- !u!114 &8768533039656738172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389163845569178888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e66b2f2f63464ba00bdc6a70c4678f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetMusic: 0
+  _playOnStart: 1
 --- !u!1 &2620176168166839717
 GameObject:
   m_ObjectHideFlags: 0
@@ -6132,17 +6217,17 @@ PrefabInstance:
     - target: {fileID: 1187938659420145336, guid: 5136bc614137fc941b83140cee5b369c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 607.27576
+      value: 190.2757
       objectReference: {fileID: 0}
     - target: {fileID: 1187938659420145336, guid: 5136bc614137fc941b83140cee5b369c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 70.8725
+      value: 91.872505
       objectReference: {fileID: 0}
     - target: {fileID: 1187938659420145336, guid: 5136bc614137fc941b83140cee5b369c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.336063
+      value: -138.33607
       objectReference: {fileID: 0}
     - target: {fileID: 1187938659420145336, guid: 5136bc614137fc941b83140cee5b369c,
         type: 3}
@@ -6231,6 +6316,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3214724071079703064}
     m_Modifications:
+    - target: {fileID: 227918201666605179, guid: 24f52f399fac5d44da2c20ebdc0f22f7,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5040695660683796477, guid: 24f52f399fac5d44da2c20ebdc0f22f7,
         type: 3}
       propertyPath: m_Name
