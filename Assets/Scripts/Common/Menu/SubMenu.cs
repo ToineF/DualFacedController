@@ -65,7 +65,7 @@ public class SubMenu : MonoBehaviour
 
         protected void OnDisable()
         {
-            _action.performed -= PressCancel;
+            if (_action != null) _action.performed -= PressCancel;
         }
 
         protected virtual void TryCloseSubMenu(InputAction.CallbackContext context)

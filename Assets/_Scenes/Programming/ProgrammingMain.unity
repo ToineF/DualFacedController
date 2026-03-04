@@ -2428,7 +2428,6 @@ GameObject:
   m_Component:
   - component: {fileID: 137866329}
   - component: {fileID: 137866328}
-  - component: {fileID: 137866330}
   m_Layer: 0
   m_Name: FMODManager
   m_TagString: Untagged
@@ -2448,32 +2447,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81df8961529a184438be3d779f7dd788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetMusics:
-  - Guid:
-      Data1: -793884512
-      Data2: 1197662554
-      Data3: 979122096
-      Data4: -976035829
-    Path: event:/CATTAC - Boss Temple - Intensity 0 (Loop)
-  - Guid:
-      Data1: -2025647964
-      Data2: 1243793531
-      Data3: 882230696
-      Data4: 546932646
-    Path: event:/CATTAC - Boss Temple - Intensity 1 (Loop)
-  - Guid:
-      Data1: -1108370204
-      Data2: 1186462497
-      Data3: 806328988
-      Data4: -1805832033
-    Path: event:/CATTAC - Boss Temple - Intensity 2 (Loop)
-  - Guid:
-      Data1: -1663887927
-      Data2: 1209152067
-      Data3: -1516896327
-      Data4: -2030909674
-    Path: event:/CATTAC - Boss Temple - Intensity 3 (Loop)
-  _musicEmitter: {fileID: 137866330}
+  emitters:
+  - {fileID: 1753722423}
+  - {fileID: 1446987242}
+  - {fileID: 1272792939}
+  - {fileID: 1765441080}
 --- !u!4 &137866329
 Transform:
   m_ObjectHideFlags: 0
@@ -2486,40 +2464,13 @@ Transform:
   m_LocalPosition: {x: 1463.3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1753722422}
+  - {fileID: 1446987241}
+  - {fileID: 1272792938}
+  - {fileID: 1765441079}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &137866330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137866327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: -793884512
-      Data2: 1197662554
-      Data3: 979122096
-      Data4: -976035829
-    Path: event:/CATTAC - Boss Temple - Intensity 0 (Loop)
-  Event: 
-  EventPlayTrigger: 0
-  EventStopTrigger: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!1001 &144897142
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31356,6 +31307,69 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5234358212300205150}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1272792937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1272792938}
+  - component: {fileID: 1272792939}
+  m_Layer: 0
+  m_Name: Emitter (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1272792938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272792937}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 137866329}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1272792939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272792937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1108370204
+      Data2: 1186462497
+      Data3: 806328988
+      Data4: -1805832033
+    Path: event:/CATTAC - Boss Temple - Intensity 2 (Loop)
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1275254824
 GameObject:
   m_ObjectHideFlags: 0
@@ -35368,6 +35382,69 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1444505230}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1446987240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1446987241}
+  - component: {fileID: 1446987242}
+  m_Layer: 0
+  m_Name: Emitter (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1446987241
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446987240}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 137866329}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1446987242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446987240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -2025647964
+      Data2: 1243793531
+      Data3: 882230696
+      Data4: 546932646
+    Path: event:/CATTAC - Boss Temple - Intensity 1 (Loop)
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1452415709
 GameObject:
   m_ObjectHideFlags: 0
@@ -42153,6 +42230,69 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1753365838}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1753722421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1753722422}
+  - component: {fileID: 1753722423}
+  m_Layer: 0
+  m_Name: Emitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1753722422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753722421}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 137866329}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1753722423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753722421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -793884512
+      Data2: 1197662554
+      Data3: 979122096
+      Data4: -976035829
+    Path: event:/CATTAC - Boss Temple - Intensity 0 (Loop)
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1759596637
 GameObject:
   m_ObjectHideFlags: 0
@@ -42328,6 +42468,69 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.64
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1765441078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1765441079}
+  - component: {fileID: 1765441080}
+  m_Layer: 0
+  m_Name: Emitter (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1765441079
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765441078}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 137866329}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1765441080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765441078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1663887927
+      Data2: 1209152067
+      Data3: -1516896327
+      Data4: -2030909674
+    Path: event:/CATTAC - Boss Temple - Intensity 3 (Loop)
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!4 &1767067700 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3860712652691596553, guid: 427cf1d1920b4aa4f9b05c7d0d4a79fc,
@@ -52817,13 +53020,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 137866328}
-        m_TargetAssemblyTypeName: FMODAudioManager, Assembly-CSharp
-        m_MethodName: stopstopstop
-        m_Mode: 1
+        m_TargetAssemblyTypeName: FMODAudioManager2, Assembly-CSharp
+        m_MethodName: PlayMusicAt
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -57962,7 +58165,7 @@ PrefabInstance:
     - target: {fileID: 898762116761067493, guid: f3874041a9e587845b7db24529b7ad15,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 979294963405554632, guid: f3874041a9e587845b7db24529b7ad15,
         type: 3}
@@ -59128,6 +59331,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _disappearMouseRotateFeedback.PunchDirection.z
       value: -360
+      objectReference: {fileID: 0}
+    - target: {fileID: 5378587650424377443, guid: f3874041a9e587845b7db24529b7ad15,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5383790312015202938, guid: f3874041a9e587845b7db24529b7ad15,
         type: 3}
