@@ -23,7 +23,9 @@ namespace Cattac.Collectibles.Save
         {
             if (GetID() >= 1) // True
             {
-                _lever.OnLeverRight?.Invoke();
+                // TODO : improve the next line since in some cases we want the doors to stay open but be careful of the execution order of the CutsceneDataPersistence
+                
+                //_lever.OnLeverRight?.Invoke();
                 _joint.transform.eulerAngles = Vector3.Scale(_joint.transform.eulerAngles, new Vector3(1, 1, -1));
             }
         }
