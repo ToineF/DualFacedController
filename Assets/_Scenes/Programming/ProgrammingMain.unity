@@ -2447,11 +2447,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81df8961529a184438be3d779f7dd788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emitters:
-  - {fileID: 1753722423}
-  - {fileID: 1446987242}
-  - {fileID: 1272792939}
-  - {fileID: 1765441080}
+  _musicReferences:
+  - Guid:
+      Data1: -1743313811
+      Data2: 1271282746
+      Data3: 357088184
+      Data4: -1968302132
+    Path: event:/ChinampasLevel
+  - Guid:
+      Data1: 769338688
+      Data2: 1160715598
+      Data3: -955192949
+      Data4: -26880460
+    Path: event:/DiscoRoom
 --- !u!4 &137866329
 Transform:
   m_ObjectHideFlags: 0
@@ -52948,6 +52956,7 @@ GameObject:
   - component: {fileID: 2028562204}
   - component: {fileID: 2028562203}
   - component: {fileID: 2028562202}
+  - component: {fileID: 2028562205}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -53019,10 +53028,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 137866328}
-        m_TargetAssemblyTypeName: FMODAudioManager2, Assembly-CSharp
-        m_MethodName: PlayMusicAt
-        m_Mode: 3
+      - m_Target: {fileID: 2028562205}
+        m_TargetAssemblyTypeName: FMOD.FMODMusicPlayer, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -53069,6 +53078,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028562200}
   m_CullTransparentMesh: 1
+--- !u!114 &2028562205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028562200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e66b2f2f63464ba00bdc6a70c4678f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetMusic: 1
 --- !u!1 &2029796815
 GameObject:
   m_ObjectHideFlags: 0
