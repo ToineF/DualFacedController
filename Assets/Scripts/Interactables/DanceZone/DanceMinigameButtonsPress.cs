@@ -20,14 +20,16 @@ namespace Cattac.Interactables
         [SerializeField] private MeshRenderer[] _loseHighlights;
         [SerializeField] private Material _winHighlightMaterial;
         [SerializeField] private GameEvent _highlightPressurePlatesEvent;
+        [SerializeField] private MeshRenderer _timerRenderer;
 
-        [Header("Minigame End")] [SerializeField]
-        private int _maxWinCount;
+        [Header("Minigame End")]
+        [SerializeField] private int _maxWinCount;
 
         [SerializeField] private GameObject[] _minigameEndActivate;
         [SerializeField] private GameObject[] _minigameEndDeactivate;
 
         private float _spawnTimer;
+        private float _currentMaxSpawnTimer;
         private bool _canUpdate;
 
         private PressurePlate[] _currentPressurePlates;
@@ -54,6 +56,7 @@ namespace Cattac.Interactables
             if (_canUpdate == false) return;
 
             _spawnTimer -= Time.deltaTime;
+            ChangeTimerColor(Mathf.Min(1f, _spawnTimer/_currentMaxSpawnTimer));
 
             if (_spawnTimer < 0)
             {
@@ -81,6 +84,7 @@ namespace Cattac.Interactables
 
         private IEnumerator WaitBeforeNextRound()
         {
+            _spawnTimer = float.MaxValue;
             _spotlights.SetAllActive(false);
 
             foreach (var pressurePlate in _currentPressurePlates)
@@ -97,7 +101,8 @@ namespace Cattac.Interactables
 
         private void HighlightPressurePlates()
         {
-            _spawnTimer = UnityEngine.Random.Range(_spawnInterval.x, _spawnInterval.y);
+            _currentMaxSpawnTimer = UnityEngine.Random.Range(_spawnInterval.x, _spawnInterval.y);
+            _spawnTimer = _currentMaxSpawnTimer;
 
             PressurePlate plate1 = null;
             PressurePlate plate2 = null;
@@ -149,6 +154,11 @@ namespace Cattac.Interactables
             {
                 EndRound(true);
             }
+        }
+        
+        private void ChangeTimerColor(float index)
+        {
+            _timerRenderer.sharedMaterial.SetFloat("_Progress", index);
         }
 
         private void MinigameEnd()

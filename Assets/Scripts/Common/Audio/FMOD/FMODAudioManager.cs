@@ -1,6 +1,7 @@
 using FMOD.Studio;
 using UnityEngine;
 using FMODUnity;
+using NotImplementedException = System.NotImplementedException;
 
 namespace FMOD
 {
@@ -53,6 +54,11 @@ namespace FMOD
         public void StopMusic()
         {
             _musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
+
+        public void SetParameter(string parameterName, int amount)
+        {
+            _musicInstance.setParameterByName(parameterName, amount);
         }
     }
 }
