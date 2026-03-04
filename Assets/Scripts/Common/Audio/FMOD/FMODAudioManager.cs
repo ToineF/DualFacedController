@@ -23,9 +23,6 @@ namespace FMOD
                 Instance = this;
                 transform.SetParent(null);
                 DontDestroyOnLoad(gameObject);
-
-                _musicInstance = RuntimeManager.CreateInstance(_musicReferences[(int)GameMusic.CHINAMPAS_LEVEL]);
-                _musicInstance.start();
             }
             else if (Instance != this)
             {
