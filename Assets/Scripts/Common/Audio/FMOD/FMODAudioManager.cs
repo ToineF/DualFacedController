@@ -1,7 +1,7 @@
+using System;
 using FMOD.Studio;
 using UnityEngine;
 using FMODUnity;
-using NotImplementedException = System.NotImplementedException;
 
 namespace FMOD
 {
@@ -9,11 +9,11 @@ namespace FMOD
     {
         public static FMODAudioManager Instance;
 
-        // TODO : Set as a scriptable object later
-        [Header("References")] [SerializeField]
-        private EventReference[] _musicReferences;
-
+        [Header("References")] [SerializeField] private EventReference[] _musicReferences;
+        [SerializeField] private EventReference _pauseMenuFilter;
+        
         private EventInstance _musicInstance;
+        private EventInstance _pauseMenuSnapshot;
 
         private int _currentIndex = 0;
 
@@ -29,6 +29,11 @@ namespace FMOD
             {
                 Destroy(this);
             }
+        }
+
+        private void Start()
+        {
+            _pauseMenuSnapshot = FMODUnity.RuntimeManager.CreateInstance(_pauseMenuFilter);
         }
 
         public void PlayClip(EventReference eventPath, Vector3 position = default)
@@ -59,6 +64,16 @@ namespace FMOD
         public void SetParameter(string parameterName, int amount)
         {
             _musicInstance.setParameterByName(parameterName, amount);
+        }
+        
+        public void PlayEQFilter()
+        {
+            _pauseMenuSnapshot.start();
+        }
+
+        public void StopEQFilter()
+        {
+            _pauseMenuSnapshot.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
     }
 }

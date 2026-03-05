@@ -1,3 +1,4 @@
+using FMOD;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
@@ -61,14 +62,16 @@ namespace Cattac.Character
 
             CloseMenu(this);
             _cursorManager.SetCursorVisible(false);
-            AudioManager.Instance.EnableMusicLowPass(false);
+            //AudioManager.Instance.EnableMusicLowPass(false);
+            FMODAudioManager.Instance.StopEQFilter();
             OnResume?.Invoke();
         }
 
         public void Pause()
         {
             Time.timeScale = 0f;
-            AudioManager.Instance.EnableMusicLowPass(true);
+            //AudioManager.Instance.EnableMusicLowPass(true);
+            FMODAudioManager.Instance.PlayEQFilter();
             GameIsPaused = true;
             _globalPauseUIMenu.alpha = 1f;
             _globalPauseUIMenu.interactable = true;
