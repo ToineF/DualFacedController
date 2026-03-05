@@ -294,12 +294,14 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8285903840305500405, guid: b4961c024862ba440bc4a25beb486cfd,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 416369818323372638}
-    - targetCorrespondingSourceObject: {fileID: 8285903840305500405, guid: b4961c024862ba440bc4a25beb486cfd,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3298955286742459883}
   m_SourcePrefab: {fileID: 100100000, guid: b4961c024862ba440bc4a25beb486cfd, type: 3}
+--- !u!95 &316770771893704002 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 585773819435968038, guid: b4961c024862ba440bc4a25beb486cfd,
+    type: 3}
+  m_PrefabInstance: {fileID: 883958394154070884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2328558450217196699 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3176375754366201855, guid: b4961c024862ba440bc4a25beb486cfd,
@@ -384,28 +386,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 883958394154070884}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &416369818323372638
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9131332870830515089}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: aed1d5fc36ef1bb4ba55cf7f7b809fa9, type: 2}
-  m_CullingMode: 2
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3298955286742459883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _catStateManager: {fileID: 385373036975003448}
-  _animator: {fileID: 416369818323372638}
+  _animator: {fileID: 316770771893704002}
   _idleStateName: Idle
   _chaseMouseStateName: Chase
   _lookAtDivinityStateName: Bow

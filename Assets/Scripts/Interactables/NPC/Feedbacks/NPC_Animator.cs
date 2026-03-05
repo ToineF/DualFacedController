@@ -1,4 +1,3 @@
-using System;
 using Cattac.Interactables.NPC;
 using Cattac.Interactables.NPC.States;
 using UnityEngine;
