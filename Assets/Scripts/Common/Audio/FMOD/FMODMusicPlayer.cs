@@ -11,6 +11,8 @@ namespace FMOD
         {
             switch (_startBehaviour)
             {
+                case StartBehaviour.NONE:
+                    break;
                 case StartBehaviour.PLAY:
                     Play();
                     break;

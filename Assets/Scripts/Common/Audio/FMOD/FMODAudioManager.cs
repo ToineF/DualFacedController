@@ -15,6 +15,8 @@ namespace FMOD
         private EventInstance _musicInstance;
         private EventInstance _pauseMenuSnapshot;
         
+        private int _currentMusicIndex = -1;
+        
         private void Awake()
         {
             if (Instance == null)
@@ -42,7 +44,12 @@ namespace FMOD
 
         public void PlayMusic(GameMusic gameMusic)
         {
-            PlayMusic(_musicReferences[(int)gameMusic]);
+            // Ignore if music is already playing
+            var targetMusic = (int)gameMusic;
+            if (_currentMusicIndex == targetMusic) return;
+
+            _currentMusicIndex = targetMusic;
+            PlayMusic(_musicReferences[targetMusic]);
         }
 
         public void PlayMusic(EventReference eventReference)

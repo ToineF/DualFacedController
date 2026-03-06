@@ -28,9 +28,9 @@ namespace Cattac.Interactables
         
         private void Start()
         {
-            StartCoroutine(StartParty());
-            FMODAudioManager.Instance.PlayMusic(GameMusic.DISCO_ROOM);
+            //_discoMusicPlayer.Play();
             _discoMusicPlayer.SetDiscoLight(0);
+            StartCoroutine(StartParty());
         }
 
         private IEnumerator StartParty()
