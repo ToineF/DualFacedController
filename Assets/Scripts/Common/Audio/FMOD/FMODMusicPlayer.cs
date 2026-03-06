@@ -23,7 +23,8 @@ namespace FMOD
         public void Play() => FMODAudioManager.Instance.PlayMusic(_targetMusic);
         public void Stop() => FMODAudioManager.Instance.StopMusic();
         
-        public void SetParameter(int intensity) => FMODAudioManager.Instance.SetParameter("Intensity", intensity);
+        public void SetIntensity(int intensity) => FMODAudioManager.Instance.SetParameter("Intensity", intensity);
+        public void SetDiscoLight(int light) => FMODAudioManager.Instance.SetParameter("Light", light);
         
         private enum StartBehaviour
         {

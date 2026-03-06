@@ -1,32 +1,35 @@
 using System.Collections;
 using AntoineFoucault.Utilities;
 using FeedbacksEditor;
+using FMOD;
 using NaughtyAttributes;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Cattac.Interactables
 {
     public class DanceMinigameButtonsPress : MonoBehaviour
     {
         [SerializeField] private Dancefloor _dancefloor;
+        [SerializeField] private DanceMinigameScorePanel _scorePanel;
         [SerializeField] private PressurePlate[] _pressurePlates;
         [SerializeField] private GameObject[] _spotlights;
 
-        [SerializeField, MinMaxSlider(0.01f, 10f)] private Vector2 _spawnInterval;
+        [SerializeField, MinMaxSlider(0.01f, 10f)]
+        private Vector2 _spawnInterval;
 
         [SerializeField] private float _waitTimeBetweenRounds;
 
-        [SerializeField] private MeshRenderer[] _winHighlights;
-        [SerializeField] private MeshRenderer[] _loseHighlights;
-        [SerializeField] private Material _winHighlightMaterial;
         [SerializeField] private GameEvent _highlightPressurePlatesEvent;
         [SerializeField] private MeshRenderer _timerRenderer;
 
-        [Header("Minigame End")]
-        [SerializeField] private int _maxWinCount;
+        [Header("Minigame End")] [SerializeField]
+        private int _maxWinCount;
 
         [SerializeField] private GameObject[] _minigameEndActivate;
         [SerializeField] private GameObject[] _minigameEndDeactivate;
+        [SerializeField] private GameObject[] _minigameWinActivate;
+        [SerializeField] private GameObject[] _minigameWinDeactivate;
 
         private float _spawnTimer;
         private float _currentMaxSpawnTimer;
@@ -41,6 +44,7 @@ namespace Cattac.Interactables
         private void Awake()
         {
             _dancefloor.OnPartyStart += OnPartyStart;
+            ChangeTimerColor(0);
         }
 
         private void OnPartyStart()
@@ -48,7 +52,8 @@ namespace Cattac.Interactables
             _canUpdate = true;
             _currentPressurePlates = new PressurePlate[2];
             _spotlights.SetAllActive(true);
-            HighlightPressurePlates();
+            _scorePanel.Appear(true);
+            StartCoroutine(WaitBeforeNextRound());
         }
 
         private void Update()
@@ -56,7 +61,7 @@ namespace Cattac.Interactables
             if (_canUpdate == false) return;
 
             _spawnTimer -= Time.deltaTime;
-            ChangeTimerColor(Mathf.Min(1f, _spawnTimer/_currentMaxSpawnTimer));
+            ChangeTimerColor(Mathf.Min(1f, _spawnTimer / _currentMaxSpawnTimer));
 
             if (_spawnTimer < 0)
             {
@@ -69,14 +74,14 @@ namespace Cattac.Interactables
             if (win)
             {
                 _winCount++;
-                _winHighlights[_winCount - 1].material = _winHighlightMaterial;
-                if (_winCount >= _maxWinCount) MinigameEnd();
+                _scorePanel.SetHighlight(true, _winCount - 1);
+                if (_winCount >= _maxWinCount) MinigameEnd(true);
             }
             else
             {
                 _loseCount++;
-                _loseHighlights[_loseCount - 1].material = _winHighlightMaterial;
-                if (_loseCount >= _maxWinCount) MinigameEnd();
+                _scorePanel.SetHighlight(false, _loseCount - 1);
+                if (_loseCount >= _maxWinCount) MinigameEnd(false);
             }
 
             StartCoroutine(WaitBeforeNextRound());
@@ -93,10 +98,10 @@ namespace Cattac.Interactables
                 pressurePlate.OnTriggerEnterEvent.RemoveListener(OnPressurePlateEnter);
                 pressurePlate.OnTriggerExitEvent.RemoveListener(OnPressurePlateExit);
             }
-            
+
             yield return new WaitForSeconds(_waitTimeBetweenRounds);
-            
-            HighlightPressurePlates();
+
+            if (_canUpdate) HighlightPressurePlates();
         }
 
         private void HighlightPressurePlates()
@@ -109,16 +114,19 @@ namespace Cattac.Interactables
             while (plate1 == null || plate2 == null)
             {
                 var newPlate = _pressurePlates.GetRandomItem();
-                if (_currentPressurePlates[0] == newPlate || _currentPressurePlates[1] == newPlate || (plate1 != null && plate1 == newPlate)) continue;
+                if (_currentPressurePlates[0] == newPlate || _currentPressurePlates[1] == newPlate ||
+                    (plate1 != null && plate1 == newPlate)) continue;
                 if (plate1 == null) plate1 = newPlate;
-                else if  (plate2 == null) plate2 = newPlate;
+                else if (plate2 == null) plate2 = newPlate;
             }
-            
+
             _currentPressurePlates[0] = plate1;
             _currentPressurePlates[1] = plate2;
             _spotlights.SetAllActive(true);
-            _spotlights[0].transform.position = new Vector3(_currentPressurePlates[0].transform.position.x, _spotlights[0].transform.position.y, _currentPressurePlates[0].transform.position.z);
-            _spotlights[1].transform.position = new Vector3(_currentPressurePlates[1].transform.position.x, _spotlights[1].transform.position.y, _currentPressurePlates[1].transform.position.z);
+            _spotlights[0].transform.position = new Vector3(_currentPressurePlates[0].transform.position.x,
+                _spotlights[0].transform.position.y, _currentPressurePlates[0].transform.position.z);
+            _spotlights[1].transform.position = new Vector3(_currentPressurePlates[1].transform.position.x,
+                _spotlights[1].transform.position.y, _currentPressurePlates[1].transform.position.z);
             GameEventsManager.PlayEvent(_highlightPressurePlatesEvent, gameObject);
 
             _enteredPressurePlatesCount = 0;
@@ -155,17 +163,25 @@ namespace Cattac.Interactables
                 EndRound(true);
             }
         }
-        
+
         private void ChangeTimerColor(float index)
         {
             _timerRenderer.sharedMaterial.SetFloat("_Progress", index);
         }
 
-        private void MinigameEnd()
+        private void MinigameEnd(bool win)
         {
             _canUpdate = false;
-            _minigameEndActivate.SetAllActive(true);
             _spotlights.SetAllActive(false);
+            ChangeTimerColor(1);
+            _minigameEndActivate.SetAllActive(true);
+            if (win)
+            {
+                _minigameWinActivate.SetAllActive(true);
+                _minigameWinDeactivate.SetAllActive(false);
+                _scorePanel.Appear(false);
+            }
+
             _minigameEndDeactivate.SetAllActive(false);
 
             foreach (var pressurePlate in _currentPressurePlates)

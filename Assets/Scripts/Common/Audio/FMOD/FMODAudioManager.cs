@@ -14,9 +14,7 @@ namespace FMOD
         
         private EventInstance _musicInstance;
         private EventInstance _pauseMenuSnapshot;
-
-        private int _currentIndex = 0;
-
+        
         private void Awake()
         {
             if (Instance == null)
@@ -51,7 +49,7 @@ namespace FMOD
         {
             // Polish transitions later
             _musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            //eventInstance.release();
+            _musicInstance.release();
             _musicInstance = RuntimeManager.CreateInstance(eventReference);
             _musicInstance.start();
         }

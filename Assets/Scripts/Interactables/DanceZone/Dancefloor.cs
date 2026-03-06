@@ -21,6 +21,7 @@ namespace Cattac.Interactables
         [SerializeField] private GameObject[] _gameObjectsToDisable;
         [SerializeField] private RotatingRigidbody[] _rotatingRigidbodies;
         [SerializeField] private float _lightFrequency;
+        [SerializeField] private FMODMusicPlayer _discoMusicPlayer;
         [SerializeField] private GameEvent _turnOnEvent;
 
         private int _currentLightIndex;
@@ -28,6 +29,8 @@ namespace Cattac.Interactables
         private void Start()
         {
             StartCoroutine(StartParty());
+            FMODAudioManager.Instance.PlayMusic(GameMusic.DISCO_ROOM);
+            _discoMusicPlayer.SetDiscoLight(0);
         }
 
         private IEnumerator StartParty()
@@ -40,7 +43,7 @@ namespace Cattac.Interactables
         public void StartPartyImmediate(bool minigame = true)
         {
             GameEventsManager.PlayEvent(_turnOnEvent, gameObject);
-            FMODAudioManager.Instance.PlayMusic(GameMusic.DISCO_ROOM);
+            _discoMusicPlayer.SetDiscoLight(1);
             if (minigame) OnPartyStart?.Invoke();
             
             StartCoroutine(StartNextLight());
