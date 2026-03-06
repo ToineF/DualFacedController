@@ -76,6 +76,7 @@ namespace Cattac.Interactables
             for (int i = 0; i < _bodyParts.Length; i++)
             {
                 var part = mouthIndex == 1 ? _bodyParts[_bodyParts.Length - 1 - i] :  _bodyParts[i];
+                if (part == null) continue;
                 part.transform.DOKill();
                 part.transform.DOPunchScale(_bodyScaleForce, _bodyScaleTime).SetEase(_bodyScaleEase);
                 player.CurrentRigidbody.transform.DOMove(part.transform.position, _waitTimeByBodyParts); // Move player along the body to ensure the camera follows
