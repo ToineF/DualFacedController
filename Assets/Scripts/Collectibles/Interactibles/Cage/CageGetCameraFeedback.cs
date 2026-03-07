@@ -1,3 +1,4 @@
+using Cattac.Interactables.MouseCollection;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -22,11 +23,11 @@ namespace Cattac.Interactables
             MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseHide += Hide;
         }
 
-        private void Show(Cage cage, float duration, Ease ease)
+        private void Show(SavedMouseData cageData, float duration, Ease ease)
         {
             _fadeImage.DOFade(_showAlpha, duration).SetEase(ease);
             _canvasGroup.DOFade(1, duration).SetEase(ease);
-            _mouseName.text = cage.Data.Name;
+            _mouseName.text = cageData.Name;
         }
         
         private void Hide(Cage cage)

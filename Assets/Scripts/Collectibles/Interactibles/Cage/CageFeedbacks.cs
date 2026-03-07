@@ -37,7 +37,7 @@ namespace Cattac.Interactables
             transform.DOLocalMove(Vector3.zero, _duration).SetEase(_rollEase);
             transform.DOLocalRotate(Vector3.zero, _duration).SetEase(_rollEase).OnComplete(Land);
             
-            MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseGet?.Invoke(_cage, _duration, _rollEase);
+            MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseGet?.Invoke(_cage.Data, _duration, _rollEase);
             MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
         }
 

@@ -98,12 +98,12 @@ namespace Cattac.Collectibles.Save
             }
         }
 
-        private void OnMouseGet(Cage cage, float time, Ease ease)
+        private void OnMouseGet(SavedMouseData cageData, float time, Ease ease)
         {
             var miceData = MainGame.Instance.CollectiblesFactory.Mice;
             for (int i = 0; i < miceData.Length; i++)
             {
-                if (cage.Data == miceData[i])
+                if (cageData == miceData[i])
                 {
                     PlayerPrefs.SetInt(_miceKey + i, 1);
                     return;

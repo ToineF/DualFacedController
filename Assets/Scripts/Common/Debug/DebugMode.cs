@@ -1,4 +1,8 @@
 using Cattac.Character;
+using Cattac.Collectibles;
+using Cattac.Interactables.MouseCollection;
+using DG.Tweening;
+using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -69,6 +73,19 @@ public class DebugMode : MonoBehaviour
             foreach (var head in heads)
             {
                 head.CurrentRigidbody.linearVelocity = head.CurrentRigidbody.linearVelocity.normalized * 200;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F7)) // Get All collectibles
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.AddCheese();
+            }
+
+            foreach (var mouseData in MainGame.Instance.CollectiblesFactory.Mice)
+            {
+                MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseGet(mouseData, 0, Ease.Linear);
             }
         }
     }
