@@ -24,32 +24,34 @@ namespace Cattac.Collectibles.EndLevel
         [SerializeField] private SceneSwitch _sceneSwitch;
         [SerializeField] private Animator _playerZoneAnimator;
 
-        [Header("Feedbacks")] [SerializeField] private GameObject _enterZoneCamera;
+        [Header("Feedbacks/Enter Zone")] [SerializeField]
+        private GameObject _enterZoneCamera;
+
         [SerializeField] private string _playZoneAnimation;
+
+        [Header("Feedbacks/Mice Appear")]
+        [SerializeField] private float _waitBeforeAll = 2f;
         [SerializeField] private float _waitBeforeMiceAppear = 1f;
+
         [SerializeField] private float _waitTimeBetweenFalls = 0.5f;
+        [SerializeField] private CollectiblesUI _collectiblesUI;
         [SerializeField] private GameEvent _mouseLandFeedback;
         [SerializeField] private GameEvent _waveStartFeedback;
+        [SerializeField] private float _waitTimeBeforeWave = 0.5f;
         [SerializeField] private string _waveBoolName;
         [SerializeField] private float _waveTime = 3f;
         [SerializeField] private float _jumpDuration = .8f;
         [SerializeField] private Ease _jumpEase;
         [SerializeField] private float _timeBetweenJumps = .8f;
-        [SerializeField] private string _rollTriggerName;
-        [SerializeField] private Vector3 _canonScaleAmount;
-        [SerializeField] private float _canonScaleDuration = .5f;
-        [SerializeField] private Ease _canonScaleEase;
-        [SerializeField] private GameEvent _canonEnterFeedback;
-        [SerializeField] private float _afterLaunchCameraWaitTime = 2f;
-        [SerializeField] private GameObject _launchCamera;
-        [SerializeField] private float _beforeLaunchWaitTime = 1f;
-        [SerializeField] private string _canonLaunchTriggerName;
-        [SerializeField] private GameEvent _canonLaunchFeedback;
-        [SerializeField] private Transform _smokeFeedback;
-        [SerializeField] private Transform _smokeFeedbackEnd;
-        [SerializeField] private float _smokeDuration;
-        [SerializeField] private GameEvent _smokeEndEvent;
-        [SerializeField] private float _waitTransitionDuration;
+
+        [Header("Feedbacks/Cheese Appear")]
+        [SerializeField] private GameObject _cheesePrefab;
+        [SerializeField] private Transform _cheeseParent;
+        [SerializeField] private float _chesseSpawnDelay = .025f;
+        
+        [Header("Feedbacks/End")] [SerializeField]
+        private float _waitTransitionDuration;
+
 
         private List<SavedMouseMesh> _miceMeshes = new();
 
@@ -60,33 +62,38 @@ namespace Cattac.Collectibles.EndLevel
 
         private IEnumerator MakeAllMiceAppear()
         {
+            yield return new WaitForSeconds(_waitBeforeAll);
+            
             var saveSystem = MainGame.Instance.CollectiblesSaveSystem;
             var mice = MainGame.Instance.LevelCollectiblesData.Mice;
 
-            if (_miceSlots.Length != mice.Count)
-                Debug.LogError(
-                    $"The number of MiceSlots ({_miceSlots.Length}) isn't equal to the number of mice in the level ({mice.Count})!");
+            if (_miceSlots.Length != mice.Count) Debug.LogError($"The number of MiceSlots ({_miceSlots.Length}) isn't equal to the number of mice in the level ({mice.Count})!");
 
             // Change camera and limit player play zone
             _enterZoneCamera.SetActive(true);
             _playerZoneAnimator.Play(_playZoneAnimation);
-            yield return new WaitForSeconds(_waitBeforeMiceAppear);
+            //MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
 
-            MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
 
             // Make every saved mouse appear on screen
+            _collectiblesUI.UpdateMouseUI(-1, true);
+            yield return new WaitForSeconds(_waitBeforeMiceAppear);
             for (int i = 0; i < mice.Count; i++)
             {
+                yield return new WaitForSeconds(_waitTimeBetweenFalls);
                 var data = mice[i];
                 if (saveSystem.IsMouseUnlocked(data))
                 {
                     var newMouse = Instantiate(data.Mesh, _miceSlots[i].position, Quaternion.identity);
                     _miceMeshes.Add(newMouse);
                     GameEventsManager.PlayEvent(_mouseLandFeedback, newMouse.gameObject);
-                    yield return new WaitForSeconds(_waitTimeBetweenFalls);
                 }
+
+                _miceSlots[i].DOPunchScale(Vector3.one * .3f, .4f);
             }
 
+            yield return new WaitForSeconds(_waitTimeBeforeWave);
+            
             // Make all mice wave
             foreach (var mouse in _miceMeshes)
             {
@@ -100,54 +107,28 @@ namespace Cattac.Collectibles.EndLevel
             // yield return new WaitForSeconds(_afterLaunchCameraWaitTime);
             //
             //
-            // // Turn every mouse towards the canon
-            // Vector3 canonPosition = _canonTransform.position;
-            // foreach (var mouse in _miceMeshes)
-            // {
-            //     var direction = new Vector3(canonPosition.x, mouse.transform.position.y, canonPosition.z) -
-            //                     mouse.transform.position;
-            //     mouse.Animator.SetBool(_waveBoolName, false);
-            //     mouse.transform.DOLookAt(mouse.transform.position - direction, _jumpDuration).SetEase(_jumpEase);
-            // }
+            // Turn every mouse towards the canon
+            Vector3 canonPosition = _canonTransform.position;
+            foreach (var mouse in _miceMeshes)
+            {
+                var direction = new Vector3(canonPosition.x, mouse.transform.position.y, canonPosition.z) -
+                                mouse.transform.position;
+                mouse.Animator.SetBool(_waveBoolName, false);
+                mouse.transform.DOLookAt(mouse.transform.position - direction, _jumpDuration).SetEase(_jumpEase);
+            }
 
-            // yield return new WaitForSeconds(_jumpDuration);
-            //
-            //
-            // // Each mouse jumps into the canon
-            // foreach (var mouse in _miceMeshes)
-            // {
-            //     mouse.Animator.SetTrigger(_rollTriggerName);
-            //     mouse.transform.SetParent(_canonTransform, true);
-            //     mouse.transform.DOLocalMove(Vector3.zero, _jumpDuration).SetEase(_jumpEase);
-            //     //mouse.transform.DOLocalRotate(Vector3.zero, _jumpDuration).SetEase(_jumpEase);
-            //     StartCoroutine(MouseJumpInCanon(mouse));
-            //
-            //     yield return new WaitForSeconds(_timeBetweenJumps);
-            // }
-            //
-            //
-            // yield return new WaitForSeconds(_beforeLaunchWaitTime);
-            //
-            // // Launches the mice in the sky
-            // _canonAnimator.SetTrigger(_canonLaunchTriggerName);
-            // GameEventsManager.PlayEvent(_canonLaunchFeedback, _canon);
-            // _smokeFeedback.DOMove(_smokeFeedbackEnd.position, _smokeDuration);
-            // yield return new WaitForSeconds(_smokeDuration);
-            // GameEventsManager.PlayEvent(_smokeEndEvent, _smokeFeedbackEnd.gameObject);
+            yield return new WaitForSeconds(_jumpDuration);
+
+            for (int i = 0; i < MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.Cheeses; i++)
+            {
+                Instantiate(_cheesePrefab, _cheeseParent);
+                yield return new WaitForSeconds(_chesseSpawnDelay);
+            }
 
             yield return new WaitForSeconds(_waitTransitionDuration);
 
             // Return to hub
             _sceneSwitch.SwitchScene();
-        }
-
-        private IEnumerator MouseJumpInCanon(SavedMouseMesh mouse)
-        {
-            yield return new WaitForSeconds(_jumpDuration);
-
-            mouse.gameObject.SetActive(false);
-            _canon.transform.DOPunchScale(_canonScaleAmount, _canonScaleDuration).SetEase(_canonScaleEase);
-            GameEventsManager.PlayEvent(_canonEnterFeedback, _canon);
         }
     }
 }

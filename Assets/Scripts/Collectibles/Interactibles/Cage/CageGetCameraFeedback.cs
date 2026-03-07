@@ -30,7 +30,7 @@ namespace Cattac.Interactables
             _mouseName.text = cageData.Name;
         }
         
-        private void Hide(Cage cage)
+        private void Hide()
         {
             _fadeImage.DOFade(0, _hideDuration);
             _canvasGroup.DOFade(0, _hideDuration);

@@ -10,7 +10,7 @@ namespace Cattac.Collectibles
     public class CollectiblesUI : MonoBehaviour
     {
         [SerializeField] private bool _useFeedbacks = true;
-        
+
         [Header("Cheese")] [SerializeField] private float _cheeseStayFadeTime;
         [SerializeField] private Animator _cheeseAnimator;
         [SerializeField] private TMP_Text _cheesesCountText;
@@ -104,43 +104,50 @@ namespace Cattac.Collectibles
             }
         }
 
-        private async void UpdateMouseUI(int index, bool hasFeedbacks)
+        public void UpdateMouseUI(int index, bool hasFeedbacks)
         {
-            if (index < 0 || index >= _miceAnimators.Length) return;
+            StartCoroutine(UpdateMouseUIRoutine(index, hasFeedbacks));
+        }
 
-            await Task.Delay((int)(_micesUIAppearDelay * 1000));
-
+        private IEnumerator UpdateMouseUIRoutine(int index, bool hasFeedbacks)
+        {
+            Debug.Log("MOUSE UI ENTER: " + index);
+            yield return new WaitForSeconds(_micesUIAppearDelay);
 
             if (_useFeedbacks && hasFeedbacks)
             {
                 //if (_miceParentAnimator) _miceParentAnimator.SetBool(_animatorVisibility, true);
                 foreach (var animator in _miceAnimators)
                 {
-                    await Task.Delay((int)(_waitTimeBetweenMiceAppear * 1000));
+                    yield return new WaitForSeconds(_waitTimeBetweenMiceAppear);
                     animator.transform.DOComplete();
-                    animator.transform
-                        .DOScale(_appearMouseScaleFeedback.PunchDirection, _appearMouseScaleFeedback.PunchTime)
-                        .SetEase(_appearMouseScaleFeedback.Ease);
+                    animator.transform.DOScale(_appearMouseScaleFeedback.PunchDirection, _appearMouseScaleFeedback.PunchTime).SetEase(_appearMouseScaleFeedback.Ease);
                     //animator.Play("CageMouseIcon_Appear");
                     GameEventsManager.PlayEvent(_mouseUIIconAppearEvent, animator.gameObject);
                 }
             }
-
-            _miceAnimators[index].SetTrigger(_animatorVisibility);
+            
+            
+            if (index >= 0 && index < _miceAnimators.Length)
+            {
+            Debug.Log("MOUSE UI TRIGGER : " + index);
+                _miceAnimators[index].SetTrigger(_animatorVisibility);
+            }
 
             if (_useFeedbacks && hasFeedbacks)
             {
                 //ShowUICollectible(_miceParentAnimator, _miceStayFadeTime);
-                await Task.Delay((int)(_miceStayFadeTime * 1000));
+                yield return new WaitForSeconds(_miceStayFadeTime);
                 foreach (var animator in _miceAnimators)
                 {
-                    await Task.Delay((int)(_waitTimeBetweenMiceDisappear * 1000));
+                    yield return new WaitForSeconds(_waitTimeBetweenMiceDisappear);
                     animator.transform
                         .DOScale(_disappearMouseScaleFeedback.PunchDirection, _disappearMouseScaleFeedback.PunchTime)
                         .SetEase(_disappearMouseScaleFeedback.Ease);
                     animator.transform
-                        .DOLocalRotate(_disappearMouseRotateFeedback.PunchDirection, _disappearMouseRotateFeedback.PunchTime,
-                            RotateMode.FastBeyond360).SetEase(_disappearMouseRotateFeedback.Ease);
+                        .DOLocalRotate(_disappearMouseRotateFeedback.PunchDirection,
+                            _disappearMouseRotateFeedback.PunchTime, RotateMode.FastBeyond360)
+                        .SetEase(_disappearMouseRotateFeedback.Ease);
                     //animator.Play("CageMouseIcon_Disappear");
                 }
             }

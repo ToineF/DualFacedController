@@ -85,7 +85,8 @@ public class DebugMode : MonoBehaviour
 
             foreach (var mouseData in MainGame.Instance.CollectiblesFactory.Mice)
             {
-                MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseGet(mouseData, 0, Ease.Linear);
+                MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseGet?.Invoke(mouseData, 0, Ease.Linear);
+                MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseHide?.Invoke();
             }
         }
     }

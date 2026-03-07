@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cattac.Interactables;
-using Cattac.Interactables.Collectibles;
 using DG.Tweening;
 using UnityEngine;
 using Cattac.Interactables.MouseCollection;
@@ -88,7 +86,7 @@ namespace Cattac.Collectibles.Save
                                     cage.gameObject.SetActive(false);
                                 }
                             }
-
+                            
                             MainGame.Instance.LevelCollectiblesData.OnMouseGain?.Invoke(i, false);
                         }
 

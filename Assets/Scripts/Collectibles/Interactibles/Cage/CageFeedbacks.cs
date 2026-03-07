@@ -59,7 +59,7 @@ namespace Cattac.Interactables
         {
             GameEventsManager.PlayEvent(_hideFeedback, gameObject);
             _mouseAnimator.SetTrigger(_hideAnimation);
-            MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseHide?.Invoke(_cage);
+            MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseHide?.Invoke();
             MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE_RESUME);
         }
     }
