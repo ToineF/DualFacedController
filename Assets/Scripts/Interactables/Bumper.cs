@@ -16,6 +16,7 @@ namespace Cattac.Interactables
         [SerializeField] private bool _ignoreY;
 
         [Header("Feedback")] [SerializeField] private Transform _visual;
+        [SerializeField] private Animator _animator;
         [SerializeField] private float _punchAmount = 1f;
         [SerializeField] private float _punchTime;
 	    [SerializeField] private GameEvent _boingFeedback;
@@ -34,6 +35,7 @@ namespace Cattac.Interactables
             if (_currentTimeBetweenBumps < 0)
             {
                 _currentTimeBetweenBumps = _timeBetweenBumps;
+                _animator.SetTrigger("Bump");
                 _visual.DOComplete();
                 _visual.DOPunchScale(_punchAmount * Vector3.one, _punchTime);
                 GameEventsManager.PlayEvent(_boingFeedback, gameObject);
