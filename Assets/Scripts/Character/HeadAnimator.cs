@@ -40,13 +40,14 @@ namespace Cattac.Character.Visuals
 
         private void UpdateAnimation()
         {
+            if (_characterHead == null) return;
             _animator.SetBool("IsWalking", _characterHead.InputDirection.sqrMagnitude > 0.1f);
             _animator.SetBool("IsGrabbing", _characterHead.IsGrabbing);
         }
 
         private void RotateDirection()
         {
-            if (_characterHead.IsSeparated)
+            if (_characterHead != null && _characterHead.IsSeparated)
             {
                 Vector3 moveDirection = _characterHead.NormalizedDirection;
                 moveDirection = new Vector3(moveDirection.x, 0, moveDirection.y);
