@@ -61,7 +61,7 @@ namespace Cattac.Collectibles
             _cheesesCountText.text = _cheeseCollectibleManager.Cheeses.ToString("D3");
         }
 
-        private void UpdateCheeseUI(bool hasFeedbacks)
+        public void UpdateCheeseUI(bool hasFeedbacks)
         {
             if (_cheesesCountText == null) return;
 
@@ -111,7 +111,6 @@ namespace Cattac.Collectibles
 
         private IEnumerator UpdateMouseUIRoutine(int index, bool hasFeedbacks)
         {
-            Debug.Log("MOUSE UI ENTER: " + index);
             yield return new WaitForSeconds(_micesUIAppearDelay);
 
             if (_useFeedbacks && hasFeedbacks)
@@ -130,7 +129,6 @@ namespace Cattac.Collectibles
             
             if (index >= 0 && index < _miceAnimators.Length)
             {
-            Debug.Log("MOUSE UI TRIGGER : " + index);
                 _miceAnimators[index].SetTrigger(_animatorVisibility);
             }
 
