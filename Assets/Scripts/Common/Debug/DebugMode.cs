@@ -1,8 +1,5 @@
 using Cattac.Character;
-using Cattac.Collectibles;
-using Cattac.Interactables.MouseCollection;
 using DG.Tweening;
-using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
