@@ -25,6 +25,7 @@ namespace Cattac.Interactables
         [SerializeField, MinMaxSlider(0.01f, 10f)] private Vector2 _spawnInterval;
         [SerializeField] private float _waitTimeBetweenRounds;
         [Header("Parameters / Camera Zoom")]
+        [SerializeField] private bool _useCameraZoomEveryTime = false;
         [SerializeField] private float _beforeCameraZoomTime;
         [SerializeField] private float _beforeHighlightTime;
         [SerializeField] private float _zoomTime;
@@ -36,7 +37,10 @@ namespace Cattac.Interactables
         [SerializeField] private GameObject[] _minigameWinDeactivate;
         
         [Header("Feedbacks")]
+        [SerializeField] private GameObject _feedbacksParent;
         [SerializeField] private GameEvent _highlightPressurePlatesEvent;
+        [SerializeField] private GameEvent _roundWinImmediate;
+        [SerializeField] private GameEvent _roundLoseImmediate;
 
         private float _spawnTimer;
         private float _currentMaxSpawnTimer;
@@ -97,14 +101,25 @@ namespace Cattac.Interactables
                 pressurePlate.OnTriggerExitEvent.RemoveListener(OnPressurePlateExit);
             }
             
-            yield return new WaitForSeconds(_beforeCameraZoomTime);
-            _cameraZoom.SetActive(true);
-            yield return new WaitForSeconds(_beforeHighlightTime);
+            GameEventsManager.PlayEvent(win ? _roundWinImmediate : _roundLoseImmediate, _feedbacksParent);
+
+            var firstTime = _winCount == 0 && _loseCount == 0;
+            var lastTime = win ? _winCount + 1 >= _maxWinCount : _loseCount + 1 >= _maxWinCount;
+            
+            if (firstTime || lastTime || _useCameraZoomEveryTime)
+            {
+                yield return new WaitForSeconds(_beforeCameraZoomTime);
+                _cameraZoom.SetActive(true);
+                yield return new WaitForSeconds(_beforeHighlightTime);
+            }
             
             SetHighlight(win);
-            
-            yield return new WaitForSeconds(_zoomTime);
-            _cameraZoom.SetActive(false);
+
+            if (firstTime || lastTime || _useCameraZoomEveryTime)
+            {
+                yield return new WaitForSeconds(_zoomTime);
+                _cameraZoom.SetActive(false);
+            }
 
             yield return new WaitForSeconds(_waitTimeBetweenRounds);
             if (_canUpdate) HighlightPressurePlates();
@@ -149,7 +164,7 @@ namespace Cattac.Interactables
                 _spotlights[0].transform.position.y, _currentPressurePlates[0].transform.position.z);
             _spotlights[1].transform.position = new Vector3(_currentPressurePlates[1].transform.position.x,
                 _spotlights[1].transform.position.y, _currentPressurePlates[1].transform.position.z);
-            GameEventsManager.PlayEvent(_highlightPressurePlatesEvent, gameObject);
+            GameEventsManager.PlayEvent(_highlightPressurePlatesEvent, _feedbacksParent);
 
             _enteredPressurePlatesCount = 0;
             foreach (var pressurePlate in _currentPressurePlates)

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d94c7b0b9b104aa382d2be7cbe15745c, type: 3}
+  m_Name: GE_DanceRoundWin
+  m_EditorClassIdentifier: 
+  Effects:
+  - rid: 4844066740049543244
+  - rid: 6908415572512604233
+  - rid: 4844067163136065607
+  references:
+    version: 2
+    RefIds:
+    - rid: 4844066740049543244
+      type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        HapticParams:
+          LowFrequency: 1
+          HighFrequency: 1
+          Time: 0.15
+    - rid: 4844067163136065607
+      type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Clips:
+        - {fileID: 8300000, guid: 74530403a783a9d4787e4c14c6908d62, type: 3}
+    - rid: 6908415572512604233
+      type: {class: EffectInstantiate, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Prefab: {fileID: 548622876908223833, guid: a84286d3d9d102d44a10b21364cc9d18,
+          type: 3}
+        _setParent: 1
+        _rotationToParent: 0
