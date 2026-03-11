@@ -10,26 +10,33 @@ namespace Cattac.Interactables
 {
     public class DanceMinigameButtonsPress : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField] private Dancefloor _dancefloor;
         [SerializeField] private DanceMinigameScorePanel _scorePanel;
         [SerializeField] private PressurePlate[] _pressurePlates;
         [SerializeField] private GameObject[] _spotlights;
-
-        [SerializeField, MinMaxSlider(0.01f, 10f)]
-        private Vector2 _spawnInterval;
-
-        [SerializeField] private float _waitTimeBetweenRounds;
-
-        [SerializeField] private GameEvent _highlightPressurePlatesEvent;
+        [SerializeField] private GameObject _cameraZoom;
         [SerializeField] private MeshRenderer _timerRenderer;
 
-        [Header("Minigame End")] [SerializeField]
-        private int _maxWinCount;
-
+        [Header("Parameters / Start")]
+        [SerializeField] private int _maxWinCount;
+        [SerializeField] private float _startGameWaitTime;
+        [Header("Parameters / Round")]
+        [SerializeField, MinMaxSlider(0.01f, 10f)] private Vector2 _spawnInterval;
+        [SerializeField] private float _waitTimeBetweenRounds;
+        [Header("Parameters / Camera Zoom")]
+        [SerializeField] private float _beforeCameraZoomTime;
+        [SerializeField] private float _beforeHighlightTime;
+        [SerializeField] private float _zoomTime;
+        
+        [Header("Minigame End")]
         [SerializeField] private GameObject[] _minigameEndActivate;
         [SerializeField] private GameObject[] _minigameEndDeactivate;
         [SerializeField] private GameObject[] _minigameWinActivate;
         [SerializeField] private GameObject[] _minigameWinDeactivate;
+        
+        [Header("Feedbacks")]
+        [SerializeField] private GameEvent _highlightPressurePlatesEvent;
 
         private float _spawnTimer;
         private float _currentMaxSpawnTimer;
@@ -51,9 +58,18 @@ namespace Cattac.Interactables
         {
             _canUpdate = true;
             _currentPressurePlates = new PressurePlate[2];
-            _spotlights.SetAllActive(true);
             _scorePanel.Appear(true);
-            StartCoroutine(WaitBeforeNextRound());
+            _spawnTimer = float.MaxValue;
+            _spotlights.SetAllActive(false);
+
+            StartCoroutine(StartGame());
+        }
+        
+        private IEnumerator StartGame()
+        {
+            yield return new WaitForSeconds(_startGameWaitTime);
+            
+            HighlightPressurePlates();
         }
 
         private void Update()
@@ -65,11 +81,36 @@ namespace Cattac.Interactables
 
             if (_spawnTimer < 0)
             {
-                EndRound(false);
+                StartCoroutine(EndRound(false));
             }
         }
+        
+        private IEnumerator EndRound(bool win)
+        {
+            // Unsubscribe first
+            _spawnTimer = float.MaxValue;
+            _spotlights.SetAllActive(false);
+            foreach (var pressurePlate in _currentPressurePlates)
+            {
+                if (pressurePlate == null) continue;
+                pressurePlate.OnTriggerEnterEvent.RemoveListener(OnPressurePlateEnter);
+                pressurePlate.OnTriggerExitEvent.RemoveListener(OnPressurePlateExit);
+            }
+            
+            yield return new WaitForSeconds(_beforeCameraZoomTime);
+            _cameraZoom.SetActive(true);
+            yield return new WaitForSeconds(_beforeHighlightTime);
+            
+            SetHighlight(win);
+            
+            yield return new WaitForSeconds(_zoomTime);
+            _cameraZoom.SetActive(false);
 
-        private void EndRound(bool win)
+            yield return new WaitForSeconds(_waitTimeBetweenRounds);
+            if (_canUpdate) HighlightPressurePlates();
+        }
+
+        private void SetHighlight(bool win)
         {
             if (win)
             {
@@ -83,25 +124,6 @@ namespace Cattac.Interactables
                 _scorePanel.SetHighlight(false, _loseCount - 1);
                 if (_loseCount >= _maxWinCount) MinigameEnd(false);
             }
-
-            StartCoroutine(WaitBeforeNextRound());
-        }
-
-        private IEnumerator WaitBeforeNextRound()
-        {
-            _spawnTimer = float.MaxValue;
-            _spotlights.SetAllActive(false);
-
-            foreach (var pressurePlate in _currentPressurePlates)
-            {
-                if (pressurePlate == null) continue;
-                pressurePlate.OnTriggerEnterEvent.RemoveListener(OnPressurePlateEnter);
-                pressurePlate.OnTriggerExitEvent.RemoveListener(OnPressurePlateExit);
-            }
-
-            yield return new WaitForSeconds(_waitTimeBetweenRounds);
-
-            if (_canUpdate) HighlightPressurePlates();
         }
 
         private void HighlightPressurePlates()
@@ -160,7 +182,7 @@ namespace Cattac.Interactables
 
             if (_enteredPressurePlatesCount == 2)
             {
-                EndRound(true);
+                StartCoroutine(EndRound(true));
             }
         }
 
