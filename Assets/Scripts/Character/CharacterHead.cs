@@ -61,6 +61,7 @@ namespace Cattac.Character
         private Vector2 _inputDirection;
         private Vector2 _lastNormalizedDirection;
         private RaycastHit _lastGroundHit;
+        private bool _isGrounded;
 
         private IGrabbable _currentGrabbable;
 
@@ -202,7 +203,7 @@ namespace Cattac.Character
             
             CurrentRigidbody.AddForce(Direction, ForceMode.Impulse);
             ApplyGrabbableForce(Direction);
-            ApplyGravity();
+            GetGroundNormal();
         }
 
         private void ApplyGrabbableForce(Vector3 force)
@@ -210,9 +211,9 @@ namespace Cattac.Character
             _currentGrabbable?.AddForce(force);
         }
 
-        private void ApplyGravity()
+        private void GetGroundNormal()
         {
-            Physics.SphereCast(transform.position + Vector3.up * _data.GroundDetectionUpOffset, Collider.radius, Vector3.down, out _lastGroundHit, _data.GroundDetectionDistance, _data.GroundLayer, QueryTriggerInteraction.Ignore);
+            _isGrounded = Physics.SphereCast(transform.position + Vector3.up * _data.GroundDetectionUpOffset, Collider.radius, Vector3.down, out _lastGroundHit, _data.GroundDetectionDistance, _data.GroundLayer, QueryTriggerInteraction.Ignore);
             //CurrentRigidbody.AddForce(Vector3.ProjectOnPlane(Vector3.down, _lastGroundHit.normal) * _data.AdditionalGravity, ForceMode.Impulse);
         }
 
