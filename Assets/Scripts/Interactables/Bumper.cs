@@ -1,9 +1,7 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using System.Collections;
 using FeedbacksEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Cattac.Interactables
 {
@@ -14,6 +12,7 @@ namespace Cattac.Interactables
         [SerializeField] int _framesOfForce = 10; // Number of frames the force will be applied
         [SerializeField] private ForceMode _forceMode;
         [SerializeField] private bool _ignoreY;
+        [SerializeField, Range(0,1)] private float _additionalYForce;
 
         [Header("Feedback")] [SerializeField] private Transform _visual;
         [SerializeField] private Animator _animator;
@@ -35,10 +34,13 @@ namespace Cattac.Interactables
             if (_currentTimeBetweenBumps < 0)
             {
                 _currentTimeBetweenBumps = _timeBetweenBumps;
-                _animator.SetTrigger("Bump");
-                _visual.DOComplete();
-                _visual.DOPunchScale(_punchAmount * Vector3.one, _punchTime);
-                GameEventsManager.PlayEvent(_boingFeedback, gameObject);
+                if (_animator != null) _animator.SetTrigger("Bump");
+                if (_visual != null)
+                {
+                    _visual.DOComplete();
+                    _visual.DOPunchScale(_punchAmount * Vector3.one, _punchTime);
+                }
+                if (_boingFeedback != null) GameEventsManager.PlayEvent(_boingFeedback, gameObject);
             }
         }
 
@@ -46,8 +48,9 @@ namespace Cattac.Interactables
         {
             float currentForce = _initialForce;
             var direction = rb.transform.position - transform.position;
-            direction.Normalize();
             if (_ignoreY) direction.y = 0;
+            direction.Normalize();
+            direction.y += _additionalYForce;
 
             // Apply force over several frames with decay
             for (int i = 0; i < _framesOfForce; i++)
