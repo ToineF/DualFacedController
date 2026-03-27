@@ -403,7 +403,7 @@ Transform:
   m_GameObject: {fileID: 2926910265333284316}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.047729492, y: 1.0400009, z: 4.7971497}
+  m_LocalPosition: {x: -0.047729492, y: 2.9099998, z: 11.062164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -967,7 +967,7 @@ Transform:
   m_GameObject: {fileID: 3087384748843277835}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071065, z: -0, w: 0.70710707}
-  m_LocalPosition: {x: -4.7350006, y: 0.53, z: 4.7349987}
+  m_LocalPosition: {x: -4.7350006, y: 2.4, z: 11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -998,6 +998,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bodyData: {fileID: 11400000, guid: 3b9106b526ce10245b749842b4434978, type: 2}
+  <AllRigidbodies>k__BackingField:
+  - {fileID: 492667355545339003}
+  - {fileID: 1762773351546008219}
+  - {fileID: 6553867104254034831}
+  - {fileID: 1870590933135568034}
+  - {fileID: 3584331494106845869}
+  - {fileID: 1521293416665874386}
+  - {fileID: 7936389598394009261}
+  - {fileID: 4270110389662994537}
+  - {fileID: 4019727578846140332}
+  - {fileID: 8838806352965737989}
+  - {fileID: 80818973956390909}
+  - {fileID: 2615732543479809338}
   _soloMiceRigidbodies:
   - {fileID: 8637709936979622566}
   - {fileID: 1104012243210363213}
@@ -1219,7 +1232,7 @@ Transform:
   m_GameObject: {fileID: 3722448742156008737}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -0.047729492, y: 68.11106, z: -62.273926}
+  m_LocalPosition: {x: -0.047729492, y: 69.98108, z: -56.00891}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2245,6 +2258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4608698248131449922}
+  - component: {fileID: 4782013467788843461}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -2273,6 +2287,19 @@ Transform:
   - {fileID: 1294910679621888372}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4782013467788843461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7226282664986203604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5dc7bee9aed425fa311a1dc391f4f41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _body: {fileID: 1904334923065352883}
 --- !u!1 &7539652596427356105
 GameObject:
   m_ObjectHideFlags: 0
@@ -3168,6 +3195,11 @@ PrefabInstance:
       objectReference: {fileID: 8377777455004557387}
     - target: {fileID: 6645917531564020150, guid: 69d768ffa1a8fed408f84f4fce0f4629,
         type: 3}
+      propertyPath: <CharacterManager>k__BackingField
+      value: 
+      objectReference: {fileID: 4782013467788843461}
+    - target: {fileID: 6645917531564020150, guid: 69d768ffa1a8fed408f84f4fce0f4629,
+        type: 3}
       propertyPath: <TogetherRigidbody>k__BackingField
       value: 
       objectReference: {fileID: 492667355545339003}
@@ -3947,6 +3979,11 @@ PrefabInstance:
       propertyPath: <GrabParent>k__BackingField
       value: 
       objectReference: {fileID: 5010198811387905745}
+    - target: {fileID: 8294517989849060122, guid: 76e425c5bdf41e9409e4384743662858,
+        type: 3}
+      propertyPath: <CharacterManager>k__BackingField
+      value: 
+      objectReference: {fileID: 4782013467788843461}
     - target: {fileID: 8294517989849060122, guid: 76e425c5bdf41e9409e4384743662858,
         type: 3}
       propertyPath: <TogetherRigidbody>k__BackingField

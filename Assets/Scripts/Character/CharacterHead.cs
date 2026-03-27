@@ -42,6 +42,7 @@ namespace Cattac.Character
         }
 
         [field: Header("Head Properties")]
+        [field: SerializeField] public CharacterManager CharacterManager { get; set; }
         [field: SerializeField] public Rigidbody TogetherRigidbody { get; set; }
         [field: SerializeField] public Rigidbody SeparatedRigidbody { get; set; }
         [field: SerializeField] public CapsuleCollider Collider { get; set; }

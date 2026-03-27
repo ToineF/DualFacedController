@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -9,10 +8,13 @@ public class BoxTrigger : GenericTrigger
     {
         if (_collider == null)
             _collider = GetComponent<Collider>();
-
+        var boxCollider = _collider as BoxCollider;
+        if (boxCollider == null) return;
+        var position = _collider.transform.position +  Vector3.Scale(boxCollider.center, _collider.transform.localScale);
+        var size = Vector3.Scale(boxCollider.size, _collider.transform.localScale);
         Gizmos.color = boxColor;
-        Gizmos.DrawCube(transform.position, _collider.bounds.size);
+        Gizmos.DrawCube(position, size);
         Gizmos.color = wireColor;
-        Gizmos.DrawWireCube(transform.position, _collider.bounds.size);
+        Gizmos.DrawWireCube(position, size);
     }
 }
