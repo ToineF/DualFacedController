@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class DataPersistenceWindow : EditorWindow
 {
+#if UNITY_EDITOR
     [MenuItem("Cattac/Save System")]
     public static void ShowWindow()
     {
@@ -19,7 +20,7 @@ public class DataPersistenceWindow : EditorWindow
         }
     }
     
-#if UNITY_EDITOR
+
     /// <summary>
     /// Editor-only method to bake all 'Index'es of 'DataPersistence's
     /// </summary>
