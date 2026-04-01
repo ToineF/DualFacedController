@@ -315,8 +315,8 @@ MonoBehaviour:
   m_text: Two micestadors fell right on the divinity, taking its place as gods, unbeknown
     to both the caztecs and themselves.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eba03bbd70808f2428fa43547c68f0a8, type: 2}
-  m_sharedMaterial: {fileID: -4580750433189046025, guid: eba03bbd70808f2428fa43547c68f0a8,
+  m_fontAsset: {fileID: 11400000, guid: a843b67d3b9dd7748a1c91ac071b86a2, type: 2}
+  m_sharedMaterial: {fileID: -4580750433189046025, guid: a843b67d3b9dd7748a1c91ac071b86a2,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &261479989
@@ -475,10 +475,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: They crashed!
+  m_text: They crashed into it, breaking the Golden Cheese in hundreds of pieces!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eba03bbd70808f2428fa43547c68f0a8, type: 2}
-  m_sharedMaterial: {fileID: -4580750433189046025, guid: eba03bbd70808f2428fa43547c68f0a8,
+  m_fontAsset: {fileID: 11400000, guid: a843b67d3b9dd7748a1c91ac071b86a2, type: 2}
+  m_sharedMaterial: {fileID: -4580750433189046025, guid: a843b67d3b9dd7748a1c91ac071b86a2,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -503,8 +503,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 86.4
-  m_fontSizeBase: 86.4
+  m_fontSize: 66.98
+  m_fontSizeBase: 66.98
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1439,10 +1439,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1120385895}
     m_Modifications:
+    - target: {fileID: 227918201666605179, guid: 24f52f399fac5d44da2c20ebdc0f22f7,
+        type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 1e9f344e61b769e44becb1d6cd5e836e, type: 3}
+    - target: {fileID: 227918201666605179, guid: 24f52f399fac5d44da2c20ebdc0f22f7,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1e9f344e61b769e44becb1d6cd5e836e, type: 3}
     - target: {fileID: 5040695660683796477, guid: 24f52f399fac5d44da2c20ebdc0f22f7,
         type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040695660683796477, guid: 24f52f399fac5d44da2c20ebdc0f22f7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8908214978255538054, guid: 24f52f399fac5d44da2c20ebdc0f22f7,
         type: 3}
@@ -1534,7 +1549,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 30.76}
   m_SizeDelta: {x: 1920, y: 145.2242}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1088802430
@@ -1557,10 +1572,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Micestadors are adventurous, but dumb creatures.
+  m_text: 'Micestadors are dumb but couragous explorers,
+
+    looking for treasures.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eba03bbd70808f2428fa43547c68f0a8, type: 2}
-  m_sharedMaterial: {fileID: -4580750433189046025, guid: eba03bbd70808f2428fa43547c68f0a8,
+  m_fontAsset: {fileID: 11400000, guid: a843b67d3b9dd7748a1c91ac071b86a2, type: 2}
+  m_sharedMaterial: {fileID: -4580750433189046025, guid: a843b67d3b9dd7748a1c91ac071b86a2,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2271,11 +2288,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Both the micestadors and the Golden Cheese pieces were launched in the
-    air and were all sent to the Caztec land.
+  m_text: From the impact, all the micestadors and the Golden Cheese pieces were
+    launched in the air and were all sent to the unknown Caztec land.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eba03bbd70808f2428fa43547c68f0a8, type: 2}
-  m_sharedMaterial: {fileID: -4580750433189046025, guid: eba03bbd70808f2428fa43547c68f0a8,
+  m_fontAsset: {fileID: 11400000, guid: a843b67d3b9dd7748a1c91ac071b86a2, type: 2}
+  m_sharedMaterial: {fileID: -4580750433189046025, guid: a843b67d3b9dd7748a1c91ac071b86a2,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2655,8 +2672,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f5318261a001a9e49839c3c63cb15b6c, type: 3}
-  m_Resource: {fileID: 8300000, guid: f5318261a001a9e49839c3c63cb15b6c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 345eb3f55cb99214bbdafef46e36bad1, type: 3}
+  m_Resource: {fileID: 8300000, guid: 345eb3f55cb99214bbdafef46e36bad1, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2923,12 +2940,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'They sailed to Cheese Island,
-
-    to get the El Dorado, the Golden Cheese.'
+  m_text: They sailed on an adventure to find the Golden Cheese.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eba03bbd70808f2428fa43547c68f0a8, type: 2}
-  m_sharedMaterial: {fileID: -4580750433189046025, guid: eba03bbd70808f2428fa43547c68f0a8,
+  m_fontAsset: {fileID: 11400000, guid: a843b67d3b9dd7748a1c91ac071b86a2, type: 2}
+  m_sharedMaterial: {fileID: -4580750433189046025, guid: a843b67d3b9dd7748a1c91ac071b86a2,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3092,8 +3107,8 @@ MonoBehaviour:
     worshipping a two-headed
     divinity.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eba03bbd70808f2428fa43547c68f0a8, type: 2}
-  m_sharedMaterial: {fileID: -4580750433189046025, guid: eba03bbd70808f2428fa43547c68f0a8,
+  m_fontAsset: {fileID: 11400000, guid: a843b67d3b9dd7748a1c91ac071b86a2, type: 2}
+  m_sharedMaterial: {fileID: -4580750433189046025, guid: a843b67d3b9dd7748a1c91ac071b86a2,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3327,10 +3342,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: As soon as they arrived...
+  m_text: And at last, they finally found it, but...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eba03bbd70808f2428fa43547c68f0a8, type: 2}
-  m_sharedMaterial: {fileID: -4580750433189046025, guid: eba03bbd70808f2428fa43547c68f0a8,
+  m_fontAsset: {fileID: 11400000, guid: a843b67d3b9dd7748a1c91ac071b86a2, type: 2}
+  m_sharedMaterial: {fileID: -4580750433189046025, guid: a843b67d3b9dd7748a1c91ac071b86a2,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

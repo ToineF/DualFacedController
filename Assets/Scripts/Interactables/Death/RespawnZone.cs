@@ -38,7 +38,6 @@ public class RespawnZone : BoxTriggerUnityEventPlayer
             return;
         }
         
-        Debug.Log("Respawn");
         _respawnTimer = _respawnDelay;
         StartCoroutine(RespawnCoroutine(characterHead, position.Value));
     }
