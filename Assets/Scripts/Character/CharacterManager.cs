@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Cattac.Character
@@ -8,6 +7,8 @@ namespace Cattac.Character
     /// </summary>
     public class CharacterManager : MonoBehaviour
     {
+        public System.Action OnTeleport;
+        
         [SerializeField] private CharacterBody _body;
 
         public void TeleportPlayer(Vector3 point)
@@ -18,6 +19,8 @@ namespace Cattac.Character
                 rb.angularVelocity = Vector3.zero;
                 rb.position = point;
             }
+            
+            OnTeleport?.Invoke();
         }
     }
 }
