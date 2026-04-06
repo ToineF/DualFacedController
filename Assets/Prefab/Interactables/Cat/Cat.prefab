@@ -417,6 +417,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 6244283508904749734}
   - {fileID: 4361046083317620378}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 275.71802, z: 0}
@@ -909,12 +910,122 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 11, y: 11, z: 11}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2164540166801212841}
   m_Father: {fileID: 8350447138959045633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6046335557457442010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6244283508904749734}
+  - component: {fileID: 2149902008951766456}
+  - component: {fileID: 2197321573679882471}
+  m_Layer: 0
+  m_Name: ReactionListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6244283508904749734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6046335557457442010}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8350447138959045633}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2149902008951766456
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6046335557457442010}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 60
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2197321573679882471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6046335557457442010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2eb6a5bffa4f0e8a6a468641e21a5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: {fileID: 11400000, guid: f819acee79d4b5a438bc29c288f373b7, type: 2}
+  _selfGameObject: {fileID: 3176375754366201855}
+  <ReactionEvents>k__BackingField:
+    List:
+    - rid: 8396003978830151758
+    - rid: 8396003978830151759
+    - rid: 8396003978830151762
+    - rid: 8396003978830151764
+  references:
+    version: 2
+    RefIds:
+    - rid: 8396003978830151758
+      type: {class: ReactionWaitForTime, ns: , asm: Assembly-CSharp}
+      data:
+        <WaitTime>k__BackingField: {x: 0.65, y: 0.75}
+    - rid: 8396003978830151759
+      type: {class: ReactionUnityEvent, ns: , asm: Assembly-CSharp}
+      data:
+        <Event>k__BackingField:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 585773819435968038}
+              m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+              m_MethodName: Play
+              m_Mode: 5
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: Surprised
+                m_BoolArgument: 0
+              m_CallState: 2
+    - rid: 8396003978830151762
+      type: {class: ReactionWaitForTime, ns: , asm: Assembly-CSharp}
+      data:
+        <WaitTime>k__BackingField: {x: 0.2, y: 0.5}
+    - rid: 8396003978830151764
+      type: {class: ReactionLookAt, ns: , asm: Assembly-CSharp}
+      data:
+        <StartTurnTime>k__BackingField: {x: 0.2, y: 0.25}
+        <WaitTime>k__BackingField: {x: 1.6, y: 2.3}
+        <EndTurnTime>k__BackingField: {x: 0.6, y: 1.15}
+        <AxisConstraint>k__BackingField: 4
 --- !u!1 &7571701580022311291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,17 +1243,17 @@ PrefabInstance:
     - target: {fileID: 895920618205588809, guid: a055ecd78a23c4f419ac3b2bcd535c7e,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.18181819
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 895920618205588809, guid: a055ecd78a23c4f419ac3b2bcd535c7e,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.18181819
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 895920618205588809, guid: a055ecd78a23c4f419ac3b2bcd535c7e,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.18181819
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 895920618205588809, guid: a055ecd78a23c4f419ac3b2bcd535c7e,
         type: 3}
@@ -1297,6 +1408,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db10c44d08364ff428994192b651a6fc, type: 3}
+--- !u!95 &585773819435968038 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4021886672203759125, guid: db10c44d08364ff428994192b651a6fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4607616390845782067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1947704514400504694 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2663360614933795653, guid: db10c44d08364ff428994192b651a6fc,
