@@ -1,5 +1,4 @@
 using Cattac.Character.Multiplayer;
-using FeedbacksEditor;
 using UnityEngine;
 
 
@@ -9,7 +8,6 @@ public class IntroCutsceneMouse : MonoBehaviour
 
     [field: SerializeField] public int ID { get; private set; }
     [SerializeField] private Animator _animator;
-    [SerializeField] private GameEvent _connectFeedback;
     
 
     private void OnEnable()
@@ -28,7 +26,6 @@ public class IntroCutsceneMouse : MonoBehaviour
         {
             Fall?.Invoke(this);
             _animator.Play("Trailer_Mice_Fall");
-            if (_connectFeedback) GameEventsManager.PlayEvent(_connectFeedback, gameObject);
         }
     }
 }

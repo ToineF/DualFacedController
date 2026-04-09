@@ -1,21 +1,25 @@
 using System;
 using System.Collections;
+using AntoineFoucault.Utilities;
 using Cattac.Character.Multiplayer;
 using FeedbacksEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 
 
 public class IntroCutscene : MonoBehaviour
 {
+    public Action OnAllConnected;
+    
     [SerializeField] private IntroCutsceneMouse[] _mices;
     [SerializeField] private PlayableDirector _playableDirector;
     [SerializeField] private ActivatePlayer _activatePlayer;
+    [SerializeField] private GameEvent _oneConnectFeedback;
     [SerializeField] private GameEvent _allFellFeedback;
     [SerializeField] private GameObject _fallFeedbackParent;
     [SerializeField] private float _allMiceFellTimer;
     [SerializeField] private float _afterFellPlayerRegainControlTimer;
+    [SerializeField] private GameObject[] _gameObjectsToDeactivateOnRestart;
 
     private int _miceCount = 0;
 
@@ -43,7 +47,9 @@ public class IntroCutscene : MonoBehaviour
     private void OnMouseFall(IntroCutsceneMouse mouse)
     {
         _miceCount++;
+        if (_oneConnectFeedback) GameEventsManager.PlayEvent(_oneConnectFeedback, _fallFeedbackParent);
         Debug.Log(mouse.ID + " connected");
+        
         if (_miceCount >= _mices.Length)
         {
             StartCoroutine(OnAllMouseFell());
@@ -52,6 +58,9 @@ public class IntroCutscene : MonoBehaviour
 
     private IEnumerator OnAllMouseFell()
     {
+        OnAllConnected?.Invoke();
+        MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
+        
         yield return new WaitForSeconds(_allMiceFellTimer);
         
         Debug.Log("All connected");
@@ -60,5 +69,11 @@ public class IntroCutscene : MonoBehaviour
         
         yield return new WaitForSeconds(_afterFellPlayerRegainControlTimer);
         MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE_RESUME);
+    }
+
+    public void AllAlreadyConnected()
+    {
+        Destroy(_activatePlayer);
+        _gameObjectsToDeactivateOnRestart.SetAllActive(false);
     }
 }

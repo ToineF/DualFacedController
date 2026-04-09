@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: GE_PlayerConnect
   m_EditorClassIdentifier: 
   Effects:
+  - rid: 4427067238120161364
   - rid: 4427067238120161362
   - rid: 4427067238120161363
-  - rid: 4427067238120161364
+  - rid: 4427067238120161365
+  - rid: 4427067238120161366
+  - rid: 4427067238120161367
+  - rid: 4427067238120161368
+  - rid: 4427067238120161369
   references:
     version: 2
     RefIds:
@@ -33,7 +38,7 @@ MonoBehaviour:
         Enabled: 1
         ScreenShakeParams:
           Strength: 5
-          Duration: 0.2
+          Duration: 0.15
           Curve:
             serializedVersion: 2
             m_Curve:
@@ -63,4 +68,62 @@ MonoBehaviour:
       data:
         Enabled: 1
         Clips:
-        - {fileID: 8300000, guid: b93adf9d6a41d414db5daf8eff33e8ee, type: 3}
+        - {fileID: 6418180475301049370, guid: 29fe2d6adc140de4d9548ced49d47647, type: 2}
+    - rid: 4427067238120161365
+      type: {class: EffectWait, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Timer: 0.31
+    - rid: 4427067238120161366
+      type: {class: EffectInstantiate, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Prefab: {fileID: 1608690525703752116, guid: 20abd2b61ca45c14ab053019e947412d,
+          type: 3}
+        _setParent: 0
+        _rotationToParent: 0
+    - rid: 4427067238120161367
+      type: {class: EffectShakeCamera, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        ScreenShakeParams:
+          Strength: 25
+          Duration: 0.2
+          Curve:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 34
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 34
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+    - rid: 4427067238120161368
+      type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        HapticParams:
+          LowFrequency: 1
+          HighFrequency: 1
+          Time: 0.15
+    - rid: 4427067238120161369
+      type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Clips:
+        - {fileID: 8300000, guid: b4a73848431534a44abfc81967caf138, type: 3}
