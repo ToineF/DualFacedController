@@ -1,64 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &346301771516345148
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9223292907245680593}
-  - component: {fileID: 5010198811387905745}
-  m_Layer: 6
-  m_Name: GrabParent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9223292907245680593
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 346301771516345148}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.2800001, z: -3.979999}
-  m_LocalScale: {x: 1.2000002, y: 1.2, z: 1.2000002}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4429383663773425395}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!54 &5010198811387905745
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 346301771516345148}
-  serializedVersion: 5
-  m_Mass: 10
-  m_LinearDamping: 0.4
-  m_AngularDamping: 0
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1947982646264977832
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,65 +2241,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _body: {fileID: 1904334923065352883}
---- !u!1 &7539652596427356105
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3815533424262258960}
-  - component: {fileID: 8377777455004557387}
-  m_Layer: 6
-  m_Name: GrabParent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3815533424262258960
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7539652596427356105}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.00999999, z: -3.8699982}
-  m_LocalScale: {x: 1.2000002, y: 1.2, z: 1.2000002}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8910084567322780719}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &8377777455004557387
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7539652596427356105}
-  serializedVersion: 5
-  m_Mass: 10
-  m_LinearDamping: 0.4
-  m_AngularDamping: 0
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &7810545307652660775
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,7 +3074,7 @@ PrefabInstance:
         type: 3}
       propertyPath: <GrabParent>k__BackingField
       value: 
-      objectReference: {fileID: 8377777455004557387}
+      objectReference: {fileID: 0}
     - target: {fileID: 6645917531564020150, guid: 69d768ffa1a8fed408f84f4fce0f4629,
         type: 3}
       propertyPath: <CharacterManager>k__BackingField
@@ -3266,15 +3148,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 417259036419642117, guid: 69d768ffa1a8fed408f84f4fce0f4629, type: 3}
+    - {fileID: 2426115948087462, guid: 69d768ffa1a8fed408f84f4fce0f4629, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5405134396175613224, guid: 69d768ffa1a8fed408f84f4fce0f4629,
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 3072165860345768539}
-    - targetCorrespondingSourceObject: {fileID: 5405134396175613224, guid: 69d768ffa1a8fed408f84f4fce0f4629,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3815533424262258960}
     - targetCorrespondingSourceObject: {fileID: 1989851261313979802, guid: 69d768ffa1a8fed408f84f4fce0f4629,
         type: 3}
       insertIndex: 0
@@ -3978,7 +3857,7 @@ PrefabInstance:
         type: 3}
       propertyPath: <GrabParent>k__BackingField
       value: 
-      objectReference: {fileID: 5010198811387905745}
+      objectReference: {fileID: 0}
     - target: {fileID: 8294517989849060122, guid: 76e425c5bdf41e9409e4384743662858,
         type: 3}
       propertyPath: <CharacterManager>k__BackingField
@@ -4007,15 +3886,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3093234076190839209, guid: 76e425c5bdf41e9409e4384743662858, type: 3}
+    - {fileID: 2708470133794055377, guid: 76e425c5bdf41e9409e4384743662858, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7216424643298246532, guid: 76e425c5bdf41e9409e4384743662858,
         type: 3}
       insertIndex: 3
       addedObject: {fileID: 6075575619353811425}
-    - targetCorrespondingSourceObject: {fileID: 7216424643298246532, guid: 76e425c5bdf41e9409e4384743662858,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9223292907245680593}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76e425c5bdf41e9409e4384743662858, type: 3}
 --- !u!4 &2903564370990536863 stripped
