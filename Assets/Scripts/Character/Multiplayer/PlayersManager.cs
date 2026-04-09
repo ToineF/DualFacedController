@@ -11,7 +11,7 @@ namespace Cattac.Character.Multiplayer
     public class PlayersManager : MonoBehaviour
     {
         public static UnityEvent<int, bool> OnPlayerJoinedEvent { get; set; } = new();
-        public static PlayersAmount PlayersAmount { get; private set; } = PlayersAmount.ONE;
+        public static PlayersAmount PlayersAmount { get; private set; } = PlayersAmount.TWO;
         public PlayersInputsUpdater Inputs { get; private set; } =  new PlayersInputsUpdater();
         
         [SerializeField] private PlayerInputManager _playerInputManager;

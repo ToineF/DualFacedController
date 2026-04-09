@@ -1,0 +1,64 @@
+using System;
+using System.Collections;
+using Cattac.Character.Multiplayer;
+using FeedbacksEditor;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Playables;
+
+
+public class IntroCutscene : MonoBehaviour
+{
+    [SerializeField] private IntroCutsceneMouse[] _mices;
+    [SerializeField] private PlayableDirector _playableDirector;
+    [SerializeField] private ActivatePlayer _activatePlayer;
+    [SerializeField] private GameEvent _allFellFeedback;
+    [SerializeField] private GameObject _fallFeedbackParent;
+    [SerializeField] private float _allMiceFellTimer;
+    [SerializeField] private float _afterFellPlayerRegainControlTimer;
+
+    private int _miceCount = 0;
+
+    private void Start()
+    {
+        _activatePlayer.gameObject.SetActive(false);
+        MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
+    }
+
+    private void OnEnable()
+    {
+        foreach (var mice in _mices)
+        {
+            mice.Fall += OnMouseFall;
+        }
+    }
+    private void OnDisable()
+    {
+        foreach (var mice in _mices)
+        {
+            mice.Fall -= OnMouseFall;
+        }
+    }
+    
+    private void OnMouseFall(IntroCutsceneMouse mouse)
+    {
+        _miceCount++;
+        Debug.Log(mouse.ID + " connected");
+        if (_miceCount >= _mices.Length)
+        {
+            StartCoroutine(OnAllMouseFell());
+        }
+    }
+
+    private IEnumerator OnAllMouseFell()
+    {
+        yield return new WaitForSeconds(_allMiceFellTimer);
+        
+        Debug.Log("All connected");
+        if (_allFellFeedback) GameEventsManager.PlayEvent(_allFellFeedback, _fallFeedbackParent);
+        _playableDirector.Play();
+        
+        yield return new WaitForSeconds(_afterFellPlayerRegainControlTimer);
+        MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE_RESUME);
+    }
+}

@@ -10,7 +10,6 @@ namespace Cattac.Character.Multiplayer
 
         private void OnEnable()
         {
-            Debug.Log(PlayersManager.OnPlayerJoinedEvent);
             PlayersManager.OnPlayerJoinedEvent.AddListener(OnJoined);
         }
 
