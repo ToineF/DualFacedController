@@ -54,8 +54,7 @@ namespace Cattac.Interactables.ChaseSequence
 
         private void OnTriggerEnter(Collider other)
         {
-            if (_movementCompleted == false ||
-                LayerExtensions.IsInLayerMask(other.gameObject.layer, _detectedLayer) == false) return;
+            if (_movementCompleted == false || LayerExtensions.IsInLayerMask(other.gameObject.layer, _detectedLayer) == false) return;
 
             StartNewSpline();
         }
