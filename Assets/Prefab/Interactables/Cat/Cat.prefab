@@ -395,8 +395,6 @@ GameObject:
   - component: {fileID: 8350447138959045633}
   - component: {fileID: 2543753514336829209}
   - component: {fileID: 7840037968075374042}
-  - component: {fileID: 3053533381820542028}
-  - component: {fileID: 3618897992807504124}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -471,41 +469,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &3053533381820542028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3176375754366201855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b4fdf1c28aeab64f8c857b5eb367d5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lookAtLerp: 3
---- !u!114 &3618897992807504124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3176375754366201855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88e75f4a62e97784597d12b3c4f87a24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lookAt: {fileID: 3053533381820542028}
-  _maxSeekAngle: 45
-  _seekRadius: 9.12
-  _seekDistance: 17.3
-  _seekLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _obstaclesLayer:
-    serializedVersion: 2
-    m_Bits: 1
 --- !u!1 &3521943095402164721
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,7 +840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420c74e0f436d4a4a8c831e2c8fdaf7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _npc_seeker: {fileID: 3618897992807504124}
+  _npc_seeker: {fileID: 0}
   _spriteRenderer: {fileID: 1541268054972060}
   _seekingSprite: {fileID: -183356682, guid: 1025a05c0be47064a8ad8fe18ce23d11, type: 3}
   _seekingColor: {r: 0.8666667, g: 0.30588236, b: 0.30588236, a: 1}
