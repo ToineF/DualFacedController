@@ -10,7 +10,7 @@ namespace Cattac.Interactables
 
         private void Update()
         {
-            var angle = Time.deltaTime * Mathf.Sqrt(_windZone.TurnSpeed) * _speedMultiplier;
+            var angle = Time.deltaTime * Mathf.Sign(_windZone.TurnSpeed) * Mathf.Sqrt(Mathf.Abs(_windZone.TurnSpeed)) * _speedMultiplier;
             _visual.transform.eulerAngles +=  Vector3.up * angle;
         }
     }
