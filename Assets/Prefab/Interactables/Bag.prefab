@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 5106906436809570962}
   - component: {fileID: 4078103080585585400}
   - component: {fileID: 4694147484858769474}
+  - component: {fileID: 7167962864513798075}
   m_Layer: 0
   m_Name: Bag
   m_TagString: Untagged
@@ -118,7 +119,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4681715134440752540}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -172,10 +173,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transformToActivate: {fileID: 5464705372933667524}
   _rigidbody: {fileID: 8706138842058455738}
+  _constantForce: {fileID: 7167962864513798075}
   _startDelay: 0
   _invincibilityDelay: 0.05
-  _thrownForceForward: 50
-  _thrownForceUp: 30
+  _thrownForceForward: 0
+  _thrownForceUp: 300
+  _gravity: 200
   _collisionLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -195,6 +198,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _index: 0
   _bag: {fileID: 4078103080585585400}
+--- !u!75 &7167962864513798075
+ConstantForce:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4681715134440752540}
+  m_Enabled: 1
+  m_Force: {x: 0, y: 0, z: 0}
+  m_RelativeForce: {x: 0, y: 0, z: 0}
+  m_Torque: {x: 0, y: 0, z: 0}
+  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!1 &6115814962470634721
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,11 +11,13 @@ public class CollectibleBag : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform _transformToActivate;
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private ConstantForce _constantForce;
     [Header("Parameters")]
     [SerializeField] private float _startDelay;
     [SerializeField] private float _invincibilityDelay;
     [SerializeField] private float _thrownForceForward;
     [SerializeField] private float _thrownForceUp;
+    [SerializeField] private float _gravity;
     [SerializeField] private LayerMask _collisionLayer;
     [SerializeField] private float _scaleTime;
     [SerializeField] private GameEvent _groundHitFeedback;
@@ -33,8 +35,11 @@ public class CollectibleBag : MonoBehaviour
         _rigidbody.useGravity = true;
         
         yield return new WaitForSeconds(_startDelay);
-        
-        _rigidbody.AddForce(_transformToActivate.forward * _thrownForceForward + Vector3.up * _thrownForceUp, ForceMode.Impulse);
+
+        transform.SetParent(null);
+        _constantForce.force = Vector3.down * _gravity;
+        var direction = _transformToActivate.forward * _thrownForceForward + Vector3.up * _thrownForceUp;
+        _rigidbody.AddForce(direction, ForceMode.Impulse);
         
         yield return new WaitForSeconds(_invincibilityDelay);
         _isThrown = true;
