@@ -545,8 +545,6 @@ namespace AntoineFoucault.Utilities
         {
             return new Vector3Int(Math.Sign(vector.x), Math.Sign(vector.y), Math.Sign(vector.z));
         }
-
-
     }
 
     public static class CollectionsExtensions
