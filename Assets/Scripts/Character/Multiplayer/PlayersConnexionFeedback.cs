@@ -15,7 +15,7 @@ namespace Cattac.Character.Multiplayer
 
         private void OnDisable()
         {
-            PlayersManager.OnPlayerJoinedEvent.AddListener(OnJoined);
+            PlayersManager.OnPlayerJoinedEvent.RemoveListener(OnJoined);
         }
 
         private void OnJoined(int number, bool firstTime)

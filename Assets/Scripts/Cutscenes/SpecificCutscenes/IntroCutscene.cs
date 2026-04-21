@@ -22,9 +22,12 @@ public class IntroCutscene : MonoBehaviour
     [SerializeField] private GameObject[] _gameObjectsToDeactivateOnRestart;
 
     private int _miceCount = 0;
+private bool _hasAlreadyBeenConnected = false;
 
     private void Start()
     {
+        if (_hasAlreadyBeenConnected) return;
+        
         _activatePlayer.gameObject.SetActive(false);
         MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
     }
@@ -73,7 +76,10 @@ public class IntroCutscene : MonoBehaviour
 
     public void AllAlreadyConnected()
     {
+        _hasAlreadyBeenConnected = true;
         Destroy(_activatePlayer);
         _gameObjectsToDeactivateOnRestart.SetAllActive(false);
+        MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE_RESUME);
+        
     }
 }
