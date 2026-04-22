@@ -11,6 +11,7 @@ public class CollectibleBag : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform _transformToActivate;
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private Collider _collider;
     [SerializeField] private ConstantForce _constantForce;
     [Header("Parameters")]
     [SerializeField] private float _startDelay;
@@ -33,6 +34,7 @@ public class CollectibleBag : MonoBehaviour
     {
         _rigidbody.isKinematic = false;
         _rigidbody.useGravity = true;
+        _collider.enabled = true;
         
         yield return new WaitForSeconds(_startDelay);
 
