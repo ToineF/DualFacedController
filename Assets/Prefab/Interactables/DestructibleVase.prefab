@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2192283676281440713}
   - component: {fileID: 5442651990910284025}
   - component: {fileID: 4657353428832816472}
+  - component: {fileID: 880636761014892717}
+  - component: {fileID: 2735274965452754586}
   m_Layer: 0
   m_Name: DestructibleVase
   m_TagString: Untagged
@@ -68,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _oneShot: 0
-  _isTrigger: 1
+  _isTrigger: 0
   _gameObjectsToIgnore: []
   _layersToDetect:
     serializedVersion: 2
@@ -88,6 +90,45 @@ MonoBehaviour:
   _torqueForce: 0.001
   _velocityThreshold: 700
   _destructEvent: {fileID: 11400000, guid: 65150aa83483e2f44be9f879d6c204d3, type: 2}
+--- !u!54 &880636761014892717
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735572439877687430}
+  serializedVersion: 5
+  m_Mass: 0.1
+  m_LinearDamping: 0.5
+  m_AngularDamping: 10
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!75 &2735274965452754586
+ConstantForce:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735572439877687430}
+  m_Enabled: 1
+  m_Force: {x: 0, y: -25, z: 0}
+  m_RelativeForce: {x: 0, y: 0, z: 0}
+  m_Torque: {x: 0, y: 0, z: 0}
+  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!1001 &3073573651643716082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -181,7 +222,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PFB_ Vase_2 (135)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6294609693775940642, guid: 04d82a19fb016284aa029aede8bd75be, type: 3}
+    - {fileID: 3902166751089246918, guid: 04d82a19fb016284aa029aede8bd75be, type: 3}
+    - {fileID: 6808369372423006377, guid: 04d82a19fb016284aa029aede8bd75be, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8481587699826671115, guid: 04d82a19fb016284aa029aede8bd75be,
