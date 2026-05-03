@@ -35,7 +35,10 @@ public class SubMenu : MonoBehaviour
             submenu.CanvasGroup.blocksRaycasts = true;
             if (firstSelected != null) EventSystem.current.SetSelectedGameObject(firstSelected);
             if (submenu._action != null) submenu._action.performed += submenu.TryCloseSubMenu;
+            submenu.OpenMenuInternal();
         }
+
+        protected virtual void OpenMenuInternal() { }
 
         protected void CloseMenu(SubMenu submenu, GameObject firstSelected = null)
         {
@@ -44,7 +47,9 @@ public class SubMenu : MonoBehaviour
             submenu.CanvasGroup.blocksRaycasts = false;
             if (firstSelected != null) EventSystem.current.SetSelectedGameObject(firstSelected);
             if (submenu._action != null) submenu._action.performed -= submenu.TryCloseSubMenu;
+            submenu.CloseMenuInternal();
         }
+        protected virtual void CloseMenuInternal() { }
         
         // New Input System
         
@@ -66,7 +71,10 @@ public class SubMenu : MonoBehaviour
         protected void OnDisable()
         {
             if (_action != null) _action.performed -= PressCancel;
+            OnDisableInternal();
         }
+        protected virtual void OnDisableInternal() { }
+
 
         protected virtual void TryCloseSubMenu(InputAction.CallbackContext context)
         {
