@@ -1368,7 +1368,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Accessibility
+  m_text: Display
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eba03bbd70808f2428fa43547c68f0a8, type: 2}
   m_sharedMaterial: {fileID: -4580750433189046025, guid: eba03bbd70808f2428fa43547c68f0a8,
@@ -1740,6 +1740,8 @@ MonoBehaviour:
   - {x: 2560, y: 1440}
   - {x: 3840, y: 2160}
   _resolutionSelector: {fileID: 7341482056430461799}
+  _fullscreenToggle: {fileID: 7086014833731865459}
+  _vsyncToggle: {fileID: 212163722900366913}
 --- !u!1 &3313050052690411317
 GameObject:
   m_ObjectHideFlags: 0
@@ -2121,6 +2123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061b9431dfa544e4b9275c53ba14ed32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _toggleScreenshake: {fileID: 7021263692174290209}
+  _toggleHaptic: {fileID: 7958156071081409901}
   _screenshakePreview: {fileID: 11400000, guid: 3ca73bb517909264c8d7cade554c7419,
     type: 2}
   _hapticPreview: {fileID: 11400000, guid: bba7b03bce299764a8168ef3550de29c, type: 2}
@@ -5544,16 +5548,6 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
       objectReference: {fileID: 7958156071081409901}
-    - target: {fileID: 7162894423362266661, guid: 25413417905dcb44691f84f7011dcec8,
-        type: 3}
-      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1839492709752727242}
-    - target: {fileID: 7162894423362266661, guid: 25413417905dcb44691f84f7011dcec8,
-        type: 3}
-      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EnableScreenShake
-      objectReference: {fileID: 0}
     - target: {fileID: 8938685240184460831, guid: 25413417905dcb44691f84f7011dcec8,
         type: 3}
       propertyPath: m_Pivot.x
@@ -8214,21 +8208,6 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
       objectReference: {fileID: 6251889134659450440}
-    - target: {fileID: 7162894423362266661, guid: 25413417905dcb44691f84f7011dcec8,
-        type: 3}
-      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7162894423362266661, guid: 25413417905dcb44691f84f7011dcec8,
-        type: 3}
-      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1839492709752727242}
-    - target: {fileID: 7162894423362266661, guid: 25413417905dcb44691f84f7011dcec8,
-        type: 3}
-      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EnableHaptic
-      objectReference: {fileID: 0}
     - target: {fileID: 8938685240184460831, guid: 25413417905dcb44691f84f7011dcec8,
         type: 3}
       propertyPath: m_Pivot.x

@@ -55,7 +55,7 @@ namespace Common.Haptic
 
         private IEnumerator VibrateController(float time)
         {
-            yield return new WaitForSeconds(time);
+            yield return new WaitForSecondsRealtime(time);
             SetAllMotorSpeeds(0, 0);
         }
 

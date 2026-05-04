@@ -8,7 +8,17 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class HorizontalSelector : MonoBehaviour, IMoveHandler
 {
-    [field:SerializeField] public UnityEvent<int> OnUpdateOption { get; set; }
+    [field:SerializeField] public UnityEvent<int> OnValueChange { get; set; }
+
+    public int CurrentIndex
+    {
+        get => _currentIndex;
+        set
+        {
+            _currentIndex = value;
+            UpdateSelector();
+        }
+    }
     
     [field:SerializeField] public string[] Options { get; set; }
     [SerializeField] private TMP_Text _displayText;
@@ -16,25 +26,26 @@ public class HorizontalSelector : MonoBehaviour, IMoveHandler
 
     private int _currentIndex = 0;
 
+
     public void Next()
     {
-        _currentIndex++;
-        if (_loop) _currentIndex %= Options.Length;
+        CurrentIndex++;
+        if (_loop) CurrentIndex %= Options.Length;
         UpdateSelector();
     }
 
     public void Previous()
     {
-        _currentIndex--;
-        if (_loop) _currentIndex = (_currentIndex + Options.Length) % Options.Length;
+        CurrentIndex--;
+        if (_loop) CurrentIndex = (CurrentIndex + Options.Length) % Options.Length;
         UpdateSelector();
     }
 
     private void UpdateSelector()
     {
-        if (_currentIndex < 0 || _currentIndex >= Options.Length) return;
-        _displayText.text = Options[_currentIndex];
-        OnUpdateOption?.Invoke(_currentIndex);
+        if (CurrentIndex < 0 || CurrentIndex >= Options.Length) return;
+        _displayText.text = Options[CurrentIndex];
+        OnValueChange?.Invoke(CurrentIndex);
     }
 
     public void OnMove(AxisEventData eventData)
