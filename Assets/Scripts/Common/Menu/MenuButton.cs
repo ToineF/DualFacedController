@@ -88,13 +88,14 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnSelect()
     {
+
         if (_menuManager.CanClickButtons == false) return;
 
         transform.DOKill();
         transform.DOLocalRotate(
             new Vector3(_originalRotation.x, _originalRotation.y,
                 _originalRotation.z + _zRotation), _rotationInTime).SetEase(_rotationInAnimationCurve).SetUpdate(true);
-        transform.DOScale(new Vector3(_hoverScale, _hoverScale), _hoverScaleDuration).SetEase(_scaleInAnimationCurve).SetUpdate(true);
+        transform.DOScale(new Vector3(_hoverScale, _hoverScale, 1), _hoverScaleDuration).SetEase(_scaleInAnimationCurve).SetUpdate(true);
         if (_onPointerEnterEvent != null) GameEventsManager.PlayEvent(_onPointerEnterEvent, gameObject);
     }
 
@@ -104,7 +105,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         transform.DOLocalRotate(
             new Vector3(_originalRotation.x, _originalRotation.y,
                 _originalRotation.z), _rotationOutTime).SetEase(_rotationOutAnimationCurve).SetUpdate(true);
-        transform.DOScale(new Vector3(_originalScale, _originalScale), _notHoverScaleDuration).SetEase(_scaleOutAnimationCurve).SetUpdate(true);
+        transform.DOScale(new Vector3(_originalScale, _originalScale, 1), _notHoverScaleDuration).SetEase(_scaleOutAnimationCurve).SetUpdate(true);
     }
 
     private void Update()

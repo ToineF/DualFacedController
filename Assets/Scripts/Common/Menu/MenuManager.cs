@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MenuManager : MonoBehaviour
 {
@@ -15,5 +16,6 @@ public class MenuManager : MonoBehaviour
     public void SetButtonsUnclickable()
     {
         CanClickButtons = false;
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }

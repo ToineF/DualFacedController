@@ -89,7 +89,7 @@ namespace Common.ScreenShake
         private float UpdateShakeElement(int index)
         {
             var shakeElement = _shakeElements[index];
-            shakeElement.Timer += UnityEngine.Time.deltaTime;
+            shakeElement.Timer += UnityEngine.Time.unscaledDeltaTime;
             if (shakeElement.Timer > shakeElement.Params.Duration)
             {
                 _shakeElements.RemoveAt(index);
