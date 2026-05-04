@@ -25,14 +25,12 @@ public class SubMenuTab : SubMenu
     
     protected override void OpenMenuInternal()
     {
-        Debug.Log("Open menu internal", gameObject);
         if (_previousAction != null) _previousAction.performed += PressPrevious;
         if (_nextAction != null) _nextAction.performed += PressNext;
     }
 
     protected override void CloseMenuInternal()
     {
-        Debug.Log("Close menu internal", gameObject);
         if (_previousAction != null) _previousAction.performed -= PressPrevious;
         if (_nextAction != null) _nextAction.performed -= PressNext;
     }
