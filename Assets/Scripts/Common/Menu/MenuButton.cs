@@ -88,6 +88,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnSelect()
     {
+
         if (_menuManager.CanClickButtons == false) return;
 
         transform.DOKill();
