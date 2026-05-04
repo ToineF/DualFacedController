@@ -46,7 +46,6 @@ public class SubMenuTab : SubMenu
 
     private void PressNext(InputAction.CallbackContext context)
     {
-        Debug.Log("Pressing next menu");
         if (_nextSubMenu)
         {
             CloseSubMenu();

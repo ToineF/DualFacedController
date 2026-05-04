@@ -22,7 +22,7 @@ namespace Menu.Options
 
         private void Update()
         {
-            _timer -= Time.deltaTime;
+            _timer -= Time.unscaledDeltaTime;
         }
     }
 }
