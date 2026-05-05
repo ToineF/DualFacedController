@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Cattac.Character.Visuals
@@ -13,12 +14,19 @@ namespace Cattac.Character.Visuals
         {
             for (int i = 0; i < Bones.Length; i++)
             {
-                var index = i;
-                if (i + 1 >= Bones.Length) index--;
-                var boneTransform = Bones[i].transform;
-                boneTransform.position = OriginalPoints[index].position + _positionOffset;
-                boneTransform.LookAt(OriginalPoints[index + 1].position + _positionOffset);
-                boneTransform.Rotate(_rotationOffset);
+                    var boneTransform = Bones[i].transform;
+                    boneTransform.position = OriginalPoints[i].position + _positionOffset;
+                if (i + 1 >= Bones.Length)
+                {
+                    boneTransform.rotation = Bones[i-1].transform.rotation;
+
+                }
+                else
+                {
+                    boneTransform.LookAt(OriginalPoints[i+1].position + _positionOffset);
+                    boneTransform.Rotate(_rotationOffset);
+                }
+
             }
         }
     }
