@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace AntoineFoucault.Utilities.Texture
 {
     public class RandomTexture : MonoBehaviour
     {
-        [FormerlySerializedAs("_skinnedMeshRenderer")] [SerializeField] private Renderer[] _renderer;
+        [SerializeField] private Renderer[] _renderer;
         [SerializeField] private Material[] _materials;
 
         private void Start()
