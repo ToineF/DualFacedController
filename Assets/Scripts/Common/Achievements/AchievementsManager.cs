@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace AntoineFoucault.Utilities.Achievements
@@ -10,7 +11,6 @@ namespace AntoineFoucault.Utilities.Achievements
         
         // Current problems left :
         // Option to reset save system
-        // Save good lines (never the same two lines) but don't erase already saved lines (maybe only save the achievements that are "true")
         
         public static System.Action<AchievementData> OnGetAchievement;
         public static System.Action<AchievementData> OnGetAllAchievements;
@@ -22,7 +22,6 @@ namespace AntoineFoucault.Utilities.Achievements
         private static Dictionary<AchievementData, bool> _completedAchievements = new();
 
         private const string _savePath = "/achievements.txt";
-        private const char _separatorChar = '$';
 
         private void Awake()
         {
@@ -39,29 +38,27 @@ namespace AntoineFoucault.Utilities.Achievements
         {
             Debug.Log("Get Achievement : " + achievement.Title);
             OnGetAchievement?.Invoke(achievement);
-            Save();
+            Save(achievement);
         }
 
-        private static void Save()
+        private static void Save(AchievementData achievement)
         {
             var path = Application.persistentDataPath + _savePath;
-            StringBuilder achievementsBuilder = new StringBuilder();
-
-            foreach (var achievement in _completedAchievements)
+            
+            using (StreamWriter sw = File.AppendText(path))
             {
-                achievementsBuilder.AppendLine(achievement.Key.Title + _separatorChar + achievement.Value);
+                sw.WriteLine(achievement.Title);
             }
 
-            File.WriteAllText(path, achievementsBuilder.ToString());
             Debug.Log("Saved achievements at " + path);
         }
 
         private void Load()
         {
             var path = Application.persistentDataPath + _savePath;
-            if (File.Exists(Application.persistentDataPath + _savePath) == false)
+            if (File.Exists(path) == false)
             {
-                Debug.LogError("No file existing at " + path);
+                Debug.LogWarning("No file existing at " + path);
                 return;
             }
 
@@ -70,16 +67,27 @@ namespace AntoineFoucault.Utilities.Achievements
 
             foreach (var line in lines)
             {
-                var lineContents = line.Split(_separatorChar);
                 foreach (var achievement in _allAchievements)
                 {
-                    if (lineContents[0] == achievement.Title)
+                    if (line == achievement.Title)
                     {
-                        _completedAchievements[achievement] = lineContents[1].ToLower() == "true";
+                        _completedAchievements[achievement] = true;
                         Debug.Log("Got achievement " + achievement.Title +" with value " + _completedAchievements[achievement]);
                     }
                 }
             }
+        }
+
+        [Button]
+        private void ResetAchievements()
+        {
+            var path = Application.persistentDataPath + _savePath;
+            if (File.Exists(path))
+            {
+                File.WriteAllText(path, string.Empty);
+                Debug.Log("Reset all achievements");
+            }
+
         }
     }
 }
