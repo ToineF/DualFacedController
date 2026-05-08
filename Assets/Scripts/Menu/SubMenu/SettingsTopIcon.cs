@@ -7,6 +7,8 @@ public class SettingsTopIcon : SubMenuEvent
     [SerializeField] private Image _background;
     [SerializeField] private Image _icon;
     
+    [Header("Background")]
+    [SerializeField] private Sprite _backgroundSpriteSelected;
     [Header("Rotation")]
     [SerializeField] private Vector3 _startRotationOffset;
     [SerializeField] private float _zRotation;
@@ -52,6 +54,7 @@ public class SettingsTopIcon : SubMenuEvent
         _background.transform.localEulerAngles = _originalRotation + _startRotationOffset;
         _background.color = _startColor;
         _icon.color = _iconStartColor;
+        _background.sprite = _backgroundSpriteSelected;
 
         // Tween
         _background.DOKill();
