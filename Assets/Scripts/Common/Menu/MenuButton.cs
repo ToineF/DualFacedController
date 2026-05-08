@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private MenuManager _menuManager;
+    public Action OnSelectEvent;
+    public Action OnDeselectEvent;
 
     [Header("Button Parameters")] 
     [SerializeField] private string _targetScene;
@@ -33,6 +34,8 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     
     [Header("Feedbacks")]
     [SerializeField] private GameEvent _onPointerEnterEvent;
+    
+    private MenuManager _menuManager;
     
     private Vector3 _originalRotation;
     private float _currentAnimationRotation;
@@ -88,9 +91,9 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnSelect()
     {
-
         if (_menuManager.CanClickButtons == false) return;
 
+        OnSelectEvent?.Invoke();
         transform.DOKill();
         transform.DOLocalRotate(
             new Vector3(_originalRotation.x, _originalRotation.y,
@@ -101,6 +104,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnDeselect()
     {
+        OnDeselectEvent?.Invoke();
         transform.DOKill();
         transform.DOLocalRotate(
             new Vector3(_originalRotation.x, _originalRotation.y,
