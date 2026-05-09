@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +16,7 @@ namespace AntoineFoucault.Utilities.Achievements
         
         [Header("Navigation")]
         [SerializeField] private SubMenu _subMenu;
+        [SerializeField] private Button _resetButton;
 
         private AchievementIcon[] _icons;
 
@@ -46,6 +46,7 @@ namespace AntoineFoucault.Utilities.Achievements
             {
                 icon.OnSelect -= OnSelect;
             }
+            _resetButton.onClick.RemoveListener(AchievementsManager.ResetAchievements);
         }
 
         private void FixNavigation()
@@ -67,15 +68,27 @@ namespace AntoineFoucault.Utilities.Achievements
                 navigation.selectOnRight = _icons[(i + 1) % lineLength + currentColumn * lineLength].Button;
                 navigation.selectOnDown = _icons[(i + lineLength) % _icons.Length].Button;
                 navigation.selectOnUp = _icons[(i - lineLength + _icons.Length) % _icons.Length].Button;
+
+                if (currentColumn == 0) navigation.selectOnUp = _resetButton;
+                if (currentColumn == columnLength - 1) navigation.selectOnDown = _resetButton;
                 
                 currentButton.navigation = navigation;
             }
+            
+            // Set reset button navigation
+            Navigation resetNavigation = new Navigation();
+            resetNavigation.mode = Navigation.Mode.Explicit;
+            resetNavigation.selectOnDown = _icons[lineLength/2].Button;
+            resetNavigation.selectOnUp = _icons[lineLength/2 + lineLength * (columnLength - 1)].Button;
+            _resetButton.navigation = resetNavigation;
+            _resetButton.onClick.AddListener(AchievementsManager.ResetAchievements);
         }
         
 
         private void OnSelect(AchievementData data)
         {
-            _title.text = data.Title;
+            var completed = AchievementsManager.IsAchievementCompleted(data);
+            _title.text = completed ? data.Title : "???";
             _description.text = data.Description;
         }
     }

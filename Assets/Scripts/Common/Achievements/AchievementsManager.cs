@@ -1,16 +1,18 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 namespace AntoineFoucault.Utilities.Achievements
 {
     public class AchievementsManager : MonoBehaviour
     {
-        public static List<AchievementData> AllAchievements { get; set; }
         
         public static System.Action<AchievementData> OnAddAchievement;
-        public static System.Action<AchievementData> OnAllAchievements;
+        public static System.Action OnAllAchievements;
+        public static System.Action OnResetAchievements;
 
+        public static List<AchievementData> AllAchievements { get; set; }
         private static AchievementsManager _achievementsManager;
 
         [SerializeField] private List<AchievementData> _allAchievements;
@@ -61,6 +63,11 @@ namespace AntoineFoucault.Utilities.Achievements
             Save(achievement);
         }
 
+        public static bool IsAchievementCompleted(AchievementData achievement)
+        {
+            return _completedAchievements[achievement];
+        }
+
         private static void Save(AchievementData achievement)
         {
             var path = Application.persistentDataPath + _savePath;
@@ -98,7 +105,7 @@ namespace AntoineFoucault.Utilities.Achievements
             }
         }
 
-        public void ResetAchievements()
+        public static void ResetAchievements()
         {
             var path = Application.persistentDataPath + _savePath;
             if (File.Exists(path))
@@ -106,6 +113,12 @@ namespace AntoineFoucault.Utilities.Achievements
                 File.WriteAllText(path, string.Empty);
                 Debug.Log("Reset all achievements");
             }
+            foreach (var key in _completedAchievements.Keys.ToList())
+            {
+                _completedAchievements[key] = false;
+            }
+
+            OnResetAchievements?.Invoke();
         }
     }
 }
