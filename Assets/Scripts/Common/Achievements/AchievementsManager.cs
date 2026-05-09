@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace AntoineFoucault.Utilities.Achievements
@@ -18,6 +16,7 @@ namespace AntoineFoucault.Utilities.Achievements
         private static AchievementsManager _achievementsManager;
 
         [SerializeField] private List<AchievementData> _allAchievements;
+        [SerializeField] private bool _resetInEditor = true;
 
         private static Dictionary<AchievementData, bool> _completedAchievements = new();
 
@@ -25,6 +24,13 @@ namespace AntoineFoucault.Utilities.Achievements
 
         private void Awake()
         {
+            #if UNITY_EDITOR
+            if (_resetInEditor)
+            {
+                ResetAchievements();
+            }
+            #endif
+            
             _completedAchievements = new Dictionary<AchievementData, bool>();
             foreach (var achievement in _allAchievements)
             {
@@ -36,7 +42,21 @@ namespace AntoineFoucault.Utilities.Achievements
 
         public static void GetAchievement(AchievementData achievement)
         {
-            Debug.Log("Get Achievement : " + achievement.Title);
+            if (_completedAchievements.TryGetValue(achievement, out bool completed) == false)
+            {
+                Debug.LogWarning("Achievement " + achievement.Title + " not found");
+                return;
+            }
+
+            // Check if achievement already unlocked (and don't send the event if it is)
+            if (completed)
+            {
+                Debug.Log("Achievement " + achievement.Title + " is already completed");
+                return;
+            }
+            
+            Debug.Log("Get New Achievement : " + achievement.Title);
+            _completedAchievements[achievement] = true;
             OnGetAchievement?.Invoke(achievement);
             Save(achievement);
         }
@@ -78,8 +98,7 @@ namespace AntoineFoucault.Utilities.Achievements
             }
         }
 
-        [Button]
-        private void ResetAchievements()
+        public void ResetAchievements()
         {
             var path = Application.persistentDataPath + _savePath;
             if (File.Exists(path))
@@ -87,7 +106,6 @@ namespace AntoineFoucault.Utilities.Achievements
                 File.WriteAllText(path, string.Empty);
                 Debug.Log("Reset all achievements");
             }
-
         }
     }
 }
