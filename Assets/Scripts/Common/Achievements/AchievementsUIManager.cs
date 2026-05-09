@@ -22,12 +22,12 @@ namespace AntoineFoucault.Utilities.Achievements
         {
             _animator.gameObject.SetActive(false);
             
-            AchievementsManager.OnGetAchievement += OnGetAchievement;
+            AchievementsManager.OnAddAchievement += OnGetAchievement;
         }
 
         private void OnDestroy()
         {
-            AchievementsManager.OnGetAchievement -= OnGetAchievement;
+            AchievementsManager.OnAddAchievement -= OnGetAchievement;
         }
 
         private void OnGetAchievement(AchievementData achievement)

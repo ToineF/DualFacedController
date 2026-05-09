@@ -6,7 +6,7 @@ namespace AntoineFoucault.Utilities.Achievements
     {
         public void AddAchievement(AchievementData achievement)
         {
-            AchievementsManager.GetAchievement(achievement);
+            AchievementsManager.AddAchievement(achievement);
         }
     }
 }

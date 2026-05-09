@@ -6,12 +6,10 @@ namespace AntoineFoucault.Utilities.Achievements
 {
     public class AchievementsManager : MonoBehaviour
     {
+        public static List<AchievementData> AllAchievements { get; set; }
         
-        // Current problems left :
-        // Option to reset save system
-        
-        public static System.Action<AchievementData> OnGetAchievement;
-        public static System.Action<AchievementData> OnGetAllAchievements;
+        public static System.Action<AchievementData> OnAddAchievement;
+        public static System.Action<AchievementData> OnAllAchievements;
 
         private static AchievementsManager _achievementsManager;
 
@@ -24,6 +22,8 @@ namespace AntoineFoucault.Utilities.Achievements
 
         private void Awake()
         {
+            AllAchievements = _allAchievements;
+            
             #if UNITY_EDITOR
             if (_resetInEditor)
             {
@@ -40,7 +40,7 @@ namespace AntoineFoucault.Utilities.Achievements
             Load();
         }
 
-        public static void GetAchievement(AchievementData achievement)
+        public static void AddAchievement(AchievementData achievement)
         {
             if (_completedAchievements.TryGetValue(achievement, out bool completed) == false)
             {
@@ -57,7 +57,7 @@ namespace AntoineFoucault.Utilities.Achievements
             
             Debug.Log("Get New Achievement : " + achievement.Title);
             _completedAchievements[achievement] = true;
-            OnGetAchievement?.Invoke(achievement);
+            OnAddAchievement?.Invoke(achievement);
             Save(achievement);
         }
 

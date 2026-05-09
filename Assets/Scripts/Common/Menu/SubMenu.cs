@@ -11,7 +11,7 @@ public class SubMenu : MonoBehaviour
     [field: SerializeField]
     public CanvasGroup CanvasGroup { get; private set; }
 
-    [field: SerializeField] public GameObject FirstSelectedButton { get; private set; }
+    [field: SerializeField] public GameObject FirstSelectedButton { get; set; }
 
     [field: Header("Top Menu")]
     [field: SerializeField]
