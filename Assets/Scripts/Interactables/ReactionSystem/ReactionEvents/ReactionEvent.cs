@@ -52,6 +52,16 @@ public class ReactionLookAt : ReactionEvent
     }
 }
 
+public class ReactionFeedback : ReactionEvent
+{
+    [SerializeField] private FeedbacksEditor.GameEvent _gameEvent;
+    public override IEnumerator Execute(GameObject self, GameObject target)
+    {
+        FeedbacksEditor.GameEventsManager.PlayEvent(_gameEvent, self);
+        yield break;
+    }
+}
+
 [System.Serializable]
 public class ReactionEventWrapper
 {

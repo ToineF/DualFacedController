@@ -28,7 +28,7 @@ namespace Cattac.Cutscenes
             // Clear
             foreach (var child in transform.GetChildren())
             {
-                child.transform.SetParent(transform.parent?.parent);
+                child.transform.SetParent(transform.parent?.parent, true);
             }
             Destroy(gameObject);
         }
