@@ -27,6 +27,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _RECEIVE_SHADOWS_OFF
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -36,7 +37,6 @@ Material:
     RenderType: TransparentCutout
   disabledShaderPasses:
   - MOTIONVECTORS
-  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -46,11 +46,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlphaTex:
-        m_Texture: {fileID: 2800000, guid: 7236a4b93ab7aa74d87d88077f20d715, type: 3}
+        m_Texture: {fileID: 2800000, guid: eebd488890dba5b4983454d0509f868d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 3790bf97ad741684ea4ea6889896086a, type: 3}
+        m_Texture: {fileID: 2800000, guid: eebd488890dba5b4983454d0509f868d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
@@ -84,46 +84,46 @@ Material:
     - _AlpheTreshold: 0.5
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _CastShadows: 0
+    - _CastShadows: 1
     - _Cull: 0
-    - _CutoutSize: 2.2
-    - _Dithering: 0.18
+    - _CutoutSize: 1.75
+    - _Dithering: 0.32
     - _DstBlend: 0
     - _FalloutSize: 0.6
-    - _HeightBlend: -87.8
-    - _IsAlphaInvert: 0
+    - _HeightBlend: 5.8
+    - _IsAlphaInvert: 1
     - _IsColorMultiply: 0
     - _IsShadowOff: 0
-    - _IsTime: 1
-    - _IsTransparancy: 1
-    - _NormalStrength: 0.5
+    - _IsTime: 0
+    - _IsTransparancy: 0
+    - _NormalStrength: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
-    - _Smoothness: 0.2
-    - _SmoothstepFalloutSize: 0.3
-    - _SmoothstepSize: 0.87
+    - _ReceiveShadows: 0
+    - _Smoothness: 0.5
+    - _SmoothstepFalloutSize: 0.33
+    - _SmoothstepSize: 0.66
     - _SrcBlend: 1
     - _Surface: 0
-    - _WindHeight: 1
-    - _WindIntensity: 0.18
+    - _WindHeight: 0.25
+    - _WindIntensity: 0.11
     - _WindNoiseScale: 1
-    - _WindNoiseSpeed: 0.04
-    - _WindSpeed: 0.17
+    - _WindNoiseSpeed: 1.29
+    - _WindSpeed: 0.15
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
-    - _BottomColor: {r: 0.23783974, g: 0.38679248, b: 0.21346566, a: 0}
-    - _ColorMultiply: {r: 1, g: 0.1273585, b: 0.1273585, a: 0}
+    - _BottomColor: {r: 0.028702166, g: 0.7264151, b: 0.01713243, a: 0}
+    - _ColorMultiply: {r: 1, g: 1, b: 1, a: 0}
     - _CutoutPos: {r: 0.5, g: 0.25, b: 0, a: 0}
-    - _FarColor: {r: 0.12028301, g: 0.5, b: 0.30566236, a: 0}
-    - _NearColor: {r: 1, g: 0.1503219, b: 0, a: 0}
-    - _NearFarRange: {r: 0, g: 38.47, b: 0, a: 0}
-    - _ShadowColor: {r: 0.07600568, g: 0.26415092, b: 0.2575105, a: 0}
+    - _FarColor: {r: 0.9637351, g: 0, b: 1, a: 1}
+    - _NearColor: {r: 1, g: 0.18378538, b: 0, a: 1}
+    - _NearFarRange: {r: 1, g: 1.5, b: 0, a: 0}
+    - _ShadowColor: {r: 1, g: 0.94259137, b: 0, a: 1}
     - _Vector2: {r: 0.5, g: 0.25, b: 0, a: 0}
-    - _WindNoiseContrast: {r: 1, g: 1, b: 0, a: 0}
-    - _WindNoiseScale: {r: 0.34, g: 0.1, b: 0, a: 0}
+    - _WindNoiseContrast: {r: 0.55, g: 1.33, b: 0, a: 0}
+    - _WindNoiseScale: {r: 1.3, g: 1.7, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
