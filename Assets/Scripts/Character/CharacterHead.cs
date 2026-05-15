@@ -4,8 +4,6 @@ using Cattac.Interactables;
 using Cattac.Interactables.NPC;
 using FeedbacksEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace Cattac.Character
 {
@@ -13,6 +11,7 @@ namespace Cattac.Character
     {
         public Action OnSeparate { get; set; }
         public Action OnConnect { get; set; }
+        public Action OnSqueak { get; set; }
 
         public bool IsMovementBlocked => NormalizedDirection.sqrMagnitude > .5f && CurrentRigidbody.linearVelocity.sqrMagnitude < 30;
         public Vector3 Direction { get; private set; }
@@ -49,7 +48,7 @@ namespace Cattac.Character
         [SerializeField] private CharacterHeadData _data;
 
         [Header("Input Properties")]
-        [field:SerializeField, FormerlySerializedAs("_isLeftHead")] public bool IsLeftHead { get; private set; }
+        [field:SerializeField] public bool IsLeftHead { get; private set; }
         
         [field:Header("Grab")]
         [field:SerializeField] public Rigidbody GrabParent { get; private set; }
@@ -106,6 +105,10 @@ namespace Cattac.Character
 
             var isJumping = IsGrabbing;
             var isGrabbingThisFrame = UserInput.Instance.GetHead(IsLeftHead).GrabInputPressed;
+            if (isGrabbingThisFrame)
+            {
+                OnSqueak?.Invoke();
+            }
 
             //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
             // Update timer

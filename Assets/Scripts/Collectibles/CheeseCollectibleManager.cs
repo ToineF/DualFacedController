@@ -6,8 +6,7 @@ namespace Cattac.Collectibles
     {
         public Action<bool> OnCheeseGain { get; set; }
         public int Cheeses { get; private set; }
-        public int MaxCheeses { get; private set; }
-        public int MaxMice { get; private set; }
+        public int MaxCheeses { get; private set; } = 350;
         
         public void AddCheese()
         {

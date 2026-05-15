@@ -779,6 +779,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4445857254662914147}
+  - {fileID: 8021995594344652231}
   m_Father: {fileID: 3214724071079703064}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1167976759161952060
@@ -812,8 +813,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 592ce962285115f4b9ebc05f92e6b05a, type: 2}
   - {fileID: 11400000, guid: cce881f48a15ee343827cec7064f5aaa, type: 2}
   - {fileID: 11400000, guid: 9f069c1b7f1fc254193e6b9acc890604, type: 2}
-  - {fileID: 11400000, guid: 0be14fd39c16c5f4d845cdde0d431857, type: 2}
   - {fileID: 11400000, guid: de344ebe266d39248b3e64f2a718e609, type: 2}
+  - {fileID: 11400000, guid: 0be14fd39c16c5f4d845cdde0d431857, type: 2}
   _resetInEditor: 1
 --- !u!1 &1046028185063712629
 GameObject:
@@ -1816,6 +1817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Mice>k__BackingField:
+  - {fileID: 11400000, guid: b0f14739e7645ca42a2a0e99c361dc5b, type: 2}
   - {fileID: 11400000, guid: ad437c1bdbd109842ae55d688d57839b, type: 2}
   - {fileID: 11400000, guid: 014c7abf479356c439ac0b01e2262b8b, type: 2}
   - {fileID: 11400000, guid: 5ddc0d655d8db9e4981e7e46f421b84b, type: 2}
@@ -2726,6 +2728,59 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!1 &4910101093699683398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8021995594344652231}
+  - component: {fileID: 8907912951669354659}
+  m_Layer: 0
+  m_Name: Trackers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8021995594344652231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910101093699683398}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3392255693876723215}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8907912951669354659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910101093699683398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1746e6ae0d0e4d5b809e5f5cd02536db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _quarterCheeseAchievement: {fileID: 11400000, guid: 7586d96f34a2fcd4cb2b10ac9d543323,
+    type: 2}
+  _halfCheeseAchievement: {fileID: 11400000, guid: 3b5e63ac8aa30a940a6fe98dd45263dd,
+    type: 2}
+  _allCheeseAchievement: {fileID: 11400000, guid: 82563883a7284f5409d0035ca3078931,
+    type: 2}
+  _firstMouse: {fileID: 11400000, guid: 470ff4c6dd6dc8c4296f1f8de1067774, type: 2}
+  _halfMice: {fileID: 11400000, guid: 41ebbf71284894e479547c3615634160, type: 2}
+  _allMice: {fileID: 11400000, guid: 50a350c9b9e3aea4b8ee12ac823451e3, type: 2}
 --- !u!1 &5040344584735551196
 GameObject:
   m_ObjectHideFlags: 0

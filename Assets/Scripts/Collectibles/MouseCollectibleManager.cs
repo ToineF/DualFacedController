@@ -1,5 +1,4 @@
 using System;
-using Cattac.Interactables;
 using Cattac.Interactables.MouseCollection;
 
 namespace Cattac.Collectibles
