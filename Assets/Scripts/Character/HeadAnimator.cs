@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -35,11 +36,16 @@ namespace Cattac.Character.Visuals
             _camera = Camera.main;
         }
 
+        private void FixedUpdate()
+        {
+            transform.position = _parent.transform.position + _startOffset + _positionOffset;
+        }
+
         private void LateUpdate()
         {
             RotateDirection();
             UpdateAnimation();
-            transform.position = _parent.transform.position + _startOffset + _positionOffset;
+           
             transform.GetChild(0).gameObject.SetActive(_parent.gameObject.activeInHierarchy); // Visual becomes inactive when parent is inactive
         }
 
@@ -66,7 +72,7 @@ namespace Cattac.Character.Visuals
 
                 Vector3 point = transform.position - moveDirection * orientation;
                 Vector3 direction = point - transform.position;
-                if (direction.magnitude < 0.001f) return;
+                if (direction.sqrMagnitude < 0.00001f) return;
             
                 Quaternion toRotation = Quaternion.LookRotation(direction, transform.up);
                 transform.localRotation =
@@ -79,7 +85,8 @@ namespace Cattac.Character.Visuals
                 var position = transform.position;
                 position.y = 0;
                 Quaternion lookRotation = Quaternion.LookRotation((neighbourPosition - position).normalized);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _lookAtLerp);
+                float t = 1f - Mathf.Exp(-_lookAtLerp * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, t);
             }
         }
     }
