@@ -33,6 +33,12 @@ namespace Cattac.Interactables
             UpdatePressure(collidersCount);
         }
 
+        private void OnEnable()
+        {
+            _currentColliders.Clear();
+            _onTriggerExit?.Invoke();
+        }
+
         private void UpdatePressure(int lastCount)
         {
             var currentCount = _currentColliders.Count;

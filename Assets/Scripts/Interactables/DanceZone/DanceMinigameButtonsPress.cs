@@ -14,6 +14,7 @@ namespace Cattac.Interactables
 
         [SerializeField] private DanceMinigameScorePanel _scorePanel;
         [SerializeField] private PressurePlate[] _pressurePlates;
+        [SerializeField] private GameObject[] _fakePressurePlates;
         [SerializeField] private GameObject[] _spotlights;
         [SerializeField] private GameObject _cameraZoom;
         [SerializeField] private MeshRenderer _timerRenderer;
@@ -108,6 +109,10 @@ namespace Cattac.Interactables
                 pressurePlate.OnTriggerEnterEvent.RemoveListener(OnPressurePlateEnter);
                 pressurePlate.OnTriggerExitEvent.RemoveListener(OnPressurePlateExit);
             }
+            
+            // Hides buttons
+            _pressurePlates.SetAllActive(false);
+            _fakePressurePlates.SetAllActive(true);
 
             GameEventsManager.PlayEvent(win ? _roundWinImmediate : _roundLoseImmediate, _feedbacksParent);
 
@@ -176,11 +181,17 @@ namespace Cattac.Interactables
             _currentPressurePlates[0] = plate1;
             _currentPressurePlates[1] = plate2;
             _spotlights.SetAllActive(true);
-            _spotlights[0].transform.position = new Vector3(_currentPressurePlates[0].transform.position.x,
-                _spotlights[0].transform.position.y, _currentPressurePlates[0].transform.position.z);
-            _spotlights[1].transform.position = new Vector3(_currentPressurePlates[1].transform.position.x,
-                _spotlights[1].transform.position.y, _currentPressurePlates[1].transform.position.z);
+            _spotlights[0].transform.position = new Vector3(_currentPressurePlates[0].transform.position.x, _spotlights[0].transform.position.y, _currentPressurePlates[0].transform.position.z);
+            _spotlights[1].transform.position = new Vector3(_currentPressurePlates[1].transform.position.x, _spotlights[1].transform.position.y, _currentPressurePlates[1].transform.position.z);
             GameEventsManager.PlayEvent(_highlightPressurePlatesEvent, _feedbacksParent);
+
+            for (int i = 0; i < _pressurePlates.Length; i++)
+            {
+                var isHighlighted = _pressurePlates[i] == plate1 || _pressurePlates[i] == plate2;
+                
+                _pressurePlates[i].gameObject.SetActive(isHighlighted);
+                _fakePressurePlates[i].SetActive(isHighlighted == false);
+            }
 
             _enteredPressurePlatesCount = 0;
             foreach (var pressurePlate in _currentPressurePlates)
