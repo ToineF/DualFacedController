@@ -1,8 +1,12 @@
+using System;
 using FeedbacksEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DestructibleObject : BoxTrigger
 {
+    public Action OnDestroyObject;
+    
     [SerializeField] private Collider _selfCollider;
     [SerializeField] private GameObject _originalMesh;
     [SerializeField] private GameObject _destructibleMesh;
@@ -34,6 +38,7 @@ public class DestructibleObject : BoxTrigger
         
         if (_destructEvent != null) GameEventsManager.PlayEvent(_destructEvent, gameObject);
 
+        OnDestroyObject?.Invoke();
         _selfCollider.enabled = false;
         Destroy(this);
     }
