@@ -1,3 +1,4 @@
+using AntoineFoucault.Utilities.Achievements;
 using Cattac.Character;
 using DG.Tweening;
 using UnityEngine;
@@ -84,6 +85,11 @@ public class DebugMode : MonoBehaviour
             {
                 MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseGet?.Invoke(mouseData, 0, Ease.Linear);
                 MainGame.Instance.CollectiblesManager.MouseCollectibleManager.OnMouseHide?.Invoke();
+            }
+
+            foreach (var achievement in AchievementsManager.AllAchievements)
+            {
+                AchievementsManager.AddAchievement(achievement);
             }
         }
     }
