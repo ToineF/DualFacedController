@@ -15,6 +15,11 @@ public class AchievementTrackersManager : MonoBehaviour
     [SerializeField] private AchievementData _halfMice;
     [SerializeField] private AchievementData _allMice;
     
+    [Header("All")]
+    [SerializeField] private AchievementData _achievementsAll;
+    
+    private AchievementAllTracker _allTracker;
+    
     private void Start()
     {
         // Cheese
@@ -24,5 +29,14 @@ public class AchievementTrackersManager : MonoBehaviour
         // Mice
         AchievementMouseTracker miceTracker = new AchievementMouseTracker();
         miceTracker.Initialize(_firstMouse, _halfMice, _allMice);
+        
+        // All
+        _allTracker = new AchievementAllTracker();
+        _allTracker.Initialize(_achievementsAll);
+    }
+
+    private void OnDestroy()
+    {
+        _allTracker.Destroy();
     }
 }

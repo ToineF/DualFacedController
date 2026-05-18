@@ -61,6 +61,7 @@ namespace AntoineFoucault.Utilities.Achievements
             _completedAchievements[achievement] = true;
             OnAddAchievement?.Invoke(achievement);
             Save(achievement);
+            CheckAllAchievements();
         }
 
         public static bool IsAchievementCompleted(AchievementData achievement)
@@ -119,6 +120,16 @@ namespace AntoineFoucault.Utilities.Achievements
             }
 
             OnResetAchievements?.Invoke();
+        }
+
+        private static void CheckAllAchievements()
+        {
+            int count = 0;
+            foreach (var key in _completedAchievements.Keys.ToList())
+            {
+                if (_completedAchievements[key] == false) count++;
+            }
+            if (count <= 1) OnAllAchievements?.Invoke();
         }
     }
 }
