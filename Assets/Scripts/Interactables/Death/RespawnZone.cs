@@ -5,7 +5,7 @@ using FeedbacksEditor;
 using MaskTransitions;
 using UnityEngine;
 
-public class RespawnZone : BoxTriggerUnityEventPlayer
+public class RespawnZone : BoxTriggerUnityEvent
 {
     [Header("Respawn Timings")]
     [SerializeField] private float _transitionTime = 1f;
@@ -16,15 +16,19 @@ public class RespawnZone : BoxTriggerUnityEventPlayer
     private const float _respawnDelay = 1f;
     
     private float _respawnTimer;
-    
-    private void Start()
+
+    protected override void OnEnterTriggerInternal(Collider other)
     {
-        OnTriggerEnter.AddListener(Respawn);
-    }
-    
-    private void OnDestroy()
-    {
-        OnTriggerEnter.RemoveListener(Respawn);
+        base.OnEnterTriggerInternal(other);
+
+        if (other.TryGetComponent(out CharacterHead head))
+        {
+            Respawn(head);
+        }
+        else if (other.TryGetComponent(out WaterElement waterElement))
+        {
+            waterElement.OnWater?.Invoke();
+        }
     }
 
     private void Respawn(CharacterHead characterHead)
