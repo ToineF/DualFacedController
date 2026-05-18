@@ -28,6 +28,7 @@ public class RespawnZone : BoxTriggerUnityEvent
         else if (other.TryGetComponent(out WaterElement waterElement))
         {
             waterElement.OnWater?.Invoke();
+            GameEventsManager.PlayEvent(_dieFeedback, waterElement.gameObject);
         }
     }
 
