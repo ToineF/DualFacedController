@@ -68,6 +68,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PFB_Box
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 766edb67a66d7d84d9824220eb7e3131,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2068906926158570084, guid: 766edb67a66d7d84d9824220eb7e3131,
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -85,6 +90,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8925607327722271554}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 766edb67a66d7d84d9824220eb7e3131,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5173357858914963280}
   m_SourcePrefab: {fileID: 100100000, guid: 766edb67a66d7d84d9824220eb7e3131, type: 3}
 --- !u!1 &1163938813706849819 stripped
 GameObject:
@@ -140,3 +149,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.8243966, y: 4.964605, z: 5.06266}
   m_Center: {x: 0.06304145, y: 2.5286615, z: 0}
+--- !u!75 &5173357858914963280
+ConstantForce:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163938813706849819}
+  m_Enabled: 1
+  m_Force: {x: 0, y: 0.1, z: 0}
+  m_RelativeForce: {x: 0, y: 0, z: 0}
+  m_Torque: {x: 0, y: 0, z: 0}
+  m_RelativeTorque: {x: 0, y: 0, z: 0}
