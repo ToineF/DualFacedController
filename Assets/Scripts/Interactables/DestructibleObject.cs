@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DestructibleObject : BoxTrigger
 {
+    [SerializeField] private Collider _selfCollider;
     [SerializeField] private GameObject _originalMesh;
     [SerializeField] private GameObject _destructibleMesh;
     [SerializeField] private Rigidbody[] _destructibleRigidbodies;
@@ -33,6 +34,7 @@ public class DestructibleObject : BoxTrigger
         
         if (_destructEvent != null) GameEventsManager.PlayEvent(_destructEvent, gameObject);
 
+        _selfCollider.enabled = false;
         Destroy(this);
     }
 }
