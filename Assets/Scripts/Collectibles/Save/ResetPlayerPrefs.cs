@@ -7,9 +7,9 @@ namespace Cattac.Collectibles.Save
     {
         private void Awake()
         {
-            #if UNITY_EDITOR
+            //#if UNITY_EDITOR
             ResetPrefs();
-            #endif
+            //#endif
         }
 
         [Button]
