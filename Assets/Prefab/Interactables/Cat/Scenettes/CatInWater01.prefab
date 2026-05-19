@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1996648619042964585}
   - component: {fileID: 759664935038319775}
+  - component: {fileID: 6050466329743205405}
   m_Layer: 0
   m_Name: CatInWater01
   m_TagString: Untagged
@@ -32,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 422067133004370124}
   - {fileID: 282603337545591881}
+  - {fileID: 352970531369593290}
   - {fileID: 8756486187544757321}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -43,7 +45,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5405912735888430443}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4be0ba3ac477c7c4d8507bdaeb65ed61, type: 2}
   m_CullingMode: 0
@@ -57,6 +59,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6050466329743205405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405912735888430443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6704416feb431899429563fdfc7342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 759664935038319775}
+  _clips:
+  - {fileID: 7400000, guid: f08ec5fc93e1644468ad8e3b28b282a3, type: 2}
+  - {fileID: 7400000, guid: 94fc2ddf194454e41a825b9131afee6b, type: 2}
+  - {fileID: 7400000, guid: de2822726e23ee34b86fc7f950e45fa3, type: 2}
 --- !u!1 &8750640580309274614
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,8 +133,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.7473946, y: 1.3328001, z: 1.230838}
-  m_Center: {x: 0.14765586, y: -0.16640013, z: 0.11541892}
+  m_Size: {x: 6.2756925, y: 1.3328001, z: 1.9286859}
+  m_Center: {x: 0.14765586, y: -0.16640013, z: -0.23350526}
 --- !u!114 &3587226441019380788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,10 +162,10 @@ MonoBehaviour:
   _onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 759664935038319775}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+      - m_Target: {fileID: 6050466329743205405}
+        m_TargetAssemblyTypeName: PlayRandomAnimation, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -459,7 +478,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 282603337545591881}
+    m_TransformParent: {fileID: 1996648619042964585}
     m_Modifications:
     - target: {fileID: 2245587183972759491, guid: 2e5c9046958531e42a7c35f0b704c857,
         type: 3}
@@ -1237,11 +1256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8333558577232541734, guid: e6c975e9b09b48e4194117b5f659184a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 352970531369593290}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6c975e9b09b48e4194117b5f659184a, type: 3}
 --- !u!4 &282603337545591881 stripped
