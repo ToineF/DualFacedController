@@ -48,6 +48,7 @@ namespace Cattac.Collectibles.EndLevel
         [SerializeField] private GameObject _cheesePrefab;
         [SerializeField] private Transform _cheeseParent;
         [SerializeField] private float _chesseSpawnDelay = .025f;
+        [SerializeField] private GameEvent _addCheeseEvent;
         
         [Header("Feedbacks/End")] [SerializeField]
         private float _waitTransitionDuration;
@@ -127,6 +128,7 @@ namespace Cattac.Collectibles.EndLevel
             {
                 Instantiate(_cheesePrefab, _cheeseParent);
                 MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.AddCheese();
+                GameEventsManager.PlayEvent(_addCheeseEvent, gameObject);
                 yield return new WaitForSeconds(_chesseSpawnDelay);
             }
 
