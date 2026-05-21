@@ -8,7 +8,7 @@ public class KinematicRigidbodyFollower : MonoBehaviour
 
     private void Start()
     {
-        if (_removeParent) transform.SetParent(null);
+        if (_removeParent) transform.SetParent(transform.parent.parent);
     }
 
     private void FixedUpdate()
