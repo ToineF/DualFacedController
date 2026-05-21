@@ -10,14 +10,17 @@ namespace Cattac.Character
         public System.Action OnTeleport;
         
         [SerializeField] private CharacterBody _body;
+        [SerializeField] private Vector3 _bodyPartRespawnOffset;
 
         public void TeleportPlayer(Vector3 point)
         {
-            foreach (var rb in _body.AllRigidbodies)
+            int length = _body.AllRigidbodies.Length;
+            for (int i = 0; i < length; i++)
             {
+                var rb = _body.AllRigidbodies[i];
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
-                rb.position = point;
+                rb.position = point + _bodyPartRespawnOffset * (i- (length - 1f)/2f);
             }
             
             OnTeleport?.Invoke();
