@@ -118,7 +118,9 @@ namespace Cattac.Character
             if (GrabParent && isGrabbingThisFrame)
             {
                 if (_currentGrabbable == null)
+                {
                     Grab();
+                }
                 else
                 {
                     _currentGrabbable.OnUngrab(this);
@@ -203,6 +205,10 @@ namespace Cattac.Character
             Direction = Quaternion.AngleAxis(_camera.transform.eulerAngles.y, Vector3.up) * Direction;
             //Direction = _camera.transform.forward * Direction.z + _camera.transform.right * Direction.x;
             Direction = new Vector3(Direction.x, 0, Direction.z);
+            if (Physics.Raycast(transform.position, Direction, _data.GravityRaycastLength, _data.GroundLayer))
+            {
+                Direction += Vector3.up * _data.GravityUp;
+            }
             Direction = Vector3.ProjectOnPlane(Direction, _lastGroundHit.normal);
             
             CurrentRigidbody.AddForce(Direction, ForceMode.Impulse);

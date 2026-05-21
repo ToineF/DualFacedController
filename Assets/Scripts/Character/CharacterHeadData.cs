@@ -32,5 +32,9 @@ namespace Cattac.Character
         [field: SerializeField] public float SnakeOffset { get; private set; }
         [field: SerializeField] public float SnakeFrequency { get; private set; }
         [field: SerializeField] public float SnakeAmplitude { get; private set; }
+        [field:Header("Up Gravity")]
+        [field:SerializeField] public float GravityRaycastLength {get; private set;}
+        [field:SerializeField] public float GravityUp {get; private set;}
+
     }
 }
