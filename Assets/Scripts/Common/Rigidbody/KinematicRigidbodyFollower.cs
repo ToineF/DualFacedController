@@ -4,6 +4,12 @@ public class KinematicRigidbodyFollower : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private Transform _target;
+    [SerializeField] private bool _removeParent;
+
+    private void Start()
+    {
+        if (_removeParent) transform.SetParent(null);
+    }
 
     private void FixedUpdate()
     {
