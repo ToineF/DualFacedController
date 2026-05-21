@@ -21,25 +21,48 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_BumperGlow
-  m_Shader: {fileID: -6465566751694194690, guid: 5e3232f769dc1aa41acab3754daeb4af,
+  m_Shader: {fileID: -6465566751694194690, guid: 577971dacb5847d488ff21c09f0228ed,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _ALPHATEST_ON
+  - _AMBIENTMODE_SKYBOX
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: TransparentCutout
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AO:
+        m_Texture: {fileID: 2800000, guid: 4126645f0697573458accebc4b8a7816, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Albedo:
+        m_Texture: {fileID: 2800000, guid: b376c85dbc9ef1f43af4d8ceae6c095f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTexture:
         m_Texture: {fileID: 2800000, guid: 417cef9a22250684a8c07601bf92b674, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 0f4babc88c0809e4d9dc1e2535bddb54, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Opacity:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Roughness:
+        m_Texture: {fileID: 2800000, guid: 8c982a5df4aba534788448c90956ac1c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -56,14 +79,38 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AMBIENTMODE: 2
+    - _AlphaClip: 1
+    - _AlphaToMask: 1
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _CastShadows: 1
+    - _Cull: 2
+    - _DstBlend: 0
+    - _FresnelHardness: 1.02
+    - _FresnelPow: 1.61
+    - _LightingSoftness: 0.588
+    - _LikghtingSoftnessPower: 1
+    - _Normal_Strength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _RoughnessTweak: 0
     - _Speed: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
     - _Color1_Off: {r: 0.23851903, g: 0.57727396, b: 0.754717, a: 1}
     - _Color1_Off_3: {r: 0, g: 0, b: 0, a: 1}
     - _Color1_On: {r: 0, g: 0.9235929, b: 2.1185472, a: 1}
     - _Color2_Off: {r: 0.26059094, g: 0.6863367, b: 0.9056604, a: 1}
     - _Color2_On: {r: 0, g: 0.7543212, b: 1.7207953, a: 1}
+    - _FresnelColor: {r: 1.0220822, g: 0.47864887, b: 0.19766682, a: 1}
+    - _FresnelVector: {r: -1, g: 0.7, b: 0, a: 0}
+    - _SpecularControl_R_Pow_G_Bright_B_Hardness_0_1: {r: 2, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

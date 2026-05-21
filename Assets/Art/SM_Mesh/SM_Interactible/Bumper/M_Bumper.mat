@@ -8,18 +8,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Bumper
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 577971dacb5847d488ff21c09f0228ed,
+    type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _NORMALMAP
-  - _PARALLAXMAP
+  - _AMBIENTMODE_SKYBOX
   - _SPECULAR_SETUP
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses:
@@ -76,7 +76,15 @@ Material:
         m_Texture: {fileID: 2800000, guid: 816ab6dd25f1d9742baa3a7d3900b0bd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Opacity:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -86,6 +94,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 2800000, guid: 320f5879365e1ff428c44f6437c2e1a7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Roughness:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Roughtness:
@@ -122,6 +134,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AMBIENTMODE: 2
     - _AddPrecomputedVelocity: 0
     - _Alpha: 1
     - _AlphaClip: 0
@@ -143,6 +156,8 @@ Material:
     - _DstBlendAlpha: 0
     - _EmissionMult: 0
     - _EnvironmentReflections: 1
+    - _FresnelHardness: 1.02
+    - _FresnelPow: 1.61
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -155,10 +170,13 @@ Material:
     - _IsReflection: 0
     - _IsSSS: 0
     - _IsWind: 0
+    - _LightingSoftness: 0.588
+    - _LikghtingSoftnessPower: 1
     - _MetalicAmp: 0
     - _MetalicValue: 0
     - _Metallic: 0
     - _NormalStrengh: 1.12
+    - _Normal_Strength: 1
     - _OcclusionStrength: 1
     - _OffSetSpeed: 3
     - _Parallax: 0.005
@@ -169,6 +187,7 @@ Material:
     - _ReflectionStrenght: 0
     - _RoughnessAmp: 0
     - _RoughnessMapOnOff: 0
+    - _RoughnessTweak: 0
     - _RoughtnessValue: 0
     - _SSSBorderSmoothness: 0
     - _SSSIntensity: 0
@@ -197,8 +216,11 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorVariation: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _FresnelColor: {r: 1.0220822, g: 0.47864887, b: 0.19766682, a: 1}
+    - _FresnelVector: {r: -1, g: 0.7, b: 0, a: 0}
     - _SSSColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecularControl_R_Pow_G_Bright_B_Hardness_0_1: {r: 0, g: 0, b: 0, a: 0}
     - _WindDirection: {r: 0, g: 0, b: 0, a: 0}
     - _WindDirection_1: {r: 0.25, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
