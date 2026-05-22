@@ -12,6 +12,7 @@ public class IntroCutscene : MonoBehaviour
     public Action OnAllConnected;
     
     [SerializeField] private IntroCutsceneMouse[] _mices;
+    [SerializeField] private GameObject _startCamera;
     [SerializeField] private PlayableDirector _playableDirector;
     [SerializeField] private ActivatePlayer _activatePlayer;
     [SerializeField] private GameEvent _oneConnectFeedback;
@@ -28,6 +29,7 @@ private bool _hasAlreadyBeenConnected = false;
     {
         if (_hasAlreadyBeenConnected) return;
         
+        _startCamera.SetActive(true);
         _activatePlayer.gameObject.SetActive(false);
         MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
     }
