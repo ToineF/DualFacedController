@@ -12,8 +12,8 @@ public class IntroCutscene : MonoBehaviour
     public Action OnAllConnected;
     
     [SerializeField] private IntroCutsceneMouse[] _mices;
-    [SerializeField] private GameObject _startCamera;
-    [SerializeField] private PlayableDirector _playableDirector;
+    [SerializeField] private PlayableDirector _startTimeline;
+    [SerializeField] private PlayableDirector _playerConnectedTimeline;
     [SerializeField] private ActivatePlayer _activatePlayer;
     [SerializeField] private GameEvent _oneConnectFeedback;
     [SerializeField] private GameEvent _allFellFeedback;
@@ -23,15 +23,23 @@ public class IntroCutscene : MonoBehaviour
     [SerializeField] private GameObject[] _gameObjectsToDeactivateOnRestart;
 
     private int _miceCount = 0;
-private bool _hasAlreadyBeenConnected = false;
+    private bool _hasAlreadyBeenConnected = false;
+    private bool _canPlayerConnect = false;
 
     private void Start()
     {
         if (_hasAlreadyBeenConnected) return;
-        
-        _startCamera.SetActive(true);
-        _activatePlayer.gameObject.SetActive(false);
+
+        MainGame.Instance.PlayersManager.AllowPlayerJoin(false);
         MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
+        _activatePlayer.gameObject.SetActive(false);
+        _startTimeline.Play();
+    }
+
+    private void OnTravellingEnd(PlayableDirector obj)
+    {
+        _canPlayerConnect = true;
+        MainGame.Instance.PlayersManager.AllowPlayerJoin(true);
     }
 
     private void OnEnable()
@@ -40,6 +48,8 @@ private bool _hasAlreadyBeenConnected = false;
         {
             mice.Fall += OnMouseFall;
         }
+        _startTimeline.stopped += OnTravellingEnd;
+
     }
     private void OnDisable()
     {
@@ -47,10 +57,13 @@ private bool _hasAlreadyBeenConnected = false;
         {
             mice.Fall -= OnMouseFall;
         }
+        _startTimeline.stopped -= OnTravellingEnd;
     }
     
     private void OnMouseFall(IntroCutsceneMouse mouse)
     {
+        if (_canPlayerConnect == false) return;
+        
         _miceCount++;
         if (_oneConnectFeedback) GameEventsManager.PlayEvent(_oneConnectFeedback, _fallFeedbackParent);
         Debug.Log(mouse.ID + " connected");
@@ -70,7 +83,7 @@ private bool _hasAlreadyBeenConnected = false;
         
         Debug.Log("All connected");
         if (_allFellFeedback) GameEventsManager.PlayEvent(_allFellFeedback, _fallFeedbackParent);
-        _playableDirector.Play();
+        _playerConnectedTimeline.Play();
         
         yield return new WaitForSeconds(_afterFellPlayerRegainControlTimer);
         MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE_RESUME);

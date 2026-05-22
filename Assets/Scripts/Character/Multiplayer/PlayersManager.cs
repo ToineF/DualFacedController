@@ -45,18 +45,24 @@ namespace Cattac.Character.Multiplayer
 
         private void OnPlayerJoined(PlayerInput playerInput)
         {
+            if (_playerInputManager.joiningEnabled == false) return;
+            
             Debug.Log($"PlayerJoined : {playerInput} connected");
             Inputs.AddInput(playerInput);
         }
 
         private void OnPlayerLeft(PlayerInput playerInput)
         {
+            if (_playerInputManager.joiningEnabled == false) return;
+            
             Debug.Log("PlayerLeft : " + playerInput);
             Inputs.RemoveInput(playerInput);
         }
 
         private void OnJoinPressed(InputAction.CallbackContext context)
         {
+            if (_playerInputManager.joiningEnabled == false) return;
+            
             JoinPlayer(context.control.device);
         }
 
@@ -129,6 +135,13 @@ namespace Cattac.Character.Multiplayer
             OnPlayerJoinedEvent.RemoveAllListeners();
             _joinedCount = 0;
             _connectedDevices.Clear();
+        }
+
+        public void AllowPlayerJoin(bool allowed)
+        {
+            if (allowed) _playerInputManager.EnableJoining();
+            else _playerInputManager.DisableJoining();
+            Debug.Log("Joining : " + _playerInputManager.joiningEnabled);
         }
     }
 }
