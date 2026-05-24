@@ -15,6 +15,7 @@ namespace Cattac.Interactables.Collectibles
         [SerializeField] private float _uiWinDelay;
         [SerializeField] private GameObject _children;
         [SerializeField] private GameEvent _feedback;
+        [SerializeField] private bool _addToCount = true;
 
         private bool _isTriggered;
 
@@ -25,7 +26,7 @@ namespace Cattac.Interactables.Collectibles
             _isTriggered = true;
             GameEventsManager.PlayEvent(_feedback, gameObject);
             OnPickUpEvent?.Invoke();
-            MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.AddCheese();
+            if (_addToCount) MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.AddCheese();
             StartCoroutine(AddCoinToCount());
         }
 
