@@ -2,6 +2,7 @@ using FMOD;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 namespace Cattac.Character
 {
@@ -59,8 +60,8 @@ namespace Cattac.Character
             {
                 CloseMenu(submenu);
             }
-
             CloseMenu(this);
+            EventSystem.current.SetSelectedGameObject(null);
             _cursorManager.SetCursorVisible(false);
             //AudioManager.Instance.EnableMusicLowPass(false);
             FMODAudioManager.Instance.StopEQFilter();

@@ -41,7 +41,7 @@ public class CircularTextMeshPro : MonoBehaviour
         Matrix4x4 matrix;
 
         // Iterate over each character in the text
-        for (int i = 0; i < textInfo.characterInfo.Length; i++) {
+        for (int i = 0; i < textInfo.characterCount; i++) {
             // Skip invisible characters
             if (!textInfo.characterInfo[i].isVisible)
                 continue;
