@@ -31,7 +31,7 @@ namespace Cattac.Interactables.Death
         
             yield return new WaitForSeconds(_teleportatingDelay);
 
-            characterHead.CharacterManager.TeleportPlayer(position);
+            characterHead.CharacterManager.TeleportPlayer(position, false);
         
         }
     }

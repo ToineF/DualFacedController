@@ -12,7 +12,7 @@ namespace Cattac.Character
         [SerializeField] private CharacterBody _body;
         [SerializeField] private Vector3 _bodyPartRespawnOffset;
 
-        public void TeleportPlayer(Vector3 point)
+        public void TeleportPlayer(Vector3 point, bool sendEvent = true)
         {
             int length = _body.AllRigidbodies.Length;
             for (int i = 0; i < length; i++)
@@ -23,7 +23,7 @@ namespace Cattac.Character
                 rb.position = point + _bodyPartRespawnOffset * (i- (length - 1f)/2f);
             }
             
-            OnTeleport?.Invoke();
+            if (sendEvent) OnTeleport?.Invoke();
         }
     }
 }
