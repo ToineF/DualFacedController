@@ -39,16 +39,22 @@ public class ReactionLookAt : ReactionEvent
     [field: SerializeField] public Vector2 StartTurnTime { get; private set; }
     [field: SerializeField] public Vector2 WaitTime { get; private set; }
     [field: SerializeField] public Vector2 EndTurnTime { get; private set; }
+    [field: SerializeField] public bool TurnBack { get; private set; } = true;
     [field: SerializeField] public AxisConstraint AxisConstraint { get; private set; } = AxisConstraint.Y;
     public override IEnumerator Execute(GameObject self, GameObject target)
     {
         var oldLookAt = self.transform.position + self.transform.forward;
+        float startTurnTime = Random.Range(StartTurnTime.x, StartTurnTime.y);
+        float waitTime = Random.Range(WaitTime.x, WaitTime.y);
+        float endTurnTime = Random.Range(EndTurnTime.x, EndTurnTime.y);
+        if (TurnBack == false) endTurnTime = 0;
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(self.transform.DOLookAt(target.transform.position, Random.Range(StartTurnTime.x, StartTurnTime.y), AxisConstraint, Vector3.up));
-        sequence.AppendInterval(Random.Range(WaitTime.x, WaitTime.y));
-        sequence.Append(self.transform.DOLookAt(oldLookAt, Random.Range(EndTurnTime.x, EndTurnTime.y), AxisConstraint, Vector3.up));
+        sequence.Append(self.transform.DOLookAt(target.transform.position, startTurnTime, AxisConstraint, Vector3.up));
+        sequence.AppendInterval(waitTime);
+        if (TurnBack) sequence.Append(self.transform.DOLookAt(oldLookAt,endTurnTime , AxisConstraint, Vector3.up));
         sequence.Play();
-        yield break;
+        
+        yield return new WaitForSeconds(startTurnTime + waitTime + endTurnTime);
     }
 }
 

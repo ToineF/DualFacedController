@@ -5,7 +5,12 @@ public class ReactionListener : MonoBehaviour
 {
     [SerializeField] private ReactionType _type;
     [SerializeField] private GameObject _selfGameObject;
-    [field: BF_SubclassList.SubclassList(typeof(ReactionEvent)), SerializeField] public ReactionEventWrapper ReactionEvents { get; private set; }
+    [SerializeField] private bool _waitForCoroutineCompletion = false;
+
+    [field: BF_SubclassList.SubclassList(typeof(ReactionEvent)), SerializeField]
+    public ReactionEventWrapper ReactionEvents { get; private set; }
+
+    private bool _isCoroutineRunning;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,7 +19,7 @@ public class ReactionListener : MonoBehaviour
             emitter.OnReaction.AddListener(OnEmission);
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out ReactionEmitter emitter))
@@ -25,17 +30,21 @@ public class ReactionListener : MonoBehaviour
 
     private void OnEmission(GameObject target, ReactionType type)
     {
-        if (type == _type)
-        {
-            StartCoroutine(Execute(target));
-        }
+        if (type != _type) return;
+        if (_waitForCoroutineCompletion && _isCoroutineRunning) return;
+        
+        StartCoroutine(Execute(target));
     }
-    
+
     private IEnumerator Execute(GameObject target)
     {
+        _isCoroutineRunning = true;
+
         foreach (var reactionEvent in ReactionEvents.List)
         {
             yield return reactionEvent.Execute(_selfGameObject, target);
         }
+
+        _isCoroutineRunning = false;
     }
 }
