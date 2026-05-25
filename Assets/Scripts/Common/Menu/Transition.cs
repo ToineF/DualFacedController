@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using FeedbacksEditor;
 
 public class Transition : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Transition : MonoBehaviour
     [Tooltip("The time the fade takes to complete in seconds")] [SerializeField] private float _fadeTime = 1f;
     [Header("Animations")]
     [Tooltip("The Animator used for the Animation transition")] [SerializeField] private Animator _animator;
-    
+    [SerializeField] private GameEvent _transitionFeedback;
 
     enum AnimationMode
     {
@@ -45,6 +46,8 @@ public class Transition : MonoBehaviour
 
     private IEnumerator _startTransition(Action endAction)
     {
+        GameEventsManager.PlayEvent(_transitionFeedback, gameObject);
+        
         switch (_transitionMode)
         {
             case AnimationMode.Fade:
