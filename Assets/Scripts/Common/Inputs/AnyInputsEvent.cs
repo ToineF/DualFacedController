@@ -15,9 +15,12 @@ public class AnyInputsEvent : MonoBehaviour
 
     private float _startTimer;
     private float _holdTimer;
+    private bool _hasEnded = false;
 
     private void Update()
     {
+        if (_hasEnded) return;
+        
         _startTimer  += Time.deltaTime;
         if (_startTimer <= _startOffset) return;
         
@@ -27,7 +30,7 @@ public class AnyInputsEvent : MonoBehaviour
             if (_holdTimer >= _holdTime)
             {
                 _unityEvent?.Invoke();
-                if (_oneShot) Destroy(this);
+                if (_oneShot) _hasEnded = true;
             }
         }
         else
