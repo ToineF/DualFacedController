@@ -10,7 +10,7 @@ using UnityEngine.Playables;
 public class IntroCutscene : MonoBehaviour
 {
     public Action OnAllConnected;
-    
+
     [SerializeField] private IntroCutsceneMouse[] _mices;
     [SerializeField] private PlayableDirector _startTimeline;
     [SerializeField] private PlayableDirector _playerConnectedTimeline;
@@ -21,6 +21,7 @@ public class IntroCutscene : MonoBehaviour
     [SerializeField] private float _allMiceFellTimer;
     [SerializeField] private float _afterFellPlayerRegainControlTimer;
     [SerializeField] private GameObject[] _gameObjectsToDeactivateOnRestart;
+    [SerializeField] private bool _startOnEditor;
 
     private int _miceCount = 0;
     private bool _hasAlreadyBeenConnected = false;
@@ -28,6 +29,10 @@ public class IntroCutscene : MonoBehaviour
 
     private void Start()
     {
+#if UNITY_EDITOR
+        if (_startOnEditor == false) return;
+#endif
+
         if (_hasAlreadyBeenConnected) return;
 
         MainGame.Instance.PlayersManager.AllowPlayerJoin(false);
@@ -48,26 +53,28 @@ public class IntroCutscene : MonoBehaviour
         {
             mice.Fall += OnMouseFall;
         }
-        _startTimeline.stopped += OnTravellingEnd;
 
+        _startTimeline.stopped += OnTravellingEnd;
     }
+
     private void OnDisable()
     {
         foreach (var mice in _mices)
         {
             mice.Fall -= OnMouseFall;
         }
+
         _startTimeline.stopped -= OnTravellingEnd;
     }
-    
+
     private void OnMouseFall(IntroCutsceneMouse mouse)
     {
         if (_canPlayerConnect == false) return;
-        
+
         _miceCount++;
         if (_oneConnectFeedback) GameEventsManager.PlayEvent(_oneConnectFeedback, _fallFeedbackParent);
         Debug.Log(mouse.ID + " connected");
-        
+
         if (_miceCount >= _mices.Length)
         {
             StartCoroutine(OnAllMouseFell());
@@ -78,13 +85,13 @@ public class IntroCutscene : MonoBehaviour
     {
         OnAllConnected?.Invoke();
         MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE);
-        
+
         yield return new WaitForSeconds(_allMiceFellTimer);
-        
+
         Debug.Log("All connected");
         if (_allFellFeedback) GameEventsManager.PlayEvent(_allFellFeedback, _fallFeedbackParent);
         _playerConnectedTimeline.Play();
-        
+
         yield return new WaitForSeconds(_afterFellPlayerRegainControlTimer);
         MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE_RESUME);
     }
@@ -95,6 +102,5 @@ public class IntroCutscene : MonoBehaviour
         Destroy(_activatePlayer);
         _gameObjectsToDeactivateOnRestart.SetAllActive(false);
         MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE_RESUME);
-        
     }
 }
