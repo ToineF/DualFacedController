@@ -33,6 +33,7 @@ public class ReactionListener : MonoBehaviour
         if (type != _type) return;
         if (_waitForCoroutineCompletion && _isCoroutineRunning) return;
         
+        StopAllCoroutines();
         StartCoroutine(Execute(target));
     }
 
