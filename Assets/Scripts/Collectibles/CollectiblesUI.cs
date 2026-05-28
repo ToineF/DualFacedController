@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
-using System.Threading.Tasks;
 using FeedbacksEditor;
 
 namespace Cattac.Collectibles
@@ -10,6 +9,7 @@ namespace Cattac.Collectibles
     public class CollectiblesUI : MonoBehaviour
     {
         [SerializeField] private bool _useFeedbacks = true;
+        [SerializeField] private bool _isLeftHead;
 
         [Header("Cheese")] [SerializeField] private float _cheeseStayFadeTime;
         [SerializeField] private Animator _cheeseAnimator;
@@ -58,14 +58,17 @@ namespace Cattac.Collectibles
 
         private void InitCheeseUI()
         {
-            _cheesesCountText.text = _cheeseCollectibleManager.Cheeses.ToString("D3");
+            var cheeseCount = _isLeftHead ? _cheeseCollectibleManager.Cheeses1 : _cheeseCollectibleManager.Cheeses2;
+            _cheesesCountText.text = cheeseCount.ToString("D3");
         }
 
-        public void UpdateCheeseUI(bool hasFeedbacks)
+        public void UpdateCheeseUI(bool hasFeedbacks, bool isLeftHead = false)
         {
             if (_cheesesCountText == null) return;
-
-            _cheesesCountText.text = _cheeseCollectibleManager.Cheeses.ToString("D3");
+            if (isLeftHead != _isLeftHead) return;
+            
+            var cheeseCount = _isLeftHead ? _cheeseCollectibleManager.Cheeses1 : _cheeseCollectibleManager.Cheeses2;
+            _cheesesCountText.text = cheeseCount.ToString("D3");
 
             if (_useFeedbacks && hasFeedbacks)
             {

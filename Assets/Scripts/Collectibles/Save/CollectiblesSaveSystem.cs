@@ -35,9 +35,9 @@ namespace Cattac.Collectibles.Save
             _collectiblesManager.CheeseCollectiblesManager.SetCheeses(cheesesAmount);
         }
 
-        private void OnCheeseGain(bool hasFeedbacks)
+        private void OnCheeseGain(bool hasFeedbacks, bool isLefHead)
         {
-            PlayerPrefs.SetInt(_currentCheeseKey, _collectiblesManager.CheeseCollectiblesManager.Cheeses);
+            PlayerPrefs.SetInt(_currentCheeseKey, _collectiblesManager.CheeseCollectiblesManager.Cheeses1);
         }
 
         /// <summary>

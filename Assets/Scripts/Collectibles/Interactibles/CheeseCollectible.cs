@@ -26,7 +26,8 @@ namespace Cattac.Interactables.Collectibles
             _isTriggered = true;
             GameEventsManager.PlayEvent(_feedback, gameObject);
             OnPickUpEvent?.Invoke();
-            if (_addToCount) MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.AddCheese();
+            
+            if (_addToCount) MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.AddCheese(_owner.IsLeftHead);
             StartCoroutine(AddCoinToCount());
         }
 

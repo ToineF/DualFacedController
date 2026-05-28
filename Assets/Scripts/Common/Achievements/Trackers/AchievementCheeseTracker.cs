@@ -23,7 +23,7 @@ public class AchievementCheeseTracker
         MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.OnCheeseGain += OnCheeseGain;
     }
 
-    private void OnCheeseGain(bool a)
+    private void OnCheeseGain(bool a, bool b)
     {
         _cheeseCount++;
 

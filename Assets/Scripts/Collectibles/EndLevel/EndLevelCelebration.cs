@@ -121,8 +121,8 @@ namespace Cattac.Collectibles.EndLevel
             yield return new WaitForSeconds(_jumpDuration);
 
             // Spawn cheeses
-            var cheeseCount = MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.Cheeses;
-            MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.SetCheeses(0);;
+            var cheeseCount = MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.Cheeses1;
+            MainGame.Instance.CollectiblesManager.CheeseCollectiblesManager.SetCheeses(0);
             _collectiblesUI.UpdateCheeseUI(true);
             for (int i = 0; i < cheeseCount; i++)
             {
