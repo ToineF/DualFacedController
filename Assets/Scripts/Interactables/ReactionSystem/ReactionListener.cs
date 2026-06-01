@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ReactionListener : MonoBehaviour
@@ -11,12 +13,14 @@ public class ReactionListener : MonoBehaviour
     public ReactionEventWrapper ReactionEvents { get; private set; }
 
     private bool _isCoroutineRunning;
+    private List<ReactionEmitter> _emitters = new();
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out ReactionEmitter emitter))
         {
             emitter.OnReaction.AddListener(OnEmission);
+            _emitters.Add(emitter);
         }
     }
 
@@ -25,7 +29,17 @@ public class ReactionListener : MonoBehaviour
         if (other.TryGetComponent(out ReactionEmitter emitter))
         {
             emitter.OnReaction.RemoveListener(OnEmission);
+            _emitters.Remove(emitter);
         }
+    }
+
+    private void OnDisable()
+    {
+        foreach (var emitter in _emitters)
+        {
+            emitter.OnReaction.RemoveListener(OnEmission);
+        }
+        _emitters.Clear();
     }
 
     private void OnEmission(GameObject target, ReactionType type)
@@ -47,5 +61,10 @@ public class ReactionListener : MonoBehaviour
         }
 
         _isCoroutineRunning = false;
+        
+        foreach (var reactionEvent in ReactionEvents.List)
+        {
+            reactionEvent.OnReactionEnd(_selfGameObject, target);
+        }
     }
 }

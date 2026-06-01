@@ -241,36 +241,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: {fileID: 11400000, guid: 172749feff063d84b971232d4f6e3f9b, type: 2}
   _selfGameObject: {fileID: 3176375754366201855}
-  _waitForCoroutineCompletion: 1
+  _waitForCoroutineCompletion: 0
   <ReactionEvents>k__BackingField:
     List:
-    - rid: 3667165091777216512
-    - rid: 3667165426900533334
+    - rid: 1846385716681244752
   references:
     version: 2
     RefIds:
-    - rid: 3667165091777216512
-      type: {class: ReactionUnityEvent, ns: , asm: Assembly-CSharp}
+    - rid: 1846385716681244752
+      type: {class: ReactionAnimation, ns: , asm: Assembly-CSharp}
       data:
-        <Event>k__BackingField:
-          m_PersistentCalls:
-            m_Calls:
-            - m_Target: {fileID: 585773819435968038}
-              m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-              m_MethodName: Play
-              m_Mode: 5
-              m_Arguments:
-                m_ObjectArgument: {fileID: 0}
-                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-                m_IntArgument: 0
-                m_FloatArgument: 0
-                m_StringArgument: Cheering
-                m_BoolArgument: 0
-              m_CallState: 2
-    - rid: 3667165426900533334
-      type: {class: ReactionWaitForTime, ns: , asm: Assembly-CSharp}
-      data:
-        <WaitTime>k__BackingField: {x: 2, y: 3}
+        _animator: {fileID: 585773819435968038}
+        _animationClip: {fileID: 7400000, guid: 49588479e63369c4fb08266e20486fe8,
+          type: 2}
+        _waitForCompletion: 1
 --- !u!114 &5790188125647305255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +279,7 @@ MonoBehaviour:
     - rid: 3667165426900533333
       type: {class: ReactionLookAt, ns: , asm: Assembly-CSharp}
       data:
-        <StartTurnTime>k__BackingField: {x: 0, y: 0}
+        <StartTurnTime>k__BackingField: {x: 0.1, y: 0.1}
         <WaitTime>k__BackingField: {x: 0, y: 0}
         <EndTurnTime>k__BackingField: {x: 0, y: 0}
         <TurnBack>k__BackingField: 0
@@ -995,34 +979,23 @@ MonoBehaviour:
   <ReactionEvents>k__BackingField:
     List:
     - rid: 8396003978830151758
-    - rid: 8396003978830151759
+    - rid: 1846385716681244755
     - rid: 8396003978830151762
     - rid: 8396003978830151764
   references:
     version: 2
     RefIds:
+    - rid: 1846385716681244755
+      type: {class: ReactionAnimation, ns: , asm: Assembly-CSharp}
+      data:
+        _animator: {fileID: 585773819435968038}
+        _animationClip: {fileID: 7400000, guid: daf7f6b39fe1cc8409e2d53c72a9b738,
+          type: 2}
+        _waitForCompletion: 0
     - rid: 8396003978830151758
       type: {class: ReactionWaitForTime, ns: , asm: Assembly-CSharp}
       data:
         <WaitTime>k__BackingField: {x: 0.65, y: 0.75}
-    - rid: 8396003978830151759
-      type: {class: ReactionUnityEvent, ns: , asm: Assembly-CSharp}
-      data:
-        <Event>k__BackingField:
-          m_PersistentCalls:
-            m_Calls:
-            - m_Target: {fileID: 585773819435968038}
-              m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-              m_MethodName: Play
-              m_Mode: 5
-              m_Arguments:
-                m_ObjectArgument: {fileID: 0}
-                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-                m_IntArgument: 0
-                m_FloatArgument: 0
-                m_StringArgument: Surprised
-                m_BoolArgument: 0
-              m_CallState: 2
     - rid: 8396003978830151762
       type: {class: ReactionWaitForTime, ns: , asm: Assembly-CSharp}
       data:
@@ -1052,29 +1025,18 @@ MonoBehaviour:
   _waitForCoroutineCompletion: 0
   <ReactionEvents>k__BackingField:
     List:
-    - rid: 3667165091777216512
     - rid: 3667165091777216591
+    - rid: 1846385716681244754
   references:
     version: 2
     RefIds:
-    - rid: 3667165091777216512
-      type: {class: ReactionUnityEvent, ns: , asm: Assembly-CSharp}
+    - rid: 1846385716681244754
+      type: {class: ReactionAnimation, ns: , asm: Assembly-CSharp}
       data:
-        <Event>k__BackingField:
-          m_PersistentCalls:
-            m_Calls:
-            - m_Target: {fileID: 585773819435968038}
-              m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-              m_MethodName: Play
-              m_Mode: 5
-              m_Arguments:
-                m_ObjectArgument: {fileID: 0}
-                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-                m_IntArgument: 0
-                m_FloatArgument: 0
-                m_StringArgument: Cheering
-                m_BoolArgument: 0
-              m_CallState: 2
+        _animator: {fileID: 585773819435968038}
+        _animationClip: {fileID: 7400000, guid: 49588479e63369c4fb08266e20486fe8,
+          type: 2}
+        _waitForCompletion: 1
     - rid: 3667165091777216591
       type: {class: ReactionFeedback, ns: , asm: Assembly-CSharp}
       data:
@@ -1096,29 +1058,18 @@ MonoBehaviour:
   _waitForCoroutineCompletion: 0
   <ReactionEvents>k__BackingField:
     List:
-    - rid: 3667165091777216512
     - rid: 3667165091777216591
+    - rid: 1846385716681244753
   references:
     version: 2
     RefIds:
-    - rid: 3667165091777216512
-      type: {class: ReactionUnityEvent, ns: , asm: Assembly-CSharp}
+    - rid: 1846385716681244753
+      type: {class: ReactionAnimation, ns: , asm: Assembly-CSharp}
       data:
-        <Event>k__BackingField:
-          m_PersistentCalls:
-            m_Calls:
-            - m_Target: {fileID: 585773819435968038}
-              m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-              m_MethodName: Play
-              m_Mode: 5
-              m_Arguments:
-                m_ObjectArgument: {fileID: 0}
-                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-                m_IntArgument: 0
-                m_FloatArgument: 0
-                m_StringArgument: Cheering
-                m_BoolArgument: 0
-              m_CallState: 2
+        _animator: {fileID: 585773819435968038}
+        _animationClip: {fileID: 7400000, guid: 49588479e63369c4fb08266e20486fe8,
+          type: 2}
+        _waitForCompletion: 1
     - rid: 3667165091777216591
       type: {class: ReactionFeedback, ns: , asm: Assembly-CSharp}
       data:
