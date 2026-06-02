@@ -9,6 +9,9 @@ namespace Cattac.Interactables
 {
     public class DanceMinigameButtonsPress : MonoBehaviour
     {
+        public System.Action OnWinRound;
+        public System.Action OnLoseRound;
+        
         [Header("References")] [SerializeField]
         private Dancefloor _dancefloor;
 
@@ -148,11 +151,13 @@ namespace Cattac.Interactables
             {
                 _winCount++;
                 _scorePanel.SetHighlight(true, _winCount - 1);
+                OnWinRound?.Invoke();
             }
             else
             {
                 _loseCount++;
                 _scorePanel.SetHighlight(false, _loseCount - 1);
+                OnLoseRound?.Invoke();
             }
         }
 
