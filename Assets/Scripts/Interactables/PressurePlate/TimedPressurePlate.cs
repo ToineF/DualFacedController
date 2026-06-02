@@ -49,6 +49,7 @@ namespace Cattac.Interactables
                 _isTicking = false;
                 _timer = 0;
                 _onTimerEnd?.Invoke();
+                if (_pressurePlate.IsPressed) ResetTimerSelf();
             }
         }
 
