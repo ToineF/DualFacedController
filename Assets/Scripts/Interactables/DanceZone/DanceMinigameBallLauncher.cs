@@ -12,6 +12,7 @@ namespace Cattac.Interactables
         [SerializeField] private int _ballsToSpawn;
         [SerializeField] private float _throwForce;
         [SerializeField] private float _randomForce;
+        [SerializeField] private int _firstRoundToSpawn = 1;
 
         private int _winCount = 0;
         
@@ -28,7 +29,7 @@ namespace Cattac.Interactables
         private void OnWinRound()
         {
             _winCount++;
-            if (_winCount <= 1) return;
+            if (_winCount < _firstRoundToSpawn) return;
             
             for (int i = 0; i < _ballsToSpawn; i++)
             {
