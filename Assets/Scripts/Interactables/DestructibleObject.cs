@@ -7,6 +7,8 @@ public class DestructibleObject : BoxTrigger
 {
     public Action OnDestroyObject;
     
+    [SerializeField] private bool _useSelfRigidbody;
+    [SerializeField] private Rigidbody _selfRigidbody;
     [SerializeField] private Collider _selfCollider;
     [SerializeField] private GameObject _originalMesh;
     [SerializeField] private GameObject _destructibleMesh;
@@ -20,7 +22,9 @@ public class DestructibleObject : BoxTrigger
 
     protected override void OnEnterTriggerInternal(Collider other)
     {
-        if (other.attachedRigidbody.linearVelocity.sqrMagnitude < _velocityThreshold) return;
+        var targetRigidbody = _useSelfRigidbody ? _selfRigidbody : other.attachedRigidbody;
+        if (targetRigidbody == null) return;
+        if (targetRigidbody.linearVelocity.sqrMagnitude < _velocityThreshold) return;
         if (_hasEntered) return;
         _hasEntered = true;
 
