@@ -15,7 +15,7 @@ namespace Cattac.Interactables
         
         [Header("Text")]
         [SerializeField] private TMP_Text _mouseName;
-        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private CanvasGroup[] _canvasGroups;
 
         private void Start()
         {
@@ -26,14 +26,20 @@ namespace Cattac.Interactables
         private void Show(SavedMouseData cageData, float duration, Ease ease)
         {
             _fadeImage.DOFade(_showAlpha, duration).SetEase(ease);
-            _canvasGroup.DOFade(1, duration).SetEase(ease);
+            foreach (var canvasGroup in _canvasGroups)
+            {
+                canvasGroup.DOFade(1, duration).SetEase(ease);
+            }
             _mouseName.text = cageData.Name;
         }
         
         private void Hide()
         {
             _fadeImage.DOFade(0, _hideDuration);
-            _canvasGroup.DOFade(0, _hideDuration);
+            foreach (var canvasGroup in _canvasGroups)
+            {
+                canvasGroup.DOFade(0, _hideDuration);
+            }
         }
     }
 }
