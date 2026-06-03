@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d94c7b0b9b104aa382d2be7cbe15745c, type: 3}
-  m_Name: GE_CatInWater_01
+  m_Name: GE_CatInWater_OLD_03
   m_EditorClassIdentifier: 
   Effects:
+  - rid: 4057239071058034960
   - rid: 6908415572512604230
-  - rid: 3667165320082882639
-  - rid: 4844066740049543246
-  - rid: 4057239071058034959
   - rid: 4057239071058034955
   - rid: 4057239071058034957
   - rid: 4057239071058034958
@@ -24,17 +22,11 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3667165320082882639
-      type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
-      data:
-        Enabled: 1
-        Clips:
-        - {fileID: 8300000, guid: 88456b9eebcfa0340af47d56ee1822ff, type: 3}
     - rid: 4057239071058034955
       type: {class: EffectWait, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
-        Timer: 0.4
+        Timer: 0.6
     - rid: 4057239071058034956
       type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
@@ -54,19 +46,11 @@ MonoBehaviour:
       data:
         Enabled: 1
         Timer: 0.3
-    - rid: 4057239071058034959
-      type: {class: EffectFreezeFrame, ns: FeedbacksEditor, asm: Assembly-CSharp}
+    - rid: 4057239071058034960
+      type: {class: EffectWait, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
-        Timer: 0.05
-    - rid: 4844066740049543246
-      type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
-      data:
-        Enabled: 1
-        HapticParams:
-          LowFrequency: 0.2
-          HighFrequency: 0.2
-          Time: 0.15
+        Timer: 0.1
     - rid: 6908415572512604230
       type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1996648619042964585}
   - component: {fileID: 759664935038319775}
-  - component: {fileID: 6050466329743205405}
+  - component: {fileID: 5705855387758092694}
   m_Layer: 0
   m_Name: CatInWater01
   m_TagString: Untagged
@@ -59,7 +59,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6050466329743205405
+--- !u!114 &5705855387758092694
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68,14 +68,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 5405912735888430443}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6704416feb431899429563fdfc7342, type: 3}
+  m_Script: {fileID: 11500000, guid: d5b613fd45bb420590e51ab00cb6ef0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 759664935038319775}
-  _clips:
-  - {fileID: 7400000, guid: f08ec5fc93e1644468ad8e3b28b282a3, type: 2}
-  - {fileID: 7400000, guid: 94fc2ddf194454e41a825b9131afee6b, type: 2}
-  - {fileID: 7400000, guid: de2822726e23ee34b86fc7f950e45fa3, type: 2}
+  _pairs:
+  - <Clip>k__BackingField: {fileID: 7400000, guid: f08ec5fc93e1644468ad8e3b28b282a3,
+      type: 2}
+    <Feedback>k__BackingField: {fileID: 11400000, guid: 2944882a932ac9243863a064304671af,
+      type: 2}
+  - <Clip>k__BackingField: {fileID: 7400000, guid: 94fc2ddf194454e41a825b9131afee6b,
+      type: 2}
+    <Feedback>k__BackingField: {fileID: 11400000, guid: 2944882a932ac9243863a064304671af,
+      type: 2}
+  - <Clip>k__BackingField: {fileID: 7400000, guid: de2822726e23ee34b86fc7f950e45fa3,
+      type: 2}
+    <Feedback>k__BackingField: {fileID: 11400000, guid: c0d8d7a3f175b8942b8e56d98a3662f4,
+      type: 2}
 --- !u!1 &8750640580309274614
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,7 +96,6 @@ GameObject:
   - component: {fileID: 422067133004370124}
   - component: {fileID: 4878519099163119802}
   - component: {fileID: 3587226441019380788}
-  - component: {fileID: 7920961588977841118}
   - component: {fileID: 481527895579879040}
   - component: {fileID: 4975513317722826761}
   - component: {fileID: 7797051697136127188}
@@ -174,21 +182,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 6050466329743205405}
-        m_TargetAssemblyTypeName: PlayRandomAnimation, Assembly-CSharp
+      - m_Target: {fileID: 5705855387758092694}
+        m_TargetAssemblyTypeName: PlayRandomAnimationFeedback, Assembly-CSharp
         m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 7920961588977841118}
-        m_TargetAssemblyTypeName: FeedbacksEditor.FeedbackMethodExample, Assembly-CSharp
-        m_MethodName: PlayEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -238,20 +234,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _minimumPlayerToActivate: 1
---- !u!114 &7920961588977841118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8750640580309274614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfc33e1a3fbf458280727855b5a16f51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _feedback: {fileID: 11400000, guid: 2944882a932ac9243863a064304671af, type: 2}
-  _targetGameObject: {fileID: 8750640580309274614}
 --- !u!114 &481527895579879040
 MonoBehaviour:
   m_ObjectHideFlags: 0
