@@ -9,7 +9,7 @@ public class CatTree : MonoBehaviour
 
     public void Fall()
     {
-        _treeAnimator.enabled = true;
+        if (_treeAnimator != null) _treeAnimator.enabled = true;
         _catsParent.SetActive(true);
         
         for (int i = 0; i < _cats.Length; i++)
