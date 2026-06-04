@@ -19,6 +19,7 @@ namespace Cattac.Cutscenes
 
         private Cutscene _currentInteractionSequence;
         private int _currentSequenceIndex;
+        private bool _isPlaying;
 
         private void Awake()
         {
@@ -28,7 +29,9 @@ namespace Cattac.Cutscenes
         public void StartNewSequence(Cutscene cutscene)
         {
             if (cutscene.HasPlayed) return;
-            
+            if (_isPlaying) return;
+
+            _isPlaying = true;
             
             _currentInteractionSequence = cutscene;
 
@@ -59,6 +62,7 @@ namespace Cattac.Cutscenes
 
         private void EndSequence()
         {
+            _isPlaying = false;
             MainGame.Instance.PlayersManager.Inputs.SetInput(InputType.CUTSCENE_RESUME);
             _currentInteractionSequence.OnEnd?.Invoke();
             OnCutsceneEnd?.Invoke();
@@ -104,12 +108,14 @@ namespace Cattac.Cutscenes
 
         private void StartTimeline(CutsceneTimeline timeline)
         {
+            Debug.Log($"Starting timeline {timeline.Director.name}");
             timeline.Director.Play();
             timeline.Director.stopped += EndTimeline;
         }
 
         private void EndTimeline(PlayableDirector director)
         {
+            Debug.Log($"Timeline stopped: {director.name}, time={director.time}, duration={director.duration}");
             director.stopped -= EndTimeline;
             GoToNextSequenceElement();
         }
