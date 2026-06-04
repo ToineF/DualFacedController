@@ -595,9 +595,9 @@ GameObject:
   - component: {fileID: 5937232458222602053}
   - component: {fileID: 9175939037189693033}
   - component: {fileID: 5801213478513558678}
-  - component: {fileID: 2847107552268536640}
   - component: {fileID: 8954402685282983517}
   - component: {fileID: 5541470485392344573}
+  - component: {fileID: 7311334775541662400}
   m_Layer: 11
   m_Name: ColliderFall
   m_TagString: Untagged
@@ -680,18 +680,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 401931984285757706}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Fall Flat
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 8511655690915151862}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
@@ -716,9 +704,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 2847107552268536640}
-        m_TargetAssemblyTypeName: FeedbacksEditor.FeedbackMethodExample, Assembly-CSharp
-        m_MethodName: PlayEvent
+      - m_Target: {fileID: 7311334775541662400}
+        m_TargetAssemblyTypeName: PlayRandomAnimationFeedback, Assembly-CSharp
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -744,20 +732,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _minimumPlayerToActivate: 1
---- !u!114 &2847107552268536640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6349045040330872461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfc33e1a3fbf458280727855b5a16f51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _feedback: {fileID: 11400000, guid: 06d8f2e54c0235442a73b816ccb1ceab, type: 2}
-  _targetGameObject: {fileID: 6349045040330872461}
 --- !u!114 &8954402685282983517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,6 +759,32 @@ MonoBehaviour:
   _index: 0
   _catGround: {fileID: 8954402685282983517}
   _gameObjectToHide: {fileID: 5695110121369580275}
+--- !u!114 &7311334775541662400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6349045040330872461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5b613fd45bb420590e51ab00cb6ef0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 401931984285757706}
+  _pairs:
+  - <Clip>k__BackingField: {fileID: 7400000, guid: 5ab7541ba0a0f1442b1d711b08479530,
+      type: 2}
+    <Feedback>k__BackingField: {fileID: 11400000, guid: 06d8f2e54c0235442a73b816ccb1ceab,
+      type: 2}
+  - <Clip>k__BackingField: {fileID: 7400000, guid: 3c93c29cce7d2b04aa391cebed485ac4,
+      type: 2}
+    <Feedback>k__BackingField: {fileID: 11400000, guid: 06d8f2e54c0235442a73b816ccb1ceab,
+      type: 2}
+  - <Clip>k__BackingField: {fileID: 7400000, guid: 74fbdfa38d60367478aca657331fabeb,
+      type: 2}
+    <Feedback>k__BackingField: {fileID: 11400000, guid: 06d8f2e54c0235442a73b816ccb1ceab,
+      type: 2}
 --- !u!1 &8106040846286536494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,6 +1335,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -1.2705475
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105588482643846739, guid: 53c38a26325a2c549a23f8934a173cb4,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6132928701770632358, guid: 53c38a26325a2c549a23f8934a173cb4,
         type: 3}
