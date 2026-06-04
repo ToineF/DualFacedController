@@ -11,7 +11,7 @@ namespace Cattac.Interactables
     {
         public System.Action OnWinRound;
         public System.Action OnLoseRound;
-        
+
         [Header("References")] [SerializeField]
         private Dancefloor _dancefloor;
 
@@ -23,7 +23,7 @@ namespace Cattac.Interactables
         [SerializeField] private MeshRenderer _timerRenderer;
 
         [Header("Parameters / Start")] [SerializeField]
-        private int _maxWinCount;
+        private int _roundsCount = 7;
 
         [SerializeField] private float _startGameWaitTime;
         [SerializeField] private bool _startTimerAfterFirstPoint;
@@ -47,6 +47,7 @@ namespace Cattac.Interactables
         [SerializeField] private GameObject[] _minigameWinActivate;
         [SerializeField] private GameObject[] _minigameWinDeactivate;
         [SerializeField] private GameObject[] _minigameLoseActivate;
+        [SerializeField] private GameObject[] _minigamePerfectActivate;
 
         [Header("Feedbacks")] [SerializeField] private GameObject _feedbacksParent;
         [SerializeField] private GameEvent _highlightPressurePlatesEvent;
@@ -112,7 +113,7 @@ namespace Cattac.Interactables
                 pressurePlate.OnTriggerEnterEvent.RemoveListener(OnPressurePlateEnter);
                 pressurePlate.OnTriggerExitEvent.RemoveListener(OnPressurePlateExit);
             }
-            
+
             // Hides buttons
             _pressurePlates.SetAllActive(false);
             _fakePressurePlates.SetAllActive(true);
@@ -120,7 +121,7 @@ namespace Cattac.Interactables
             GameEventsManager.PlayEvent(win ? _roundWinImmediate : _roundLoseImmediate, _feedbacksParent);
 
             var firstTime = _winCount == 0 && _loseCount == 0;
-            var lastTime = win ? _winCount + 1 >= _maxWinCount : _loseCount + 1 >= _maxWinCount;
+            var lastTime = _winCount + _loseCount + 1 >= _roundsCount;
 
             if (firstTime || lastTime || _useCameraZoomEveryTime)
             {
@@ -130,6 +131,12 @@ namespace Cattac.Interactables
             }
 
             SetHighlight(win);
+            
+            if (_canUpdate == false)
+            {
+                yield return new WaitForSeconds(_beforeHighlightTime);
+                _timerRenderer.gameObject.SetActive(true);
+            }
 
             if (firstTime || lastTime || _useCameraZoomEveryTime)
             {
@@ -150,21 +157,20 @@ namespace Cattac.Interactables
             if (win)
             {
                 _winCount++;
-                _scorePanel.SetHighlight(true, _winCount - 1);
+                _scorePanel.SetHighlight(true, _loseCount + _winCount - 1);
                 OnWinRound?.Invoke();
             }
             else
             {
                 _loseCount++;
-                _scorePanel.SetHighlight(false, _loseCount - 1);
+                _scorePanel.SetHighlight(false, _winCount + _loseCount - 1);
                 OnLoseRound?.Invoke();
             }
         }
 
         private void CheckWin()
         {
-            if (_winCount >= _maxWinCount) MinigameEnd(true);
-            if (_loseCount >= _maxWinCount) MinigameEnd(false);
+            if (_winCount + _loseCount >= _roundsCount) MinigameEnd(_winCount >= _loseCount);
         }
 
         private void HighlightPressurePlates()
@@ -186,14 +192,16 @@ namespace Cattac.Interactables
             _currentPressurePlates[0] = plate1;
             _currentPressurePlates[1] = plate2;
             _spotlights.SetAllActive(true);
-            _spotlights[0].transform.position = new Vector3(_currentPressurePlates[0].transform.position.x, _spotlights[0].transform.position.y, _currentPressurePlates[0].transform.position.z);
-            _spotlights[1].transform.position = new Vector3(_currentPressurePlates[1].transform.position.x, _spotlights[1].transform.position.y, _currentPressurePlates[1].transform.position.z);
+            _spotlights[0].transform.position = new Vector3(_currentPressurePlates[0].transform.position.x,
+                _spotlights[0].transform.position.y, _currentPressurePlates[0].transform.position.z);
+            _spotlights[1].transform.position = new Vector3(_currentPressurePlates[1].transform.position.x,
+                _spotlights[1].transform.position.y, _currentPressurePlates[1].transform.position.z);
             GameEventsManager.PlayEvent(_highlightPressurePlatesEvent, _feedbacksParent);
 
             for (int i = 0; i < _pressurePlates.Length; i++)
             {
                 var isHighlighted = _pressurePlates[i] == plate1 || _pressurePlates[i] == plate2;
-                
+
                 _pressurePlates[i].gameObject.SetActive(isHighlighted);
                 _fakePressurePlates[i].SetActive(isHighlighted == false);
             }
@@ -250,6 +258,7 @@ namespace Cattac.Interactables
             {
                 _minigameWinActivate.SetAllActive(true);
                 _minigameWinDeactivate.SetAllActive(false);
+                if (_winCount >= _roundsCount) _minigamePerfectActivate.SetAllActive(true);
                 _scorePanel.Appear(false);
             }
             else

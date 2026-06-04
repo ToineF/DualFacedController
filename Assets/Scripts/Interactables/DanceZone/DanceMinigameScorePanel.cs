@@ -6,9 +6,9 @@ namespace Cattac.Interactables
     public class DanceMinigameScorePanel : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private MeshRenderer[] _winHighlights;
-        [SerializeField] private MeshRenderer[] _loseHighlights;
+        [SerializeField] private MeshRenderer[] _highlights;
         [SerializeField] private Material _winHighlightMaterial;
+        [SerializeField] private Material _loseHighlightMaterial;
 
         [Header("Transition")]
         [SerializeField] private Transform _upPosition;
@@ -25,8 +25,7 @@ namespace Cattac.Interactables
 
         public void SetHighlight(bool win, int index)
         {
-            if (win) _winHighlights[index].material = _winHighlightMaterial;
-            else _loseHighlights[index].material = _winHighlightMaterial;
+            _highlights[index].material = win ? _winHighlightMaterial : _loseHighlightMaterial;
         }
     }
 }

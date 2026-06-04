@@ -5,31 +5,37 @@ namespace Cattac.Interactables
 {
     public class DanceMinigameBallLauncher : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField] private DanceMinigameButtonsPress _minigame;
         [SerializeField] private Rigidbody _ballPrefab;
         [SerializeField] private Transform[] _spawnPoints;
         [SerializeField] private Transform _center;
+        
+        [Header("Parameters")]
         [SerializeField] private int _ballsToSpawn;
         [SerializeField] private float _throwForce;
         [SerializeField] private float _randomForce;
         [SerializeField] private int _firstRoundToSpawn = 1;
+        [SerializeField] private bool _spawnOnLose;
 
-        private int _winCount = 0;
+        private int _roundCount = 0;
         
         private void Start()
         {
-            _minigame.OnWinRound += OnWinRound;
+            _minigame.OnWinRound += AddBalls;
+            if (_spawnOnLose) _minigame.OnLoseRound += AddBalls;
         }
 
         private void OnDestroy()
         {
-            _minigame.OnWinRound -= OnWinRound;
+            _minigame.OnWinRound -= AddBalls;
+            if (_spawnOnLose) _minigame.OnLoseRound -= AddBalls;
         }
 
-        private void OnWinRound()
+        private void AddBalls()
         {
-            _winCount++;
-            if (_winCount < _firstRoundToSpawn) return;
+            _roundCount++;
+            if (_roundCount < _firstRoundToSpawn) return;
             
             for (int i = 0; i < _ballsToSpawn; i++)
             {
