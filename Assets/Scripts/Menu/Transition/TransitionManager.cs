@@ -24,6 +24,10 @@ namespace MaskTransitions
         [SerializeField] private Image _parentMaskImage;
         [SerializeField] private CutoutMaskUI _cutoutMask;
         
+        [Header("Loading")]
+        [SerializeField] private CanvasGroup _loadingUI;
+        [SerializeField] private float _loadFadeTime = 0.4f;
+        
         private static float _maxSize { get; set; }
         private float _screenWidth;
         private float _screenHeight;
@@ -145,9 +149,12 @@ namespace MaskTransitions
             yield return new WaitForSeconds(delay);
 
             Tween animationTween = StartAnimationForLoad();
-
+            
             // Wait for the animation to complete
             yield return animationTween.WaitForCompletion();
+
+            _loadingUI.DOFade(1, _loadFadeTime);
+            yield return new WaitForSeconds(_loadFadeTime);
 
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
@@ -156,6 +163,7 @@ namespace MaskTransitions
                 yield return null;
             }
 
+            _loadingUI.DOFade(0, _loadFadeTime);
             EndAnimation();
         }
         
@@ -168,13 +176,18 @@ namespace MaskTransitions
             // Wait for the animation to complete
             yield return animationTween.WaitForCompletion();
 
+            _loadingUI.DOFade(1, _loadFadeTime);
+            yield return new WaitForSeconds(_loadFadeTime);
+
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
+
 
             while (!asyncLoad.isDone)
             {
                 yield return null;
             }
 
+            _loadingUI.DOFade(0, _loadFadeTime);
             EndAnimation();
         }
         #endregion
