@@ -1,5 +1,6 @@
 using System.Collections;
 using AntoineFoucault.Utilities;
+using Cattac.Character;
 using FeedbacksEditor;
 using NaughtyAttributes;
 using UnityEngine;
@@ -27,6 +28,11 @@ namespace Cattac.Interactables
 
         [SerializeField] private float _startGameWaitTime;
         [SerializeField] private bool _startTimerAfterFirstPoint;
+
+        [Header("LD")]
+        [SerializeField] private Transform _workshopsParent;
+        [SerializeField] private DanceWorkshop[] _danceWorkshopsPrefabs;
+        [SerializeField] private CharacterManager _characterManager;
 
         [Header("Parameters / Round")] [SerializeField, MinMaxSlider(0.01f, 10f)]
         private Vector2 _spawnInterval;
@@ -61,6 +67,8 @@ namespace Cattac.Interactables
 
         private PressurePlate[] _currentPressurePlates;
         private int _enteredPressurePlatesCount;
+        private DanceWorkshop[] _danceWorkshops;
+        private DanceWorkshop _currentWorkshop;
 
         private int _winCount;
         private int _loseCount;
@@ -69,6 +77,13 @@ namespace Cattac.Interactables
         {
             _dancefloor.OnPartyStart += OnPartyStart;
             ChangeTimerColor(0);
+            _danceWorkshops = new DanceWorkshop[_danceWorkshopsPrefabs.Length];
+            for (int i = 0; i < _danceWorkshops.Length; i++)
+            {
+                _danceWorkshops[i] = Instantiate(_danceWorkshopsPrefabs[i], _workshopsParent);
+                _danceWorkshops[i].gameObject.SetActive(false);
+            }
+            _danceWorkshops.Shuffle();
         }
 
         private void OnPartyStart()
@@ -117,6 +132,7 @@ namespace Cattac.Interactables
             // Hides buttons
             _pressurePlates.SetAllActive(false);
             _fakePressurePlates.SetAllActive(true);
+            if (_currentWorkshop != null) _currentWorkshop.gameObject.SetActive(false);
 
             GameEventsManager.PlayEvent(win ? _roundWinImmediate : _roundLoseImmediate, _feedbacksParent);
 
@@ -131,7 +147,7 @@ namespace Cattac.Interactables
             }
 
             SetHighlight(win);
-            
+
             if (_canUpdate == false)
             {
                 yield return new WaitForSeconds(_beforeHighlightTime);
@@ -175,22 +191,45 @@ namespace Cattac.Interactables
 
         private void HighlightPressurePlates()
         {
-            _currentMaxSpawnTimer = UnityEngine.Random.Range(_spawnInterval.x, _spawnInterval.y);
+            var roundCount = _winCount + _loseCount;
+            _currentWorkshop = _danceWorkshops[roundCount];
+            _currentWorkshop.gameObject.SetActive(true);
+
+            if (!Mathf.Approximately(_currentWorkshop.TimeToComplete, -1))
+                _currentMaxSpawnTimer = _currentWorkshop.TimeToComplete;
+            else
+                _currentMaxSpawnTimer = UnityEngine.Random.Range(_spawnInterval.x, _spawnInterval.y);
             _spawnTimer = _currentMaxSpawnTimer;
 
-            PressurePlate plate1 = null;
-            PressurePlate plate2 = null;
-            while (plate1 == null || plate2 == null)
+
+            if (_currentWorkshop.PressurePlatesToPress.Length < _currentPressurePlates.Length)
             {
-                var newPlate = _pressurePlates.GetRandomItem();
-                if (_currentPressurePlates[0] == newPlate || _currentPressurePlates[1] == newPlate ||
-                    (plate1 != null && plate1 == newPlate)) continue;
-                if (plate1 == null) plate1 = newPlate;
-                else if (plate2 == null) plate2 = newPlate;
+                // Select random Pressure Plate
+                PressurePlate plate1 = null;
+                PressurePlate plate2 = null;
+                while (plate1 == null || plate2 == null)
+                {
+                    var newPlate = _pressurePlates.GetRandomItem();
+                    if (_currentPressurePlates[0] == newPlate || _currentPressurePlates[1] == newPlate ||
+                        (plate1 != null && plate1 == newPlate)) continue;
+                    if (plate1 == null) plate1 = newPlate;
+                    else if (plate2 == null) plate2 = newPlate;
+                }
+
+                _currentPressurePlates[0] = plate1;
+                _currentPressurePlates[1] = plate2;
+            }
+            else
+            {
+                // Get determined Pressure Plate
+                _currentPressurePlates[0] = _currentWorkshop.PressurePlatesToPress[0];
+                _currentPressurePlates[1] = _currentWorkshop.PressurePlatesToPress[1];
             }
 
-            _currentPressurePlates[0] = plate1;
-            _currentPressurePlates[1] = plate2;
+            _currentPressurePlates[0].gameObject.SetActive(true);
+            _currentPressurePlates[1].gameObject.SetActive(true);
+
+
             _spotlights.SetAllActive(true);
             _spotlights[0].transform.position = new Vector3(_currentPressurePlates[0].transform.position.x,
                 _spotlights[0].transform.position.y, _currentPressurePlates[0].transform.position.z);
@@ -198,13 +237,13 @@ namespace Cattac.Interactables
                 _spotlights[1].transform.position.y, _currentPressurePlates[1].transform.position.z);
             GameEventsManager.PlayEvent(_highlightPressurePlatesEvent, _feedbacksParent);
 
-            for (int i = 0; i < _pressurePlates.Length; i++)
-            {
-                var isHighlighted = _pressurePlates[i] == plate1 || _pressurePlates[i] == plate2;
-
-                _pressurePlates[i].gameObject.SetActive(isHighlighted);
-                _fakePressurePlates[i].SetActive(isHighlighted == false);
-            }
+            // for (int i = 0; i < _pressurePlates.Length; i++)
+            // {
+            //     var isHighlighted = _pressurePlates[i] == plate1 || _pressurePlates[i] == plate2;
+            //
+            //     _pressurePlates[i].gameObject.SetActive(isHighlighted);
+            //     _fakePressurePlates[i].SetActive(isHighlighted == false);
+            // }
 
             _enteredPressurePlatesCount = 0;
             foreach (var pressurePlate in _currentPressurePlates)
@@ -217,6 +256,9 @@ namespace Cattac.Interactables
                 pressurePlate.OnTriggerEnterEvent.AddListener(OnPressurePlateEnter);
                 pressurePlate.OnTriggerExitEvent.AddListener(OnPressurePlateExit);
             }
+            
+            // Teleport player
+            if (_characterManager != null) _characterManager.TeleportPlayer(_currentWorkshop.PlayerStartPoint.position, false);
         }
 
         private void OnPressurePlateEnter()
@@ -252,6 +294,7 @@ namespace Cattac.Interactables
             _canUpdate = false;
             StopAllCoroutines();
             _spotlights.SetAllActive(false);
+            _currentWorkshop.gameObject.SetActive(false);
             ChangeTimerColor(1);
             _minigameEndActivate.SetAllActive(true);
             if (win)
