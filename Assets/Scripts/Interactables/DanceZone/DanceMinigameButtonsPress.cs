@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Linq;
 using AntoineFoucault.Utilities;
 using Cattac.Character;
 using FeedbacksEditor;
@@ -84,6 +86,7 @@ namespace Cattac.Interactables
                 _danceWorkshops[i].gameObject.SetActive(false);
             }
             _danceWorkshops.Shuffle();
+            Array.Sort(_danceWorkshops, (a,b) => a.Priority - b.Priority);
         }
 
         private void OnPartyStart()
@@ -157,7 +160,7 @@ namespace Cattac.Interactables
             if (firstTime || lastTime || _useCameraZoomEveryTime)
             {
                 yield return new WaitForSeconds(_zoomTime);
-                if ((win && lastTime) == false) _cameraZoom.SetActive(false);
+                _cameraZoom.SetActive(false); // if ((win && lastTime) == false) 
             }
 
             CheckWin();
