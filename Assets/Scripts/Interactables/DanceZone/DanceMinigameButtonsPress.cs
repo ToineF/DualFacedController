@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Linq;
 using AntoineFoucault.Utilities;
 using Cattac.Character;
 using FeedbacksEditor;
@@ -24,6 +23,7 @@ namespace Cattac.Interactables
         [SerializeField] private GameObject[] _spotlights;
         [SerializeField] private GameObject _cameraZoom;
         [SerializeField] private MeshRenderer _timerRenderer;
+        [SerializeField] private DanceTimerFeedback _timerFeedback;
 
         [Header("Parameters / Start")] [SerializeField]
         private int _roundsCount = 7;
@@ -35,6 +35,8 @@ namespace Cattac.Interactables
         [SerializeField] private Transform _workshopsParent;
         [SerializeField] private DanceWorkshop[] _danceWorkshopsPrefabs;
         [SerializeField] private CharacterManager _characterManager;
+        [SerializeField] private float _minigameDeactivationDelay = 0.6f;
+        [SerializeField] private ParticleSystem _vfxTransition;
 
         [Header("Parameters / Round")] [SerializeField, MinMaxSlider(0.01f, 10f)]
         private Vector2 _spawnInterval;
@@ -112,7 +114,9 @@ namespace Cattac.Interactables
             if (_canUpdate == false) return;
 
             _spawnTimer -= Time.deltaTime;
-            ChangeTimerColor(Mathf.Min(1f, _spawnTimer / _currentMaxSpawnTimer));
+            var currentValue = _spawnTimer / _currentMaxSpawnTimer;
+            ChangeTimerColor(Mathf.Min(1f, currentValue));
+            _timerFeedback.UpdateFeedback(1 - currentValue);
 
             if (_spawnTimer < 0)
             {
@@ -124,30 +128,36 @@ namespace Cattac.Interactables
         {
             // Unsubscribe first
             _spawnTimer = float.MaxValue;
-            _spotlights.SetAllActive(false);
             foreach (var pressurePlate in _currentPressurePlates)
             {
                 if (pressurePlate == null) continue;
                 pressurePlate.OnTriggerEnterEvent.RemoveListener(OnPressurePlateEnter);
                 pressurePlate.OnTriggerExitEvent.RemoveListener(OnPressurePlateExit);
             }
+            GameEventsManager.PlayEvent(win ? _roundWinImmediate : _roundLoseImmediate, _feedbacksParent);
+
+            yield return new WaitForSeconds(_minigameDeactivationDelay);
 
             // Hides buttons
+            _spotlights.SetAllActive(false);
             _pressurePlates.SetAllActive(false);
             _fakePressurePlates.SetAllActive(true);
-            if (_currentWorkshop != null) _currentWorkshop.gameObject.SetActive(false);
+            if (_currentWorkshop != null)
+            {
+                _vfxTransition.Play();
+                _currentWorkshop.gameObject.SetActive(false);
+            }
 
-            GameEventsManager.PlayEvent(win ? _roundWinImmediate : _roundLoseImmediate, _feedbacksParent);
 
             var firstTime = _winCount == 0 && _loseCount == 0;
             var lastTime = _winCount + _loseCount + 1 >= _roundsCount;
 
-            if (firstTime || lastTime || _useCameraZoomEveryTime)
-            {
-                yield return new WaitForSeconds(_beforeCameraZoomTime);
-                _cameraZoom.SetActive(true);
-                yield return new WaitForSeconds(_beforeHighlightTime);
-            }
+            // if (firstTime || lastTime || _useCameraZoomEveryTime)
+            // {
+            //     yield return new WaitForSeconds(_beforeCameraZoomTime);
+            //     _cameraZoom.SetActive(true);
+            //     yield return new WaitForSeconds(_beforeHighlightTime);
+            // }
 
             SetHighlight(win);
 
@@ -157,11 +167,11 @@ namespace Cattac.Interactables
                 _timerRenderer.gameObject.SetActive(true);
             }
 
-            if (firstTime || lastTime || _useCameraZoomEveryTime)
-            {
-                yield return new WaitForSeconds(_zoomTime);
-                _cameraZoom.SetActive(false); // if ((win && lastTime) == false) 
-            }
+            // if (firstTime || lastTime || _useCameraZoomEveryTime)
+            // {
+            //     yield return new WaitForSeconds(_zoomTime);
+            //     _cameraZoom.SetActive(false); // if ((win && lastTime) == false) 
+            // }
 
             CheckWin();
 
@@ -197,6 +207,7 @@ namespace Cattac.Interactables
             var roundCount = _winCount + _loseCount;
             _currentWorkshop = _danceWorkshops[roundCount];
             _currentWorkshop.gameObject.SetActive(true);
+            _vfxTransition.Play();
 
             if (!Mathf.Approximately(_currentWorkshop.TimeToComplete, -1))
                 _currentMaxSpawnTimer = _currentWorkshop.TimeToComplete;
