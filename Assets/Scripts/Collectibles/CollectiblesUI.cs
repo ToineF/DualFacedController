@@ -20,6 +20,7 @@ namespace Cattac.Collectibles
 
         [Header("Mices")] [SerializeField] private float _miceStayFadeTime;
         [SerializeField] private float _micesUIAppearDelay;
+        [SerializeField] private float _micesUITriggerDelay;
         [SerializeField] private float _waitTimeBetweenMiceAppear;
         [SerializeField] private float _waitTimeBetweenMiceDisappear;
         [SerializeField] private Animator _miceParentAnimator;
@@ -31,6 +32,8 @@ namespace Cattac.Collectibles
         [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _disappearMouseRotateFeedback;
         [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _disappearMouseScaleFeedback;
         [SerializeField] private GameEvent _mouseUIIconAppearEvent;
+        [SerializeField] private GameEvent _mouseUIIconTriggerEvent;
+        [SerializeField] private GameEvent _mouseUIIconDisappearEvent;
 
         private LevelCollectiblesData _levelCollectiblesData;
         private bool _isVisible;
@@ -125,14 +128,16 @@ namespace Cattac.Collectibles
                     animator.transform.DOScale(_appearMouseScaleFeedback.PunchDirection, _appearMouseScaleFeedback.PunchTime).SetEase(_appearMouseScaleFeedback.Ease);
                     animator.transform.DOLocalRotate(_appearMouseRotateFeedback.PunchDirection, _appearMouseRotateFeedback.PunchTime, RotateMode.FastBeyond360) .SetEase(_appearMouseRotateFeedback.Ease);
                     //animator.Play("CageMouseIcon_Appear");
-                    GameEventsManager.PlayEvent(_mouseUIIconAppearEvent, animator.gameObject);
+                    if (_mouseUIIconAppearEvent != null) GameEventsManager.PlayEvent(_mouseUIIconAppearEvent, animator.gameObject);
                 }
             }
             
+            yield return new WaitForSeconds(_micesUITriggerDelay);
             
             if (index >= 0 && index < _miceAnimators.Length)
             {
                 _miceAnimators[index].SetTrigger(_animatorVisibility);
+                if (_mouseUIIconTriggerEvent != null) GameEventsManager.PlayEvent(_mouseUIIconTriggerEvent, _miceAnimators[index].gameObject);
             }
 
             if (_useFeedbacks && hasFeedbacks)
@@ -144,6 +149,7 @@ namespace Cattac.Collectibles
                     yield return new WaitForSeconds(_waitTimeBetweenMiceDisappear);
                     animator.transform.DOScale(_disappearMouseScaleFeedback.PunchDirection, _disappearMouseScaleFeedback.PunchTime) .SetEase(_disappearMouseScaleFeedback.Ease);
                     animator.transform.DOLocalRotate(_disappearMouseRotateFeedback.PunchDirection, _disappearMouseRotateFeedback.PunchTime, RotateMode.FastBeyond360) .SetEase(_disappearMouseRotateFeedback.Ease);
+                    if (_mouseUIIconDisappearEvent != null) GameEventsManager.PlayEvent(_mouseUIIconDisappearEvent, animator.gameObject);
 
                     //animator.Play("CageMouseIcon_Disappear");
                 }

@@ -1491,8 +1491,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43.75
-  m_fontSizeBase: 43.75
+  m_fontSize: 56.2
+  m_fontSizeBase: 56.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2384,6 +2384,7 @@ MonoBehaviour:
     Ease: 0
   _miceStayFadeTime: 1e+11
   _micesUIAppearDelay: 0
+  _micesUITriggerDelay: 0
   _waitTimeBetweenMiceAppear: 0
   _waitTimeBetweenMiceDisappear: 0
   _miceParentAnimator: {fileID: 0}
@@ -2415,8 +2416,9 @@ MonoBehaviour:
     PunchVibrato: 0
     PunchElasticity: 0
     Ease: 0
-  _mouseUIIconAppearEvent: {fileID: 11400000, guid: 94fe7df945d8e344a86fb7b86ea3914f,
-    type: 2}
+  _mouseUIIconAppearEvent: {fileID: 0}
+  _mouseUIIconTriggerEvent: {fileID: 0}
+  _mouseUIIconDisappearEvent: {fileID: 0}
 --- !u!1 &3539111708058697386
 GameObject:
   m_ObjectHideFlags: 0
@@ -2580,6 +2582,8 @@ MonoBehaviour:
   _fadeImage: {fileID: 6285994381188022412}
   _showAlpha: 0.6
   _hideDuration: 0.6
+  _showDelay: 0.6
+  _hideDelay: 0.4
   _mouseName: {fileID: 4867470634783149383}
   _canvasGroups:
   - {fileID: 8670260501973403962}
@@ -2695,7 +2699,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -812.4319}
+  m_AnchoredPosition: {x: 0, y: -957}
   m_SizeDelta: {x: -577.5702, y: 269.81152}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &189669199734386346
@@ -2754,10 +2758,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 81.8
-  m_fontSizeBase: 86.3
+  m_fontSize: 117.9
+  m_fontSizeBase: 117.9
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 81.8
   m_fontStyle: 0
@@ -2834,7 +2838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443333234d6a497cad115468f5257b40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 471.68
+  _radius: 615.3
 --- !u!1 &4464993336699524366
 GameObject:
   m_ObjectHideFlags: 0
@@ -4253,8 +4257,9 @@ MonoBehaviour:
     PunchVibrato: 8
     PunchElasticity: 10
     Ease: 0
-  _miceStayFadeTime: 4
+  _miceStayFadeTime: 2.6
   _micesUIAppearDelay: 0
+  _micesUITriggerDelay: 1.15
   _waitTimeBetweenMiceAppear: 0.06
   _waitTimeBetweenMiceDisappear: 0.06
   _miceParentAnimator: {fileID: 6132122158946849364}
@@ -4287,6 +4292,10 @@ MonoBehaviour:
     PunchElasticity: 0
     Ease: 17
   _mouseUIIconAppearEvent: {fileID: 11400000, guid: 94fe7df945d8e344a86fb7b86ea3914f,
+    type: 2}
+  _mouseUIIconTriggerEvent: {fileID: 11400000, guid: b2dcea40d38556449b0afe7619c6a5e4,
+    type: 2}
+  _mouseUIIconDisappearEvent: {fileID: 11400000, guid: 94fe7df945d8e344a86fb7b86ea3914f,
     type: 2}
 --- !u!1 &6881021105076192083
 GameObject:

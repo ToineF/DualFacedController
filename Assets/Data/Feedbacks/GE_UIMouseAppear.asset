@@ -13,15 +13,28 @@ MonoBehaviour:
   m_Name: GE_UIMouseAppear
   m_EditorClassIdentifier: 
   Effects:
+  - rid: 8691815516175335507
   - rid: 8281890559948226638
+  - rid: 8691815516175335503
   references:
     version: 2
     RefIds:
     - rid: 8281890559948226638
       type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
-        Enabled: 1
+        Enabled: 0
         HapticParams:
-          LowFrequency: 0.1
-          HighFrequency: 0.1
-          Time: 0.12
+          LowFrequency: 0.08
+          HighFrequency: 0.08
+          Time: 0.05
+    - rid: 8691815516175335503
+      type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Clips:
+        - {fileID: 8300000, guid: 8c6b0af9753b7e147839fd8a0ec62f37, type: 3}
+    - rid: 8691815516175335507
+      type: {class: EffectWait, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Timer: 0.1

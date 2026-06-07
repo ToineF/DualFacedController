@@ -10,45 +10,38 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d94c7b0b9b104aa382d2be7cbe15745c, type: 3}
-  m_Name: GE_MouseSaved
+  m_Name: GE_UIMouseTrigger
   m_EditorClassIdentifier: 
   Effects:
-  - rid: 6908415572512604230
-  - rid: 6908415572512604235
-  - rid: 6908415572512604233
-  - rid: 4844066740049543245
+  - rid: 8691815516175335505
+  - rid: 8691815516175335503
+  - rid: 8691815516175335506
+  - rid: 8281890559948226638
+  - rid: 8691815516175335504
   references:
     version: 2
     RefIds:
-    - rid: 4844066740049543245
+    - rid: 8281890559948226638
       type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         HapticParams:
-          LowFrequency: 0.4
-          HighFrequency: 0.4
-          Time: 0.12
-    - rid: 6908415572512604230
+          LowFrequency: 0.7
+          HighFrequency: 0.7
+          Time: 0.14
+    - rid: 8691815516175335503
       type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         Clips:
-        - {fileID: 8300000, guid: d8569043940c96647865748d5d396ee4, type: 3}
-    - rid: 6908415572512604233
-      type: {class: EffectInstantiate, ns: FeedbacksEditor, asm: Assembly-CSharp}
-      data:
-        Enabled: 1
-        Prefab: {fileID: 4514480745864453037, guid: c78065323c1c4f545b7260b121678a51,
-          type: 3}
-        _setParent: 0
-        _rotationToParent: 0
-    - rid: 6908415572512604235
+        - {fileID: 8300000, guid: 74530403a783a9d4787e4c14c6908d62, type: 3}
+    - rid: 8691815516175335504
       type: {class: EffectShakeCamera, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         ScreenShakeParams:
-          Strength: 3.5
-          Duration: 0.1
+          Strength: 5
+          Duration: 0.14
           Curve:
             serializedVersion: 2
             m_Curve:
@@ -73,3 +66,13 @@ MonoBehaviour:
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
+    - rid: 8691815516175335505
+      type: {class: EffectWait, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Timer: 0.6
+    - rid: 8691815516175335506
+      type: {class: EffectWait, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 0
+        Timer: 0.06
