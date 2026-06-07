@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
-using System.Threading.Tasks;
 using FeedbacksEditor;
 
 namespace Cattac.Collectibles
@@ -26,6 +25,8 @@ namespace Cattac.Collectibles
         [SerializeField] private Animator _miceParentAnimator;
         [SerializeField] private Transform _miceUIParent;
         [SerializeField] private Animator _miceImagePrefab;
+        [SerializeField] private Vector3 _appearMouseStartRotation;
+        [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _appearMouseRotateFeedback;
         [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _appearMouseScaleFeedback;
         [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _disappearMouseRotateFeedback;
         [SerializeField] private AntoineFoucault.Utilities.Tween.DoTweenPunchFeedback _disappearMouseScaleFeedback;
@@ -120,7 +121,9 @@ namespace Cattac.Collectibles
                 {
                     yield return new WaitForSeconds(_waitTimeBetweenMiceAppear);
                     animator.transform.DOComplete();
+                    animator.transform.localEulerAngles = _appearMouseStartRotation;
                     animator.transform.DOScale(_appearMouseScaleFeedback.PunchDirection, _appearMouseScaleFeedback.PunchTime).SetEase(_appearMouseScaleFeedback.Ease);
+                    animator.transform.DOLocalRotate(_appearMouseRotateFeedback.PunchDirection, _appearMouseRotateFeedback.PunchTime, RotateMode.FastBeyond360) .SetEase(_appearMouseRotateFeedback.Ease);
                     //animator.Play("CageMouseIcon_Appear");
                     GameEventsManager.PlayEvent(_mouseUIIconAppearEvent, animator.gameObject);
                 }
@@ -139,13 +142,9 @@ namespace Cattac.Collectibles
                 foreach (var animator in _miceAnimators)
                 {
                     yield return new WaitForSeconds(_waitTimeBetweenMiceDisappear);
-                    animator.transform
-                        .DOScale(_disappearMouseScaleFeedback.PunchDirection, _disappearMouseScaleFeedback.PunchTime)
-                        .SetEase(_disappearMouseScaleFeedback.Ease);
-                    animator.transform
-                        .DOLocalRotate(_disappearMouseRotateFeedback.PunchDirection,
-                            _disappearMouseRotateFeedback.PunchTime, RotateMode.FastBeyond360)
-                        .SetEase(_disappearMouseRotateFeedback.Ease);
+                    animator.transform.DOScale(_disappearMouseScaleFeedback.PunchDirection, _disappearMouseScaleFeedback.PunchTime) .SetEase(_disappearMouseScaleFeedback.Ease);
+                    animator.transform.DOLocalRotate(_disappearMouseRotateFeedback.PunchDirection, _disappearMouseRotateFeedback.PunchTime, RotateMode.FastBeyond360) .SetEase(_disappearMouseRotateFeedback.Ease);
+
                     //animator.Play("CageMouseIcon_Disappear");
                 }
             }

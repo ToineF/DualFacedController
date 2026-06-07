@@ -2390,6 +2390,13 @@ MonoBehaviour:
   _miceUIParent: {fileID: 6610800539954328124}
   _miceImagePrefab: {fileID: 6611893552097613339, guid: 249f40f707dde5a4ca767d1ed068fb0b,
     type: 3}
+  _appearMouseStartRotation: {x: 0, y: 0, z: 0}
+  _appearMouseRotateFeedback:
+    PunchTime: 0
+    PunchDirection: {x: 0, y: 0, z: 0}
+    PunchVibrato: 0
+    PunchElasticity: 0
+    Ease: 0
   _appearMouseScaleFeedback:
     PunchTime: 0
     PunchDirection: {x: 0, y: 0, z: 0}
@@ -4128,7 +4135,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &7148737655855786659
 MonoBehaviour:
@@ -4246,32 +4253,39 @@ MonoBehaviour:
     PunchVibrato: 8
     PunchElasticity: 10
     Ease: 0
-  _miceStayFadeTime: 4.5
-  _micesUIAppearDelay: 2
-  _waitTimeBetweenMiceAppear: 0.1
-  _waitTimeBetweenMiceDisappear: 0.1
+  _miceStayFadeTime: 4
+  _micesUIAppearDelay: 0
+  _waitTimeBetweenMiceAppear: 0.06
+  _waitTimeBetweenMiceDisappear: 0.06
   _miceParentAnimator: {fileID: 6132122158946849364}
   _miceUIParent: {fileID: 3700847914022829941}
   _miceImagePrefab: {fileID: 6611893552097613339, guid: 249f40f707dde5a4ca767d1ed068fb0b,
     type: 3}
+  _appearMouseStartRotation: {x: 0, y: -90, z: 0}
+  _appearMouseRotateFeedback:
+    PunchTime: 0.2
+    PunchDirection: {x: 0, y: 0, z: 0}
+    PunchVibrato: 0
+    PunchElasticity: 0
+    Ease: 30
   _appearMouseScaleFeedback:
-    PunchTime: 0.4
+    PunchTime: 0.2
     PunchDirection: {x: 1, y: 1, z: 1}
     PunchVibrato: 0
     PunchElasticity: 0
     Ease: 30
   _disappearMouseRotateFeedback:
-    PunchTime: 0.8
-    PunchDirection: {x: 0, y: 0, z: -360}
+    PunchTime: 0.2
+    PunchDirection: {x: 0, y: 90, z: 0}
     PunchVibrato: 0
     PunchElasticity: 0
-    Ease: 12
+    Ease: 11
   _disappearMouseScaleFeedback:
-    PunchTime: 0.4
+    PunchTime: 0.2
     PunchDirection: {x: 0, y: 0, z: 0}
     PunchVibrato: 0
     PunchElasticity: 0
-    Ease: 12
+    Ease: 17
   _mouseUIIconAppearEvent: {fileID: 11400000, guid: 94fe7df945d8e344a86fb7b86ea3914f,
     type: 2}
 --- !u!1 &6881021105076192083
@@ -6931,17 +6945,17 @@ PrefabInstance:
     - target: {fileID: 1187938659420145336, guid: 5136bc614137fc941b83140cee5b369c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1489.8364
+      value: 1139.8364
       objectReference: {fileID: 0}
     - target: {fileID: 1187938659420145336, guid: 5136bc614137fc941b83140cee5b369c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 96.789635
+      value: 93.39964
       objectReference: {fileID: 0}
     - target: {fileID: 1187938659420145336, guid: 5136bc614137fc941b83140cee5b369c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 577.92896
+      value: 518.92896
       objectReference: {fileID: 0}
     - target: {fileID: 1187938659420145336, guid: 5136bc614137fc941b83140cee5b369c,
         type: 3}
