@@ -18,6 +18,7 @@ namespace Cattac.Character.Visuals
         [SerializeField] private Animator _animator;
         [SerializeField] private bool _isOrientationInverted;
         [SerializeField] private float _lookAtLerp;
+        [SerializeField] private AudioSource _walkAudioSource;
 
         private Transform _parent;
         private Vector3 _startOffset;
@@ -53,6 +54,7 @@ namespace Cattac.Character.Visuals
         {
             if (_characterHead == null) return;
             _animator.SetBool(_isWalkingParameter, _characterHead.InputDirection.sqrMagnitude > 0.1f);
+            _walkAudioSource.volume = (_characterHead.InputDirection.sqrMagnitude > 0.1f) ? 1 : 0;
             _animator.SetBool(_isSqueakingParameter, _characterHead.IsGrabbing);
             var moveSpeed = Mathf.Clamp01(new Vector3(_characterHead.CurrentRigidbody.linearVelocity.x,  0, _characterHead.CurrentRigidbody.linearVelocity.z).sqrMagnitude/100);
             _animator.SetFloat(_moveSpeedParameter, moveSpeed < 0.01f ? 0 : moveSpeed);
