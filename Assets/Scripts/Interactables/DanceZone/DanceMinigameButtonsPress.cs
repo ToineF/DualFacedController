@@ -49,6 +49,7 @@ namespace Cattac.Interactables
         [SerializeField] private float _beforeCameraZoomTime;
         [SerializeField] private float _beforeHighlightTime;
         [SerializeField] private float _zoomTime;
+        [SerializeField] private float _winDelay = 1.5f;
 
         [Header("Minigame End")] [SerializeField]
         private GameObject[] _minigameEndActivate;
@@ -136,19 +137,22 @@ namespace Cattac.Interactables
             }
             GameEventsManager.PlayEvent(win ? _roundWinImmediate : _roundLoseImmediate, _feedbacksParent);
 
-            yield return new WaitForSeconds(_minigameDeactivationDelay);
-
+            SetHighlight(win);
+            
             // Hides buttons
+            _currentPressurePlates.SetAllActive(false);
             _spotlights.SetAllActive(false);
             _pressurePlates.SetAllActive(false);
             _fakePressurePlates.SetAllActive(true);
-            if (_currentWorkshop != null)
-            {
-                _vfxTransition.Play();
-                _currentWorkshop.gameObject.SetActive(false);
-            }
+            
+            yield return new WaitForSeconds(_minigameDeactivationDelay);
 
-
+            // if (_currentWorkshop != null)
+            // {
+            //     _vfxTransition.Play();
+            //     _currentWorkshop.gameObject.SetActive(false);
+            // }
+            
             var firstTime = _winCount == 0 && _loseCount == 0;
             var lastTime = _winCount + _loseCount + 1 >= _roundsCount;
 
@@ -158,8 +162,6 @@ namespace Cattac.Interactables
             //     _cameraZoom.SetActive(true);
             //     yield return new WaitForSeconds(_beforeHighlightTime);
             // }
-
-            SetHighlight(win);
 
             if (_canUpdate == false)
             {
@@ -199,11 +201,12 @@ namespace Cattac.Interactables
 
         private void CheckWin()
         {
-            if (_winCount + _loseCount >= _roundsCount) MinigameEnd(_winCount >= _loseCount);
+            if (_winCount + _loseCount >= _roundsCount) StartCoroutine(MinigameEnd(_winCount >= _loseCount));
         }
 
         private void HighlightPressurePlates()
         {
+            if (_currentWorkshop != null) _currentWorkshop.gameObject.SetActive(false);
             var roundCount = _winCount + _loseCount;
             _currentWorkshop = _danceWorkshops[roundCount];
             _currentWorkshop.gameObject.SetActive(true);
@@ -302,8 +305,10 @@ namespace Cattac.Interactables
             _timerRenderer.sharedMaterial.SetFloat("_Progress", index);
         }
 
-        private void MinigameEnd(bool win)
+        private IEnumerator MinigameEnd(bool win)
         {
+            yield return new WaitForSeconds(_winDelay);
+            
             _hasWon = true;
             _canUpdate = false;
             StopAllCoroutines();
@@ -311,6 +316,8 @@ namespace Cattac.Interactables
             _currentWorkshop.gameObject.SetActive(false);
             ChangeTimerColor(1);
             _minigameEndActivate.SetAllActive(true);
+            _vfxTransition.Play();
+
             if (win)
             {
                 _minigameWinActivate.SetAllActive(true);
