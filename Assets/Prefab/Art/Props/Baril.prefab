@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5780107289256781269}
+  - component: {fileID: 8323120907135302591}
   m_Layer: 0
   m_Name: Feedbacks
   m_TagString: Untagged
@@ -33,6 +34,22 @@ Transform:
   - {fileID: 802517260620239937}
   m_Father: {fileID: 1486307647056610207}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8323120907135302591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954952628984936593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6266540edea4872a6e2a74da2d6c529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 8932184535422796025}
+  _system: {fileID: 6940933480938664537}
+  _audioSource: {fileID: 8250550368137944796}
+  _speedThreshold: 10
 --- !u!1 &7531151089599850907
 GameObject:
   m_ObjectHideFlags: 0
@@ -5010,10 +5027,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5528555398093934568}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ee91b45e7d872e64da674bb3207efebb,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2650019327249271976}
   m_SourcePrefab: {fileID: 100100000, guid: ee91b45e7d872e64da674bb3207efebb, type: 3}
 --- !u!4 &1486307647056610207 stripped
 Transform:
@@ -5089,21 +5102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d086ddb8aa553fb4eab2e98de5522f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2650019327249271976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2300139029501434149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6266540edea4872a6e2a74da2d6c529, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 8932184535422796025}
-  _system: {fileID: 6940933480938664537}
-  _audioSource: {fileID: 8250550368137944796}
 --- !u!1001 &1849763797363220847
 PrefabInstance:
   m_ObjectHideFlags: 0

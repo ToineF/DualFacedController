@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -16,7 +17,7 @@ namespace Options.Audio
         private static float _sfxVolume;
 
         private AudioSource _musicSource;
-        private AudioSource[] _sfxSource;
+        private List<AudioSource> _sfxSource;
 
         private Dictionary<SoundMode, Action<float>> _actions = new();
         private Dictionary<SoundMode, Func<float>> _variables = new();
@@ -25,7 +26,7 @@ namespace Options.Audio
         {
             // Affect AudioSources
             _musicSource = musicSource;
-            _sfxSource = sfxSources;
+            _sfxSource = sfxSources.ToList();
 
             // Populate Dictionary
             _actions.Add(SoundMode.Master, volume => _masterVolume = volume);
@@ -54,6 +55,12 @@ namespace Options.Audio
         public float GetVolume(SoundMode mode)
         {
             return _variables[mode].Invoke();
+        }
+
+        public void AddSFXSource(AudioSource audioSource)
+        {
+            _sfxSource.Add(audioSource);
+            UpdateSources();
         }
     }
 }
