@@ -82,8 +82,7 @@ namespace Cattac.Character.Visuals
                 if (direction.sqrMagnitude < 0.00001f) return;
             
                 Quaternion toRotation = Quaternion.LookRotation(direction, transform.up);
-                transform.localRotation =
-                    Quaternion.Lerp(transform.localRotation, toRotation, _lookAtLerp * Time.deltaTime);
+                transform.localRotation = Quaternion.Lerp(transform.localRotation, toRotation, _lookAtLerp * Time.deltaTime);
             }
             else
             {
