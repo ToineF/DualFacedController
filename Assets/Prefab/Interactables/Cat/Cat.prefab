@@ -1026,17 +1026,28 @@ MonoBehaviour:
   <ReactionEvents>k__BackingField:
     List:
     - rid: 3667165091777216591
-    - rid: 1846385716681244754
+    - rid: 1846385900152946766
   references:
     version: 2
     RefIds:
-    - rid: 1846385716681244754
-      type: {class: ReactionAnimation, ns: , asm: Assembly-CSharp}
+    - rid: 1846385900152946766
+      type: {class: ReactionUnityEvent, ns: , asm: Assembly-CSharp}
       data:
-        _animator: {fileID: 585773819435968038}
-        _animationClip: {fileID: 7400000, guid: 49588479e63369c4fb08266e20486fe8,
-          type: 2}
-        _waitForCompletion: 1
+        <Event>k__BackingField:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 585773819435968038}
+              m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+              m_MethodName: Play
+              m_Mode: 5
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: Joyful Jump
+                m_BoolArgument: 0
+              m_CallState: 2
     - rid: 3667165091777216591
       type: {class: ReactionFeedback, ns: , asm: Assembly-CSharp}
       data:
