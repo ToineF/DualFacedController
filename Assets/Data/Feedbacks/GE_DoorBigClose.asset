@@ -10,37 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d94c7b0b9b104aa382d2be7cbe15745c, type: 3}
-  m_Name: GE_VaseBreak
+  m_Name: GE_DoorBigClose
   m_EditorClassIdentifier: 
   Effects:
-  - rid: 6908415572512604235
-  - rid: 4844066740049543244
-  - rid: 8281890245972590665
-  - rid: 4844067163136065607
+  - rid: 8691815516175335503
+  - rid: 1846385921822556240
+  - rid: 8281890559948226638
+  - rid: 1846385921822556238
+  - rid: 1846385921822556239
+  - rid: 1846385921822556241
   references:
     version: 2
     RefIds:
-    - rid: 4844066740049543244
-      type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
-      data:
-        Enabled: 1
-        HapticParams:
-          LowFrequency: 0.2
-          HighFrequency: 0.2
-          Time: 0.12
-    - rid: 4844067163136065607
-      type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
-      data:
-        Enabled: 1
-        Clips:
-        - {fileID: 6418180475301049370, guid: cbb3bb1a67a88bf42839e97f614a2181, type: 2}
-    - rid: 6908415572512604235
+    - rid: 1846385921822556238
       type: {class: EffectShakeCamera, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         ScreenShakeParams:
-          Strength: 1
-          Duration: 0.1
+          Strength: 3
+          Duration: 0.18
           Curve:
             serializedVersion: 2
             m_Curve:
@@ -65,11 +53,36 @@ MonoBehaviour:
             m_PreInfinity: 2
             m_PostInfinity: 2
             m_RotationOrder: 4
-    - rid: 8281890245972590665
+    - rid: 1846385921822556239
       type: {class: EffectInstantiate, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
-        Prefab: {fileID: 1418578287158296522, guid: 8eb989030f415d7459803f2fcf3ef451,
+        Prefab: {fileID: 1433056684324455871, guid: 50a396ccb5578ed4dbc6cc243df6d16d,
           type: 3}
-        _setParent: 0
+        _setParent: 1
         _rotationToParent: 1
+    - rid: 1846385921822556240
+      type: {class: EffectWait, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Timer: 0.3
+    - rid: 1846385921822556241
+      type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Clips:
+        - {fileID: 8300000, guid: 2b1c037bc85cd7540be6a9d44b41bd79, type: 3}
+    - rid: 8281890559948226638
+      type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        HapticParams:
+          LowFrequency: 0.08
+          HighFrequency: 0.08
+          Time: 0.08
+    - rid: 8691815516175335503
+      type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
+      data:
+        Enabled: 1
+        Clips:
+        - {fileID: 8300000, guid: abd78c0b644ca1545ba34d57aea96c97, type: 3}
