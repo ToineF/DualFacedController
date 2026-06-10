@@ -803,8 +803,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 595074060}
-        m_TargetAssemblyTypeName: MenuButton, Assembly-CSharp
-        m_MethodName: GoToNextScene
+        m_TargetAssemblyTypeName: MaskTransitions.SceneSwitch, Assembly-CSharp
+        m_MethodName: SwitchNextScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -826,46 +826,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 595074057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4068ce7b7585bd840b23c456490650de, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e5275aca9beb324a8da4b5b9ea383c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetScene: 
-  _selectable: {fileID: 0}
-  _originalScale: 1
-  _hoverScale: 1.1
-  _hoverScaleDuration: 0.3
-  _notHoverScaleDuration: 0.5
-  _scaleInAnimationCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _scaleOutAnimationCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _zRotation: 0
-  _rotationInTime: 0.2
-  _rotationOutTime: 0.2
-  _rotationInAnimationCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _rotationOutAnimationCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _danceRotationSelectedAngle: 5
-  _danceRotationAngle: 5
-  _danceRotationFrequency: 5
-  _onPointerEnterEvent: {fileID: 0}
+  sceneToLoadName: 
+  totalTransitionTime: 2.5
 --- !u!1 &726368293
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,6 +964,79 @@ MonoBehaviour:
       Data3: 718806934
       Data4: 951162998
     Path: snapshot:/PauseMenu
+--- !u!1001 &903722253
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5945500752415300767, guid: 60e223b373cd9a347945535b62afe6ed,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746815213132877900, guid: 60e223b373cd9a347945535b62afe6ed,
+        type: 3}
+      propertyPath: m_Name
+      value: TransitionManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965728007412277684, guid: 60e223b373cd9a347945535b62afe6ed,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6102.1733
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965728007412277684, guid: 60e223b373cd9a347945535b62afe6ed,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.6324615
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965728007412277684, guid: 60e223b373cd9a347945535b62afe6ed,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1184.4657
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965728007412277684, guid: 60e223b373cd9a347945535b62afe6ed,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965728007412277684, guid: 60e223b373cd9a347945535b62afe6ed,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965728007412277684, guid: 60e223b373cd9a347945535b62afe6ed,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965728007412277684, guid: 60e223b373cd9a347945535b62afe6ed,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965728007412277684, guid: 60e223b373cd9a347945535b62afe6ed,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965728007412277684, guid: 60e223b373cd9a347945535b62afe6ed,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965728007412277684, guid: 60e223b373cd9a347945535b62afe6ed,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 60e223b373cd9a347945535b62afe6ed, type: 3}
 --- !u!1001 &920520930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1199,13 +1237,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _videoPlayer: {fileID: 68265190}
-  _framesBeforeEnd: 60
+  _framesBeforeEnd: 30
   _endEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 595074060}
-        m_TargetAssemblyTypeName: MenuButton, Assembly-CSharp
-        m_MethodName: GoToNextScene
+      - m_Target: {fileID: 1808176298}
+        m_TargetAssemblyTypeName: MaskTransitions.SceneSwitch, Assembly-CSharp
+        m_MethodName: SwitchNextScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1582,6 +1620,11 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 1e9f344e61b769e44becb1d6cd5e836e, type: 3}
+    - target: {fileID: 1759650136788380715, guid: 24f52f399fac5d44da2c20ebdc0f22f7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5040695660683796477, guid: 24f52f399fac5d44da2c20ebdc0f22f7,
         type: 3}
       propertyPath: m_Name
@@ -1590,7 +1633,7 @@ PrefabInstance:
     - target: {fileID: 5040695660683796477, guid: 24f52f399fac5d44da2c20ebdc0f22f7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8908214978255538054, guid: 24f52f399fac5d44da2c20ebdc0f22f7,
         type: 3}
@@ -3769,6 +3812,7 @@ SceneRoots:
   - {fileID: 1041437639}
   - {fileID: 1394953723}
   - {fileID: 1623344222}
+  - {fileID: 903722253}
   - {fileID: 1808176296}
   - {fileID: 1139709467}
   - {fileID: 98335431}

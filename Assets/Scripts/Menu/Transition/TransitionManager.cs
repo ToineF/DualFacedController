@@ -1,8 +1,8 @@
     using DG.Tweening;
     using System.Collections;
+    using FeedbacksEditor;
     using UnityEngine;
     using UnityEngine.SceneManagement;
-    using UnityEngine.Serialization;
     using UnityEngine.UI;
     
 namespace MaskTransitions
@@ -24,6 +24,7 @@ namespace MaskTransitions
         [SerializeField] private Image _parentMaskImage;
         [SerializeField] private CutoutMaskUI _cutoutMask;
         [SerializeField] private float _maxSizeMultiplier = 0.5f;
+        [SerializeField] private GameEvent _transitionFeedback;
         
         [Header("Loading")]
         [SerializeField] private CanvasGroup _loadingUI;
@@ -125,10 +126,10 @@ namespace MaskTransitions
             float dividedTime = transitionTime / 3;
 
             //Optional Delay
-            yield return new WaitForSeconds(startDelay);
+            yield return new WaitForSecondsRealtime(startDelay);
 
             StartAnimation(dividedTime);
-            yield return new WaitForSeconds(dividedTime);
+            yield return new WaitForSecondsRealtime(dividedTime);
             EndAnimation(dividedTime);
         }
         #endregion
@@ -136,17 +137,21 @@ namespace MaskTransitions
         #region Transition With Scene Load 
         public void LoadLevel(string sceneName, float delay = 0f)
         {
+            GameEventsManager.PlayEvent(_transitionFeedback, gameObject);
+
             StartCoroutine(LoadLevelWithWait(sceneName, delay));
         }
         
         public void LoadLevel(int sceneIndex, float delay = 0f)
         {
+            GameEventsManager.PlayEvent(_transitionFeedback, gameObject);
+
             StartCoroutine(LoadLevelWithWait(sceneIndex, delay));
         }
 
         IEnumerator LoadLevelWithWait(string sceneName, float delay)
         {
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSecondsRealtime(delay);
 
             Tween animationTween = StartAnimationForLoad();
             
@@ -154,7 +159,7 @@ namespace MaskTransitions
             yield return animationTween.WaitForCompletion();
 
             _loadingUI.DOFade(1, _loadFadeTime);
-            yield return new WaitForSeconds(_loadFadeTime);
+            yield return new WaitForSecondsRealtime(_loadFadeTime);
 
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
@@ -169,7 +174,7 @@ namespace MaskTransitions
         
         IEnumerator LoadLevelWithWait(int sceneIndex, float delay)
         {
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSecondsRealtime(delay);
 
             Tween animationTween = StartAnimationForLoad();
 
@@ -177,7 +182,7 @@ namespace MaskTransitions
             yield return animationTween.WaitForCompletion();
 
             _loadingUI.DOFade(1, _loadFadeTime);
-            yield return new WaitForSeconds(_loadFadeTime);
+            yield return new WaitForSecondsRealtime(_loadFadeTime);
 
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
 
@@ -203,12 +208,12 @@ namespace MaskTransitions
         }
         IEnumerator PlayStartHalfTransitionWithDelay(float transitionTime, float startDelay)
         {
-            yield return new WaitForSeconds(startDelay);
+            yield return new WaitForSecondsRealtime(startDelay);
             StartAnimation(transitionTime);
         }
         IEnumerator PlayEndHalfTransitionWithDelay(float transitionTime, float startDelay)
         {
-            yield return new WaitForSeconds(startDelay);
+            yield return new WaitForSecondsRealtime(startDelay);
             EndAnimation(transitionTime);
         }
         #endregion
