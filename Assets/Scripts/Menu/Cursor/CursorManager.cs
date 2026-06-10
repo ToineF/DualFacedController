@@ -6,6 +6,8 @@ namespace Cattac.Character
     {
         public static CursorManager Instance;
 
+        [SerializeField] private bool _disableCursor = true;
+
         private void Awake()
         {
             Instance = this;
@@ -13,8 +15,16 @@ namespace Cattac.Character
 
         public void SetCursorVisible(bool isVisible)
         {
-            Cursor.lockState = isVisible ? CursorLockMode.None : CursorLockMode.Confined;
-            Cursor.visible = isVisible;
+            if (_disableCursor)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Confined;
+            }
+            else
+            {
+                Cursor.lockState = isVisible ? CursorLockMode.None : CursorLockMode.Confined;
+                Cursor.visible = isVisible;
+            }
         }
     }
 }
