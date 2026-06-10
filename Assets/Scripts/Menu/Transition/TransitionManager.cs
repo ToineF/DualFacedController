@@ -23,6 +23,7 @@ namespace MaskTransitions
         [SerializeField] private RectTransform _transitionCanvas;
         [SerializeField] private Image _parentMaskImage;
         [SerializeField] private CutoutMaskUI _cutoutMask;
+        [SerializeField] private float _maxSizeMultiplier = 0.5f;
         
         [Header("Loading")]
         [SerializeField] private CanvasGroup _loadingUI;
@@ -63,7 +64,7 @@ namespace MaskTransitions
             _screenHeight = _transitionCanvas.rect.height;
 
             _maxSize = Mathf.Max(_screenWidth, _screenHeight);
-            _maxSize += _maxSize / 2;
+            _maxSize += _maxSize * _maxSizeMultiplier;
         }
 
         void StartAnimation(float? totalTime = null)
@@ -109,8 +110,7 @@ namespace MaskTransitions
             _parentMaskRect.rotation = Quaternion.identity;
 
             _parentMaskRect.DOSizeDelta(new Vector2(_maxSize, _maxSize), animationTime).SetEase(Ease.InOutQuad);
-            if (_rotation)
-                _parentMaskRect.DORotate(new Vector3(0, 0, 180), animationTime).SetEase(Ease.InOutQuad);
+            if (_rotation) _parentMaskRect.DORotate(new Vector3(0, 0, 180), animationTime).SetEase(Ease.InOutQuad);
         }
         #endregion
 
