@@ -10,45 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d94c7b0b9b104aa382d2be7cbe15745c, type: 3}
-  m_Name: GE_LeverPullEnd
+  m_Name: GE_LeverPullContinuous
   m_EditorClassIdentifier: 
   Effects:
   - rid: 4844066740049543244
   - rid: 6908415572512604235
   - rid: 4844067163136065607
-  - rid: 1846385946739343438
   references:
     version: 2
     RefIds:
-    - rid: 1846385946739343438
-      type: {class: EffectInstantiate, ns: FeedbacksEditor, asm: Assembly-CSharp}
-      data:
-        Enabled: 1
-        Prefab: {fileID: 8884342714961967237, guid: b740c58eb4785e04fbe72571e094dc06,
-          type: 3}
-        _setParent: 0
-        _rotationToParent: 0
     - rid: 4844066740049543244
       type: {class: EffectHaptic, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
         Enabled: 1
         HapticParams:
-          LowFrequency: 1
-          HighFrequency: 1
-          Time: 0.15
+          LowFrequency: 0.05
+          HighFrequency: 0.05
+          Time: 0.1
     - rid: 4844067163136065607
       type: {class: EffectSound, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
-        Enabled: 1
+        Enabled: 0
         Clips:
-        - {fileID: 8300000, guid: 2b1c037bc85cd7540be6a9d44b41bd79, type: 3}
+        - {fileID: 8300000, guid: 4f7ddedddb006c444ab25bafff9aaea7, type: 3}
     - rid: 6908415572512604235
       type: {class: EffectShakeCamera, ns: FeedbacksEditor, asm: Assembly-CSharp}
       data:
-        Enabled: 1
+        Enabled: 0
         ScreenShakeParams:
-          Strength: 3
-          Duration: 0.2
+          Strength: 0.05
+          Duration: 0.1
           Curve:
             serializedVersion: 2
             m_Curve:

@@ -12,6 +12,10 @@ namespace Cattac.Interactables
         [SerializeField] private UnityEvent _onLeverRight;
         [SerializeField] private Transform _lever;
         [SerializeField] private float _angleThreshold;
+        
+        [Header("Lock")]
+        [SerializeField] private Rigidbody _leverRigidbody;
+        [SerializeField] private bool _lockOnRight;
 
         private bool _isLeft;
 
@@ -29,6 +33,7 @@ namespace Cattac.Interactables
                         //Debug.Log("Lever to the RIGHT");
                         _onLeverRight?.Invoke();
                         _isLeft = false;
+                        if (_lockOnRight) _leverRigidbody.isKinematic = true;
                     }
                 }
                 else
