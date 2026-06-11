@@ -7,6 +7,8 @@ namespace Cattac.Collectibles.Save
     {
         [SerializeField] private Lever _lever;
         [SerializeField] private HingeJoint _joint;
+        [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] private Door _door;
         
         protected override void StartInternal()
         {
@@ -27,6 +29,8 @@ namespace Cattac.Collectibles.Save
                 
                 //_lever.OnLeverRight?.Invoke();
                 _joint.transform.eulerAngles = Vector3.Scale(_joint.transform.eulerAngles, new Vector3(1, 1, -1));
+                _door.OpenNoFeedback();
+                //_rigidbody.isKinematic = true;
             }
         }
     }

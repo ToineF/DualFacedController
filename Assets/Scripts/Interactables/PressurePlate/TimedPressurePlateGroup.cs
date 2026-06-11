@@ -36,15 +36,15 @@ namespace Cattac.Interactables
             }
         }
 
-        public void AllActivated()
+        public void AllActivated(bool sendEvent = true)
         {
-            Debug.Log("All activated youhou");
+            Debug.Log("All activated youhou : " + sendEvent);
             foreach (var pressurePlate in _pressurePlates)
             {
-                pressurePlate.Deactivate();
+                pressurePlate.Deactivate(sendEvent);
             }
 
-            _onAllActivated?.Invoke();
+            if (sendEvent) _onAllActivated?.Invoke();
         }
 
         private bool AreAllActivated()

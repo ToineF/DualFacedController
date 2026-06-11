@@ -7,6 +7,7 @@ namespace Cattac.Collectibles.Save
     {
         [SerializeField] private BallDropZone _dropZone;
         [SerializeField] private Transform _ball;
+        [SerializeField] private Door _doorToOpen;
 
         protected override void StartInternal()
         {
@@ -22,10 +23,11 @@ namespace Cattac.Collectibles.Save
         {
             if (GetID() >= 1) // True
             {
-                _dropZone.BallEnter();
+                _dropZone.BallEnter(false);
                 var targetPosition = _dropZone.transform.position;
                 targetPosition.y = _ball.position.y;
                 _ball.position = targetPosition;
+                _doorToOpen.OpenNoFeedback();
             }
         }
     }

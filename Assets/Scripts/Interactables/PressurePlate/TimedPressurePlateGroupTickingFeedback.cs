@@ -44,7 +44,6 @@ namespace Cattac.Interactables
                 pressurePlate.OnTimerReset.RemoveListener(OnTriggerEnterEvent);
                 pressurePlate.OnTimerEnd.RemoveListener(OnTriggerExitEvent);
                 pressurePlate.OnDeactived.RemoveListener(OnDeactivated);
-                Destroy(pressurePlate);
             }
             Destroy(this);
         }

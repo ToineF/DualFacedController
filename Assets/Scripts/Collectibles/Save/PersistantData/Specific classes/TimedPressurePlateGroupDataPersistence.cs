@@ -6,6 +6,7 @@ namespace Cattac.Collectibles.Save
     public class TimedPressurePlateGroupDataPersistence : DataPersistence
     {
         [SerializeField] private TimedPressurePlateGroup _pressurePlateGroup;
+        [SerializeField] private Door _door;
 
         protected override void StartInternal()
         {
@@ -21,7 +22,8 @@ namespace Cattac.Collectibles.Save
         {
             if (GetID() >= 1) // True
             {
-                _pressurePlateGroup.AllActivated();
+                _pressurePlateGroup.AllActivated(false);
+                _door.OpenNoFeedback();
             }
         }
     }

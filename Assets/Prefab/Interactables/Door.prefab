@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 4224834400212478844}
   - component: {fileID: 4446527639721560776}
   - component: {fileID: 4653791029805149701}
+  - component: {fileID: 8802044508424332438}
   m_Layer: 0
   m_Name: GPE_Doors
   m_TagString: Untagged
@@ -293,7 +294,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3596810587246670278}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 1c160e12fd9ec924e9315b424d8c73f5, type: 2}
   m_CullingMode: 2
@@ -326,8 +327,24 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.5803795, y: 2.3597765, z: 2.2103534}
-  m_Center: {x: 0.15229258, y: 1.1497834, z: 0.19703381}
+  m_Size: {x: 6.5803795, y: 2.313146, z: 2.5320299}
+  m_Center: {x: 0.15229258, y: 1.347964, z: 0.08282646}
+--- !u!114 &8802044508424332438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3596810587246670278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf0d49ae7c683944ba1ec28dd7c476c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 4446527639721560776}
+  _openOnStart: 0
+  _openFeedback: {fileID: 11400000, guid: 08c9d2033fb0ce041abf8c1ef9239682, type: 2}
+  _closeFeedback: {fileID: 0}
 --- !u!1 &5325369330868440434
 GameObject:
   m_ObjectHideFlags: 0

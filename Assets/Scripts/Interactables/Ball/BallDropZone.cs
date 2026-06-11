@@ -44,10 +44,10 @@ namespace Cattac.Interactables
             }
         }
 
-        public void BallEnter()
+        public void BallEnter(bool sendEvent = true)
         {
             _timeTicks = false;
-            OnConditionMet?.Invoke();
+            if (sendEvent) OnConditionMet?.Invoke();
             if (_oneShotBall) Destroy(this);
         }
 

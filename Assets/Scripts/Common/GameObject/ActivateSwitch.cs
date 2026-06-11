@@ -17,5 +17,7 @@
                 go.SetActive(false);
             }
             _gameObjects[index].SetActive(true);
+            
+            Debug.Log("Switched " + index);
         }
     }

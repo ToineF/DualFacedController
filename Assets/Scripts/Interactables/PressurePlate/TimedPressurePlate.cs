@@ -16,6 +16,7 @@ namespace Cattac.Interactables
         [SerializeField] private PressurePlate _pressurePlate;
         [SerializeField] private UnityEvent _onTimerEnd;
         [SerializeField] private UnityEvent _onDeactivated;
+        [SerializeField] private ActivateSwitch _activateSwitch;
 
         private float _timer;
         private bool _isTicking = false;
@@ -29,6 +30,7 @@ namespace Cattac.Interactables
         {
             if (_isTicking) return;
             
+            _activateSwitch.Switch(1);
             ResetTimer();
             OnTimerReset?.Invoke();
         }
@@ -48,8 +50,9 @@ namespace Cattac.Interactables
             {
                 _isTicking = false;
                 _timer = 0;
-                _onTimerEnd?.Invoke();
                 if (_pressurePlate.IsPressed) ResetTimerSelf();
+                _activateSwitch.Switch(0);
+                _onTimerEnd?.Invoke();
             }
         }
 
@@ -57,9 +60,10 @@ namespace Cattac.Interactables
         {
             _isTicking = false;
             _timer = _deactivateTimer;
+            _activateSwitch.Switch(2);
             _pressurePlate.OnTriggerEnterEvent.RemoveListener(ResetTimerSelf);
             _pressurePlate.OnTriggerExitEvent.RemoveListener(ResetTimerSelf);
-            _onDeactivated?.Invoke();
+            if (playEvent) _onDeactivated?.Invoke();
         }
     }
 }
