@@ -1,6 +1,6 @@
-using System;
 using Cattac.Character;
 using DG.Tweening;
+using FeedbacksEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +11,7 @@ namespace Character.Emotes
         [SerializeField] private CharacterHead _head;
         [SerializeField] private Image _image;
         [SerializeField] private Sprite[] _sprites;
+        [SerializeField] private GameEvent[] _feedbacks;
         
         [Header("Time")]
         [SerializeField] private float _appearTime;
@@ -55,6 +56,7 @@ namespace Character.Emotes
         private void UpdateIndex()
         {
             _image.sprite = _sprites[_lastEmoteIndex];
+            GameEventsManager.PlayEvent(_feedbacks[_lastEmoteIndex], _image.gameObject);
             
             if (_sequence != null && _sequence.IsActive())
             {
