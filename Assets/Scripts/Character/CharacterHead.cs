@@ -105,15 +105,18 @@ namespace Cattac.Character
 
             var isJumping = IsGrabbing;
             var isGrabbingThisFrame = UserInput.Instance.GetHead(IsLeftHead).GrabInputPressed;
-            if (isGrabbingThisFrame)
-            {
-                OnSqueak?.Invoke();
-            }
+            // if (isGrabbingThisFrame)
+            // {
+            //     OnSqueak?.Invoke();
+            // }
 
             //if (isJumping) Rigidbody.AddForce(Vector3.up * _heightForce, ForceMode);
             // Update timer
             _jumpTimer -= Time.deltaTime;
-            if (_jumpTimer <= 0 && isJumping) ApplyForceWithDecay(CurrentRigidbody);
+            if (_jumpTimer <= 0 && isJumping)
+            {
+                ApplyForceWithDecay(CurrentRigidbody);
+            }
 
             if (GrabParent && isGrabbingThisFrame)
             {
@@ -158,6 +161,7 @@ namespace Cattac.Character
         private async void ApplyForceWithDecay(Rigidbody rb)
         {
             GameEventsManager.PlayEvent(_squeakFeedback, gameObject);
+            OnSqueak?.Invoke();
 
             float currentForce = _data.JumpForce;
             _jumpTimer = _data.MinJumpsInterval;
