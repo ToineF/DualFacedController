@@ -20,11 +20,13 @@ public class SubMenuCamera : MonoBehaviour
 
     private void OnOpen()
     {
+        Debug.Log("Open : " + _subMenu.name);
         _virtualCamera.gameObject.SetActive(true);
     }
     
     private void OnClose()
     {
+        Debug.Log("Close : " + _subMenu.name);
         _virtualCamera.gameObject.SetActive(false);
     }
 }

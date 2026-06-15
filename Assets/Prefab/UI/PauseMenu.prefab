@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2370649047531229006}
   - component: {fileID: 162128527440020990}
   - component: {fileID: 7661853362243623988}
+  - component: {fileID: 2613835821550230226}
   m_Layer: 5
   m_Name: SettingsAudioMenu
   m_TagString: Untagged
@@ -84,6 +85,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sfxPreview: {fileID: 7759810065445896997}
+--- !u!114 &2613835821550230226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236873260381730633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1b56855aff40718a31624bd035566a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonAppearAnimators:
+  - {fileID: 6771181709217073034}
+  - {fileID: 3667620706097350486}
+  - {fileID: 7950585458950932146}
+  _subMenu: {fileID: 162128527440020990}
+  _randomWaitTime: {x: 0.08, y: 0.08}
+  _tweenDuration: 0.25
+  _tweenEase: 30
 --- !u!1 &314731406085239280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,6 +1120,7 @@ GameObject:
   - component: {fileID: 4834435712705354964}
   - component: {fileID: 1837566359593707636}
   - component: {fileID: 4308141137866217819}
+  - component: {fileID: 6571023711031325718}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1168,6 +1190,29 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &6571023711031325718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729640265068376616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1b56855aff40718a31624bd035566a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonAppearAnimators:
+  - {fileID: 4293487271659020517}
+  - {fileID: 95025691671486258}
+  - {fileID: 6360493552990485772}
+  - {fileID: 6951376621671085802}
+  - {fileID: 7930379080363672028}
+  - {fileID: 5790235393835737817}
+  _subMenu: {fileID: 2857474919595749105}
+  _randomWaitTime: {x: 0.08, y: 0.08}
+  _tweenDuration: 0.25
+  _tweenEase: 30
 --- !u!1 &2922269755215562600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,8 +1280,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: DISPLAY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eba03bbd70808f2428fa43547c68f0a8, type: 2}
-  m_sharedMaterial: {fileID: -4580750433189046025, guid: eba03bbd70808f2428fa43547c68f0a8,
+  m_fontAsset: {fileID: 11400000, guid: d9f094e12163db84fb340e782b13e3cd, type: 2}
+  m_sharedMaterial: {fileID: 4243081539257629872, guid: d9f094e12163db84fb340e782b13e3cd,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1591,6 +1636,7 @@ GameObject:
   - component: {fileID: 3029567016760777865}
   - component: {fileID: 7201345940553519874}
   - component: {fileID: 4849278086419656723}
+  - component: {fileID: 4474667029602002533}
   m_Layer: 5
   m_Name: SettingsDisplayMenu
   m_TagString: Untagged
@@ -1670,6 +1716,26 @@ MonoBehaviour:
   _resolutionSelector: {fileID: 717493030321030680}
   _fullscreenToggle: {fileID: 7086014833731865459}
   _vsyncToggle: {fileID: 212163722900366913}
+--- !u!114 &4474667029602002533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3251218048803164950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1b56855aff40718a31624bd035566a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonAppearAnimators:
+  - {fileID: 3769633039615064041}
+  - {fileID: 9024567863270587209}
+  - {fileID: 2133265394078176891}
+  _subMenu: {fileID: 7201345940553519874}
+  _randomWaitTime: {x: 0.08, y: 0.08}
+  _tweenDuration: 0.25
+  _tweenEase: 30
 --- !u!1 &3313050052690411317
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,8 +1963,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ACHIEVEMENTS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eba03bbd70808f2428fa43547c68f0a8, type: 2}
-  m_sharedMaterial: {fileID: -4580750433189046025, guid: eba03bbd70808f2428fa43547c68f0a8,
+  m_fontAsset: {fileID: 11400000, guid: d9f094e12163db84fb340e782b13e3cd, type: 2}
+  m_sharedMaterial: {fileID: 4243081539257629872, guid: d9f094e12163db84fb340e782b13e3cd,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1979,6 +2045,7 @@ GameObject:
   - component: {fileID: 5262885199216485066}
   - component: {fileID: 8552034982732629012}
   - component: {fileID: 1839492709752727242}
+  - component: {fileID: 4541627686078858266}
   m_Layer: 5
   m_Name: SettingsControlsMenu
   m_TagString: Untagged
@@ -2056,6 +2123,26 @@ MonoBehaviour:
   _screenshakePreview: {fileID: 11400000, guid: 3ca73bb517909264c8d7cade554c7419,
     type: 2}
   _hapticPreview: {fileID: 11400000, guid: bba7b03bce299764a8168ef3550de29c, type: 2}
+--- !u!114 &4541627686078858266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3584944322868845139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1b56855aff40718a31624bd035566a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonAppearAnimators:
+  - {fileID: 9087044115564059931}
+  - {fileID: 8149875484276444503}
+  - {fileID: 6251889134659450439}
+  _subMenu: {fileID: 8552034982732629012}
+  _randomWaitTime: {x: 0.08, y: 0.08}
+  _tweenDuration: 0.25
+  _tweenEase: 30
 --- !u!1 &3743559726747827667
 GameObject:
   m_ObjectHideFlags: 0
@@ -3072,8 +3159,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: AUDIO
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eba03bbd70808f2428fa43547c68f0a8, type: 2}
-  m_sharedMaterial: {fileID: -4580750433189046025, guid: eba03bbd70808f2428fa43547c68f0a8,
+  m_fontAsset: {fileID: 11400000, guid: d9f094e12163db84fb340e782b13e3cd, type: 2}
+  m_sharedMaterial: {fileID: 4243081539257629872, guid: d9f094e12163db84fb340e782b13e3cd,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4534,8 +4621,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Menu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eba03bbd70808f2428fa43547c68f0a8, type: 2}
-  m_sharedMaterial: {fileID: -4580750433189046025, guid: eba03bbd70808f2428fa43547c68f0a8,
+  m_fontAsset: {fileID: 11400000, guid: d9f094e12163db84fb340e782b13e3cd, type: 2}
+  m_sharedMaterial: {fileID: 4243081539257629872, guid: d9f094e12163db84fb340e782b13e3cd,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4560,7 +4647,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.7
+  m_fontSize: 38.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
