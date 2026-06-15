@@ -20,9 +20,7 @@ namespace Cattac.Character.Visuals
         [SerializeField] private float _lookAtLerp;
         
         [Header("Audio")]
-        [SerializeField] private AudioSource _walkAudioSource;
-        [SerializeField] private float _walkAudioVolume = 1f;
-        [SerializeField] private float _walkAudioVolumeLerp = 1f;
+        [SerializeField] private AudioSource[] _walkAudioSources;
 
         private Transform _parent;
         private Vector3 _startOffset;
@@ -39,7 +37,10 @@ namespace Cattac.Character.Visuals
             _parent = transform.parent;
             transform.SetParent(null);
             _camera = Camera.main;
-            AudioManager.Instance.VolumeManager.AddSFXSource(_walkAudioSource);
+            foreach (var walkAudioSource in _walkAudioSources)
+            {
+                AudioManager.Instance.VolumeManager.AddSFXSource(walkAudioSource);
+            }
         }
 
         private void FixedUpdate()
@@ -59,9 +60,10 @@ namespace Cattac.Character.Visuals
         {
             if (_characterHead == null) return;
             _animator.SetBool(_isWalkingParameter, _characterHead.InputDirection.sqrMagnitude > 0.1f);
-            _walkAudioSource.mute = _characterHead.InputDirection.sqrMagnitude <= 0.1f;
-            // var targetVolume = (_characterHead.InputDirection.sqrMagnitude > 0.1f) ? _walkAudioVolume : 0;
-            // _walkAudioSource.volume = Mathf.Lerp(_walkAudioSource.volume, targetVolume, Time.deltaTime * _walkAudioVolumeLerp);
+            foreach (var walkAudioSource in _walkAudioSources)
+            {
+                walkAudioSource.mute = _characterHead.InputDirection.sqrMagnitude <= 0.1f;
+            }
             _animator.SetBool(_isSqueakingParameter, _characterHead.IsGrabbing);
             var moveSpeed = Mathf.Clamp01(new Vector3(_characterHead.CurrentRigidbody.linearVelocity.x,  0, _characterHead.CurrentRigidbody.linearVelocity.z).sqrMagnitude/100);
             _animator.SetFloat(_moveSpeedParameter, moveSpeed < 0.01f ? 0 : moveSpeed);
