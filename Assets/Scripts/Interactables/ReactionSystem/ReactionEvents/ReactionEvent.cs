@@ -45,7 +45,6 @@ public class ReactionLookAt : ReactionEvent
     [field: SerializeField] public Vector2 WaitTime { get; private set; }
     [field: SerializeField] public Vector2 EndTurnTime { get; private set; }
     [field: SerializeField] public bool TurnBack { get; private set; } = true;
-    [field: SerializeField] public AxisConstraint AxisConstraint { get; private set; } = AxisConstraint.Y;
     [SerializeField] private bool _useLookAt = false;
     [SerializeField] private float _lookAtLerp;
 
@@ -53,7 +52,9 @@ public class ReactionLookAt : ReactionEvent
     {
         if (_useLookAt)
         {
-            var rotation = Quaternion.LookRotation(target.transform.position - self.transform.position);
+            var targetDirection = target.transform.position - self.transform.position;
+            targetDirection.y = 0;
+            var rotation = Quaternion.LookRotation(targetDirection);
             self.transform.rotation = Quaternion.Slerp(self.transform.rotation, rotation, Time.deltaTime * _lookAtLerp);
             yield return null;
         }
@@ -64,11 +65,12 @@ public class ReactionLookAt : ReactionEvent
             float waitTime = Random.Range(WaitTime.x, WaitTime.y);
             float endTurnTime = Random.Range(EndTurnTime.x, EndTurnTime.y);
             if (TurnBack == false) endTurnTime = 0;
+            var targetPosition = target.transform.position;
+            targetPosition.y = oldLookAt.y;
             Sequence sequence = DOTween.Sequence();
-            sequence.Append(self.transform.DOLookAt(target.transform.position, startTurnTime, AxisConstraint,
-                Vector3.up));
+            sequence.Append(self.transform.DOLookAt(targetPosition, startTurnTime));
             sequence.AppendInterval(waitTime);
-            if (TurnBack) sequence.Append(self.transform.DOLookAt(oldLookAt, endTurnTime, AxisConstraint, Vector3.up));
+            if (TurnBack) sequence.Append(self.transform.DOLookAt(oldLookAt, endTurnTime));
             sequence.Play();
 
             yield return new WaitForSeconds(startTurnTime + waitTime + endTurnTime);
