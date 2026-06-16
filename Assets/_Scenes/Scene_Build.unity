@@ -57674,7 +57674,7 @@ PrefabInstance:
     - target: {fileID: 257564389995065548, guid: f44d065fe98e2e84c9dcf53aff7d96f5,
         type: 3}
       propertyPath: _startOnEditor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 258344381633445549, guid: f44d065fe98e2e84c9dcf53aff7d96f5,
         type: 3}
@@ -69595,6 +69595,7 @@ PrefabInstance:
     - {fileID: 5559594807167282097, guid: f44d065fe98e2e84c9dcf53aff7d96f5, type: 3}
     - {fileID: 7316714541434739027, guid: f44d065fe98e2e84c9dcf53aff7d96f5, type: 3}
     - {fileID: 2590720493141483138, guid: f44d065fe98e2e84c9dcf53aff7d96f5, type: 3}
+    - {fileID: 7592732258845350153, guid: f44d065fe98e2e84c9dcf53aff7d96f5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8189033572164358360, guid: f44d065fe98e2e84c9dcf53aff7d96f5,
@@ -69605,7 +69606,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1153826793}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7258219735561395504, guid: f44d065fe98e2e84c9dcf53aff7d96f5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1638217566}
   m_SourcePrefab: {fileID: 100100000, guid: f44d065fe98e2e84c9dcf53aff7d96f5, type: 3}
 --- !u!4 &1378010713 stripped
 Transform:
@@ -78201,6 +78206,35 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 40.890408, y: 19.509405, z: 6.6548004}
   m_Center: {x: 3.2196743, y: 2.0873213, z: -37.597767}
+--- !u!1 &1638217561 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7258219735561395504, guid: f44d065fe98e2e84c9dcf53aff7d96f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1378010712}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1638217566
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638217561}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.3141849
+  m_Height: 4.23
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1638326643
 PrefabInstance:
   m_ObjectHideFlags: 0
