@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Foliage_SSS
-  m_Shader: {fileID: -6465566751694194690, guid: faf6fac0af77c0341adb571dfd634992,
+  m_Shader: {fileID: -6465566751694194690, guid: 0ebf5f4de09c2c041a284bf8096f06b3,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -18,7 +18,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
+  m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: TransparentCutout
   disabledShaderPasses:
@@ -32,23 +32,23 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 90817fc60cee76e4d947b4749f0abd75, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex_1:
-        m_Texture: {fileID: 2800000, guid: 37d2d9c6a26663548877f97c31e115e8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9f31124b3984d1e438c8c480d1f4b7da, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex_2:
-        m_Texture: {fileID: 2800000, guid: 8717a0265d12af548af7913f30781a14, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex_3:
-        m_Texture: {fileID: 2800000, guid: 2f3d02d3b6de4274e98d8c594b2915a9, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _WindTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: e533890e27b5744459cc7927b3eb004f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -66,24 +66,28 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_0d65c55493f8400987f05a652008025d: 0.107
-    - Vector1_7822dd6f30dd4f548d4220de7854de7e: 0
+    - Vector1_7822dd6f30dd4f548d4220de7854de7e: 5.6
     - Vector1_91bfdbc471264214bc0e8eff4e9796a6: 1
-    - Vector1_c757b884625e4ed788ab2dc9baeacd70: 0.183
+    - Vector1_c757b884625e4ed788ab2dc9baeacd70: 0.352
     - Vector1_db1d002c272f437585896ac0a44d7df4: 1
     - Vector1_dcd6fb2993dc494b9898e8ff54ffee00: 0.322
     - Vector1_f20a8422b91f4118b3a0871b5c71763d: 1.39
     - Vector1_ff4512fc7937496e9b87a59c420ee391: 1
-    - _AlphaClip: 0.5
+    - _AlphaClip: 1
     - _AlphaClip1: 0.5
     - _AlphaToMask: 1
     - _Blend: 0
     - _BlendModePreserveSpecular: 0
     - _CastShadows: 1
+    - _Color_World_Variation_Intensity: 1
     - _Cull: 0
     - _DstBlend: 0
     - _Float: 0.28
     - _Float_1: 0
+    - _Gradient_End: 0.6
+    - _Gradient_Start: 0.3
     - _IsWind: 1
+    - _Mask_Scale: 64
     - _NormalStrength: 0
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -91,10 +95,10 @@ Material:
     - _ReceiveShadows: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _WindAmplitude: 30.8
-    - _WindNoiseScale: 12.5
-    - _WindOffsetSpeed: 0.55
-    - _WindSpeed: 2.7
+    - _WindAmplitude: 1
+    - _WindNoiseScale: 1
+    - _WindOffsetSpeed: 1
+    - _WindSpeed: 3
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 1
@@ -103,10 +107,11 @@ Material:
     - Color_7c8773ac703143ca996f120b117c8013: {r: 11.111383, g: 11.111383, b: 11.111383,
         a: 0}
     - Color_c8f27e1b70544bc99b4cd796a4f63591: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorMultiply: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 0}
-    - _RandomScale: {r: 0.8, g: 1, b: 0, a: 0}
-    - _WindContrast: {r: 0.25, g: 0.5, b: 0, a: 0}
-    - _WindDirection: {r: 0.5, g: 1, b: 0, a: 0}
+    - _ColorMultiply: {r: 0.21466713, g: 0.6792453, b: 0.29029617, a: 0}
+    - _Color_Variation: {r: 0.24353276, g: 0.4339623, b: 0.16580635, a: 1}
+    - _RandomScale: {r: 0.65, g: 0.71, b: 0, a: 0}
+    - _WindContrast: {r: 0.6, g: 0.5, b: 0, a: 0}
+    - _WindDirection: {r: 0.5, g: 0.025, b: 0, a: 0}
     - _WorldSpaceLightPos0: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
