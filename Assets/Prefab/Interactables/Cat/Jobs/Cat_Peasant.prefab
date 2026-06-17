@@ -3457,6 +3457,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 137.0528
       objectReference: {fileID: 0}
+    - target: {fileID: 8301832935518703160, guid: 9cf9192ed2fb67b4a8418c2549205dc5,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f392affd8b0a6c745a111f22b3a49fec, type: 2}
     - target: {fileID: 8616071099617813713, guid: 9cf9192ed2fb67b4a8418c2549205dc5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3480,6 +3485,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8634081703279962382}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9cf9192ed2fb67b4a8418c2549205dc5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 197835409261948524}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9cf9192ed2fb67b4a8418c2549205dc5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2403012361623119876}
   m_SourcePrefab: {fileID: 100100000, guid: 9cf9192ed2fb67b4a8418c2549205dc5, type: 3}
 --- !u!4 &2839633234745859399 stripped
 Transform:
@@ -3503,7 +3516,7 @@ Animator:
   m_GameObject: {fileID: 3180587854356793341}
   m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 363a8ea8eef178e47be98a0ca22e0f77, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1c60fa1d9c58cb14ebbfc7f16bee9b7a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3515,3 +3528,62 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &197835409261948524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180587854356793341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e8321d1b6e74083886c23b0eef27d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer:
+  - {fileID: 3601812437225648107}
+  _materials:
+  - {fileID: 2100000, guid: 2f206c5fc6243cf44811fce9f43e84d2, type: 2}
+  - {fileID: 2100000, guid: 98959b5172270cc4e8fa9c6c2cd410e7, type: 2}
+  - {fileID: 2100000, guid: 3c5ba12039abe4e4a820a153979b73e0, type: 2}
+  - {fileID: 2100000, guid: d5677d8c7658cc04eb60247125c6194d, type: 2}
+  - {fileID: 2100000, guid: 442ae842a1d2a524ab80a98d8ab4457d, type: 2}
+  - {fileID: 2100000, guid: 40b783e0af3a1cb4cbdfd17dc10de199, type: 2}
+  - {fileID: 2100000, guid: ef9406defb432274e8bd687650a89f8a, type: 2}
+  - {fileID: 2100000, guid: c0fc9db1e00113f49b49cd631b553509, type: 2}
+  - {fileID: 2100000, guid: 6776802f388a6e549bef8ecbeb8d462d, type: 2}
+  - {fileID: 2100000, guid: 2862462e615e9c64d89943aa64d51db7, type: 2}
+  _materialIndex: 1
+--- !u!114 &2403012361623119876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180587854356793341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286c92d7ddef4a26b048251f581acbf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8634081703279962382}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Farming
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!137 &3601812437225648107 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7989689991691381433, guid: 9cf9192ed2fb67b4a8418c2549205dc5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2369700568875072172}
+  m_PrefabAsset: {fileID: 0}
