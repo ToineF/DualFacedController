@@ -13,7 +13,9 @@ namespace AntoineFoucault.Utilities.Texture
             var material = _materials.GetRandomItem();
             foreach (var skinnedMeshRenderer in _renderer)
             {
-                skinnedMeshRenderer.materials[_materialIndex] = material;
+                Material[] matArray = skinnedMeshRenderer.materials;
+                matArray[_materialIndex] = material;
+                skinnedMeshRenderer.materials = matArray;
             }
         }
     }
