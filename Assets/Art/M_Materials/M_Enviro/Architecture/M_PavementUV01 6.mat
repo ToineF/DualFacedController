@@ -20,19 +20,19 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Cactus_01_Fruit
-  m_Shader: {fileID: -6465566751694194690, guid: 577971dacb5847d488ff21c09f0228ed,
+  m_Name: M_PavementUV01 6
+  m_Shader: {fileID: -6465566751694194690, guid: 5b54f343e04dc244481288ae31e3b3e1,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
-  - _AMBIENTMODE_GRADIENT
+  - _BASESWITCH_UV
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2450
   stringTagMap:
     RenderType: TransparentCutout
   disabledShaderPasses:
@@ -42,11 +42,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AO:
-        m_Texture: {fileID: 2800000, guid: ed5a6da1baeea2e4fad5af38b90fd6b0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 77332c0b21feffd47a2df0b4e06ee68a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: 89a2423309417b345bbc25dc43e85653, type: 3}
+        m_Texture: {fileID: 2800000, guid: c1cf0b8ebf3bebe44ada2e2b1acbccc8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
@@ -54,27 +54,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metalic:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Normal:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Opacity:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2c2453a1d70548a4487610bbf868ec2d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Opactity:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Roughness:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _Roughtness:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: e2db410f72c3d784d9c7d176c4453f85, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SSSMask:
@@ -86,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _normalMap:
-        m_Texture: {fileID: 2800000, guid: b432be6d6c7b47841ad651a35258463d, type: 3}
+        m_Texture: {fileID: 2800000, guid: b8ec2563e853efe43b150d308df16f4c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -103,7 +91,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AMBIENTMODE: 1
     - _Alpha: 0.5
     - _AlphaClip: 1
     - _AlphaToMask: 1
@@ -116,8 +103,6 @@ Material:
     - _Cull: 0
     - _DstBlend: 0
     - _EmissionMult: 0
-    - _FresnelHardness: 2.5
-    - _FresnelPow: 3.25
     - _GradiantOrFlat: 1
     - _IsAnimated: 0
     - _IsGlass: 0
@@ -127,12 +112,9 @@ Material:
     - _IsReflection: 0
     - _IsSSS: 0
     - _IsWind: 0
-    - _LightingSoftness: 0.6
-    - _LikghtingSoftnessPower: 1
     - _MetalicAmp: 0
     - _MetalicValue: 0
-    - _NormalStrengh: 0.51
-    - _Normal_Strength: 1
+    - _NormalStrengh: 0.6
     - _OffSetSpeed: 0.29
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -141,8 +123,7 @@ Material:
     - _ReflectionStrenght: 0
     - _RoughnessAmp: 1
     - _RoughnessMapOnOff: 0
-    - _RoughnessTweak: 1
-    - _RoughtnessValue: 0.68
+    - _RoughtnessValue: 0.8
     - _SSSBorderSmoothness: 112.99
     - _SSSIntensity: 104.97
     - _SSSMaskIntensity: 1.64
@@ -151,7 +132,7 @@ Material:
     - _Surface: 0
     - _Tile: 0.03
     - _TileBlending: 1
-    - _UVMultiply: 1
+    - _UVMultiply: 3.1
     - _WindAmplitude: 1
     - _WindNoiseScale: 1.37
     - _WindOffsetSpeed: 0
@@ -161,13 +142,9 @@ Material:
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
-    - _AlbedoMultiplier: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
-    - _ColorVariation: {r: 1, g: 1, b: 1, a: 0}
-    - _FresnelColor: {r: 0.06847818, g: 0.33716366, b: 0.15292618, a: 1}
-    - _FresnelVector: {r: 1, g: 0, b: 0.25, a: 0}
+    - _ColorVariation: {r: 0.9245283, g: 0.76737994, b: 0.5800107, a: 1}
     - _SSSColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecularControl_R_Pow_G_Bright_B_Hardness_0_1: {r: 0.5, g: 0.1, b: 0.4, a: 0}
     - _WindDirection: {r: -0.01, g: 0, b: 0, a: 0}
     - _WindDirection_1: {r: 0.25, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
