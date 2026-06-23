@@ -1,3 +1,4 @@
+using EasyTextEffects.Editor.MyBoxCopy.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ namespace AntoineFoucault.Utilities.Achievements
         [Header("UI")]
         [SerializeField] private TMP_Text _title;
         [SerializeField] private TMP_Text _description;
+        [SerializeField] private Image _image;
         
         [Header("Navigation")]
         [SerializeField] private SubMenu _subMenu;
@@ -90,6 +92,8 @@ namespace AntoineFoucault.Utilities.Achievements
             var completed = AchievementsManager.IsAchievementCompleted(data);
             _title.text = completed ? data.Title : "???";
             _description.text = data.Description;
+            _image.SetAlpha(completed ? 1f : 0f);
+            _image.sprite = data.Image;
         }
     }
 }
