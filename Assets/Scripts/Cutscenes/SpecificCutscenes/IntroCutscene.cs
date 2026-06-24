@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using AntoineFoucault.Utilities;
 using Cattac.Character.Multiplayer;
 using FeedbacksEditor;
@@ -27,8 +28,10 @@ public class IntroCutscene : MonoBehaviour
     private bool _hasAlreadyBeenConnected = false;
     private bool _canPlayerConnect = false;
 
-    private void Start()
+    private async void Start()
     {
+        await Task.Delay(10); // fix save system ugly
+        
 #if UNITY_EDITOR
         if (_startOnEditor == false) return;
 #endif
