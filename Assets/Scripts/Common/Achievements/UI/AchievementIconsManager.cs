@@ -92,7 +92,8 @@ namespace AntoineFoucault.Utilities.Achievements
             var completed = AchievementsManager.IsAchievementCompleted(data);
             _title.text = completed ? data.Title : "???";
             _description.text = data.Description;
-            _image.SetAlpha(completed ? 1f : 0f);
+            //_image.SetAlpha(completed ? 1f : 0f);
+            _image.color = completed ? Color.white : Color.black;
             _image.sprite = data.Image;
         }
     }
