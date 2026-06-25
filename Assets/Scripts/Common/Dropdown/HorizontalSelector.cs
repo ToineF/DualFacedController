@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class HorizontalSelector : MonoBehaviour, IMoveHandler
 {
+    public UnityEvent OnNext { get; set; } = new UnityEvent();
+    public UnityEvent OnPrevious { get; set; } = new UnityEvent();
     [field:SerializeField] public UnityEvent<int> OnValueChange { get; set; }
 
     public int CurrentIndex
@@ -32,6 +34,7 @@ public class HorizontalSelector : MonoBehaviour, IMoveHandler
         CurrentIndex++;
         if (_loop) CurrentIndex %= Options.Length;
         UpdateSelector();
+        OnNext?.Invoke();
     }
 
     public void Previous()
@@ -39,6 +42,7 @@ public class HorizontalSelector : MonoBehaviour, IMoveHandler
         CurrentIndex--;
         if (_loop) CurrentIndex = (CurrentIndex + Options.Length) % Options.Length;
         UpdateSelector();
+        OnPrevious?.Invoke();
     }
 
     private void UpdateSelector()
