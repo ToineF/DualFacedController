@@ -32,7 +32,7 @@ namespace Cattac.Interactables
             _timer = _stayTime;
         }
 
-        protected override void OnStayTriggerInternal(Collider other)
+        protected void OnTriggerStay(Collider other)
         {
             if (other.gameObject.TryGetComponent(out Ball ball) == false) return;
             TryAddBall(ball);

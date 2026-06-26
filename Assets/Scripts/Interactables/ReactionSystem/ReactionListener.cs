@@ -14,10 +14,12 @@ public class ReactionListener : MonoBehaviour
 
     private bool _isCoroutineRunning;
     private List<ReactionEmitter> _emitters = new();
+    private static readonly Type ReactionEmitterType = typeof(ReactionEmitter);
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out ReactionEmitter emitter))
+        if (other.TryGetComponent(ReactionEmitterType, out Component component)
+            && component is ReactionEmitter emitter)
         {
             emitter.OnReaction.AddListener(OnEmission);
             _emitters.Add(emitter);

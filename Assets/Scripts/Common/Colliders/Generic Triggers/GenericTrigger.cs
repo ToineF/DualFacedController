@@ -83,27 +83,6 @@ public abstract class GenericTrigger : MonoBehaviour
     {
     }
 
-    protected void OnTriggerStay(Collider other)
-    {
-        TriggerStay(other);
-    }
-
-    protected void OnCollisionStay(Collision collision)
-    {
-        TriggerStay(collision.collider);
-    }
-
-    private void TriggerStay(Collider other)
-    {
-        if (!IsCollisionValid(other)) return;
-
-        OnStayTriggerInternal(other);
-    }
-
-    protected virtual void OnStayTriggerInternal(Collider other)
-    {
-    }
-
     private bool IsCollisionValid(Collider other)
     {
         // GameObject Check

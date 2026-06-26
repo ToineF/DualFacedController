@@ -7,7 +7,7 @@ namespace Cattac.Interactables
     {
         [Header("Wind Zone")] [SerializeField] float _windStrength = 10f;
 
-        protected override void OnStayTriggerInternal(Collider other)
+        protected void OnTriggerStay(Collider other)
         {
             Rigidbody rb = other.GetComponent<Rigidbody>();
             if (rb != null)
