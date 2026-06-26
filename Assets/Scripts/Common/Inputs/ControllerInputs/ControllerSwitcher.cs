@@ -39,8 +39,6 @@ namespace ControllerInputs
             {
                 action.performed += OnAction;
             }
-
-            _actionMap.Enable();
         }
 
         private void OnDisable()
@@ -49,8 +47,6 @@ namespace ControllerInputs
             {
                 action.performed -= OnAction;
             }
-            
-            _actionMap.Disable();
         }
         
         private void OnAction(InputAction.CallbackContext ctx)
@@ -61,7 +57,7 @@ namespace ControllerInputs
             else if (device is XInputController) ControllerType = ControllerType.XBOX;
             else if (device is DualShockGamepad) ControllerType = ControllerType.PLAYSTATION;
             else if (device is SwitchProControllerHID) ControllerType = ControllerType.SWITCH;
-            else ControllerType = ControllerType.XBOX;
+            else if (device is not Mouse) ControllerType = ControllerType.XBOX;
         }
     }
 }
