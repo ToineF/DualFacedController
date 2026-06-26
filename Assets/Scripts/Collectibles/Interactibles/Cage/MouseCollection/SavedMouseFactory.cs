@@ -8,6 +8,6 @@ namespace Cattac.Interactables.MouseCollection
     [CreateAssetMenu(menuName = "Cattac/SavedMouse/Factory")]
     public class SavedMouseFactory : ScriptableObject
     {
-        [field:SerializeField] public SavedMouseData[] Mice { get; private set; } 
+        public SavedMouseData[] Mice;
     }
 }
