@@ -1,3 +1,4 @@
+using EasyTextEffects.Editor.MyBoxCopy.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,18 +32,22 @@ namespace ControllerInputs
             switch (type)
             {
                 case ControllerType.KEYBOARD:
+                    _image.SetAlpha(_keyboardSprite.Sprite == null ? 0 : 1);
                     _image.sprite = _keyboardSprite.Sprite;
                     _text.text = _keyboardSprite.Text;
                     break;
                 case ControllerType.XBOX:
+                    _image.SetAlpha(_xboxSprite.Sprite == null ? 0 : 1);
                     _image.sprite = _xboxSprite.Sprite;
                     _text.text = _xboxSprite.Text;
                     break;
                 case ControllerType.PLAYSTATION:
+                    _image.SetAlpha(_playstationSprite.Sprite == null ? 0 : 1);
                     _image.sprite = _playstationSprite.Sprite;
                     _text.text = _playstationSprite.Text;
                     break;
                 case ControllerType.SWITCH:
+                    _image.SetAlpha(_switchSprite.Sprite == null ? 0 : 1);
                     _image.sprite = _switchSprite.Sprite;
                     _text.text = _switchSprite.Text;
                     break;
