@@ -6,9 +6,9 @@ public class KinematicRigidbodyFollower : MonoBehaviour
     [SerializeField] private Transform _target;
     [SerializeField] private bool _removeParent;
 
-    private void Start()
+    private void Awake()
     {
-        if (_removeParent) transform.SetParent(transform.parent.parent);
+        if (_removeParent) transform.SetParent(null);
     }
 
     private void FixedUpdate()
