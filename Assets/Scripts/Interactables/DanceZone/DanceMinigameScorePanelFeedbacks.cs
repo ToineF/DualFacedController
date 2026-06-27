@@ -22,19 +22,23 @@ namespace Cattac.Interactables
         [SerializeField] private Ease _appearPunchEase;
         [SerializeField] private float _timeBetweenHighlights;
         [SerializeField] private float _hightlightsStartDelay;
+        
+        [Header("End")]
+        [SerializeField] private float _endTimeBetweenHighlights;
 
 
         private void OnEnable()
         {
-            Debug.Log("D");
             _scorePanel.OnHighlight += OnHighlight;
             _scorePanel.OnAppear += OnAppear;
+            _scorePanel.OnEnd += OnEnd;
         }
 
         private void OnDisable()
         {
             _scorePanel.OnHighlight -= OnHighlight;
             _scorePanel.OnAppear -= OnAppear;
+            _scorePanel.OnEnd -= OnEnd;
         }
 
         private void OnHighlight(int index)
@@ -47,13 +51,11 @@ namespace Cattac.Interactables
 
         private void OnAppear()
         {
-            Debug.Log("A");
             StartCoroutine(AppearCoroutine());
         }
 
         private IEnumerator AppearCoroutine()
         {
-            Debug.Log("B");
             foreach (var highlight in _scorePanel.Highlights)
             {
                 var targetPosition = highlight.transform.parent.parent.localPosition;
@@ -68,6 +70,28 @@ namespace Cattac.Interactables
                 highlight.transform.parent.parent.DOLocalMoveZ(_appearYPosition, _appearPunchTime).SetEase(_appearPunchEase);
 
                 yield return new WaitForSeconds(_timeBetweenHighlights);
+            }
+        }
+        
+        private void OnEnd(bool win)
+        {
+            StartCoroutine(EndCoroutine(win));
+
+        }
+        
+        private IEnumerator EndCoroutine(bool win)
+        {
+            for (int i = 0; i < _scorePanel.Highlights.Length; i++)
+            {
+                var highlight = _scorePanel.Highlights[i].transform.parent.parent;
+                
+                if (_scorePanel.WinByHighlight[i] == win)
+                {
+                    highlight.DOComplete();
+                    highlight.DOPunchScale(_highlightPunchScale, _highlightPunchTime).SetEase(_highlightPunchEase);
+                    
+                    yield return new WaitForSeconds(_endTimeBetweenHighlights);
+                }
             }
         }
     }

@@ -8,7 +8,9 @@ namespace Cattac.Interactables
     {
         public Action OnAppear;
         public Action<int> OnHighlight;
+        public Action<bool> OnEnd;
         public MeshRenderer[] Highlights => _highlights;
+        public bool[] WinByHighlight { get; private set; }
         
         [Header("References")]
         [SerializeField] private MeshRenderer[] _highlights;
@@ -26,11 +28,10 @@ namespace Cattac.Interactables
             transform.position = new Vector3(transform.position.x, initialValue, transform.position.z);
             var endValue = appear ? _downPosition.position.y : _upPosition.position.y;
             transform.DOMoveY(endValue, _transitionTime);
+            WinByHighlight = new bool[_highlights.Length];
             
             if (appear)
             {
-                Debug.Log("C");
-
                 OnAppear?.Invoke();
             }
         }
@@ -38,7 +39,13 @@ namespace Cattac.Interactables
         public void SetHighlight(bool win, int index)
         {
             _highlights[index].material = win ? _winHighlightMaterial : _loseHighlightMaterial;
+            WinByHighlight[index] = win;
             OnHighlight?.Invoke(index);
+        }
+
+        public void End(bool win)
+        {
+            OnEnd?.Invoke(win);
         }
     }
 }

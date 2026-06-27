@@ -11,8 +11,8 @@ namespace Cattac.Interactables
 {
     public class DanceMinigameButtonsPress : MonoBehaviour
     {
-        public System.Action OnWinRound;
-        public System.Action OnLoseRound;
+        public Action OnWinRound;
+        public Action OnLoseRound;
 
         [Header("References")] [SerializeField]
         private Dancefloor _dancefloor;
@@ -49,6 +49,7 @@ namespace Cattac.Interactables
         [SerializeField] private float _beforeCameraZoomTime;
         [SerializeField] private float _beforeHighlightTime;
         [SerializeField] private float _zoomTime;
+        [SerializeField] private float _winRevealDelay = 0.5f;
         [SerializeField] private float _winDelay = 1.5f;
 
         [Header("Minigame End")] [SerializeField]
@@ -81,7 +82,7 @@ namespace Cattac.Interactables
         private void Awake()
         {
             _dancefloor.OnPartyStart += OnPartyStart;
-            ChangeTimerColor(0);
+            ChangeTimerColor(1);
             _danceWorkshops = new DanceWorkshop[_danceWorkshopsPrefabs.Length];
             for (int i = 0; i < _danceWorkshops.Length; i++)
             {
@@ -147,35 +148,13 @@ namespace Cattac.Interactables
             _fakePressurePlates.SetAllActive(true);
             
             yield return new WaitForSeconds(_minigameDeactivationDelay);
-
-            // if (_currentWorkshop != null)
-            // {
-            //     _vfxTransition.Play();
-            //     _currentWorkshop.gameObject.SetActive(false);
-            // }
             
-            var firstTime = _winCount == 0 && _loseCount == 0;
-            var lastTime = _winCount + _loseCount + 1 >= _roundsCount;
-
-            // if (firstTime || lastTime || _useCameraZoomEveryTime)
-            // {
-            //     yield return new WaitForSeconds(_beforeCameraZoomTime);
-            //     _cameraZoom.SetActive(true);
-            //     yield return new WaitForSeconds(_beforeHighlightTime);
-            // }
-
             if (_canUpdate == false)
             {
                 yield return new WaitForSeconds(_beforeHighlightTime);
                 _timerRenderer.gameObject.SetActive(true);
             }
-
-            // if (firstTime || lastTime || _useCameraZoomEveryTime)
-            // {
-            //     yield return new WaitForSeconds(_zoomTime);
-            //     _cameraZoom.SetActive(false); // if ((win && lastTime) == false) 
-            // }
-
+            
             CheckWin();
 
             yield return new WaitForSeconds(_waitTimeBetweenRounds);
@@ -254,15 +233,7 @@ namespace Cattac.Interactables
             _spotlights[1].transform.position = new Vector3(_currentPressurePlates[1].transform.position.x,
                 _spotlights[1].transform.position.y, _currentPressurePlates[1].transform.position.z);
             GameEventsManager.PlayEvent(_highlightPressurePlatesEvent, _feedbacksParent);
-
-            // for (int i = 0; i < _pressurePlates.Length; i++)
-            // {
-            //     var isHighlighted = _pressurePlates[i] == plate1 || _pressurePlates[i] == plate2;
-            //
-            //     _pressurePlates[i].gameObject.SetActive(isHighlighted);
-            //     _fakePressurePlates[i].SetActive(isHighlighted == false);
-            // }
-
+            
             _enteredPressurePlatesCount = 0;
             foreach (var pressurePlate in _currentPressurePlates)
             {
@@ -308,6 +279,11 @@ namespace Cattac.Interactables
 
         private IEnumerator MinigameEnd(bool win)
         {
+            yield return new WaitForSeconds(_winRevealDelay);
+            
+            GameEventsManager.PlayEvent(win ? _roundWinImmediate : _roundLoseImmediate, _feedbacksParent);
+            _scorePanel.End(win);
+            
             yield return new WaitForSeconds(_winDelay);
             
             _hasWon = true;
@@ -318,6 +294,8 @@ namespace Cattac.Interactables
             ChangeTimerColor(1);
             _minigameEndActivate.SetAllActive(true);
             _vfxTransition.Play();
+            
+
 
             if (win)
             {
