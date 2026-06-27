@@ -96,6 +96,7 @@ namespace Cattac.Interactables
         {
             if (_startTimerAfterFirstPoint == false) _canUpdate = true;
             _currentPressurePlates = new PressurePlate[2];
+            _scorePanel.gameObject.SetActive(true);
             _scorePanel.Appear(true);
             _spawnTimer = float.MaxValue;
             _spotlights.SetAllActive(false);

@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -5,6 +6,10 @@ namespace Cattac.Interactables
 {
     public class DanceMinigameScorePanel : MonoBehaviour
     {
+        public Action OnAppear;
+        public Action<int> OnHighlight;
+        public MeshRenderer[] Highlights => _highlights;
+        
         [Header("References")]
         [SerializeField] private MeshRenderer[] _highlights;
         [SerializeField] private Material _winHighlightMaterial;
@@ -21,11 +26,19 @@ namespace Cattac.Interactables
             transform.position = new Vector3(transform.position.x, initialValue, transform.position.z);
             var endValue = appear ? _downPosition.position.y : _upPosition.position.y;
             transform.DOMoveY(endValue, _transitionTime);
+            
+            if (appear)
+            {
+                Debug.Log("C");
+
+                OnAppear?.Invoke();
+            }
         }
 
         public void SetHighlight(bool win, int index)
         {
             _highlights[index].material = win ? _winHighlightMaterial : _loseHighlightMaterial;
+            OnHighlight?.Invoke(index);
         }
     }
 }
