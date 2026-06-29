@@ -114,6 +114,8 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private void Update()
     {
+        if (EventSystem.current == null) return;
+        
         _currentAnimationRotation += Time.deltaTime * _danceRotationFrequency;
         float maxAngle =  EventSystem.current.currentSelectedGameObject == gameObject ? _danceRotationSelectedAngle : _danceRotationAngle;
         transform.localEulerAngles = new Vector3(_originalRotation.x, _originalRotation.y, _originalRotation.z + Mathf.Sin(_currentAnimationRotation) * maxAngle);
